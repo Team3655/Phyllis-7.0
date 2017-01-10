@@ -1,8 +1,20 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+// Drive.cpp
+//
+//  Created on: Jan 7, 2017
+//      Author: Silas A.
+//
+///////////////////////////////////////////////////////////////////////////////
+
 #include "Drive.h"
 
-Drive::Drive()
+Drive::Drive() :
+	CommandBase("")
 {
-	Requires(CommandBase::drive.get());
+	Requires(drive.get());
+	m_drive = drive.get();
+	m_oi = oi.get();
 }
 
 // Called just before this Command runs the first time
@@ -14,7 +26,7 @@ void Drive::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void Drive::Execute()
 {
-	drive.get()->TankDrive(oi.get()->GetAxisX(), oi.get()->GetAxisY());
+	m_drive->TankDrive(m_oi->GetAxisX(), m_oi->GetAxisY());
 }
 
 // Make this return true when this Command no longer needs to run execute()
