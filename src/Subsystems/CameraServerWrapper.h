@@ -3,7 +3,7 @@
 // CameraServerWrapper.h
 //
 //  Created on: Jan 7, 2017
-//      Author: Si da Ag
+//      Author: Silas A.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -12,6 +12,7 @@
 
 #include <Wpilib.h>
 
+// Summary:
 //
 class CameraServerWrapper : public Subsystem
 {

@@ -3,6 +3,8 @@
 
 #include <Joystick.h>
 
+// Summary:
+//	Handles operator input
 class OI
 {
 private:
