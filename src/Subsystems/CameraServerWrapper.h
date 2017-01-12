@@ -14,7 +14,7 @@
 
 // Summary:
 //
-class CameraServerWrapper : public Subsystem
+class CameraServerWrapper : public frc::Subsystem
 {
 private:
 	CameraServer* m_cameraServer;

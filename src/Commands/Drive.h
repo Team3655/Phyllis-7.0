@@ -7,8 +7,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef Drive_H
-#define Drive_H
+#ifndef DRIVE_H
+#define DRIVE_H
 
 #include "../CommandBase.h"
 #include "../Subsystems/DriveTrain.h"
@@ -28,4 +28,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // Drive_H
+#endif  // DRIVE_H
