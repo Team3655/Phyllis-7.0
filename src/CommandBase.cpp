@@ -17,6 +17,8 @@ std::unique_ptr<DriveTrain> CommandBase::drive =
 std::unique_ptr<CameraServerWrapper> CommandBase::csWrapper =
 		std::make_unique<CameraServerWrapper>();
 std::unique_ptr<OI> CommandBase::oi = std::make_unique<OI>();
+std::unique_ptr<Shooter> CommandBase::shooterSS =
+		std::make_unique<Shooter>();
 // Add Subsystems
 
 CommandBase::CommandBase(const std::string &name) :

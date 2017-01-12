@@ -15,8 +15,8 @@ constexpr int DRIVE_LEFT_PORT = 1;
 constexpr int DRIVE_RIGHT_PORT = 2;
 
 // Input
-#define CODRIVER  	// Use def check when referencing the co-driver stick
-constexpr int JOY_DRIVER_PORT = 1;
+//#define CODRIVER  	// Use def check when referencing the co-driver stick
+constexpr int JOY_DRIVER_PORT = 0;
 constexpr int JOY_CODRIVER_PORT = 1;
 
 // Camera

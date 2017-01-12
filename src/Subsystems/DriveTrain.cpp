@@ -12,7 +12,7 @@
 #include "../Commands/Drive.h"
 
 DriveTrain::DriveTrain() :
-	Subsystem("Drive")
+	frc::Subsystem("Drive")
 {
 	m_left = new CANTalon(DRIVE_LEFT_PORT);
 	m_right = new CANTalon(DRIVE_RIGHT_PORT);

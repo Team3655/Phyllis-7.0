@@ -18,6 +18,8 @@
 
 #include "CommandBase.h"
 
+#include "Commands/Shoot.h"
+
 class Robot: public frc::IterativeRobot
 {
 public:
@@ -87,6 +89,8 @@ public:
 		{
 			autonomousCommand->Cancel();
 		}
+
+		frc::Scheduler::GetInstance()->AddCommand(new Shoot());
 	}
 
 	void TeleopPeriodic() override

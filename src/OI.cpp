@@ -13,8 +13,9 @@
 #include <WPILib.h>
 
 OI::OI() :
-	m_driver(new Joystick(JOY_DRIVER_PORT)),
-	m_coDriver(new Joystick(JOY_CODRIVER_PORT))
+	m_driver(new Joystick(JOY_DRIVER_PORT))
 {
-
+#ifdef CODRIVER
+	m_coDriver = new Joystick(JOY_CODRIVER_PORT);
+#endif // CODRIVER
 }
