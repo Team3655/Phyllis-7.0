@@ -22,9 +22,9 @@ private:
 	CANTalon* m_left;
 	CANTalon* m_right;
 
-	bool m_accel;
-	double m_targetSpeed;
-	double m_currentSpeed;
+	bool m_accel = false;
+	double m_targetSpeed = 0;
+	double m_currentSpeed = 0;
 
 public:
 	const int ENCODER_CPR = 0000;

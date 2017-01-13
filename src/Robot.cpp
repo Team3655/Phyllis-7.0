@@ -28,6 +28,8 @@ public:
 		//chooser.AddDefault("Default Auto", new ExampleCommand());
 		// chooser.AddObject("My Auto", new MyAutoCommand());
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
+
+		frc::SmartDashboard::PutData(CommandBase::shooter.get());
 	}
 
 	/**

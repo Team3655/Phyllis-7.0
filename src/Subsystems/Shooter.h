@@ -4,12 +4,14 @@
 #include <Commands/Subsystem.h>
 #include <Wpilib.h>
 
-class Shooter : public frc::Subsystem {
+class Shooter : public frc::Subsystem
+{
 private:
 	Spark* m_shooter;
 
 public:
 	Shooter();
+	~Shooter();
 	void InitDefaultCommand();
 
 	void Set(double value) { m_shooter->Set(value); }

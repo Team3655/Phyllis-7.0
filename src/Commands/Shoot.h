@@ -5,9 +5,6 @@
 
 class Shoot : public CommandBase
 {
-private:
-	Shooter* shooter;
-
 public:
 	Shoot();
 	void Initialize();

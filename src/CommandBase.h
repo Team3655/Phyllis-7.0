@@ -35,7 +35,7 @@ public:
 	// Create a single static instance of all of your subsystems
 	static std::unique_ptr<DriveTrain> drive;
 	static std::unique_ptr<CameraServerWrapper> csWrapper;
-	static std::unique_ptr<Shooter> shooterSS;
+	static std::unique_ptr<Shooter> shooter;
 	static std::unique_ptr<OI> oi;
 };
 

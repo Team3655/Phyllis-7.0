@@ -16,7 +16,6 @@
 class Drive : public CommandBase
 {
 private:
-	DriveTrain* m_drive;
 	OI* m_oi;
 
 public:

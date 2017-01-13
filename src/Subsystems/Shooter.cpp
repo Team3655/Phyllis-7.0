@@ -9,6 +9,11 @@ Shooter::Shooter() :
 	m_shooter = new Spark(0);
 }
 
+Shooter::~Shooter()
+{
+	delete m_shooter;
+}
+
 void Shooter::InitDefaultCommand() {
 	SetDefaultCommand(new Shoot());
 }
