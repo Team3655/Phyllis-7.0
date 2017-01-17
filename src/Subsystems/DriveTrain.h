@@ -17,14 +17,16 @@
 class DriveTrain : public frc::Subsystem
 {
 private:
-	//RobotDrive* m_drive;
+	RobotDrive* m_drive;
 
-	//CANTalon* m_left;
-	//CANTalon* m_right;
+	CANTalon* m_left;
+	CANTalon* m_right;
 
 	bool m_accel = false;
 	double m_targetSpeed = 0;
 	double m_currentSpeed = 0;
+
+	bool m_reverse = false;
 
 public:
 	const int ENCODER_CPR = 4096;
@@ -34,10 +36,13 @@ public:
 	void InitDefaultCommand();
 
 	void ArcadeDrive(double move, double rotate);
-	void TankDrive(float l, float r);
+	void TankDrive(double left, double right);
 
 	void Accelerate(bool accel) { m_accel = accel; }
 	bool IsAcceleration() { return m_accel; }
+
+	void Reverse(bool reverse);
+	bool IsReversed() { return m_reverse; }
 };
 
 #endif // DRIVE_TRAIN_H
