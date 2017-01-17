@@ -3,18 +3,23 @@
 
 #include <Commands/Subsystem.h>
 #include <Wpilib.h>
+#include <CANTalon.h>
 
 class Shooter : public frc::Subsystem
 {
 private:
-	Spark* m_shooter;
+	CANTalon* m_shooter;
 
 public:
 	Shooter();
 	~Shooter();
 	void InitDefaultCommand();
 
-	void Set(double value) { m_shooter->Set(value); }
+	inline void Set(double value) { m_shooter->Set(value); }
+
+	void DebugInfo()
+	{
+	}
 };
 
 #endif  // SHOOTER_H

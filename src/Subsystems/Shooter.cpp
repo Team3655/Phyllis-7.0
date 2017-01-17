@@ -6,7 +6,9 @@
 Shooter::Shooter() :
 	frc::Subsystem("Shooter")
 {
-	m_shooter = new Spark(0);
+	m_shooter = new CANTalon(SHOOT_MOTOR_PORT);
+	m_shooter->SetControlMode(frc::CANSpeedController::kPercentVbus);
+	m_shooter->Enable();
 }
 
 Shooter::~Shooter()

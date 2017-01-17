@@ -17,17 +17,17 @@
 class DriveTrain : public frc::Subsystem
 {
 private:
-	RobotDrive* m_drive;
+	//RobotDrive* m_drive;
 
-	CANTalon* m_left;
-	CANTalon* m_right;
+	//CANTalon* m_left;
+	//CANTalon* m_right;
 
 	bool m_accel = false;
 	double m_targetSpeed = 0;
 	double m_currentSpeed = 0;
 
 public:
-	const int ENCODER_CPR = 0000;
+	const int ENCODER_CPR = 4096;
 
 	DriveTrain();
 	~DriveTrain();

@@ -22,6 +22,10 @@
 
 class Robot: public frc::IterativeRobot
 {
+private:
+	std::unique_ptr<frc::Command> autonomousCommand;
+	frc::SendableChooser<frc::Command*> chooser;
+
 public:
 	void RobotInit() override
 	{
@@ -30,6 +34,11 @@ public:
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
 
 		frc::SmartDashboard::PutData(CommandBase::shooter.get());
+	}
+
+	void RobotPeriodic() override
+	{
+
 	}
 
 	/**
@@ -60,14 +69,6 @@ public:
 	 */
 	void AutonomousInit() override
 	{
-		/* std::string autoSelected = frc::SmartDashboard::GetString("Auto Selector", "Default");
-		if (autoSelected == "My Auto") {
-			autonomousCommand.reset(new MyAutoCommand());
-		}
-		else {
-			autonomousCommand.reset(new ExampleCommand());
-		} */
-
 		autonomousCommand.reset(chooser.GetSelected());
 
 		if (autonomousCommand.get() != nullptr)
@@ -83,16 +84,12 @@ public:
 
 	void TeleopInit() override
 	{
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
 		if (autonomousCommand != nullptr)
 		{
 			autonomousCommand->Cancel();
 		}
-
-		frc::Scheduler::GetInstance()->AddCommand(new Shoot());
+		autonomousCommand = std::make_unique<Shoot>();
+		autonomousCommand.get()->Start();
 	}
 
 	void TeleopPeriodic() override
@@ -105,9 +102,7 @@ public:
 		frc::LiveWindow::GetInstance()->Run();
 	}
 
-private:
-	std::unique_ptr<frc::Command> autonomousCommand;
-	frc::SendableChooser<frc::Command*> chooser;
+
 };
 
 START_ROBOT_CLASS(Robot)

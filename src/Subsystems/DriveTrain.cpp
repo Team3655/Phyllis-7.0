@@ -14,27 +14,27 @@
 DriveTrain::DriveTrain() :
 	frc::Subsystem("Drive")
 {
-	m_left = new CANTalon(DRIVE_LEFT_PORT);
-	m_right = new CANTalon(DRIVE_RIGHT_PORT);
-	m_drive = new RobotDrive(m_left, m_right);
+	//m_left = new CANTalon(DRIVE_LEFT_PORT);
+	//m_right = new CANTalon(DRIVE_RIGHT_PORT);
+	//m_drive = new RobotDrive(m_left, m_right);
 }
 
 DriveTrain::~DriveTrain()
 {
-	delete m_drive;
+	//delete m_drive;
 }
 
 void DriveTrain::InitDefaultCommand()
 {
-	SetDefaultCommand(new Drive());
+	//SetDefaultCommand(new Drive());
 }
 
 void DriveTrain::ArcadeDrive(double move, double rotate)
 {
-	m_drive->ArcadeDrive(move, rotate);
+	//m_drive->ArcadeDrive(move, rotate);
 }
 
 void DriveTrain::TankDrive(float l, float r)
 {
-	m_drive->TankDrive(l, r);
+	//m_drive->TankDrive(l, r);
 }

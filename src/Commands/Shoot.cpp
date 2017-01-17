@@ -14,7 +14,10 @@ void Shoot::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void Shoot::Execute()
 {
-	shooter.get()->Set(oi.get()->GetAxisY());
+	double y = oi.get()->GetAxisY();
+	//std::cout <<  << std::endl;
+	shooter.get()->Set(y);
+	shooter.get()->DebugInfo();
 }
 
 // Make this return true when this Command no longer needs to run execute()
