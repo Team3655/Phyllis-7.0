@@ -4,8 +4,8 @@
 CameraServerWrapper::CameraServerWrapper() :
 	Subsystem("Camera Server Wrapper")
 {
-	m_camera = CameraServer::GetInstance();
-	m_visionProc = new grip::GripPipeline();
+	//m_camera = CameraServer::GetInstance();
+	//m_visionProc = new grip::GripPipeline();
 }
 
 void CameraServerWrapper::InitDefaultCommand()
@@ -15,15 +15,15 @@ void CameraServerWrapper::InitDefaultCommand()
 
 void CameraServerWrapper::StartStream()
 {
-	m_usbCamera = m_camera->StartAutomaticCapture();
-	m_usbCamera->SetFPS(20);
-	m_usbCamera->SetResolution(360, 240);
+	//m_usbCamera = m_camera->StartAutomaticCapture();
+	//m_usbCamera->SetFPS(20);
+	//m_usbCamera->SetResolution(360, 240);
 }
 
 void CameraServerWrapper::StartProc()
 {
 	m_isProc = true;
-	m_cvSink = &CameraServer::GetInstance()->GetVideo();
+	//m_cvSink = &CameraServer::GetInstance()->GetVideo();
 
 }
 
@@ -36,6 +36,6 @@ void CameraServerWrapper::Proccess()
 {
 	if (!m_isProc) return;
 
-	m_cvSink->GrabFrame(*m_currentFrame);
-	m_visionProc->process(*m_currentFrame);
+	//m_cvSink->GrabFrame(*m_currentFrame);
+	//m_visionProc->process(*m_currentFrame);
 }

@@ -14,8 +14,7 @@
 DriveTrain::DriveTrain() :
 	frc::Subsystem("Drive")
 {
-	m_leftShifter = new Solenoid(DRIVE_LEFT_SHIFT_PORT);
-	m_rightShifter = new Solenoid(DRIVE_RIGHT_SHIFT_PORT);
+	m_shifter = new Solenoid(DRIVE_LEFT_SHIFT_PORT);
 
 	m_lf = new CANTalon(DRIVE_LF_PORT);
 	m_lf->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
@@ -37,14 +36,12 @@ DriveTrain::DriveTrain() :
 
 	m_drive = new RobotDrive(m_lf, m_lb, m_rf, m_rb);
 
-	m_leftShiftState = m_leftShifter->Get();
-	m_rightShiftState = m_rightShifter->Get();
+	m_shiftState = m_shifter->Get();
 }
 
 DriveTrain::~DriveTrain()
 {
-	delete m_leftShifter;
-	delete m_rightShifter;
+	delete m_shifter;
 	delete m_drive;
 	delete m_lf;
 	delete m_lb;
@@ -81,4 +78,10 @@ void DriveTrain::Reverse(bool reverse)
 {
 	m_reverse = reverse;
 	m_targetSpeed = -m_targetSpeed;
+}
+
+void DriveTrain::Shift()
+{
+	m_shifter->Set(!m_shiftState);
+	m_shiftState = m_shifter->Get();
 }

@@ -17,7 +17,6 @@ constexpr int DRIVE_RF_PORT = 3;
 constexpr int DRIVE_RB_PORT = 4;
 
 constexpr int DRIVE_LEFT_SHIFT_PORT = 0;
-constexpr int DRIVE_RIGHT_SHIFT_PORT = 1;
 
 constexpr double DRIVE_LF_P = 1;
 constexpr double DRIVE_LF_I = 0;

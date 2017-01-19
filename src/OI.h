@@ -2,6 +2,7 @@
 #define OI_H
 
 #include <Joystick.h>
+#include <Buttons/JoystickButton.h>
 
 // Summary:
 //	Handles operator input
@@ -11,7 +12,8 @@ private:
 	Joystick* m_driver;
 	Joystick* m_coDriver;
 
-	JoystickButton* m_shoot;
+	frc::JoystickButton* m_shoot;
+	frc::JoystickButton* m_shift;
 
 public:
 	OI();

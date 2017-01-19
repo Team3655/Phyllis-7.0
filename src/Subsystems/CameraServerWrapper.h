@@ -5,17 +5,17 @@
 #include <CameraServer.h>
 #include <WpiLib.h>
 
-#include "../GripPipeline.h"
+//#include "../GripPipeline.h"
 
 class CameraServerWrapper : public Subsystem
 {
 private:
-	CameraServer* m_camera;
-	cs::UsbCamera* m_usbCamera;
-	grip::GripPipeline* m_visionProc;
+	//CameraServer* m_camera;
+	//cs::UsbCamera* m_usbCamera;
+	//grip::GripPipeline* m_visionProc;
 
-	cs::CvSink* m_cvSink;
-	cv::Mat* m_currentFrame;
+	//cs::CvSink* m_cvSink;
+	//cv::Mat* m_currentFrame;
 
 	bool m_isProc = false;
 

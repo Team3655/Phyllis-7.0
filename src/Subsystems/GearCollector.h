@@ -2,6 +2,7 @@
 #define GEAR_COLLECTOR_H
 
 #include <Commands/Subsystem.h>
+#include <CANTalon.h>
 
 class GearCollector : public Subsystem
 {

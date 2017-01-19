@@ -25,11 +25,8 @@ private:
 	CANTalon* m_rf;
 	CANTalon* m_rb;
 
-	Solenoid* m_leftShifter;
-	Solenoid* m_rightShifter;
-
-	bool m_leftShiftState,
-		 m_rightShiftState;
+	Solenoid* m_shifter;
+	bool m_shiftState;
 
 	bool m_accel = false;
 	double m_targetSpeed = 0;
@@ -50,6 +47,8 @@ public:
 
 	void Reverse(bool reverse);
 	bool IsReversed() { return m_reverse; }
+
+	void Shift();
 };
 
 #endif // DRIVE_TRAIN_H
