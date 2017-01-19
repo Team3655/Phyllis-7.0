@@ -14,13 +14,22 @@
 #include <Wpilib.h>
 #include <CANTalon.h>
 
+
 class DriveTrain : public frc::Subsystem
 {
 private:
 	RobotDrive* m_drive;
 
-	CANTalon* m_left;
-	CANTalon* m_right;
+	CANTalon* m_lf;
+	CANTalon* m_lb;
+	CANTalon* m_rf;
+	CANTalon* m_rb;
+
+	Solenoid* m_leftShifter;
+	Solenoid* m_rightShifter;
+
+	bool m_leftShiftState,
+		 m_rightShiftState;
 
 	bool m_accel = false;
 	double m_targetSpeed = 0;
@@ -29,8 +38,6 @@ private:
 	bool m_reverse = false;
 
 public:
-	const int ENCODER_CPR = 4096;
-
 	DriveTrain();
 	~DriveTrain();
 	void InitDefaultCommand();

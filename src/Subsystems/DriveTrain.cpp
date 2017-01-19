@@ -14,27 +14,47 @@
 DriveTrain::DriveTrain() :
 	frc::Subsystem("Drive")
 {
-	m_left = new CANTalon(DRIVE_LEFT_PORT);
-	m_left->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
-	m_left->SetCloseLoopRampRate(1);
+	m_leftShifter = new Solenoid(DRIVE_LEFT_SHIFT_PORT);
+	m_rightShifter = new Solenoid(DRIVE_RIGHT_SHIFT_PORT);
 
-	m_right = new CANTalon(DRIVE_RIGHT_PORT);
-	m_right->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
-	m_right->SetCloseLoopRampRate(1);
+	m_lf = new CANTalon(DRIVE_LF_PORT);
+	m_lf->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
+	m_lf->SetPID(DRIVE_LF_P, DRIVE_LF_I, DRIVE_LF_D);
+	m_lf->SetCloseLoopRampRate(1);
+	m_lb = new CANTalon(DRIVE_LB_PORT);
+	m_lb->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
+	m_lb->SetPID(DRIVE_LB_P, DRIVE_LB_I, DRIVE_LB_D);
+	m_lb->SetCloseLoopRampRate(1);
 
-	m_drive = new RobotDrive(m_left, m_right);
+	m_rf = new CANTalon(DRIVE_RF_PORT);
+	m_rf->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
+	m_rf->SetPID(DRIVE_RF_P, DRIVE_RF_I, DRIVE_RF_D);
+	m_rf->SetCloseLoopRampRate(1);
+	m_rb = new CANTalon(DRIVE_RB_PORT);
+	m_rb->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
+	m_rb->SetPID(DRIVE_RB_P, DRIVE_RB_I, DRIVE_RB_D);
+	m_rb->SetCloseLoopRampRate(1);
+
+	m_drive = new RobotDrive(m_lf, m_lb, m_rf, m_rb);
+
+	m_leftShiftState = m_leftShifter->Get();
+	m_rightShiftState = m_rightShifter->Get();
 }
 
 DriveTrain::~DriveTrain()
 {
+	delete m_leftShifter;
+	delete m_rightShifter;
 	delete m_drive;
-	delete m_left;
-	delete m_right;
+	delete m_lf;
+	delete m_lb;
+	delete m_rf;
+	delete m_rb;
 }
 
 void DriveTrain::InitDefaultCommand()
 {
-	//SetDefaultCommand(new Drive());
+	SetDefaultCommand(new Drive());
 }
 
 void DriveTrain::ArcadeDrive(double move, double rotate)

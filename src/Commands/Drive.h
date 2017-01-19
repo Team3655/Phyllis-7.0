@@ -16,7 +16,6 @@
 class Drive : public CommandBase
 {
 private:
-	//OI* m_oi;
 
 public:
 	Drive();

@@ -11,8 +11,11 @@ private:
 	Joystick* m_driver;
 	Joystick* m_coDriver;
 
+	JoystickButton* m_shoot;
+
 public:
 	OI();
+	~OI();
 
 	Joystick* GetDriver() { return m_driver; }
 	Joystick* GetCoDriver() { return m_coDriver; }
