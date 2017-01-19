@@ -39,10 +39,15 @@ constexpr int SHOOT_MOTOR_PORT = 6;
 // Gear Collector
 constexpr int GEAR_INTAKE_PORT = 0;
 constexpr int GEAR_TRANS_PORT = 1;
+constexpr double GEAR_MOTOR_SPEED = .5;
 
 // Climber
 constexpr int CLIMB_LEFT_PORT = 0;
 constexpr int CLIMB_RIGHT_PORT = 1;
+constexpr double CLIMB_MOTOR_SPEED = .5;
+
+// Fuel Collector
+constexpr int FUEL_GATE_PORT = 0;
 
 // Input
 //#define CODRIVER  	// Use def check when referencing the co-driver stick
@@ -51,5 +56,11 @@ constexpr int JOY_CODRIVER_PORT = 1;
 
 // Camera
 constexpr int CS_PORT = 0;
+
+// Utility functions
+inline bool is_about(double target, double acceptableRange)
+{
+	return target >= target + acceptableRange && target < target - acceptableRange;
+}
 
 #endif  // ROBOTMAP_H

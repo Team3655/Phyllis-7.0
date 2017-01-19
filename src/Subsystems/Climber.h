@@ -3,7 +3,7 @@
 
 #include <Commands/Subsystem.h>
 
-class Climber : public Subsystem {
+class Climber : public frc::Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities

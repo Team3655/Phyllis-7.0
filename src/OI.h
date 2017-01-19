@@ -3,6 +3,7 @@
 
 #include <Joystick.h>
 #include <Buttons/JoystickButton.h>
+#include "RobotMap.h"
 
 // Summary:
 //	Handles operator input
@@ -10,10 +11,11 @@ class OI
 {
 private:
 	Joystick* m_driver;
-	Joystick* m_coDriver;
-
-	frc::JoystickButton* m_shoot;
 	frc::JoystickButton* m_shift;
+
+	Joystick* m_coDriver;
+	frc::JoystickButton* m_shoot;
+	frc::JoystickButton* m_manualOverride;
 
 public:
 	OI();

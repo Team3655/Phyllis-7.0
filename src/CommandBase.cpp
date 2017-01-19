@@ -12,16 +12,23 @@
 #include <Commands/Scheduler.h>
 
 
-std::unique_ptr<DriveTrain> CommandBase::drive =
-		std::make_unique<DriveTrain>();
-std::unique_ptr<Shooter> CommandBase::shooter =
-		std::make_unique<Shooter>();
+std::shared_ptr<DriveTrain> CommandBase::drive =
+		std::make_shared<DriveTrain>();
+std::shared_ptr<Shooter> CommandBase::shooter =
+		std::make_shared<Shooter>();
+std::shared_ptr<GearCollector> CommandBase::gearCollector =
+		std::make_shared<GearCollector>();
+std::shared_ptr<Climber> CommandBase::climber =
+		std::make_shared<Climber>();
+std::shared_ptr<FuelCollector> CommandBase::fuelCollector =
+		std::make_shared<FuelCollector>();
+
 std::unique_ptr<OI> CommandBase::oi = std::make_unique<OI>();
 
 // Add Subsystems
 
 CommandBase::CommandBase(const std::string& name) :
-		frc::Command(name)
+	frc::Command(name)
 {
 
 }

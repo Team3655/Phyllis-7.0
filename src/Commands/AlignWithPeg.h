@@ -1,15 +1,11 @@
-#ifndef Shoot_H
-#define Shoot_H
+#ifndef AlignWithPeg_H
+#define AlignWithPeg_H
 
 #include "../CommandBase.h"
 
-class Shoot : public CommandBase
-{
-private:
-	bool m_isAligned;
-
+class AlignWithPeg : public CommandBase {
 public:
-	Shoot();
+	AlignWithPeg();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -17,4 +13,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // Shoot_H
+#endif  // AlignWithPeg_H

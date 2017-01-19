@@ -28,9 +28,7 @@ private:
 	Solenoid* m_shifter;
 	bool m_shiftState;
 
-	bool m_accel = false;
 	double m_targetSpeed = 0;
-	double m_currentSpeed = 0;
 
 	bool m_reverse = false;
 
@@ -41,9 +39,6 @@ public:
 
 	void ArcadeDrive(double move, double rotate);
 	void TankDrive(double left, double right);
-
-	void Accelerate(bool accel) { m_accel = accel; }
-	bool IsAcceleration() { return m_accel; }
 
 	void Reverse(bool reverse);
 	bool IsReversed() { return m_reverse; }

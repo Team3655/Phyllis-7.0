@@ -18,6 +18,9 @@
 #include "OI.h"
 #include "Subsystems/DriveTrain.h"
 #include "Subsystems/Shooter.h"
+#include "Subsystems/GearCollector.h"
+#include "Subsystems/Climber.h"
+#include "Subsystems/FuelCollector.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -32,8 +35,11 @@ public:
 	CommandBase() = default;
 
 	// Create a single static instance of all of your subsystems
-	static std::unique_ptr<DriveTrain> drive;
-	static std::unique_ptr<Shooter> shooter;
+	static std::shared_ptr<DriveTrain> drive;
+	static std::shared_ptr<Shooter> shooter;
+	static std::shared_ptr<GearCollector> gearCollector;
+	static std::shared_ptr<Climber> climber;
+	static std::shared_ptr<FuelCollector> fuelCollector;
 	static std::unique_ptr<OI> oi;
 };
 

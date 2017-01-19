@@ -10,12 +10,16 @@ class Shooter : public frc::Subsystem
 private:
 	CANTalon* m_shooter;
 
+	double m_targetSpeed;
+
 public:
 	Shooter();
 	~Shooter();
 	void InitDefaultCommand();
 
-	inline void Set(double value) { m_shooter->Set(value); }
+	void Set(double speed);
+
+	bool IsAtSpeed();
 
 	void DebugInfo()
 	{
