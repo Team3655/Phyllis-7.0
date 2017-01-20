@@ -4,11 +4,13 @@
 #include <Commands/Subsystem.h>
 #include <Servo.h>
 #include <Ultrasonic.h>
+#include <CANTalon.h>
 
 class FuelCollector : public frc::Subsystem
 {
 private:
 	frc::Servo* m_gate;
+	CANTalon* m_intake;
 
 public:
 	FuelCollector();

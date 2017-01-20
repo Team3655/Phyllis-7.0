@@ -10,12 +10,15 @@
 #include "DriveTrain.h"
 #include "../RobotMap.h"
 #include "../Commands/Drive.h"
+#include <iostream>
 
 DriveTrain::DriveTrain() :
 	frc::Subsystem("Drive")
 {
 	m_shifter = new Solenoid(DRIVE_LEFT_SHIFT_PORT);
 
+	try
+	{
 	m_lf = new CANTalon(DRIVE_LF_PORT);
 	m_lf->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
 	m_lf->SetPID(DRIVE_LF_P, DRIVE_LF_I, DRIVE_LF_D);
@@ -35,6 +38,11 @@ DriveTrain::DriveTrain() :
 	m_rb->SetCloseLoopRampRate(1);
 
 	m_drive = new RobotDrive(m_lf, m_lb, m_rf, m_rb);
+	}
+	catch (std::exception& ex)
+	{
+		std::cout << ex.what() << std::endl;
+	}
 
 	m_shiftState = m_shifter->Get();
 }
