@@ -15,7 +15,7 @@ private:
 
 	Joystick* m_coDriver;
 	frc::JoystickButton* m_shoot;
-	frc::JoystickButton* m_manualOverride;
+	//frc::JoystickButton* m_manualOverride;
 
 public:
 	OI();

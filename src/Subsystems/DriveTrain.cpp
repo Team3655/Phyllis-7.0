@@ -15,7 +15,7 @@
 DriveTrain::DriveTrain() :
 	frc::Subsystem("Drive")
 {
-	m_shifter = new Solenoid(DRIVE_LEFT_SHIFT_PORT);
+	//m_shifter = new Solenoid(DRIVE_LEFT_SHIFT_PORT);
 
 	/*
 	m_lf = new CANTalon(DRIVE_LF_PORT);
@@ -38,12 +38,12 @@ DriveTrain::DriveTrain() :
 
 	m_drive = new RobotDrive(m_lf, m_lb, m_rf, m_rb);
 	 */
-	m_shiftState = m_shifter->Get();
+	//m_shiftState = m_shifter->Get();
 }
 
 DriveTrain::~DriveTrain()
 {
-	delete m_shifter;
+	//delete m_shifter;
 	/*delete m_drive;
 	delete m_lf;
 	delete m_lb;
@@ -84,6 +84,6 @@ void DriveTrain::Reverse(bool reverse)
 
 void DriveTrain::Shift()
 {
-	m_shifter->Set(!m_shiftState);
-	m_shiftState = m_shifter->Get();
+	//m_shifter->Set(!m_shiftState);
+	//m_shiftState = m_shifter->Get();
 }

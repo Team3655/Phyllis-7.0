@@ -18,10 +18,10 @@ void Shoot::Execute()
 {
 	double y = oi.get()->GetAxisY();
 	shooter.get()->Set(y);
-	if (shooter.get()->IsAtSpeed())
+	/*if (shooter.get()->IsAtSpeed())
 	{
 		fuelCollector.get()->SetOpen(true);
-	}
+	}*/
 }
 
 // Make this return true when this Command no longer needs to run execute()

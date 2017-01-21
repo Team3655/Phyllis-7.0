@@ -25,7 +25,7 @@ private:
 	//CANTalon* m_rf;
 	//CANTalon* m_rb;
 
-	Solenoid* m_shifter;
+	//Solenoid* m_shifter;
 	bool m_shiftState;
 
 	double m_targetSpeed = 0;

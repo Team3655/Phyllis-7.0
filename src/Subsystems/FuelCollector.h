@@ -9,7 +9,7 @@
 class FuelCollector : public frc::Subsystem
 {
 private:
-	frc::Servo* m_gate;
+	//frc::Servo* m_gate;
 	//CANTalon* m_intake;
 
 public:
