@@ -27,8 +27,19 @@ private:
 	frc::SendableChooser<frc::Command*> chooser;
 
 public:
+	void InitializeSubsystems()
+	{
+		CommandBase::drive.get()->Initialize();
+		CommandBase::shooter.get()->Initialize();
+		CommandBase::gearCollector.get()->Initialize();
+		CommandBase::climber.get()->Initialize();
+		CommandBase::fuelCollector.get()->Initialize();
+	}
+
 	void RobotInit() override
 	{
+		InitializeSubsystems();
+
 		//chooser.AddDefault("Default Auto", new ExampleCommand());
 		// chooser.AddObject("My Auto", new MyAutoCommand());
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);

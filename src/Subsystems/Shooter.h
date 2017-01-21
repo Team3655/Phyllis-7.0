@@ -5,10 +5,12 @@
 #include <Wpilib.h>
 #include <CANTalon.h>
 
-class Shooter : public frc::Subsystem
+#include "../ExtSubsystem.h"
+
+class Shooter : public frc::Subsystem, public ExtSubsystem
 {
 private:
-	//CANTalon* m_shooter;
+	CANTalon* m_shooter;
 
 	double m_targetSpeed;
 
@@ -17,13 +19,11 @@ public:
 	~Shooter();
 	void InitDefaultCommand();
 
+	void Initialize() override;
+
 	void Set(double speed);
 
-	//bool IsAtSpeed();
-
-	void DebugInfo()
-	{
-	}
+	bool IsAtSpeed();
 };
 
 #endif  // SHOOTER_H

@@ -15,9 +15,27 @@
 DriveTrain::DriveTrain() :
 	frc::Subsystem("Drive")
 {
-	//m_shifter = new Solenoid(DRIVE_LEFT_SHIFT_PORT);
+}
 
-	/*
+DriveTrain::~DriveTrain()
+{
+	delete m_shifter;
+	delete m_drive;
+	delete m_lf;
+	delete m_lb;
+	delete m_rf;
+	delete m_rb;
+}
+
+void DriveTrain::InitDefaultCommand()
+{
+	SetDefaultCommand(new Drive());
+}
+
+void DriveTrain::Initialize()
+{
+	m_shifter = new Solenoid(DRIVE_LEFT_SHIFT_PORT);
+
 	m_lf = new CANTalon(DRIVE_LF_PORT);
 	m_lf->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
 	m_lf->SetPID(DRIVE_LF_P, DRIVE_LF_I, DRIVE_LF_D);
@@ -36,24 +54,12 @@ DriveTrain::DriveTrain() :
 	m_rb->SetPID(DRIVE_RB_P, DRIVE_RB_I, DRIVE_RB_D);
 	m_rb->SetCloseLoopRampRate(1);
 
+	m_rf->SetInverted(true);
+	m_rb->SetInverted(true);
+
 	m_drive = new RobotDrive(m_lf, m_lb, m_rf, m_rb);
-	 */
-	//m_shiftState = m_shifter->Get();
-}
 
-DriveTrain::~DriveTrain()
-{
-	//delete m_shifter;
-	/*delete m_drive;
-	delete m_lf;
-	delete m_lb;
-	delete m_rf;
-	delete m_rb;*/
-}
-
-void DriveTrain::InitDefaultCommand()
-{
-	SetDefaultCommand(new Drive());
+	m_shiftState = m_shifter->Get();
 }
 
 void DriveTrain::ArcadeDrive(double move, double rotate)
@@ -63,7 +69,7 @@ void DriveTrain::ArcadeDrive(double move, double rotate)
 		move = -move;
 		rotate = -rotate;
 	}
-	//m_drive->ArcadeDrive(move, rotate);
+	m_drive->ArcadeDrive(move, rotate);
 }
 
 void DriveTrain::TankDrive(double left, double right)
@@ -73,7 +79,7 @@ void DriveTrain::TankDrive(double left, double right)
 		left = -left;
 		right = -right;
 	}
-	//m_drive->TankDrive(left, right);
+	m_drive->TankDrive(left, right);
 }
 
 void DriveTrain::Reverse(bool reverse)
@@ -84,6 +90,6 @@ void DriveTrain::Reverse(bool reverse)
 
 void DriveTrain::Shift()
 {
-	//m_shifter->Set(!m_shiftState);
-	//m_shiftState = m_shifter->Get();
+	m_shifter->Set(!m_shiftState);
+	m_shiftState = m_shifter->Get();
 }

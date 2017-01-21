@@ -4,14 +4,19 @@
 #include <Commands/Subsystem.h>
 #include <CANTalon.h>
 
-class GearCollector : public frc::Subsystem
+#include "../ExtSubsystem.h"
+
+class GearCollector : public frc::Subsystem, public ExtSubsystem
 {
 private:
-	//CANTalon* m_intake;
+	CANTalon* m_intake;
 
 public:
 	GearCollector();
+	~GearCollector();
 	void InitDefaultCommand();
+
+	void Initialize() override;
 
 	void Set(double speed);
 };

@@ -4,8 +4,11 @@
 GearCollector::GearCollector() :
 	Subsystem("Gear Collector")
 {
-	//m_intake = new CANTalon(GEAR_INTAKE_PORT);
-	//m_intake->SetControlMode(CANTalon::ControlMode::kSpeed);
+}
+
+GearCollector::~GearCollector()
+{
+	delete m_intake;
 }
 
 void GearCollector::InitDefaultCommand()
@@ -13,7 +16,13 @@ void GearCollector::InitDefaultCommand()
 	//SetDefaultCommand(new MySpecialCommand());
 }
 
+void GearCollector::Initialize()
+{
+	m_intake = new CANTalon(GEAR_INTAKE_PORT);
+	m_intake->SetControlMode(CANTalon::ControlMode::kSpeed);
+}
+
 void GearCollector::Set(double speed)
 {
-	//m_intake->Set(speed);
+	m_intake->Set(speed);
 }

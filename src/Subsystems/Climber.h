@@ -3,13 +3,18 @@
 
 #include <Commands/Subsystem.h>
 
-class Climber : public frc::Subsystem
+#include "../ExtSubsystem.h"
+
+class Climber : public frc::Subsystem, public ExtSubsystem
 {
 private:
 
 public:
 	Climber();
+	~Climber();
 	void InitDefaultCommand();
+
+	void Initialize() override;
 };
 
 #endif  // Climber_H

@@ -1,7 +1,13 @@
 #include "Climber.h"
 #include "../RobotMap.h"
 
-Climber::Climber() : Subsystem("Climber")
+Climber::Climber() :
+	Subsystem("Climber")
+{
+
+}
+
+Climber::~Climber()
 {
 
 }
@@ -9,4 +15,9 @@ Climber::Climber() : Subsystem("Climber")
 void Climber::InitDefaultCommand()
 {
 	//SetDefaultCommand(new MySpecialCommand());
+}
+
+void Climber::Initialize()
+{
+
 }

@@ -24,7 +24,7 @@ void Drive::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void Drive::Execute()
 {
-	drive.get()->TankDrive(oi->GetAxisX(), oi->GetAxisY());
+	drive.get()->ArcadeDrive(oi->GetAxisX(), oi->GetAxisY());
 }
 
 // Make this return true when this Command no longer needs to run execute()

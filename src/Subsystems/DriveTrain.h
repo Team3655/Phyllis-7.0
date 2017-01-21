@@ -11,21 +11,25 @@
 #define DRIVE_TRAIN_H
 
 #include <Commands/Subsystem.h>
-#include <Wpilib.h>
+#include <RobotDrive.h>
 #include <CANTalon.h>
+#include <Solenoid.h>
 
+#include "../ExtSubsystem.h"
 
-class DriveTrain : public frc::Subsystem
+// Summary:
+//
+class DriveTrain : public frc::Subsystem, public ExtSubsystem
 {
 private:
-	//RobotDrive* m_drive;
+	RobotDrive* m_drive;
 
-	//CANTalon* m_lf;
-	//CANTalon* m_lb;
-	//CANTalon* m_rf;
-	//CANTalon* m_rb;
+	CANTalon* m_lf;
+	CANTalon* m_lb;
+	CANTalon* m_rf;
+	CANTalon* m_rb;
 
-	//Solenoid* m_shifter;
+	Solenoid* m_shifter;
 	bool m_shiftState;
 
 	double m_targetSpeed = 0;
@@ -36,6 +40,8 @@ public:
 	DriveTrain();
 	~DriveTrain();
 	void InitDefaultCommand();
+
+	void Initialize() override;
 
 	void ArcadeDrive(double move, double rotate);
 	void TankDrive(double left, double right);
