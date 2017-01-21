@@ -6,10 +6,6 @@
 Shooter::Shooter() :
 	frc::Subsystem("Shooter")
 {
-	m_shooter = new CANTalon(SHOOT_MOTOR_PORT);
-	m_shooter->SetControlMode(frc::CANSpeedController::kPercentVbus);
-	m_shooter->Enable();
-
 	m_targetSpeed = 0; // Do some math to find target speed
 }
 
@@ -21,6 +17,13 @@ Shooter::~Shooter()
 void Shooter::InitDefaultCommand()
 {
 	SetDefaultCommand(new Shoot());
+}
+
+void Shooter::Initialize()
+{
+	m_shooter = new CANTalon(SHOOT_MOTOR_PORT);
+	m_shooter->SetControlMode(frc::CANSpeedController::kPercentVbus);
+	m_shooter->Enable();
 }
 
 void Shooter::Set(double speed)

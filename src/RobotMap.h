@@ -11,10 +11,10 @@
 #define ROBOTMAP_H
 
 // Drive
-constexpr int DRIVE_LF_PORT = 1;
-constexpr int DRIVE_LB_PORT = 2;
-constexpr int DRIVE_RF_PORT = 3;
-constexpr int DRIVE_RB_PORT = 4;
+constexpr int DRIVE_LF_PORT = 9;
+constexpr int DRIVE_LB_PORT = 5;
+constexpr int DRIVE_RF_PORT = 8;
+constexpr int DRIVE_RB_PORT = 6;
 
 constexpr int DRIVE_LEFT_SHIFT_PORT = 0;
 

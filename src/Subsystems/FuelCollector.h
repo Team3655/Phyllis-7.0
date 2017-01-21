@@ -6,7 +6,9 @@
 #include <Ultrasonic.h>
 #include <CANTalon.h>
 
-class FuelCollector : public frc::Subsystem
+#include "../ExtSubsystem.h"
+
+class FuelCollector : public frc::Subsystem, public ExtSubsystem
 {
 private:
 	frc::Servo* m_gate;
@@ -14,7 +16,10 @@ private:
 
 public:
 	FuelCollector();
+	~FuelCollector();
 	void InitDefaultCommand();
+
+	void Initialize() override;
 
 	void SetOpen(bool open);
 

@@ -4,13 +4,24 @@
 FuelCollector::FuelCollector() :
 	Subsystem("ExampleSubsystem")
 {
-	m_gate = new frc::Servo(FUEL_GATE_PORT);
-	m_intake = new CANTalon(0);
 }
+
+FuelCollector::~FuelCollector()
+{
+	delete m_gate;
+	delete m_intake;
+}
+
 
 void FuelCollector::InitDefaultCommand()
 {
 	//SetDefaultCommand(new MySpecialCommand());
+}
+
+void FuelCollector::Initialize()
+{
+	m_gate = new frc::Servo(FUEL_GATE_PORT);
+	m_intake = new CANTalon(0);
 }
 
 void FuelCollector::SetOpen(bool open)
