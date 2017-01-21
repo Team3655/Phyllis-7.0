@@ -1,7 +1,7 @@
 #include "Climber.h"
 #include "../RobotMap.h"
 
-Climber::Climber() : Subsystem("ExampleSubsystem")
+Climber::Climber() : Subsystem("Climber")
 {
 
 }

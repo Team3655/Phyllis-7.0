@@ -18,12 +18,12 @@
 class DriveTrain : public frc::Subsystem
 {
 private:
-	RobotDrive* m_drive;
+	//RobotDrive* m_drive;
 
-	CANTalon* m_lf;
-	CANTalon* m_lb;
-	CANTalon* m_rf;
-	CANTalon* m_rb;
+	//CANTalon* m_lf;
+	//CANTalon* m_lb;
+	//CANTalon* m_rf;
+	//CANTalon* m_rb;
 
 	Solenoid* m_shifter;
 	bool m_shiftState;

@@ -6,16 +6,16 @@
 Shooter::Shooter() :
 	frc::Subsystem("Shooter")
 {
-	m_shooter = new CANTalon(SHOOT_MOTOR_PORT);
-	m_shooter->SetControlMode(frc::CANSpeedController::kPercentVbus);
-	m_shooter->Enable();
+	//m_shooter = new CANTalon(SHOOT_MOTOR_PORT);
+	//m_shooter->SetControlMode(frc::CANSpeedController::kPercentVbus);
+	//m_shooter->Enable();
 
 	m_targetSpeed = 0; // Do some math to find target speed
 }
 
 Shooter::~Shooter()
 {
-	delete m_shooter;
+	//delete m_shooter;
 }
 
 void Shooter::InitDefaultCommand()
@@ -25,10 +25,10 @@ void Shooter::InitDefaultCommand()
 
 void Shooter::Set(double speed)
 {
-	m_shooter->Set(speed);
+	//m_shooter->Set(speed);
 }
 
-bool Shooter::IsAtSpeed()
-{
-	return is_about(m_shooter->Get(), 50.0);
-}
+//bool Shooter::IsAtSpeed()
+//{
+//	return is_about(m_shooter->Get(), 50.0);
+//}

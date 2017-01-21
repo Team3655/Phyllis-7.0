@@ -7,7 +7,7 @@
 class GearCollector : public frc::Subsystem
 {
 private:
-	CANTalon* m_intake;
+	//CANTalon* m_intake;
 
 public:
 	GearCollector();

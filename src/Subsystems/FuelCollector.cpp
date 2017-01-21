@@ -5,7 +5,7 @@ FuelCollector::FuelCollector() :
 	Subsystem("ExampleSubsystem")
 {
 	m_gate = new frc::Servo(FUEL_GATE_PORT);
-	m_intake = new CANTalon(0);
+	//m_intake = new CANTalon(0);
 }
 
 void FuelCollector::InitDefaultCommand()

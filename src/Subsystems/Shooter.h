@@ -8,7 +8,7 @@
 class Shooter : public frc::Subsystem
 {
 private:
-	CANTalon* m_shooter;
+	//CANTalon* m_shooter;
 
 	double m_targetSpeed;
 
@@ -19,7 +19,7 @@ public:
 
 	void Set(double speed);
 
-	bool IsAtSpeed();
+	//bool IsAtSpeed();
 
 	void DebugInfo()
 	{
