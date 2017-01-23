@@ -44,10 +44,16 @@ constexpr double GEAR_MOTOR_SPEED = .5;
 // Climber
 constexpr int CLIMB_LEFT_PORT = 0;
 constexpr int CLIMB_RIGHT_PORT = 1;
-constexpr double CLIMB_MOTOR_SPEED = .5;
+constexpr double CLIMB_UP_POS = 0;
+constexpr double CLIMB_lEFT_P
 
 // Fuel Collector
 constexpr int FUEL_GATE_PORT = 0;
+constexpr int FUEL_INTAKE_PORT = 0;
+constexpr double FUEL_INTAKE_SPEED = 0;
+constexpr double FUEL_INTAKE_P = 1;
+constexpr double FUEL_INTAKE_I = 0;
+constexpr double FUEL_INTAKE_D = 0;
 
 // Input
 //#define CODRIVER  	// Use def check when referencing the co-driver stick

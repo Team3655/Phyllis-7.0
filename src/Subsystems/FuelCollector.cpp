@@ -21,7 +21,10 @@ void FuelCollector::InitDefaultCommand()
 void FuelCollector::Initialize()
 {
 	m_gate = new frc::Servo(FUEL_GATE_PORT);
+
 	m_intake = new CANTalon(0);
+	m_intake->SetControlMode(CANTalon::ControlMode::kSpeed);
+	m_intake->SetPID(FUEL_INTAKE_P, FUEL_INTAKE_I, FUEL_INTAKE_D);
 }
 
 void FuelCollector::SetOpen(bool open)
@@ -34,4 +37,9 @@ void FuelCollector::SetOpen(bool open)
 	{
 		m_gate->Set(100.0);
 	}
+}
+
+void FuelCollector::SetIntake(double speed)
+{
+	m_intake->Set(speed);
 }

@@ -6,6 +6,8 @@
 
 #include "../ExtSubsystem.h"
 
+// Summary:
+// 	Gear collector and management system
 class GearCollector : public frc::Subsystem, public ExtSubsystem
 {
 private:
@@ -18,7 +20,8 @@ public:
 
 	void Initialize() override;
 
-	void Set(double speed);
+	// Set the gear intake motor
+	void SetIntake(double speed);
 };
 
 #endif  // GEAR_COLLECTOR_H

@@ -2,7 +2,7 @@
  * ExtSubsystem.h
  *
  *  Created on: Jan 21, 2017
- *      Author: sidaa
+ *      Author: Silas A.
  */
 
 #ifndef EXT_SUBSYSTEM_H
@@ -15,6 +15,8 @@ class ExtSubsystem
 {
 public:
 	virtual ~ExtSubsystem() {}
+
+	// Implement to initialize wpilib classes
 	virtual	void Initialize() = 0;
 };
 

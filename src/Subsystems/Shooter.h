@@ -7,6 +7,8 @@
 
 #include "../ExtSubsystem.h"
 
+// Summary:
+//	Class for managing the fuel launcher
 class Shooter : public frc::Subsystem, public ExtSubsystem
 {
 private:
@@ -21,8 +23,10 @@ public:
 
 	void Initialize() override;
 
+	// Sets the speed of the shooter motor
 	void Set(double speed);
 
+	// Returns whether the motor is at the target speed
 	bool IsAtSpeed();
 };
 

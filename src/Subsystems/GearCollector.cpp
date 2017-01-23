@@ -22,7 +22,7 @@ void GearCollector::Initialize()
 	m_intake->SetControlMode(CANTalon::ControlMode::kSpeed);
 }
 
-void GearCollector::Set(double speed)
+void GearCollector::SetIntake(double speed)
 {
 	m_intake->Set(speed);
 }

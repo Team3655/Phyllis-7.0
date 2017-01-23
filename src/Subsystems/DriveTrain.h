@@ -18,18 +18,20 @@
 #include "../ExtSubsystem.h"
 
 // Summary:
-//
+//	Class to manage the drive base of the robot
 class DriveTrain : public frc::Subsystem, public ExtSubsystem
 {
 private:
-	RobotDrive* m_drive;
+	frc::RobotDrive* m_drive;
 
+	// Slaves
 	CANTalon* m_lf;
-	CANTalon* m_lb;
 	CANTalon* m_rf;
+	// Masters
+	CANTalon* m_lb;
 	CANTalon* m_rb;
 
-	Solenoid* m_shifter;
+	frc::Solenoid* m_shifter;
 	bool m_shiftState;
 
 	double m_targetSpeed = 0;
@@ -43,12 +45,17 @@ public:
 
 	void Initialize() override;
 
+	// Drive the bot in Arcade Drive (invert doesn't work)
 	void ArcadeDrive(double move, double rotate);
+
+	// Drive the bot in Tank Drive
 	void TankDrive(double left, double right);
 
+	// Sets which side is the front of the robot
 	void Reverse(bool reverse);
 	bool IsReversed() { return m_reverse; }
 
+	// Toggles high/low gear
 	void Shift();
 };
 

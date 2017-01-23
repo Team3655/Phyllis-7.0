@@ -5,9 +5,13 @@
 
 #include "../ExtSubsystem.h"
 
+// Summary:
+//
 class Climber : public frc::Subsystem, public ExtSubsystem
 {
 private:
+	CANTalon* m_climbLeft;
+	CANTalon* m_climbRight;
 
 public:
 	Climber();

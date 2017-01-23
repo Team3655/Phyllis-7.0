@@ -8,6 +8,8 @@
 
 #include "../ExtSubsystem.h"
 
+// Summary:
+// 	Fuel collector and container (magazine for shooter)
 class FuelCollector : public frc::Subsystem, public ExtSubsystem
 {
 private:
@@ -21,9 +23,13 @@ public:
 
 	void Initialize() override;
 
+	// Open/close flow from magazine to shooter
 	void SetOpen(bool open);
 
 	// bool IsBallPresent();
+
+	// Set the motor that collects balls
+	void SetIntake(double speed);
 };
 
 #endif  // FUEL_COLLECTOR_H

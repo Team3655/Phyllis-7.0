@@ -16,7 +16,7 @@ Shooter::~Shooter()
 
 void Shooter::InitDefaultCommand()
 {
-	SetDefaultCommand(new Shoot());
+	//SetDefaultCommand(new Shoot());
 }
 
 void Shooter::Initialize()
