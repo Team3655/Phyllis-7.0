@@ -22,7 +22,7 @@ void FuelCollector::Initialize()
 {
 	m_gate = new frc::Servo(FUEL_GATE_PORT);
 
-	m_intake = new CANTalon(0);
+	m_intake = new CANTalon(FUEL_INTAKE_PORT);
 	m_intake->SetControlMode(CANTalon::ControlMode::kSpeed);
 	m_intake->SetPID(FUEL_INTAKE_P, FUEL_INTAKE_I, FUEL_INTAKE_D);
 }

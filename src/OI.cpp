@@ -32,3 +32,43 @@ OI::~OI()
 	delete m_shoot;
 	delete m_shift;
 }
+
+double OI::Deadband(double input)
+{
+	return input <= m_deadband && input >= -m_deadband ? 0 : input;
+}
+
+Joystick* OI::GetStick(int stick)
+{
+	switch (stick)
+	{
+	default:
+	case 0:
+		return m_driver;
+		break;
+	case 1:
+		return m_coDriver;
+		break;
+	}
+}
+
+double OI::GetXAxis(int stick)
+{
+	return GetStick(stick)->GetAxis(Joystick::AxisType::kXAxis);
+}
+
+double OI::GetYAxis(int stick)
+{
+	return GetStick(stick)->GetAxis(Joystick::AxisType::kYAxis);
+}
+
+double OI::GetZAxis(int stick)
+{
+	return GetStick(stick)->GetAxis(Joystick::AxisType::kZAxis);
+}
+
+void OI::SetDeadband(double band)
+{
+	EnableDeadband(true);
+	m_deadband = band;
+}

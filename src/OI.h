@@ -10,23 +10,30 @@
 class OI
 {
 private:
-	Joystick* m_driver;
+	frc::Joystick* m_driver;
 	frc::JoystickButton* m_shift;
 
-	Joystick* m_coDriver;
+	frc::Joystick* m_coDriver;
 	frc::JoystickButton* m_shoot;
 	//frc::JoystickButton* m_manualOverride;
+
+	double m_deadband;
+	bool m_enableDeadband;
 
 public:
 	OI();
 	~OI();
 
-	Joystick* GetDriver() { return m_driver; }
-	Joystick* GetCoDriver() { return m_coDriver; }
+	frc::Joystick* GetStick(int stick);
 
-	// Temporary
-	double GetAxisX() { return m_driver->GetAxis(Joystick::AxisType::kXAxis); }
-	double GetAxisY() { return m_driver->GetAxis(Joystick::AxisType::kYAxis); }
+	double GetXAxis(int stick);
+	double GetYAxis(int stick);
+	double GetZAxis(int stick);
+
+	double Deadband(double input);
+	void SetDeadband(double band);
+	double GetDeadband() { return m_deadband; }
+	void EnableDeadband(bool enable) { m_enableDeadband = enable; }
 };
 
 #endif  // OI_H

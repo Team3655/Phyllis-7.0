@@ -31,6 +31,8 @@ constexpr double DRIVE_RB_P = 1;
 constexpr double DRIVE_RB_I = 0;
 constexpr double DRIVE_RB_D = 0;
 
+constexpr double DRIVE_DEFAULT_SCALE = 1.0;
+
 constexpr int DRIVE_ENC_CPR = 4096;
 
 // Shooter

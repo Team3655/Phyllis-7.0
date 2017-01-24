@@ -24,7 +24,8 @@ void Drive::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void Drive::Execute()
 {
-	drive.get()->ArcadeDrive(oi->GetAxisX(), oi->GetAxisY());
+	drive.get()->SetScale(oi->GetZAxis(JOY_DRIVER_PORT));
+	drive.get()->ArcadeDrive(oi->GetYAxis(JOY_DRIVER_PORT), oi->GetXAxis(JOY_CODRIVER_PORT));
 }
 
 // Make this return true when this Command no longer needs to run execute()

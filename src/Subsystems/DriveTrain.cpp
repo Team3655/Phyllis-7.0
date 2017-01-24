@@ -69,7 +69,7 @@ void DriveTrain::ArcadeDrive(double move, double rotate)
 		move = -move;
 		rotate = -rotate;
 	}
-	m_drive->ArcadeDrive(move, rotate);
+	m_drive->ArcadeDrive(move * m_scaleFactor, rotate * m_scaleFactor);
 }
 
 void DriveTrain::TankDrive(double left, double right)
@@ -79,17 +79,21 @@ void DriveTrain::TankDrive(double left, double right)
 		left = -left;
 		right = -right;
 	}
-	m_drive->TankDrive(left, right);
+	m_drive->TankDrive(left * m_scaleFactor, right * m_scaleFactor);
 }
 
 void DriveTrain::Reverse(bool reverse)
 {
 	m_reverse = reverse;
-	m_targetSpeed = -m_targetSpeed;
 }
 
 void DriveTrain::Shift()
 {
 	m_shifter->Set(!m_shiftState);
 	m_shiftState = m_shifter->Get();
+}
+
+void DriveTrain::SetScale(double scale)
+{
+	m_scaleFactor = scale;
 }

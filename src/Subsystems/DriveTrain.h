@@ -34,7 +34,7 @@ private:
 	frc::Solenoid* m_shifter;
 	bool m_shiftState;
 
-	double m_targetSpeed = 0;
+	double m_scaleFactor = 1.0;
 
 	bool m_reverse = false;
 
@@ -57,6 +57,8 @@ public:
 
 	// Toggles high/low gear
 	void Shift();
+
+	void SetScale(double scale);
 };
 
 #endif // DRIVE_TRAIN_H

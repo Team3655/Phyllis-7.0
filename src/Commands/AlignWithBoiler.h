@@ -1,5 +1,5 @@
-#ifndef AlignWithBoiler_H
-#define AlignWithBoiler_H
+#ifndef ALIGN_WITH_BOILER_H
+#define ALIGN_WITH_BOILER_H
 
 #include "../CommandBase.h"
 
@@ -13,4 +13,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // AlignWithBoiler_H
+#endif  // ALIGN_WITH_BOILER_H

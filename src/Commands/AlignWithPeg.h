@@ -1,5 +1,5 @@
-#ifndef AlignWithPeg_H
-#define AlignWithPeg_H
+#ifndef ALIGN_WITH_PEG_H
+#define ALIGN_WITH_PEG_H
 
 #include "../CommandBase.h"
 
@@ -13,4 +13,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // AlignWithPeg_H
+#endif  // ALIGN_WITH_PEG_H
