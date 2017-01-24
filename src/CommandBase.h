@@ -21,6 +21,7 @@
 #include "Subsystems/GearCollector.h"
 #include "Subsystems/Climber.h"
 #include "Subsystems/FuelCollector.h"
+#include "Subsystems/VisionManager.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -40,6 +41,7 @@ public:
 	static std::shared_ptr<GearCollector> gearCollector;
 	static std::shared_ptr<Climber> climber;
 	static std::shared_ptr<FuelCollector> fuelCollector;
+	static std::shared_ptr<VisionManager> visionManager;
 	static std::unique_ptr<OI> oi;
 };
 

@@ -63,7 +63,8 @@ constexpr int JOY_DRIVER_PORT = 0;
 constexpr int JOY_CODRIVER_PORT = 1;
 
 // Camera
-constexpr int CS_PORT = 0;
+constexpr int CS_PEG_CAM_PORT = 0;
+constexpr int CS_SHOOT_CAM_PORT = 1;
 
 // Utility functions
 inline bool is_about(double target, double acceptableRange)
