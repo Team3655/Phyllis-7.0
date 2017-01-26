@@ -95,5 +95,5 @@ void DriveTrain::Shift()
 
 void DriveTrain::SetScale(double scale)
 {
-	m_scaleFactor = scale;
+	m_scaleFactor = scale * DRIVE_ENC_CPR;
 }
