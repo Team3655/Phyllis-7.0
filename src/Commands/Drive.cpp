@@ -24,8 +24,9 @@ void Drive::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void Drive::Execute()
 {
-	drive.get()->SetScale(oi->GetZAxis(JOY_DRIVER_PORT));
-	drive.get()->ArcadeDrive(oi->GetYAxis(JOY_DRIVER_PORT), oi->GetXAxis(JOY_CODRIVER_PORT));
+	//drive.get()->SetScale(oi->GetZAxis(JOY_DRIVER_PORT));
+	//drive.get()->TankDrive(5000/*oi->GetYAxis(JOY_DRIVER_PORT)*/, 5000/*oi->GetXAxis(JOY_CODRIVER_PORT)*/);
+	drive.get()->SetPosition(0);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -37,7 +38,7 @@ bool Drive::IsFinished()
 // Called once after isFinished returns true
 void Drive::End()
 {
-	//drive.get()->TankDrive(0, 0);
+	drive.get()->TankDrive(0, 0);
 }
 
 // Called when another command which requires one or more of the same

@@ -18,18 +18,12 @@ constexpr int DRIVE_RB_PORT = 6;
 
 constexpr int DRIVE_LEFT_SHIFT_PORT = 0;
 
-constexpr double DRIVE_LF_P = 1;
-constexpr double DRIVE_LF_I = 0;
-constexpr double DRIVE_LF_D = 0;
-constexpr double DRIVE_LB_P = 1;
-constexpr double DRIVE_LB_I = 0;
-constexpr double DRIVE_LB_D = 0;
-constexpr double DRIVE_RF_P = 1;
-constexpr double DRIVE_RF_I = 0;
-constexpr double DRIVE_RF_D = 0;
-constexpr double DRIVE_RB_P = 1;
-constexpr double DRIVE_RB_I = 0;
-constexpr double DRIVE_RB_D = 0;
+constexpr double DRIVE_LB_P = .1;
+constexpr double DRIVE_LB_I = .001;
+constexpr double DRIVE_LB_D = .005;
+constexpr double DRIVE_RB_P = .1;
+constexpr double DRIVE_RB_I = .001;
+constexpr double DRIVE_RB_D = .005;
 
 constexpr double DRIVE_DEFAULT_SCALE = 1.0;
 
@@ -47,7 +41,6 @@ constexpr double GEAR_MOTOR_SPEED = .5;
 constexpr int CLIMB_LEFT_PORT = 0;
 constexpr int CLIMB_RIGHT_PORT = 1;
 constexpr double CLIMB_UP_POS = 0;
-constexpr double CLIMB_lEFT_P
 
 // Fuel Collector
 constexpr int FUEL_GATE_PORT = 0;

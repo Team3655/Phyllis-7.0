@@ -2,6 +2,7 @@
 #define Climber_H
 
 #include <Commands/Subsystem.h>
+#include <CANTalon.h>
 
 #include "../ExtSubsystem.h"
 

@@ -59,6 +59,8 @@ public:
 	void Shift();
 
 	void SetScale(double scale);
+
+	void SetPosition(double pos);
 };
 
 #endif // DRIVE_TRAIN_H

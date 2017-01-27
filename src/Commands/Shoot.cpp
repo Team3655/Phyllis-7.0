@@ -16,7 +16,7 @@ void Shoot::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void Shoot::Execute()
 {
-	double y = oi.get()->GetAxisY();
+	double y = oi.get()->GetYAxis(0);
 	shooter.get()->Set(y);
 	/*if (shooter.get()->IsAtSpeed())
 	{

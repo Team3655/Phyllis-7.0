@@ -38,7 +38,7 @@ void DriveTrain::Initialize()
 
 	m_lb = new CANTalon(DRIVE_LB_PORT);
 	m_lb->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
-	m_lb->SetTalonControlMode(CANTalon::TalonControlMode::kSpeedMode);
+	m_lb->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
 	m_lb->SetPID(DRIVE_LB_P, DRIVE_LB_I, DRIVE_LB_D);
 
 	m_lf = new CANTalon(DRIVE_LF_PORT);
@@ -47,7 +47,7 @@ void DriveTrain::Initialize()
 
 	m_rb = new CANTalon(DRIVE_RB_PORT);
 	m_rb->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
-	m_rb->SetTalonControlMode(CANTalon::TalonControlMode::kSpeedMode)
+	m_rb->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
 	m_rb->SetPID(DRIVE_RB_P, DRIVE_RB_I, DRIVE_RB_D);
 
 	m_rf = new CANTalon(DRIVE_RF_PORT);
@@ -69,7 +69,8 @@ void DriveTrain::ArcadeDrive(double move, double rotate)
 		move = -move;
 		rotate = -rotate;
 	}
-	m_drive->ArcadeDrive(move * m_scaleFactor, rotate * m_scaleFactor);
+	m_drive->ArcadeDrive(move * m_scaleFactor * DRIVE_ENC_CPR, rotate * m_scaleFactor * DRIVE_ENC_CPR);
+	std::cout << m_lb->Get() << m_rb->Get() << std::endl;
 }
 
 void DriveTrain::TankDrive(double left, double right)
@@ -79,7 +80,8 @@ void DriveTrain::TankDrive(double left, double right)
 		left = -left;
 		right = -right;
 	}
-	m_drive->TankDrive(left * m_scaleFactor, right * m_scaleFactor);
+	m_drive->TankDrive(left * m_scaleFactor * DRIVE_ENC_CPR, right * m_scaleFactor * DRIVE_ENC_CPR);
+	std::cout << m_lb->Get() << m_rb->Get() << std::endl;
 }
 
 void DriveTrain::Reverse(bool reverse)
@@ -96,4 +98,11 @@ void DriveTrain::Shift()
 void DriveTrain::SetScale(double scale)
 {
 	m_scaleFactor = scale * DRIVE_ENC_CPR;
+}
+
+void DriveTrain::SetPosition(double pos)
+{
+	m_lb->Set(pos * DRIVE_ENC_CPR);
+	m_rb->Set(pos * DRIVE_ENC_CPR);
+	std::cout << m_lb->Get() << m_rb->Get() << std::endl;
 }
