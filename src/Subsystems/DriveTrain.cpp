@@ -40,6 +40,7 @@ void DriveTrain::Initialize()
 	m_lb->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
 	m_lb->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
 	m_lb->SetPID(DRIVE_LB_P, DRIVE_LB_I, DRIVE_LB_D);
+	//m_lb->SetF(DRIVE_LB_F);
 
 	m_lf = new CANTalon(DRIVE_LF_PORT);
 	m_lf->SetControlMode(CANTalon::ControlMode::kFollower);
@@ -49,13 +50,16 @@ void DriveTrain::Initialize()
 	m_rb->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
 	m_rb->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
 	m_rb->SetPID(DRIVE_RB_P, DRIVE_RB_I, DRIVE_RB_D);
+	//m_rb->SetF(DRIVE_RB_F);
 
 	m_rf = new CANTalon(DRIVE_RF_PORT);
 	m_rf->SetControlMode(CANTalon::ControlMode::kFollower);
 	m_rf->Set(m_rb->GetDeviceID());
 
-	m_rf->SetInverted(true);
-	m_rb->SetInverted(true);
+	//m_rf->SetInverted(true);
+	//m_rb->SetInverted(true);
+
+	//m_rb->SetSensorDirection(true);
 
 	m_drive = new RobotDrive(m_lb, m_rb);
 
@@ -70,7 +74,8 @@ void DriveTrain::ArcadeDrive(double move, double rotate)
 		rotate = -rotate;
 	}
 	m_drive->ArcadeDrive(move * m_scaleFactor * DRIVE_ENC_CPR, rotate * m_scaleFactor * DRIVE_ENC_CPR);
-	std::cout << m_lb->Get() << m_rb->Get() << std::endl;
+	//std::cout << m_lb->GetEncPosition() << " : " << m_rb->GetEncPosition() << std::endl;
+	std::cout << m_rb->IsSensorPresent(CANTalon::CtreMagEncoder_Absolute) << std::endl;
 }
 
 void DriveTrain::TankDrive(double left, double right)
@@ -80,8 +85,10 @@ void DriveTrain::TankDrive(double left, double right)
 		left = -left;
 		right = -right;
 	}
-	m_drive->TankDrive(left * m_scaleFactor * DRIVE_ENC_CPR, right * m_scaleFactor * DRIVE_ENC_CPR);
-	std::cout << m_lb->Get() << m_rb->Get() << std::endl;
+	m_drive->TankDrive(left, right);
+	//m_lb->Set(left /** DRIVE_ENC_CPR*/);
+	//m_rb->Set(right /** DRIVE_ENC_CPR*/);
+	std::cout << m_lb->GetEncPosition() << "/" << m_lb->Get() << " : " << m_rb->GetEncPosition() << "/" << m_rb->Get() << std::endl;
 }
 
 void DriveTrain::Reverse(bool reverse)
@@ -97,12 +104,12 @@ void DriveTrain::Shift()
 
 void DriveTrain::SetScale(double scale)
 {
-	m_scaleFactor = scale * DRIVE_ENC_CPR;
+	m_scaleFactor = scale;
 }
 
 void DriveTrain::SetPosition(double pos)
 {
-	m_lb->Set(pos * DRIVE_ENC_CPR);
-	m_rb->Set(pos * DRIVE_ENC_CPR);
-	std::cout << m_lb->Get() << m_rb->Get() << std::endl;
+	m_lb->Set(pos);
+	m_rb->Set(pos);
+	std::cout << m_lb->GetEncPosition() << "/" << m_lb->GetClosedLoopError() << " : " << m_rb->GetEncPosition() << "/" << m_rb->GetClosedLoopError() << std::endl;
 }

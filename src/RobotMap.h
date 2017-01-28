@@ -19,11 +19,15 @@ constexpr int DRIVE_RB_PORT = 6;
 constexpr int DRIVE_LEFT_SHIFT_PORT = 0;
 
 constexpr double DRIVE_LB_P = .1;
-constexpr double DRIVE_LB_I = .001;
-constexpr double DRIVE_LB_D = .005;
-constexpr double DRIVE_RB_P = .1;
-constexpr double DRIVE_RB_I = .001;
-constexpr double DRIVE_RB_D = .005;
+constexpr double DRIVE_LB_I = .003;
+constexpr double DRIVE_LB_D = 2;
+constexpr double DRIVE_LB_F = 0;
+constexpr double DRIVE_RB_P = 2;
+constexpr double DRIVE_RB_I = .01;
+constexpr double DRIVE_RB_D = .1;
+constexpr double DRIVE_RB_F = 0;
+
+constexpr double DRIVE_ALLOWED_ERROR = 100;
 
 constexpr double DRIVE_DEFAULT_SCALE = 1.0;
 
