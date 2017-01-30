@@ -34,27 +34,24 @@ void DriveTrain::InitDefaultCommand()
 
 void DriveTrain::Initialize()
 {
-	m_shifter = new Solenoid(DRIVE_LEFT_SHIFT_PORT);
+	m_shifter = new Solenoid(DRIVE_SHIFT_PORT);
 
-	m_lb = new CANTalon(DRIVE_LB_PORT);
+	m_lb = new CANTalon(DRIVE_LEFT_PORT);
 	m_lb->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
-	m_lb->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
-	m_lb->SetPID(DRIVE_LB_P, DRIVE_LB_I, DRIVE_LB_D);
-	//m_lb->SetF(DRIVE_LB_F);
 
 	m_lf = new CANTalon(DRIVE_LF_PORT);
 	m_lf->SetControlMode(CANTalon::ControlMode::kFollower);
 	m_lf->Set(m_lb->GetDeviceID());
 
-	m_rb = new CANTalon(DRIVE_RB_PORT);
+	m_rb = new CANTalon(DRIVE_RIGHT_PORT);
 	m_rb->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
-	m_rb->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
-	m_rb->SetPID(DRIVE_RB_P, DRIVE_RB_I, DRIVE_RB_D);
-	//m_rb->SetF(DRIVE_RB_F);
 
 	m_rf = new CANTalon(DRIVE_RF_PORT);
 	m_rf->SetControlMode(CANTalon::ControlMode::kFollower);
 	m_rf->Set(m_rb->GetDeviceID());
+
+	SetTalonMode(CANTalon::TalonControlMode::kSpeedMode);
+	set_pid_values();
 
 	//m_rf->SetInverted(true);
 	//m_rb->SetInverted(true);
@@ -64,6 +61,35 @@ void DriveTrain::Initialize()
 	m_drive = new RobotDrive(m_lb, m_rb);
 
 	m_shiftState = m_shifter->Get();
+}
+
+CANTalon::TalonControlMode DriveTrain::get_talon_mode()
+{
+	return m_lb->GetTalonControlMode() & m_rb->GetTalonControlMode();
+}
+
+void DriveTrain::set_pid_values()
+{
+	switch (get_talon_mode())
+	{
+	case CANTalon::TalonControlMode::kPositionMode:
+		m_lb->SetPID(DRIVE_LEFT_POS_P, DRIVE_LEFT_POS_I, DRIVE_LEFT_POS_D);
+		m_rb->SetPID(DRIVE_RIGHT_POS_P, DRIVE_RIGHT_POS_I, DRIVE_RIGHT_POS_D);
+		break;
+	default:
+	case CANTalon::TalonControlMode::kSpeedMode:
+		m_lb->SetPID(DRIVE_LEFT_SPD_P, DRIVE_LEFT_SPD_I, DRIVE_LEFT_SPD_D);
+		m_rb->SetPID(DRIVE_RIGHT_SPD_P, DRIVE_RIGHT_SPD_I, DRIVE_RIGHT_SPD_D);
+		break;
+	}
+}
+
+void DriveTrain::SetTalonMode(CANTalon::TalonControlMode mode)
+{
+	m_lb->SetTalonControlMode(mode);
+	m_rb->SetTalonControlMode(mode);
+
+	set_pid_values();
 }
 
 void DriveTrain::ArcadeDrive(double move, double rotate)
@@ -86,8 +112,6 @@ void DriveTrain::TankDrive(double left, double right)
 		right = -right;
 	}
 	m_drive->TankDrive(left, right);
-	//m_lb->Set(left /** DRIVE_ENC_CPR*/);
-	//m_rb->Set(right /** DRIVE_ENC_CPR*/);
 	std::cout << m_lb->GetEncPosition() << "/" << m_lb->Get() << " : " << m_rb->GetEncPosition() << "/" << m_rb->Get() << std::endl;
 }
 

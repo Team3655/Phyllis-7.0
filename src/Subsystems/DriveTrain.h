@@ -38,12 +38,18 @@ private:
 
 	bool m_reverse = false;
 
+
+	CANTalon::TalonControlMode get_talon_mode();
+	void set_pid_values();
+
 public:
 	DriveTrain();
 	~DriveTrain();
 	void InitDefaultCommand();
 
 	void Initialize() override;
+
+	void SetTalonMode(CANTalon::TalonControlMode mode);
 
 	// Drive the bot in Arcade Drive (invert doesn't work)
 	void ArcadeDrive(double move, double rotate);

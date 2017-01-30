@@ -1,9 +1,10 @@
-#ifndef DriveToPosition_H
-#define DriveToPosition_H
+#ifndef DRIVE_TO_POSITION_H
+#define DRIVE_TO_POSITION_H
 
 #include "../CommandBase.h"
 
-class DriveToPosition : public CommandBase {
+class DriveToPosition : public CommandBase
+{
 public:
 	DriveToPosition();
 	void Initialize();
@@ -13,4 +14,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // DriveToPosition_H
+#endif  // DRIVE_TO_POSITION_H

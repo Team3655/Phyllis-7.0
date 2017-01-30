@@ -18,7 +18,7 @@ Drive::Drive() :
 // Called just before this Command runs the first time
 void Drive::Initialize()
 {
-
+	drive.get()->SetTalonMode(CANTalon::TalonControlMode::kSpeedMode);
 }
 
 // Called repeatedly when this Command is scheduled to run
