@@ -13,8 +13,17 @@
 class FuelCollector : public frc::Subsystem, public ExtSubsystem
 {
 private:
+	enum CollectState
+	{
+		kStopped = 0,
+		kCollecting = 1,
+		kEjecting = 2
+	} m_state;
+
 	frc::Servo* m_gate;
 	CANTalon* m_intake;
+
+	std::string state_to_string(uint32_t state);
 
 public:
 	FuelCollector();
@@ -22,9 +31,11 @@ public:
 	void InitDefaultCommand();
 
 	void Initialize() override;
+	void DashboardOutput(bool verbose = false) override;
 
 	// Open/close flow from magazine to shooter
 	void SetOpen(bool open);
+	bool IsOpen() { return m_gate->Get(); }
 
 	// bool IsBallPresent();
 

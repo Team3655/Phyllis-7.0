@@ -12,9 +12,18 @@
 class Shooter : public frc::Subsystem, public ExtSubsystem
 {
 private:
+	enum ShootState
+	{
+		kStopped,
+		kShooting,
+		kRecovering
+	} m_state;
+
 	CANTalon* m_shooter;
 
 	double m_targetSpeed;
+
+	std::string state_to_string(uint32_t state);
 
 public:
 	Shooter();
@@ -22,6 +31,7 @@ public:
 	void InitDefaultCommand();
 
 	void Initialize() override;
+	void DashboardOutput(bool verbose = false) override;
 
 	// Sets the speed of the shooter motor
 	void Set(double speed);

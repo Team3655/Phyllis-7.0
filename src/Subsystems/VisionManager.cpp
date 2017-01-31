@@ -18,6 +18,14 @@ void VisionManager::Initialize()
 	m_pegCam = m_cs->StartAutomaticCapture();
 }
 
+void VisionManager::DashboardOutput(bool verbose)
+{
+	if (verbose)
+	{
+
+	}
+}
+
 void VisionManager::SetCamera(int camera)
 {
 	switch (camera)
