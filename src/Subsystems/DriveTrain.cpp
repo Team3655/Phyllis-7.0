@@ -63,6 +63,15 @@ void DriveTrain::Initialize()
 	m_shiftState = m_shifter->Get();
 }
 
+void DriveTrain::DashboardOutput(bool verbose)
+{
+	if (verbose)
+	{
+		frc::SmartDashboard::PutNumber("Count L", m_lb->GetEncPosition());
+		frc::SmartDashboard::PutNumber("Count R", m_rb->GetEncPosition());
+	}
+}
+
 CANTalon::TalonControlMode DriveTrain::get_talon_mode()
 {
 	return m_lb->GetTalonControlMode() & m_rb->GetTalonControlMode();
@@ -100,8 +109,6 @@ void DriveTrain::ArcadeDrive(double move, double rotate)
 		rotate = -rotate;
 	}
 	m_drive->ArcadeDrive(move * m_scaleFactor * DRIVE_ENC_CPR, rotate * m_scaleFactor * DRIVE_ENC_CPR);
-	//std::cout << m_lb->GetEncPosition() << " : " << m_rb->GetEncPosition() << std::endl;
-	std::cout << m_rb->IsSensorPresent(CANTalon::CtreMagEncoder_Absolute) << std::endl;
 }
 
 void DriveTrain::TankDrive(double left, double right)
@@ -112,7 +119,6 @@ void DriveTrain::TankDrive(double left, double right)
 		right = -right;
 	}
 	m_drive->TankDrive(left, right);
-	std::cout << m_lb->GetEncPosition() << "/" << m_lb->Get() << " : " << m_rb->GetEncPosition() << "/" << m_rb->Get() << std::endl;
 }
 
 void DriveTrain::Reverse(bool reverse)
@@ -135,5 +141,4 @@ void DriveTrain::SetPosition(double pos)
 {
 	m_lb->Set(pos);
 	m_rb->Set(pos);
-	std::cout << m_lb->GetEncPosition() << "/" << m_lb->GetClosedLoopError() << " : " << m_rb->GetEncPosition() << "/" << m_rb->GetClosedLoopError() << std::endl;
 }

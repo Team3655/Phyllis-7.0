@@ -18,6 +18,8 @@ public:
 
 	// Implement to initialize wpilib classes
 	virtual	void Initialize() = 0;
+
+	virtual void DashboardOutput(bool verbose) {}
 };
 
 #endif // EXT_SUBSYSTEM_H

@@ -23,16 +23,16 @@ constexpr int DRIVE_SHIFT_PORT = 0;
 constexpr double DRIVE_LEFT_POS_P = .1;
 constexpr double DRIVE_LEFT_POS_I = .003;
 constexpr double DRIVE_LEFT_POS_D = 2;
-constexpr double DRIVE_LEFT_SPD_P = .1;
-constexpr double DRIVE_LEFT_SPD_I = .003;
-constexpr double DRIVE_LEFT_SPD_D = 2;
+constexpr double DRIVE_LEFT_SPD_P = 1;
+constexpr double DRIVE_LEFT_SPD_I = 0;
+constexpr double DRIVE_LEFT_SPD_D = 0;
 // Right
 constexpr double DRIVE_RIGHT_POS_P = 2;
 constexpr double DRIVE_RIGHT_POS_I = .01;
 constexpr double DRIVE_RIGHT_POS_D = .1;
-constexpr double DRIVE_RIGHT_SPD_P = 2;
-constexpr double DRIVE_RIGHT_SPD_I = .01;
-constexpr double DRIVE_RIGHT_SPD_D = .1;
+constexpr double DRIVE_RIGHT_SPD_P = 1;
+constexpr double DRIVE_RIGHT_SPD_I = 0;
+constexpr double DRIVE_RIGHT_SPD_D = 0;
 
 constexpr double DRIVE_ALLOWED_ERROR = 100;
 
@@ -43,23 +43,39 @@ constexpr int DRIVE_ENC_CPR = 1440;
 //---------------------------------------------------------
 // Shooter
 constexpr int SHOOT_MOTOR_PORT = 6;
+constexpr double SHOOT_P = 1;
+constexpr double SHOOT_I = 0;
+constexpr double SHOOT_D = 0;
 
 //---------------------------------------------------------
 // Gear Collector
 constexpr int GEAR_INTAKE_PORT = 0;
+constexpr double GEAR_INTAKE_P = 1;
+constexpr double GEAR_INTAKE_I = 0;
+constexpr double GEAR_INTAKE_D = 0;
 constexpr int GEAR_TRANS_PORT = 1;
-constexpr double GEAR_MOTOR_SPEED = .5;
+constexpr double GEAR_TRANS_P = 1;
+constexpr double GEAR_TRANS_I = 0;
+constexpr double GEAR_TRANS_D = 0;
 
 //---------------------------------------------------------
 // Climber
 constexpr int CLIMB_LEFT_PORT = 0;
+constexpr double CLIMB_LEFT_P = 1;
+constexpr double CLIMB_LEFT_I = 0;
+constexpr double CLIMB_LEFT_D = 0;
 constexpr int CLIMB_RIGHT_PORT = 1;
+constexpr double CLIMB_RIGHT_P = 1;
+constexpr double CLIMB_RIGHT_I = 0;
+constexpr double CLIMB_RIGHT_D = 0;
 constexpr double CLIMB_UP_POS = 0;
 
 //---------------------------------------------------------
 // Fuel Collector
 constexpr int FUEL_GATE_PORT = 0;
 constexpr int FUEL_INTAKE_PORT = 0;
+constexpr double FUEL_GATE_OPEN = 0;
+constexpr double FUEL_GATE_CLOSE = 0;
 constexpr double FUEL_INTAKE_SPEED = 0;
 constexpr double FUEL_INTAKE_P = 1;
 constexpr double FUEL_INTAKE_I = 0;

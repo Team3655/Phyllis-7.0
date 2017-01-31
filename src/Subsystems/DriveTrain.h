@@ -48,6 +48,7 @@ public:
 	void InitDefaultCommand();
 
 	void Initialize() override;
+	void DashboardOutput(bool verbose = false) override;
 
 	void SetTalonMode(CANTalon::TalonControlMode mode);
 
