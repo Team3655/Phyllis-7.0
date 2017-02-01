@@ -18,7 +18,7 @@ void GearCollector::InitDefaultCommand()
 	SetDefaultCommand(new CollectGear());
 }
 
-std::string FuelCollector::state_to_string(uint32_t state)
+std::string GearCollector::state_to_string(uint32_t state)
 {
 	switch (state)
 	{

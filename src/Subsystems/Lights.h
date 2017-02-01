@@ -3,6 +3,8 @@
 
 #include <Commands/Subsystem.h>
 
+#include "../ExtSubsystem.h"
+
 class Lights : public Subsystem, public ExtSubsystem
 {
 private:

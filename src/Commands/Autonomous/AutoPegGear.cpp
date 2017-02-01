@@ -1,6 +1,6 @@
-#include "AutoCrossLine.h"
+#include "AutoPegGear.h"
 
-AutoCrossLine::AutoCrossLine()
+AutoPegGear::AutoPegGear()
 {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());

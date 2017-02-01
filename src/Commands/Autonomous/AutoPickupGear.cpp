@@ -1,6 +1,6 @@
-#include "AutoCrossLine.h"
+#include "AutoPickupGear.h"
 
-AutoCrossLine::AutoCrossLine()
+AutoPickupGear::AutoPickupGear()
 {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());

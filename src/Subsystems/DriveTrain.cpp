@@ -74,7 +74,7 @@ void DriveTrain::DashboardOutput(bool verbose)
 
 CANTalon::TalonControlMode DriveTrain::get_talon_mode()
 {
-	return m_lb->GetTalonControlMode() & m_rb->GetTalonControlMode();
+	return (CANTalon::TalonControlMode)(m_lb->GetTalonControlMode() & m_rb->GetTalonControlMode());
 }
 
 void DriveTrain::set_pid_values()

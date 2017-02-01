@@ -1,6 +1,6 @@
-#include "AutoCrossLine.h"
+#include "AutoPickupAndPeg.h"
 
-AutoCrossLine::AutoCrossLine()
+AutoPickupAndPeg::AutoPickupAndPeg()
 {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());

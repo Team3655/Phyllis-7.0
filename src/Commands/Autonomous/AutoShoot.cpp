@@ -1,6 +1,6 @@
-#include "AutoCrossLine.h"
+#include "AutoShoot.h"
 
-AutoCrossLine::AutoCrossLine()
+AutoShoot::AutoShoot()
 {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
