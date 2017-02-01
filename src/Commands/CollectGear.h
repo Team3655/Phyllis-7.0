@@ -1,9 +1,10 @@
-#ifndef CollectGear_H
-#define CollectGear_H
+#ifndef COLLECT_GEAR_H
+#define COLLECT_GEAR_H
 
 #include "../CommandBase.h"
 
-class CollectGear : public CommandBase {
+class CollectGear : public CommandBase
+{
 public:
 	CollectGear();
 	void Initialize();
@@ -13,4 +14,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // CollectGear_H
+#endif  // COLLECT_GEAR_H
