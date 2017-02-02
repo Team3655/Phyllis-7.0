@@ -5,7 +5,8 @@
 
 namespace grip {
 
-GripPipeline::GripPipeline() {
+GripPipeline::GripPipeline()
+{
 	this->switchSwitch = true;
 }
 /**
@@ -14,7 +15,8 @@ GripPipeline::GripPipeline() {
 * Sources need to be set before calling this method. 
 *
 */
-void GripPipeline::process(cv::Mat source0){
+void GripPipeline::process(cv::Mat source0)
+{
 	//Step Switch0:
 	//input
 	bool switchSwitch = this->switchSwitch;
@@ -61,49 +63,56 @@ void GripPipeline::process(cv::Mat source0){
  * This method is a generated setter for source0.
  * @param source the Mat to set
  */
-void GripPipeline::setsource0(cv::Mat &source0){
+void GripPipeline::setsource0(cv::Mat &source0)
+{
 	source0.copyTo(source0);
 }
 /**
  * This method is a generated setter for the condition of Switch 0
  * @param the condition to set
  */
-void GripPipeline::setSwitch0(bool value){
+void GripPipeline::setSwitch0(bool value)
+{
 	switchSwitch = value;
 }
 /**
  * This method is a generated getter for the output of a Switch.
  * @return Mat output from Switch.
  */
-cv::Mat* GripPipeline::getswitchOutput(){
+cv::Mat* GripPipeline::getswitchOutput()
+{
 	return &(this->switchOutput);
 }
 /**
  * This method is a generated getter for the output of a Resize_Image.
  * @return Mat output from Resize_Image.
  */
-cv::Mat* GripPipeline::getresizeImageOutput(){
+cv::Mat* GripPipeline::getresizeImageOutput()
+{
 	return &(this->resizeImageOutput);
 }
 /**
  * This method is a generated getter for the output of a HSL_Threshold.
  * @return Mat output from HSL_Threshold.
  */
-cv::Mat* GripPipeline::gethslThresholdOutput(){
+cv::Mat* GripPipeline::gethslThresholdOutput()
+{
 	return &(this->hslThresholdOutput);
 }
 /**
  * This method is a generated getter for the output of a Find_Contours.
  * @return ContoursReport output from Find_Contours.
  */
-std::vector<std::vector<cv::Point> >* GripPipeline::getfindContoursOutput(){
+std::vector<std::vector<cv::Point> >* GripPipeline::getfindContoursOutput()
+{
 	return &(this->findContoursOutput);
 }
 /**
  * This method is a generated getter for the output of a Filter_Contours.
  * @return ContoursReport output from Filter_Contours.
  */
-std::vector<std::vector<cv::Point> >* GripPipeline::getfilterContoursOutput(){
+std::vector<std::vector<cv::Point> >* GripPipeline::getfilterContoursOutput()
+{
 	return &(this->filterContoursOutput);
 }
 	/**
@@ -115,7 +124,8 @@ std::vector<std::vector<cv::Point> >* GripPipeline::getfilterContoursOutput(){
 	 * @param output The output which is equal to either onTrue or onFalse.
 	 */
 	template<typename T>
-	void GripPipeline::pipelineswitch(bool sw, T &onTrue, T &onFalse, T &output) {
+	void GripPipeline::pipelineswitch(bool sw, T &onTrue, T &onFalse, T &output)
+	{
 		if (sw) {
 			output = onTrue;
 		}
@@ -133,7 +143,8 @@ std::vector<std::vector<cv::Point> >* GripPipeline::getfilterContoursOutput(){
 	 * @param interpolation The type of interpolation.
 	 * @param output The image in which to store the output.
 	 */
-	void GripPipeline::resizeImage(cv::Mat &input, double width, double height, int interpolation, cv::Mat &output) {
+	void GripPipeline::resizeImage(cv::Mat &input, double width, double height, int interpolation, cv::Mat &output)
+	{
 		cv::resize(input, output, cv::Size(width, height), 0.0, 0.0, interpolation);
 	}
 
@@ -147,7 +158,8 @@ std::vector<std::vector<cv::Point> >* GripPipeline::getfilterContoursOutput(){
 	 * @param output The image in which to store the output.
 	 */
 	//void hslThreshold(Mat *input, double hue[], double sat[], double lum[], Mat *out) {
-	void GripPipeline::hslThreshold(cv::Mat &input, double hue[], double sat[], double lum[], cv::Mat &out) {
+	void GripPipeline::hslThreshold(cv::Mat &input, double hue[], double sat[], double lum[], cv::Mat &out)
+	{
 		cv::cvtColor(input, out, cv::COLOR_BGR2HLS);
 		cv::inRange(out, cv::Scalar(hue[0], lum[0], sat[0]), cv::Scalar(hue[1], lum[1], sat[1]), out);
 	}
@@ -159,7 +171,8 @@ std::vector<std::vector<cv::Point> >* GripPipeline::getfilterContoursOutput(){
 	 * @param externalOnly if only external contours are to be found.
 	 * @param contours vector of contours to put contours in.
 	 */
-	void GripPipeline::findContours(cv::Mat &input, bool externalOnly, std::vector<std::vector<cv::Point> > &contours) {
+	void GripPipeline::findContours(cv::Mat &input, bool externalOnly, std::vector<std::vector<cv::Point> > &contours)
+	{
 		std::vector<cv::Vec4i> hierarchy;
 		contours.clear();
 		int mode = externalOnly ? cv::RETR_EXTERNAL : cv::RETR_LIST;
@@ -184,7 +197,8 @@ std::vector<std::vector<cv::Point> >* GripPipeline::getfilterContoursOutput(){
 	 * @param maxRatio maximum ratio of width to height.
 	 * @param output vector of filtered contours.
 	 */
-	void GripPipeline::filterContours(std::vector<std::vector<cv::Point> > &inputContours, double minArea, double minPerimeter, double minWidth, double maxWidth, double minHeight, double maxHeight, double solidity[], double maxVertexCount, double minVertexCount, double minRatio, double maxRatio, std::vector<std::vector<cv::Point> > &output) {
+	void GripPipeline::filterContours(std::vector<std::vector<cv::Point> > &inputContours, double minArea, double minPerimeter, double minWidth, double maxWidth, double minHeight, double maxHeight, double solidity[], double maxVertexCount, double minVertexCount, double minRatio, double maxRatio, std::vector<std::vector<cv::Point> > &output)
+	{
 		std::vector<cv::Point> hull;
 		output.clear();
 		for (std::vector<cv::Point> contour: inputContours) {
@@ -203,8 +217,6 @@ std::vector<std::vector<cv::Point> >* GripPipeline::getfilterContoursOutput(){
 			output.push_back(contour);
 		}
 	}
-
-
 
 } // end grip namespace
 

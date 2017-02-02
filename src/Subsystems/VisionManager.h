@@ -4,6 +4,7 @@
 #include <Commands/Subsystem.h>
 #include <CameraServer.h>
 
+#include "../GripPipeline.h"
 #include "../ExtSubsystem.h"
 
 // Summary:
@@ -14,6 +15,9 @@ private:
 	frc::CameraServer* m_cs;
 	cs::UsbCamera m_pegCam;
 	cs::UsbCamera m_shootCam;
+
+	// Processing
+	grip::GripPipeline* m_processing;
 
 	int m_currentCam;
 
