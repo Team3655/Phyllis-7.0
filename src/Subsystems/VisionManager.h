@@ -13,8 +13,6 @@
 class VisionManager : public frc::Subsystem, public ExtSubsystem
 {
 private:
-
-
 	frc::CameraServer* m_cs;
 	cs::UsbCamera m_pegCam;
 	cs::UsbCamera m_shootCam;
