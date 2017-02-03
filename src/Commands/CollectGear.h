@@ -5,6 +5,9 @@
 
 class CollectGear : public CommandBase
 {
+private:
+	frc::JoystickButton* m_intakeBtn;
+
 public:
 	CollectGear();
 	void Initialize();

@@ -2,8 +2,9 @@
 
 CollectGear::CollectGear()
 {
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
+	Requires(gearCollector.get());
+
+	m_intakeBtn = new frc::JoystickButton(oi.get()->GetStick(0), 1);
 }
 
 // Called just before this Command runs the first time
@@ -15,7 +16,14 @@ void CollectGear::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void CollectGear::Execute()
 {
-
+	if (m_intakeBtn->Get())
+	{
+		gearCollector.get()->SetIntake();
+	}
+	else
+	{
+		gearCollector.get()->Stop();
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()

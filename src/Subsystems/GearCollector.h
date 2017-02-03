@@ -19,6 +19,8 @@ private:
 	} m_state;
 
 	CANTalon* m_intake;
+	CANTalon* m_transport1;
+	CANTalon* m_transport2;
 
 	std::string state_to_string(uint32_t state);
 
@@ -30,8 +32,9 @@ public:
 	void Initialize() override;
 	void DashboardOutput(bool verbose = false) override;
 
-	// Set the gear intake motor
-	void SetIntake(double speed);
+	// Set all of the motors
+	void SetIntake();
+	void Stop();
 };
 
 #endif  // GEAR_COLLECTOR_H

@@ -11,6 +11,8 @@ GearCollector::GearCollector() :
 GearCollector::~GearCollector()
 {
 	delete m_intake;
+	delete m_transport1;
+	delete m_transport2;
 }
 
 void GearCollector::InitDefaultCommand()
@@ -40,7 +42,13 @@ std::string GearCollector::state_to_string(uint32_t state)
 void GearCollector::Initialize()
 {
 	m_intake = new CANTalon(GEAR_INTAKE_PORT);
-	m_intake->SetControlMode(CANTalon::ControlMode::kSpeed);
+	m_intake->SetControlMode(CANTalon::ControlMode::kPercentVbus);
+
+	m_transport1 = new CANTalon(GEAR_TRANS1_PORT);
+	m_transport2 = new CANTalon(GEAR_TRANS2_PORT);
+
+	m_transport1->SetControlMode(CANTalon::ControlMode::kPercentVbus);
+	m_transport2->SetControlMode(CANTalon::ControlMode::kPercentVbus);
 }
 
 void GearCollector::DashboardOutput(bool verbose)
@@ -53,7 +61,16 @@ void GearCollector::DashboardOutput(bool verbose)
 	}
 }
 
-void GearCollector::SetIntake(double speed)
+void GearCollector::SetIntake()
 {
-	m_intake->Set(speed);
+	m_intake->Set(GEAR_INTAKE_SPEED);
+	m_transport1->Set(GEAR_TRANS1_SPEED);
+	m_transport2->Set(GEAR_TRANS2_SPEED);
+}
+
+void GearCollector::Stop()
+{
+	m_intake->Set(0);
+	m_transport1->Set(0);
+	m_transport2->Set(0);
 }
