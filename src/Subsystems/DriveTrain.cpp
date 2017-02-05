@@ -29,7 +29,7 @@ DriveTrain::~DriveTrain()
 
 void DriveTrain::InitDefaultCommand()
 {
-	SetDefaultCommand(new Drive());
+	//SetDefaultCommand(new Drive());
 }
 
 void DriveTrain::Initialize()
@@ -50,7 +50,7 @@ void DriveTrain::Initialize()
 	m_rf->SetControlMode(CANTalon::ControlMode::kFollower);
 	m_rf->Set(m_rb->GetDeviceID());
 
-	SetTalonMode(CANTalon::ControlMode::kPercentVbus);
+	SetTalonMode(CANTalon::TalonControlMode::kPositionMode);
 	set_pid_values();
 
 	//m_rf->SetInverted(true);
@@ -93,10 +93,10 @@ void DriveTrain::set_pid_values()
 	}
 }
 
-void DriveTrain::SetTalonMode(CANTalon::ControlMode mode/*CANTalon::TalonControlMode mode*/)
+void DriveTrain::SetTalonMode(/*CANTalon::ControlMode mode*/CANTalon::TalonControlMode mode)
 {
-	m_lb->SetControlMode(mode);
-	m_rb->SetControlMode(mode);
+	m_lb->SetTalonControlMode(mode);
+	m_rb->SetTalonControlMode(mode);
 
 	set_pid_values();
 }
@@ -119,6 +119,7 @@ void DriveTrain::TankDrive(double left, double right)
 		right = -right;
 	}
 	m_drive->TankDrive(left, right);
+	std::cout << "L counts: " << m_lb->GetEncPosition() << ": R count: " << m_rb->GetEncPosition() << std::endl;
 }
 
 void DriveTrain::Reverse(bool reverse)
@@ -140,5 +141,6 @@ void DriveTrain::SetScale(double scale)
 void DriveTrain::SetPosition(double pos)
 {
 	m_lb->Set(pos);
-	m_rb->Set(pos);
+	m_rb->Set(-pos);
+	std::cout << "L counts: " << m_lb->GetEncPosition() << " : R count: " << m_rb->GetEncPosition() << std::endl;
 }

@@ -26,6 +26,8 @@ private:
 	std::unique_ptr<frc::Command> autonomousCommand;
 	frc::SendableChooser<frc::Command*> chooser;
 
+	frc::CameraServer* cs;
+
 public:
 	void InitializeSubsystems()
 	{
