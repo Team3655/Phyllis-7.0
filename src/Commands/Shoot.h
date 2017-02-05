@@ -8,6 +8,8 @@ class Shoot : public CommandBase
 private:
 	bool m_isAligned;
 
+	frc::JoystickButton* m_shootBtn;
+
 public:
 	Shoot();
 	void Initialize();

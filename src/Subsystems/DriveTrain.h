@@ -50,7 +50,7 @@ public:
 	void Initialize() override;
 	void DashboardOutput(bool verbose = false) override;
 
-	void SetTalonMode(CANTalon::TalonControlMode mode);
+	void SetTalonMode(CANTalon::ControlMode mode/*CANTalon::TalonControlMode mode*/);
 
 	// Drive the bot in Arcade Drive (invert doesn't work)
 	void ArcadeDrive(double move, double rotate);

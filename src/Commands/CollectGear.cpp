@@ -4,7 +4,7 @@ CollectGear::CollectGear()
 {
 	Requires(gearCollector.get());
 
-	m_intakeBtn = new frc::JoystickButton(oi.get()->GetStick(0), 1);
+	m_intakeBtn = new frc::JoystickButton(oi.get()->GetStick(0), 3);
 }
 
 // Called just before this Command runs the first time

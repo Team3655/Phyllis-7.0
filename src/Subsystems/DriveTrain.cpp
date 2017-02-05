@@ -50,7 +50,7 @@ void DriveTrain::Initialize()
 	m_rf->SetControlMode(CANTalon::ControlMode::kFollower);
 	m_rf->Set(m_rb->GetDeviceID());
 
-	SetTalonMode(CANTalon::TalonControlMode::kSpeedMode);
+	SetTalonMode(CANTalon::ControlMode::kPercentVbus);
 	set_pid_values();
 
 	//m_rf->SetInverted(true);
@@ -93,10 +93,10 @@ void DriveTrain::set_pid_values()
 	}
 }
 
-void DriveTrain::SetTalonMode(CANTalon::TalonControlMode mode)
+void DriveTrain::SetTalonMode(CANTalon::ControlMode mode/*CANTalon::TalonControlMode mode*/)
 {
-	m_lb->SetTalonControlMode(mode);
-	m_rb->SetTalonControlMode(mode);
+	m_lb->SetControlMode(mode);
+	m_rb->SetControlMode(mode);
 
 	set_pid_values();
 }

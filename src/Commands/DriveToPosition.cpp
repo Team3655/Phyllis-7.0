@@ -8,7 +8,7 @@ DriveToPosition::DriveToPosition()
 // Called just before this Command runs the first time
 void DriveToPosition::Initialize()
 {
-	drive.get()->SetTalonMode(CANTalon::TalonControlMode::kPositionMode);
+	//drive.get()->SetTalonMode(CANTalon::TalonControlMode::kPositionMode);
 }
 
 // Called repeatedly when this Command is scheduled to run

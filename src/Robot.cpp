@@ -35,7 +35,7 @@ public:
 		CommandBase::climber.get()->Initialize();
 		CommandBase::fuelCollector.get()->Initialize();
 		CommandBase::lights.get()->Initialize();
-		CommandBase::visionManager.get()->Initialize();
+		//CommandBase::visionManager.get()->Initialize();
 	}
 
 	void UpdateDashboard(bool verbose = false)
@@ -46,7 +46,7 @@ public:
 		CommandBase::climber.get()->DashboardOutput(verbose);
 		CommandBase::fuelCollector.get()->DashboardOutput(verbose);
 		CommandBase::lights.get()->DashboardOutput(verbose);
-		CommandBase::visionManager.get()->DashboardOutput(verbose);
+		//CommandBase::visionManager.get()->DashboardOutput(verbose);
 	}
 
 	void RobotInit() override

@@ -16,7 +16,7 @@ Shooter::~Shooter()
 
 void Shooter::InitDefaultCommand()
 {
-	//SetDefaultCommand(new Shoot());
+	SetDefaultCommand(new Shoot());
 }
 
 std::string Shooter::state_to_string(uint32_t state)

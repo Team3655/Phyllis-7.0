@@ -3,7 +3,8 @@
 
 #include "../CommandBase.h"
 
-class AlignWithPeg : public CommandBase {
+class AlignWithPeg : public CommandBase
+{
 public:
 	AlignWithPeg();
 	void Initialize();

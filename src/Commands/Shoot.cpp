@@ -5,6 +5,8 @@ Shoot::Shoot()
 	Requires(shooter.get());
 	Requires(fuelCollector.get());
 	m_isAligned = false;
+
+	m_shootBtn = new frc::JoystickButton(oi.get()->GetStick(0), 1);
 }
 
 // Called just before this Command runs the first time
@@ -16,11 +18,18 @@ void Shoot::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void Shoot::Execute()
 {
-	double y = oi.get()->GetYAxis(0);
-	shooter.get()->Set(y);
-	/*if (shooter.get()->IsAtSpeed())
+	if (m_shootBtn->Get())
 	{
-		fuelCollector.get()->SetOpen(true);
+		shooter.get()->Set(SHOOT_SPEED);
+	}
+	else
+	{
+		shooter.get()->Set(0);
+	}
+	/*shooter.get()->Set(SHOOT_SPEED);
+	if (shooter.get()->IsAtSpeed())
+	{
+		//fuelCollector.get()->SetOpen(true);
 	}*/
 }
 

@@ -19,8 +19,7 @@ private:
 	} m_state;
 
 	CANTalon* m_intake;
-	CANTalon* m_transport1;
-	CANTalon* m_transport2;
+	CANTalon* m_transport;
 
 	std::string state_to_string(uint32_t state);
 

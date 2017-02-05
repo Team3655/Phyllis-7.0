@@ -18,8 +18,8 @@ OI::OI() :
 	m_driver(new Joystick(JOY_DRIVER_PORT)),
 	m_coDriver(new Joystick(JOY_CODRIVER_PORT))
 {
-	m_shoot = new JoystickButton(m_driver, 1);
-	m_shoot->WhenPressed(new Shoot());
+	//m_shoot = new JoystickButton(m_driver, 1);
+	//m_shoot->WhenPressed(new Shoot());
 
 	m_shift = new JoystickButton(m_driver, 4);
 	m_shift->WhenPressed(new Shift());

@@ -1,5 +1,6 @@
 #include "Lights.h"
 #include "../RobotMap.h"
+#include <Wpilib.h>
 
 //#include "../Commands/"
 
