@@ -3,6 +3,7 @@
 
 #include <Commands/Subsystem.h>
 #include <CameraServer.h>
+#include <vision/VisionRunner.h>
 
 #include "../GripPipeline.h"
 #include "../ExtSubsystem.h"
@@ -17,7 +18,7 @@ private:
 	cs::UsbCamera m_shootCam;
 
 	// Processing
-	grip::GripPipeline* m_processing;
+	frc::VisionRunner<grip::GripPipeline>* m_vision;
 
 	int m_currentCam;
 
