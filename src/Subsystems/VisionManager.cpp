@@ -14,14 +14,14 @@ void VisionManager::InitDefaultCommand()
 
 void VisionManager::Initialize()
 {
-	m_vision = new frc::VisionRunner<grip::GripPipeline>(
+	/*m_vision = new frc::VisionRunner<grip::GripPipeline>(
 			cs::UsbCamera(),
 			new grip::GripPipeline(),
 			[]()
 			{
 
 			});
-
+*/
 
 	m_currentCam = 0;
 	m_pegCam = m_cs->StartAutomaticCapture();
