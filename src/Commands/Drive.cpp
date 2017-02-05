@@ -18,14 +18,14 @@ Drive::Drive() :
 // Called just before this Command runs the first time
 void Drive::Initialize()
 {
-	drive.get()->SetTalonMode(CANTalon::TalonControlMode::kPositionMode);
+	drive.get()->SetTalonMode(CANTalon::ControlMode::kPercentVbus);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void Drive::Execute()
 {
-	//drive.get()->TankDrive(-oi.get()->GetYAxis(JOY_DRIVER_PORT), -oi.get()->GetYAxis(JOY_CODRIVER_PORT));
-	drive.get()->SetPosition(DRIVE_ENC_CPR * 5);
+	drive.get()->TankDrive(-oi.get()->GetYAxis(JOY_DRIVER_PORT), -oi.get()->GetYAxis(JOY_CODRIVER_PORT));
+	//drive.get()->SetPosition(DRIVE_ENC_CPR * 5);
 }
 
 // Make this return true when this Command no longer needs to run execute()
