@@ -12,7 +12,7 @@ void VisionManager::InitDefaultCommand()
 	// SetDefaultCommand(new MySpecialCommand());
 }
 
-void VisionManager::Initialize()
+void VisionManager::Initialize(frc::Preferences* prefs)
 {
 	/*m_vision = new frc::VisionRunner<grip::GripPipeline>(
 			cs::UsbCamera(),

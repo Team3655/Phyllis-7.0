@@ -38,7 +38,7 @@ void FuelCollector::InitDefaultCommand()
 	SetDefaultCommand(new CollectFuel());
 }
 
-void FuelCollector::Initialize()
+void FuelCollector::Initialize(frc::Preferences* prefs)
 {
 	m_gate = new frc::Servo(FUEL_GATE_PORT);
 

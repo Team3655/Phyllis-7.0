@@ -3,6 +3,7 @@
 
 #include <Commands/Subsystem.h>
 #include <CANTalon.h>
+#include <Preferences.h>
 
 #include "../ExtSubsystem.h"
 
@@ -28,7 +29,7 @@ public:
 	~GearCollector();
 	void InitDefaultCommand();
 
-	void Initialize() override;
+	void Initialize(frc::Preferences* prefs) override;
 	void DashboardOutput(bool verbose = false) override;
 
 	// Set all of the motors

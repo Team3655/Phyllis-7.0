@@ -38,7 +38,7 @@ std::string GearCollector::state_to_string(uint32_t state)
 	}
 }
 
-void GearCollector::Initialize()
+void GearCollector::Initialize(frc::Preferences* prefs)
 {
 	m_intake = new CANTalon(GEAR_INTAKE_PORT);
 	m_intake->SetControlMode(CANTalon::ControlMode::kPercentVbus);

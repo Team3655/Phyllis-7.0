@@ -16,7 +16,8 @@
 
 OI::OI() :
 	m_driver(new Joystick(JOY_DRIVER_PORT)),
-	m_coDriver(new Joystick(JOY_CODRIVER_PORT))
+	m_coDriver(new Joystick(JOY_CODRIVER_PORT)),
+	m_prefs(frc::Preferences::GetInstance())
 {
 	//m_shoot = new JoystickButton(m_driver, 1);
 	//m_shoot->WhenPressed(new Shoot());

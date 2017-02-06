@@ -51,17 +51,9 @@ constexpr double SHOOT_SPEED = .5; // Temp
 //---------------------------------------------------------
 // Gear Collector
 constexpr int GEAR_INTAKE_PORT = 5;
-constexpr double GEAR_INTAKE_P = 1;
-constexpr double GEAR_INTAKE_I = 0;
-constexpr double GEAR_INTAKE_D = 0;
 constexpr double GEAR_INTAKE_SPEED = 0.4;
-
 constexpr int GEAR_TRANS_PORT = 6;
-constexpr double GEAR_TRANS_P = 1;
-constexpr double GEAR_TRANS_I = 0;
-constexpr double GEAR_TRANS_D = 0;
 constexpr double GEAR_TRANS_SPEED = -0.5;
-
 
 //---------------------------------------------------------
 // Climber

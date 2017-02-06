@@ -5,6 +5,7 @@
 #include <Servo.h>
 #include <Ultrasonic.h>
 #include <CANTalon.h>
+#include <Preferences.h>
 
 #include "../ExtSubsystem.h"
 
@@ -30,7 +31,7 @@ public:
 	~FuelCollector();
 	void InitDefaultCommand();
 
-	void Initialize() override;
+	void Initialize(frc::Preferences* prefs) override;
 	void DashboardOutput(bool verbose = false) override;
 
 	// Open/close flow from magazine to shooter

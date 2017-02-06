@@ -3,6 +3,7 @@
 
 #include <Joystick.h>
 #include <Buttons/JoystickButton.h>
+#include <Preferences.h>
 #include "RobotMap.h"
 
 // Summary:
@@ -10,6 +11,8 @@
 class OI
 {
 private:
+	frc::Preferences* m_prefs;
+
 	frc::Joystick* m_driver;
 	frc::JoystickButton* m_shift;
 
@@ -24,6 +27,8 @@ public:
 	OI();
 	~OI();
 
+	frc::Preferences* GetPrefs() { return m_prefs; }
+
 	frc::Joystick* GetStick(int stick);
 
 	double GetXAxis(int stick);
@@ -36,4 +41,4 @@ public:
 	void EnableDeadband(bool enable) { m_enableDeadband = enable; }
 };
 
-#endif  // OI_H
+#endif // OI_H

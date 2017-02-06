@@ -32,7 +32,7 @@ void DriveTrain::InitDefaultCommand()
 	SetDefaultCommand(new Drive());
 }
 
-void DriveTrain::Initialize()
+void DriveTrain::Initialize(frc::Preferences* prefs)
 {
 	m_shifter = new Solenoid(DRIVE_SHIFT_PORT);
 

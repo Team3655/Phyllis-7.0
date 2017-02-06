@@ -14,7 +14,7 @@ void Lights::InitDefaultCommand()
 	//SetDefaultCommand(new thing())
 }
 
-void Lights::Initialize()
+void Lights::Initialize(frc::Preferences* prefs)
 {
 	m_alliance = frc::DriverStation::GetInstance().GetAlliance();
 	m_position = frc::DriverStation::GetInstance().GetLocation();

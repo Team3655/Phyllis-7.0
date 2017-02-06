@@ -4,6 +4,7 @@
 #include <Commands/Subsystem.h>
 #include <Wpilib.h>
 #include <CANTalon.h>
+#include <Preferences.h>
 
 #include "../ExtSubsystem.h"
 
@@ -30,7 +31,7 @@ public:
 	~Shooter();
 	void InitDefaultCommand();
 
-	void Initialize() override;
+	void Initialize(frc::Preferences* prefs) override;
 	void DashboardOutput(bool verbose = false) override;
 
 	// Sets the speed of the shooter motor

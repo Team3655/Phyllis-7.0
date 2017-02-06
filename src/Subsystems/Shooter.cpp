@@ -38,7 +38,7 @@ std::string Shooter::state_to_string(uint32_t state)
 	}
 }
 
-void Shooter::Initialize()
+void Shooter::Initialize(frc::Preferences* prefs)
 {
 	m_shooter = new CANTalon(SHOOT_MOTOR_PORT);
 	m_shooter->SetControlMode(frc::CANSpeedController::kPercentVbus);

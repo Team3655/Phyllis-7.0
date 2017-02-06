@@ -17,7 +17,7 @@ void Climber::InitDefaultCommand()
 	//SetDefaultCommand(new MySpecialCommand());
 }
 
-void Climber::Initialize()
+void Climber::Initialize(frc::Preferences* prefs)
 {
 	m_climbLeft = new CANTalon(CLIMB_LEFT_PORT);
 	m_climbLeft->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);

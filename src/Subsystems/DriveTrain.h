@@ -14,6 +14,7 @@
 #include <RobotDrive.h>
 #include <CANTalon.h>
 #include <Solenoid.h>
+#include <Preferences.h>
 
 #include "../ExtSubsystem.h"
 
@@ -47,7 +48,7 @@ public:
 	~DriveTrain();
 	void InitDefaultCommand();
 
-	void Initialize() override;
+	void Initialize(frc::Preferences* prefs) override;
 	void DashboardOutput(bool verbose = false) override;
 
 	void SetTalonMode(CANTalon::ControlMode mode/*CANTalon::TalonControlMode mode*/);
