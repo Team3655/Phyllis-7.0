@@ -3,6 +3,7 @@
 
 #include <Commands/Subsystem.h>
 #include <DriverStation.h>
+#include <Preferences.h>
 
 #include "../ExtSubsystem.h"
 
@@ -18,7 +19,7 @@ public:
 	Lights();
 	void InitDefaultCommand();
 
-	void Initialize() override;
+	void Initialize(frc::Preferences* prefs) override;
 	void DashboardOutput(bool verbose = false) override;
 
 	inline bool IsBlue() { return m_alliance == frc::DriverStation::Alliance::kBlue; }

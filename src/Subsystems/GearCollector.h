@@ -3,6 +3,7 @@
 
 #include <Commands/Subsystem.h>
 #include <CANTalon.h>
+#include <Preferences.h>
 
 #include "../ExtSubsystem.h"
 
@@ -21,6 +22,9 @@ private:
 	CANTalon* m_intake;
 	CANTalon* m_transport;
 
+	double m_intakeSpeed;
+	double m_transSpeed;
+
 	std::string state_to_string(uint32_t state);
 
 public:
@@ -28,7 +32,7 @@ public:
 	~GearCollector();
 	void InitDefaultCommand();
 
-	void Initialize() override;
+	void Initialize(frc::Preferences* prefs) override;
 	void DashboardOutput(bool verbose = false) override;
 
 	// Set all of the motors

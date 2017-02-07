@@ -5,6 +5,8 @@
 #include <Servo.h>
 #include <Ultrasonic.h>
 #include <CANTalon.h>
+#include <Preferences.h>
+#include <Timer.h>
 
 #include "../ExtSubsystem.h"
 
@@ -20,7 +22,7 @@ private:
 		kEjecting = 2
 	} m_state;
 
-	frc::Servo* m_gate;
+	CANTalon* m_meter;
 	CANTalon* m_intake;
 
 	std::string state_to_string(uint32_t state);
@@ -30,12 +32,10 @@ public:
 	~FuelCollector();
 	void InitDefaultCommand();
 
-	void Initialize() override;
+	void Initialize(frc::Preferences* prefs) override;
 	void DashboardOutput(bool verbose = false) override;
 
-	// Open/close flow from magazine to shooter
-	void SetOpen(bool open);
-	bool IsOpen() { return m_gate->Get(); }
+	void IndexOne();
 
 	// bool IsBallPresent();
 

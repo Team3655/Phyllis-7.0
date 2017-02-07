@@ -29,15 +29,15 @@ private:
 	frc::CameraServer* cs;
 
 public:
-	void InitializeSubsystems()
+	void InitializeSubsystems(frc::Preferences* prefs)
 	{
-		CommandBase::drive.get()->Initialize();
-		CommandBase::shooter.get()->Initialize();
-		CommandBase::gearCollector.get()->Initialize();
-		CommandBase::climber.get()->Initialize();
-		CommandBase::fuelCollector.get()->Initialize();
-		CommandBase::lights.get()->Initialize();
-		//CommandBase::visionManager.get()->Initialize();
+		CommandBase::drive.get()->Initialize(prefs);
+		CommandBase::shooter.get()->Initialize(prefs);
+		CommandBase::gearCollector.get()->Initialize(prefs);
+		CommandBase::climber.get()->Initialize(prefs);
+		CommandBase::fuelCollector.get()->Initialize(prefs);
+		CommandBase::lights.get()->Initialize(prefs);
+		//CommandBase::visionManager.get()->Initialize(prefs);
 	}
 
 	void UpdateDashboard(bool verbose = false)
@@ -53,7 +53,7 @@ public:
 
 	void RobotInit() override
 	{
-		InitializeSubsystems();
+		InitializeSubsystems(CommandBase::oi.get()->GetPrefs());
 
 		//chooser.AddDefault("Default Auto", new ExampleCommand());
 		// chooser.AddObject("My Auto", new MyAutoCommand());

@@ -38,13 +38,16 @@ std::string GearCollector::state_to_string(uint32_t state)
 	}
 }
 
-void GearCollector::Initialize()
+void GearCollector::Initialize(frc::Preferences* prefs)
 {
 	m_intake = new CANTalon(GEAR_INTAKE_PORT);
 	m_intake->SetControlMode(CANTalon::ControlMode::kPercentVbus);
 
 	m_transport = new CANTalon(GEAR_TRANS_PORT);
 	m_transport->SetControlMode(CANTalon::ControlMode::kPercentVbus);
+
+	m_intakeSpeed = frc::SmartDashboard::GetNumber("gear_intake_speed", GEAR_INTAKE_SPEED);
+	m_transSpeed = frc::SmartDashboard::GetNumber("gear_trans_speed", GEAR_TRANS_SPEED);
 }
 
 void GearCollector::DashboardOutput(bool verbose)
@@ -59,8 +62,8 @@ void GearCollector::DashboardOutput(bool verbose)
 
 void GearCollector::SetIntake()
 {
-	m_intake->Set(GEAR_INTAKE_SPEED);
-	m_transport->Set(GEAR_TRANS_SPEED);
+	m_intake->Set(m_intakeSpeed);
+	m_transport->Set(m_transSpeed);
 }
 
 void GearCollector::Stop()

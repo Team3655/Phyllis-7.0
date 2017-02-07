@@ -4,6 +4,7 @@
 #include <Commands/Subsystem.h>
 #include <CameraServer.h>
 #include <vision/VisionRunner.h>
+#include <Preferences.h>
 
 #include "../GripPipeline.h"
 #include "../ExtSubsystem.h"
@@ -26,7 +27,7 @@ public:
 	VisionManager();
 	void InitDefaultCommand();
 
-	void Initialize() override;
+	void Initialize(frc::Preferences* prefs) override;
 	void DashboardOutput(bool verbose = false) override;
 
 	void SetCamera(int camera);

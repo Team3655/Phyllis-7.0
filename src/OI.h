@@ -3,6 +3,7 @@
 
 #include <Joystick.h>
 #include <Buttons/JoystickButton.h>
+#include <Preferences.h>
 #include "RobotMap.h"
 
 // Summary:
@@ -10,6 +11,8 @@
 class OI
 {
 private:
+	frc::Preferences* m_prefs;
+
 	frc::Joystick* m_driver;
 	frc::JoystickButton* m_shift;
 
@@ -17,12 +20,16 @@ private:
 	frc::JoystickButton* m_shoot;
 	//frc::JoystickButton* m_manualOverride;
 
+	frc::Joystick* m_board;
+
 	double m_deadband;
 	bool m_enableDeadband;
 
 public:
 	OI();
 	~OI();
+
+	frc::Preferences* GetPrefs() { return m_prefs; }
 
 	frc::Joystick* GetStick(int stick);
 
@@ -36,4 +43,4 @@ public:
 	void EnableDeadband(bool enable) { m_enableDeadband = enable; }
 };
 
-#endif  // OI_H
+#endif // OI_H

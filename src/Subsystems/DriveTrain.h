@@ -14,6 +14,7 @@
 #include <RobotDrive.h>
 #include <CANTalon.h>
 #include <Solenoid.h>
+#include <Preferences.h>
 
 #include "../ExtSubsystem.h"
 
@@ -38,7 +39,6 @@ private:
 
 	bool m_reverse = false;
 
-
 	CANTalon::TalonControlMode get_talon_mode();
 	void set_pid_values();
 
@@ -47,10 +47,10 @@ public:
 	~DriveTrain();
 	void InitDefaultCommand();
 
-	void Initialize() override;
+	void Initialize(frc::Preferences* prefs) override;
 	void DashboardOutput(bool verbose = false) override;
 
-	void SetTalonMode(CANTalon::ControlMode mode/*CANTalon::TalonControlMode mode*/);
+	void SetTalonMode(CANTalon::ControlMode mode);
 
 	// Drive the bot in Arcade Drive (invert doesn't work)
 	void ArcadeDrive(double move, double rotate);

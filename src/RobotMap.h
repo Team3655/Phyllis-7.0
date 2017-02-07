@@ -12,8 +12,8 @@
 
 //---------------------------------------------------------
 // Drive
-constexpr int DRIVE_LF_PORT = 3;
-constexpr int DRIVE_LEFT_PORT = 1;
+constexpr int DRIVE_LF_PORT = 1;
+constexpr int DRIVE_LEFT_PORT = 3;
 constexpr int DRIVE_RF_PORT = 2;
 constexpr int DRIVE_RIGHT_PORT = 4;
 
@@ -51,17 +51,9 @@ constexpr double SHOOT_SPEED = .5; // Temp
 //---------------------------------------------------------
 // Gear Collector
 constexpr int GEAR_INTAKE_PORT = 5;
-constexpr double GEAR_INTAKE_P = 1;
-constexpr double GEAR_INTAKE_I = 0;
-constexpr double GEAR_INTAKE_D = 0;
 constexpr double GEAR_INTAKE_SPEED = 0.4;
-
 constexpr int GEAR_TRANS_PORT = 6;
-constexpr double GEAR_TRANS_P = 1;
-constexpr double GEAR_TRANS_I = 0;
-constexpr double GEAR_TRANS_D = 0;
 constexpr double GEAR_TRANS_SPEED = -0.5;
-
 
 //---------------------------------------------------------
 // Climber
@@ -91,6 +83,7 @@ constexpr double FUEL_INTAKE_D = 0;
 //#define CODRIVER  	// Use def check when referencing the co-driver stick
 constexpr int JOY_DRIVER_PORT = 0;
 constexpr int JOY_CODRIVER_PORT = 1;
+constexpr int JOY_BOARD_PORT = 2;
 
 //---------------------------------------------------------
 // Camera

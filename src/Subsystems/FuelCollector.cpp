@@ -10,7 +10,7 @@ FuelCollector::FuelCollector() :
 
 FuelCollector::~FuelCollector()
 {
-	delete m_gate;
+	delete m_meter;
 	delete m_intake;
 }
 
@@ -38,7 +38,7 @@ void FuelCollector::InitDefaultCommand()
 	SetDefaultCommand(new CollectFuel());
 }
 
-void FuelCollector::Initialize()
+void FuelCollector::Initialize(frc::Preferences* prefs)
 {
 	m_gate = new frc::Servo(FUEL_GATE_PORT);
 
