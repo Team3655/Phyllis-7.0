@@ -39,7 +39,6 @@ private:
 
 	bool m_reverse = false;
 
-
 	CANTalon::TalonControlMode get_talon_mode();
 	void set_pid_values();
 

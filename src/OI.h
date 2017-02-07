@@ -20,6 +20,8 @@ private:
 	frc::JoystickButton* m_shoot;
 	//frc::JoystickButton* m_manualOverride;
 
+	frc::Joystick* m_board;
+
 	double m_deadband;
 	bool m_enableDeadband;
 

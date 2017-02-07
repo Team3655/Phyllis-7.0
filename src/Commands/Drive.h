@@ -10,12 +10,15 @@
 #ifndef DRIVE_H
 #define DRIVE_H
 
+#include <Wpilib.h>
+
 #include "../CommandBase.h"
 #include "../Subsystems/DriveTrain.h"
 
 class Drive : public CommandBase
 {
 private:
+	frc::JoystickButton* m_atSwitch;
 
 public:
 	Drive();

@@ -17,6 +17,7 @@
 OI::OI() :
 	m_driver(new Joystick(JOY_DRIVER_PORT)),
 	m_coDriver(new Joystick(JOY_CODRIVER_PORT)),
+	m_board(new Joystick(2)),
 	m_prefs(frc::Preferences::GetInstance())
 {
 	//m_shoot = new JoystickButton(m_driver, 1);
@@ -49,6 +50,9 @@ Joystick* OI::GetStick(int stick)
 		break;
 	case 1:
 		return m_coDriver;
+		break;
+	case 2:
+		return m_board;
 		break;
 	}
 }

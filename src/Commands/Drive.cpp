@@ -13,6 +13,8 @@ Drive::Drive() :
 	CommandBase("")
 {
 	Requires(drive.get());
+
+	m_atSwitch = new frc::JoystickButton(oi.get()->GetStick(2), 1);
 }
 
 // Called just before this Command runs the first time
@@ -24,8 +26,14 @@ void Drive::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void Drive::Execute()
 {
-	drive.get()->TankDrive(-oi.get()->GetYAxis(JOY_DRIVER_PORT), -oi.get()->GetYAxis(JOY_CODRIVER_PORT));
-	//drive.get()->ArcadeDrive(-oi.get()->GetYAxis(JOY_DRIVER_PORT), -oi.get()->GetXAxis(JOY_DRIVER_PORT));
+	if (m_atSwitch->Get())
+	{
+		drive.get()->TankDrive(-oi.get()->GetYAxis(JOY_DRIVER_PORT), -oi.get()->GetYAxis(JOY_CODRIVER_PORT));
+	}
+	else
+	{
+		drive.get()->ArcadeDrive(-oi.get()->GetYAxis(JOY_DRIVER_PORT), -oi.get()->GetXAxis(JOY_DRIVER_PORT));
+	}
 
 	//drive.get()->SetPosition(frc::Preferences::GetInstance()->GetDouble("drive_test_pos", DRIVE_ENC_CPR));
 	frc::SmartDashboard::PutNumber("Joy L", oi.get()->GetYAxis(0));

@@ -128,7 +128,7 @@ void DriveTrain::ArcadeDrive(double move, double rotate)
 		move = -move;
 		rotate = -rotate;
 	}
-	m_drive->ArcadeDrive(move * DRIVE_ENC_CPR, rotate * DRIVE_ENC_CPR);
+	m_drive->ArcadeDrive(move, rotate);
 }
 
 void DriveTrain::TankDrive(double left, double right)

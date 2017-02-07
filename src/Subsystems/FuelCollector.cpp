@@ -10,7 +10,7 @@ FuelCollector::FuelCollector() :
 
 FuelCollector::~FuelCollector()
 {
-	delete m_gate;
+	delete m_meter;
 	delete m_intake;
 }
 
