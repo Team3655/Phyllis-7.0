@@ -42,6 +42,10 @@ void Shooter::Initialize(frc::Preferences* prefs)
 {
 	m_shooter = new CANTalon(SHOOT_MOTOR_PORT);
 	m_shooter->SetControlMode(frc::CANSpeedController::kPercentVbus);
+	m_shooter->SetPID(
+			frc::SmartDashboard::GetNumber("shoot_p", SHOOT_P),
+			frc::SmartDashboard::GetNumber("shoot_i", SHOOT_I),
+			frc::SmartDashboard::GetNumber("shoot_d", SHOOT_D));
 	m_shooter->Enable();
 }
 

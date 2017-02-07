@@ -65,10 +65,15 @@ void DriveTrain::Initialize(frc::Preferences* prefs)
 
 void DriveTrain::DashboardOutput(bool verbose)
 {
+	frc::SmartDashboard::PutNumber("Count L", m_lb->GetEncVel());
+	frc::SmartDashboard::PutNumber("Count R", m_rb->GetEncVel());
+
+	frc::SmartDashboard::PutNumber("Pre L", m_lb->Get());
+	frc::SmartDashboard::PutNumber("Pre R", m_rb->Get());
+
 	if (verbose)
 	{
-		frc::SmartDashboard::PutNumber("Count L", m_lb->GetEncPosition());
-		frc::SmartDashboard::PutNumber("Count R", m_rb->GetEncPosition());
+
 	}
 }
 
@@ -79,22 +84,37 @@ CANTalon::TalonControlMode DriveTrain::get_talon_mode()
 
 void DriveTrain::set_pid_values()
 {
-	switch (get_talon_mode())
+	switch (CANTalon::TalonControlMode::kSpeedMode)
 	{
 	case CANTalon::TalonControlMode::kPositionMode:
-		m_lb->SetPID(DRIVE_LEFT_POS_P, DRIVE_LEFT_POS_I, DRIVE_LEFT_POS_D);
-		m_rb->SetPID(DRIVE_RIGHT_POS_P, DRIVE_RIGHT_POS_I, DRIVE_RIGHT_POS_D);
+		m_lb->SetPID(
+				frc::SmartDashboard::GetNumber("drive_left_pos_p", DRIVE_LEFT_POS_P),
+				frc::SmartDashboard::GetNumber("drive_left_pos_i", DRIVE_LEFT_POS_I),
+				frc::SmartDashboard::GetNumber("drive_left_pos_d", DRIVE_LEFT_POS_D));
+		m_rb->SetPID(
+				frc::SmartDashboard::GetNumber("drive_right_pos_p", DRIVE_RIGHT_POS_P),
+				frc::SmartDashboard::GetNumber("drive_right_pos_i", DRIVE_RIGHT_POS_I),
+				frc::SmartDashboard::GetNumber("drive_right_pos_d", DRIVE_RIGHT_POS_D));
 		break;
 	default:
 	case CANTalon::TalonControlMode::kSpeedMode:
-		m_lb->SetPID(DRIVE_LEFT_SPD_P, DRIVE_LEFT_SPD_I, DRIVE_LEFT_SPD_D);
-		m_rb->SetPID(DRIVE_RIGHT_SPD_P, DRIVE_RIGHT_SPD_I, DRIVE_RIGHT_SPD_D);
+		m_lb->SetPID(
+				frc::SmartDashboard::GetNumber("drive_left_spd_p", DRIVE_LEFT_POS_P),
+				frc::SmartDashboard::GetNumber("drive_left_spd_i", DRIVE_LEFT_POS_I),
+				frc::SmartDashboard::GetNumber("drive_left_spd_d", DRIVE_LEFT_POS_D));
+		m_rb->SetPID(
+				frc::SmartDashboard::GetNumber("drive_right_spd_p", DRIVE_RIGHT_POS_P),
+				frc::SmartDashboard::GetNumber("drive_right_spd_i", DRIVE_RIGHT_POS_I),
+				frc::SmartDashboard::GetNumber("drive_right_spd_d", DRIVE_RIGHT_POS_D));
 		break;
 	}
 }
 
-void DriveTrain::SetTalonMode(CANTalon::ControlMode mode/*CANTalon::TalonControlMode mode*/)
+void DriveTrain::SetTalonMode(CANTalon::ControlMode mode)
 {
+	//m_lb->SetTalonControlMode(mode);
+	//m_rb->SetTalonControlMode(mode);
+
 	m_lb->SetControlMode(mode);
 	m_rb->SetControlMode(mode);
 
@@ -108,7 +128,7 @@ void DriveTrain::ArcadeDrive(double move, double rotate)
 		move = -move;
 		rotate = -rotate;
 	}
-	m_drive->ArcadeDrive(move * m_scaleFactor * DRIVE_ENC_CPR, rotate * m_scaleFactor * DRIVE_ENC_CPR);
+	m_drive->ArcadeDrive(move * DRIVE_ENC_CPR, rotate * DRIVE_ENC_CPR);
 }
 
 void DriveTrain::TankDrive(double left, double right)
@@ -119,7 +139,7 @@ void DriveTrain::TankDrive(double left, double right)
 		right = -right;
 	}
 	m_drive->TankDrive(left, right);
-	std::cout << "L counts: " << m_lb->GetEncPosition() << ": R count: " << m_rb->GetEncPosition() << std::endl;
+	//std::cout << "L counts: " << m_lb->GetEncPosition() << ": R count: " << m_rb->GetEncPosition() << std::endl;
 }
 
 void DriveTrain::Reverse(bool reverse)

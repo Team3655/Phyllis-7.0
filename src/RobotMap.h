@@ -12,8 +12,8 @@
 
 //---------------------------------------------------------
 // Drive
-constexpr int DRIVE_LF_PORT = 3;
-constexpr int DRIVE_LEFT_PORT = 1;
+constexpr int DRIVE_LF_PORT = 1;
+constexpr int DRIVE_LEFT_PORT = 3;
 constexpr int DRIVE_RF_PORT = 2;
 constexpr int DRIVE_RIGHT_PORT = 4;
 

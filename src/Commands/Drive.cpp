@@ -25,7 +25,11 @@ void Drive::Initialize()
 void Drive::Execute()
 {
 	drive.get()->TankDrive(-oi.get()->GetYAxis(JOY_DRIVER_PORT), -oi.get()->GetYAxis(JOY_CODRIVER_PORT));
-	//drive.get()->SetPosition(DRIVE_ENC_CPR * 5);
+	//drive.get()->ArcadeDrive(-oi.get()->GetYAxis(JOY_DRIVER_PORT), -oi.get()->GetXAxis(JOY_DRIVER_PORT));
+
+	//drive.get()->SetPosition(frc::Preferences::GetInstance()->GetDouble("drive_test_pos", DRIVE_ENC_CPR));
+	frc::SmartDashboard::PutNumber("Joy L", oi.get()->GetYAxis(0));
+	frc::SmartDashboard::PutNumber("Joy R", oi.get()->GetXAxis(0));
 }
 
 // Make this return true when this Command no longer needs to run execute()

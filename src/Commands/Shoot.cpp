@@ -20,7 +20,7 @@ void Shoot::Execute()
 {
 	if (m_shootBtn->Get())
 	{
-		shooter.get()->Set(SHOOT_SPEED);
+		shooter.get()->Set(frc::SmartDashboard::GetNumber("shoot_speed", SHOOT_SPEED));
 	}
 	else
 	{

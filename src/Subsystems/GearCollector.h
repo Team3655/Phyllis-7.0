@@ -22,6 +22,9 @@ private:
 	CANTalon* m_intake;
 	CANTalon* m_transport;
 
+	double m_intakeSpeed;
+	double m_transSpeed;
+
 	std::string state_to_string(uint32_t state);
 
 public:
