@@ -1,53 +1,62 @@
 #include "Shoot.h"
 
-Shoot::Shoot()
+Shoot::Shoot(double speedProp)
 {
 	Requires(shooter.get());
 	Requires(fuelCollector.get());
+	Requires(drive.get());
 	m_isAligned = false;
+	m_speedProportion = speedProp;
 
-	m_shootBtn = new frc::JoystickButton(oi.get()->GetStick(0), 1);
+	m_abortBtn = new frc::JoystickButton(oi.get()->GetStick(JOY_BOARD_PORT), 2);
+
+#ifdef TEMP
+	m_shootBtn = new frc::JoystickButton(oi.get()->GetStick(JOY_DRIVER_PORT), 1);
+#endif // TEMP
+
+	m_timer = new frc::Timer();
 }
 
-// Called just before this Command runs the first time
 void Shoot::Initialize()
 {
+	drive.get()->Disable();
 	m_isAligned = false; // Get alignment
+	m_timer->Start();
 }
 
-// Called repeatedly when this Command is scheduled to run
 void Shoot::Execute()
 {
+#ifdef TEMP
 	if (m_shootBtn->Get())
 	{
-		shooter.get()->Set(frc::SmartDashboard::GetNumber("shoot_speed", SHOOT_SPEED));
+		shooter.get()->Set(m_speedProportion * SHOOT_MAX_CPMS);
 	}
 	else
 	{
 		shooter.get()->Set(0);
 	}
-	/*shooter.get()->Set(SHOOT_SPEED);
-	if (shooter.get()->IsAtSpeed())
+#else
+	shooter.get()->Set(m_speedProportion * SHOOT_MAX_CPMS);
+	if (m_timer->HasPeriodPassed(SHOOT_RESET_TIME / 1000))
 	{
-		//fuelCollector.get()->SetOpen(true);
-	}*/
+		fuelCollector.get()->IndexOne();
+		m_timer->Reset();
+	}
+#endif // TEMP
 }
 
-// Make this return true when this Command no longer needs to run execute()
 bool Shoot::IsFinished()
 {
 	// When no more balls are present or not aligned
-	return false || m_isAligned;
+	return false || !m_isAligned || m_abortBtn->Get();
 }
 
-// Called once after isFinished returns true
 void Shoot::End()
 {
 	shooter.get()->Set(0);
+	drive.get()->Enable();
 }
 
-// Called when another command which requires one or more of the same
-// subsystems is scheduled to run
 void Shoot::Interrupted()
 {
 

@@ -123,6 +123,7 @@ void DriveTrain::SetTalonMode(CANTalon::ControlMode mode)
 
 void DriveTrain::ArcadeDrive(double move, double rotate)
 {
+	if (m_disabled) return;
 	if (m_reverse)
 	{
 		move = -move;
@@ -133,6 +134,7 @@ void DriveTrain::ArcadeDrive(double move, double rotate)
 
 void DriveTrain::TankDrive(double left, double right)
 {
+	if (m_disabled) return;
 	if (m_reverse)
 	{
 		left = -left;
@@ -149,6 +151,7 @@ void DriveTrain::Reverse(bool reverse)
 
 void DriveTrain::Shift()
 {
+	if (m_disabled) return;
 	m_shifter->Set(!m_shiftState);
 	m_shiftState = m_shifter->Get();
 }
@@ -160,6 +163,7 @@ void DriveTrain::SetScale(double scale)
 
 void DriveTrain::SetPosition(double pos)
 {
+	if (m_disabled) return;
 	m_lb->Set(pos);
 	m_rb->Set(-pos);
 	std::cout << "L counts: " << m_lb->GetEncPosition() << " : R count: " << m_rb->GetEncPosition() << std::endl;

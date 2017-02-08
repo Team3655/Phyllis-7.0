@@ -1,12 +1,12 @@
-#ifndef Shift_H
-#define Shift_H
+#ifndef SHIFT_H
+#define SHIFT_H
 
 #include "../CommandBase.h"
 
+// Summary:
+//	Toggles between low and high gear on the drive train
 class Shift : public CommandBase
 {
-private:
-
 public:
 	Shift();
 	void Initialize();
@@ -16,4 +16,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // Shift_H
+#endif // SHIFT_H

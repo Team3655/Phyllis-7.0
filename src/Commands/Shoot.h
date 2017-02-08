@@ -1,17 +1,29 @@
-#ifndef Shoot_H
-#define Shoot_H
+#ifndef SHOOT_H
+#define SHOOT_H
+
+#include <Timer.h>
+#include <Buttons/JoystickButton.h>
 
 #include "../CommandBase.h"
 
+// Summary:
+//	Fires all of the balls in the magazine unless something interrupts
 class Shoot : public CommandBase
 {
 private:
 	bool m_isAligned;
+	double m_speedProportion;
 
+	frc::JoystickButton* m_abortBtn;
+
+#ifdef TEMP
 	frc::JoystickButton* m_shootBtn;
+#endif // TEMP
+
+	frc::Timer* m_timer;
 
 public:
-	Shoot();
+	Shoot(double speedProp);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -19,4 +31,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // Shoot_H
+#endif // SHOOT_H

@@ -38,6 +38,7 @@ private:
 	double m_scaleFactor = 1.0;
 
 	bool m_reverse = false;
+	bool m_disabled = false;
 
 	CANTalon::TalonControlMode get_talon_mode();
 	void set_pid_values();
@@ -61,6 +62,9 @@ public:
 	// Sets which side is the front of the robot
 	void Reverse(bool reverse);
 	bool IsReversed() { return m_reverse; }
+
+	void Disable() { m_disabled = true; }
+	void Enable() { m_disabled = false; }
 
 	// Toggles high/low gear
 	void Shift();
