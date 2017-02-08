@@ -16,7 +16,7 @@ GearCollector::~GearCollector()
 
 void GearCollector::InitDefaultCommand()
 {
-	SetDefaultCommand(new CollectGear());
+	//SetDefaultCommand(new CollectGear());
 }
 
 std::string GearCollector::state_to_string(uint32_t state)
@@ -65,10 +65,10 @@ bool GearCollector::IsGearPresent()
 	return false; // Not implemented
 }
 
-void GearCollector::SetIntake()
+void GearCollector::SetIntake(int direction)
 {
-	m_intake->Set(m_intakeSpeed);
-	m_transport->Set(m_transSpeed);
+	m_intake->Set(m_intakeSpeed * direction);
+	m_transport->Set(m_transSpeed * direction);
 }
 
 void GearCollector::Stop()

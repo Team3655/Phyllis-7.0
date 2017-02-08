@@ -10,7 +10,7 @@
 #ifndef ROBOTMAP_H
 #define ROBOTMAP_H
 
-#define TEMP
+//#define TEMP
 
 //---------------------------------------------------------
 // Drive

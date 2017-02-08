@@ -45,4 +45,4 @@ public:
 	void SetIntake(double speed);
 };
 
-#endif  // FUEL_COLLECTOR_H
+#endif // FUEL_COLLECTOR_H

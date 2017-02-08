@@ -6,10 +6,15 @@
 class CollectGear : public CommandBase
 {
 private:
+#ifdef TEMP
 	frc::JoystickButton* m_intakeBtn;
+#endif
+	frc::JoystickButton* m_endBtn;
+
+	bool m_direction;
 
 public:
-	CollectGear();
+	CollectGear(bool direction);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -17,4 +22,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // COLLECT_GEAR_H
+#endif // COLLECT_GEAR_H

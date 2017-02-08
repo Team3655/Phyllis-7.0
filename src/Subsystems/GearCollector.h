@@ -7,6 +7,9 @@
 
 #include "../ExtSubsystem.h"
 
+#define FORWARD 1
+#define BACKWARD -1
+
 // Summary:
 // 	Gear collector and management system
 class GearCollector : public frc::Subsystem, public ExtSubsystem
@@ -40,7 +43,7 @@ public:
 	bool IsGearPresent();
 
 	// Set all of the motors
-	void SetIntake();
+	void SetIntake(int direction);
 	void Stop();
 };
 

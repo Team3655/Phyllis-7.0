@@ -6,7 +6,7 @@
 Shooter::Shooter() :
 	frc::Subsystem("Shooter")
 {
-	m_targetSpeed = 0; // Do some math to find target speed
+	m_targetSpeed = 0;
 }
 
 Shooter::~Shooter()
@@ -16,7 +16,7 @@ Shooter::~Shooter()
 
 void Shooter::InitDefaultCommand()
 {
-	SetDefaultCommand(new Shoot());
+	SetDefaultCommand(new Shoot(m_targetSpeed)); // Probably gets called before m_targetSpeed is set
 }
 
 std::string Shooter::state_to_string(uint32_t state)
@@ -47,6 +47,8 @@ void Shooter::Initialize(frc::Preferences* prefs)
 			frc::SmartDashboard::GetNumber("shoot_i", SHOOT_I),
 			frc::SmartDashboard::GetNumber("shoot_d", SHOOT_D));
 	m_shooter->Enable();
+
+	m_targetSpeed = prefs->GetDouble("shoot_speed", SHOOT_SPEED);
 }
 
 void Shooter::DashboardOutput(bool verbose)

@@ -65,15 +65,15 @@ void DriveTrain::Initialize(frc::Preferences* prefs)
 
 void DriveTrain::DashboardOutput(bool verbose)
 {
-	frc::SmartDashboard::PutNumber("Count L", m_lb->GetEncVel());
-	frc::SmartDashboard::PutNumber("Count R", m_rb->GetEncVel());
-
-	frc::SmartDashboard::PutNumber("Pre L", m_lb->Get());
-	frc::SmartDashboard::PutNumber("Pre R", m_rb->Get());
+	frc::SmartDashboard::PutString("Gear", m_shiftState ? "High" : "Low");
 
 	if (verbose)
 	{
+		frc::SmartDashboard::PutNumber("Count L", m_lb->GetEncVel());
+		frc::SmartDashboard::PutNumber("Count R", m_rb->GetEncVel());
 
+		frc::SmartDashboard::PutNumber("Pre L", m_lb->Get());
+		frc::SmartDashboard::PutNumber("Pre R", m_rb->Get());
 	}
 }
 
@@ -129,7 +129,7 @@ void DriveTrain::ArcadeDrive(double move, double rotate)
 		move = -move;
 		rotate = -rotate;
 	}
-	m_drive->ArcadeDrive(move, rotate);
+	m_drive->ArcadeDrive(move, rotate * m_scaleFactor);
 }
 
 void DriveTrain::TankDrive(double left, double right)
@@ -154,6 +154,7 @@ void DriveTrain::Shift()
 	if (m_disabled) return;
 	m_shifter->Set(!m_shiftState);
 	m_shiftState = m_shifter->Get();
+	m_scaleFactor = m_shiftState ? 0.5 : 1.0;
 }
 
 void DriveTrain::SetScale(double scale)
@@ -161,10 +162,14 @@ void DriveTrain::SetScale(double scale)
 	m_scaleFactor = scale;
 }
 
+double DriveTrain::GetScale()
+{
+	return m_scaleFactor;
+}
+
 void DriveTrain::SetPosition(double pos)
 {
 	if (m_disabled) return;
 	m_lb->Set(pos);
 	m_rb->Set(-pos);
-	std::cout << "L counts: " << m_lb->GetEncPosition() << " : R count: " << m_rb->GetEncPosition() << std::endl;
 }

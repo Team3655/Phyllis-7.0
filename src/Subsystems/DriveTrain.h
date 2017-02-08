@@ -70,6 +70,7 @@ public:
 	void Shift();
 
 	void SetScale(double scale);
+	double GetScale();
 
 	void SetPosition(double pos);
 };

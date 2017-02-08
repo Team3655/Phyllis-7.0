@@ -1,46 +1,48 @@
 #include "CollectGear.h"
 
-CollectGear::CollectGear()
+CollectGear::CollectGear(bool direction)
 {
 	Requires(gearCollector.get());
 
+	m_direction = direction;
+
+#ifdef TEMP
 	m_intakeBtn = new frc::JoystickButton(oi.get()->GetStick(0), 3);
+#endif
+
+	m_endBtn = new frc::JoystickButton(oi.get()->GetStick(JOY_BOARD_PORT), 3);
 }
 
-// Called just before this Command runs the first time
 void CollectGear::Initialize()
 {
-
 }
 
-// Called repeatedly when this Command is scheduled to run
 void CollectGear::Execute()
 {
+#ifdef TEMP
 	if (m_intakeBtn->Get())
 	{
-		gearCollector.get()->SetIntake();
+		gearCollector.get()->SetIntake(m_direction ? FORWARD : BACKWARD);
 	}
 	else
 	{
 		gearCollector.get()->Stop();
 	}
+#else
+	gearCollector.get()->SetIntake(m_direction ? FORWARD : BACKWARD);
+#endif
 }
 
-// Make this return true when this Command no longer needs to run execute()
 bool CollectGear::IsFinished()
 {
-	return false;
+	return m_endBtn->Get();
 }
 
-// Called once after isFinished returns true
 void CollectGear::End()
 {
-
+	gearCollector.get()->Stop();
 }
 
-// Called when another command which requires one or more of the same
-// subsystems is scheduled to run
 void CollectGear::Interrupted()
 {
-
 }

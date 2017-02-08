@@ -32,7 +32,7 @@ void Drive::Execute()
 	}
 	else
 	{
-		drive.get()->ArcadeDrive(-oi.get()->GetYAxis(JOY_DRIVER_PORT), -oi.get()->GetXAxis(JOY_DRIVER_PORT));
+		drive.get()->ArcadeDrive(-oi.get()->GetYAxis(JOY_CODRIVER_PORT), -oi.get()->GetXAxis(JOY_CODRIVER_PORT));
 	}
 
 	//drive.get()->SetPosition(frc::Preferences::GetInstance()->GetDouble("drive_test_pos", DRIVE_ENC_CPR));

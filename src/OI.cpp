@@ -23,6 +23,12 @@ OI::OI() :
 	//m_shoot = new JoystickButton(m_driver, 1);
 	//m_shoot->WhenPressed(new Shoot());
 
+	m_collectGear = new JoystickButton(m_driver, 3);
+	m_collectGear->WhenPressed(new CollectGear(true));
+
+	m_ejectGear = new JoystickButton(m_driver, 2);
+	m_ejectGear->WhenPressed(new CollectGear(false));
+
 	m_shift = new JoystickButton(m_driver, 4);
 	m_shift->WhenPressed(new Shift());
 }
