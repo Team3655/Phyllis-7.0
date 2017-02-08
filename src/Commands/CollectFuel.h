@@ -6,7 +6,6 @@
 class CollectFuel : public CommandBase
 {
 private:
-	frc::JoystickButton* m_gateBtn;
 	frc::JoystickButton* m_collectBtn;
 
 public:

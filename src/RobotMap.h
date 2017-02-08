@@ -69,10 +69,13 @@ constexpr double CLIMB_UP_POS = 0;
 
 //---------------------------------------------------------
 // Fuel Collector
-constexpr int FUEL_GATE_PORT = 0;
+constexpr int FUEL_METER_PORT = 0; // unknown
+constexpr int FUEL_METER_P = 1.0;
+constexpr int FUEL_METER_I = 0.0;
+constexpr int FUEL_METER_D = 0.0;
+constexpr double FUEL_METER_CPR = 1024; // unknown
+constexpr double FUEL_BALL_PER_TURN = 4; // unknown
 constexpr int FUEL_INTAKE_PORT = 8;
-constexpr double FUEL_GATE_OPEN = 0;
-constexpr double FUEL_GATE_CLOSE = 0;
 constexpr double FUEL_INTAKE_SPEED = 0;
 constexpr double FUEL_INTAKE_P = 1;
 constexpr double FUEL_INTAKE_I = 0;

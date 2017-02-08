@@ -4,7 +4,6 @@ CollectFuel::CollectFuel()
 {
 	Requires(fuelCollector.get());
 
-	m_gateBtn = new frc::JoystickButton(oi.get()->GetStick(0), 2);
 	m_collectBtn = new frc::JoystickButton(oi.get()->GetStick(0), 3);
 }
 
@@ -18,7 +17,6 @@ void CollectFuel::Initialize()
 void CollectFuel::Execute()
 {
 	static bool intake = false;
-	if (m_gateBtn->Get()) fuelCollector.get()->SetOpen(!fuelCollector.get()->IsOpen());
 	if (m_collectBtn->Get())
 	{
 		fuelCollector.get()->SetIntake(intake);

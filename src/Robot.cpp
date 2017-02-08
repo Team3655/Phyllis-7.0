@@ -38,6 +38,10 @@ public:
 		CommandBase::fuelCollector.get()->Initialize(prefs);
 		CommandBase::lights.get()->Initialize(prefs);
 		//CommandBase::visionManager.get()->Initialize(prefs);
+
+		// Temp
+		cs = frc::CameraServer::GetInstance();
+		cs->StartAutomaticCapture(0);
 	}
 
 	void UpdateDashboard(bool verbose = false)

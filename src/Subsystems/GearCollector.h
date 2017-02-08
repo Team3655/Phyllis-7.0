@@ -22,6 +22,8 @@ private:
 	CANTalon* m_intake;
 	CANTalon* m_transport;
 
+	// Photo-sensor
+
 	double m_intakeSpeed;
 	double m_transSpeed;
 
@@ -35,9 +37,11 @@ public:
 	void Initialize(frc::Preferences* prefs) override;
 	void DashboardOutput(bool verbose = false) override;
 
+	bool IsGearPresent();
+
 	// Set all of the motors
 	void SetIntake();
 	void Stop();
 };
 
-#endif  // GEAR_COLLECTOR_H
+#endif // GEAR_COLLECTOR_H

@@ -43,7 +43,6 @@ bool Shoot::IsFinished()
 // Called once after isFinished returns true
 void Shoot::End()
 {
-	fuelCollector.get()->SetOpen(false);
 	shooter.get()->Set(0);
 }
 

@@ -25,6 +25,8 @@ private:
 	CANTalon* m_meter;
 	CANTalon* m_intake;
 
+	int m_currentMeterPos;
+
 	std::string state_to_string(uint32_t state);
 
 public:

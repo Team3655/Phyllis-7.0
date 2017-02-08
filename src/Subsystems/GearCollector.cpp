@@ -60,6 +60,11 @@ void GearCollector::DashboardOutput(bool verbose)
 	}
 }
 
+bool GearCollector::IsGearPresent()
+{
+	return false; // Not implemented
+}
+
 void GearCollector::SetIntake()
 {
 	m_intake->Set(m_intakeSpeed);

@@ -40,35 +40,39 @@ void FuelCollector::InitDefaultCommand()
 
 void FuelCollector::Initialize(frc::Preferences* prefs)
 {
-	m_gate = new frc::Servo(FUEL_GATE_PORT);
+	m_meter = new CANTalon(FUEL_METER_PORT);
+	m_meter->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
+	m_meter->SetPID(
+			prefs->GetDouble("fuel_meter_p", FUEL_METER_P),
+			prefs->GetDouble("fuel_meter_i", FUEL_METER_I),
+			prefs->GetDouble("fuel_meter_d", FUEL_METER_D));
+
+	m_meter->Reset();
+	m_currentMeterPos = 0;
 
 	m_intake = new CANTalon(FUEL_INTAKE_PORT);
 	m_intake->SetTalonControlMode(CANTalon::TalonControlMode::kSpeedMode);
-	m_intake->SetPID(FUEL_INTAKE_P, FUEL_INTAKE_I, FUEL_INTAKE_D);
+	m_intake->SetPID(
+			prefs->GetDouble("fuel_intake_p", FUEL_INTAKE_P),
+			prefs->GetDouble("fuel_intake_i", FUEL_INTAKE_I),
+			prefs->GetDouble("fuel_intake_d", FUEL_INTAKE_D));
 }
 
 void FuelCollector::DashboardOutput(bool verbose)
 {
-	frc::SmartDashboard::PutString("Gate", m_gate->Get() ? "open" : "closed");
 	frc::SmartDashboard::PutString("State", state_to_string(m_state));
+	frc::SmartDashboard::PutNumber("Balls Indexed", m_currentMeterPos / (FUEL_METER_CPR / FUEL_BALL_PER_TURN));
 
 	if (verbose)
 	{
-
+		frc::SmartDashboard::PutNumber("Meter Count", m_meter->GetEncPosition());
 	}
 }
 
-
-void FuelCollector::SetOpen(bool open)
+void FuelCollector::IndexOne()
 {
-	if (open)
-	{
-		m_gate->Set(0.0);
-	}
-	else
-	{
-		m_gate->Set(100.0);
-	}
+	m_currentMeterPos += FUEL_METER_CPR / FUEL_BALL_PER_TURN;
+	m_meter->Set(m_currentMeterPos);
 }
 
 void FuelCollector::SetIntake(double speed)
