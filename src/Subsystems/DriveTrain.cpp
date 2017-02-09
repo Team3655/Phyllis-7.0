@@ -173,3 +173,14 @@ void DriveTrain::SetPosition(double pos)
 	m_lb->Set(pos);
 	m_rb->Set(-pos);
 }
+
+void DriveTrain::GetPosition(double& lPos, double& rPos)
+{
+	lPos = m_lb->GetEncPosition();
+	rPos = m_rb->GetEncPosition();
+}
+
+double DriveTrain::GetVelocity()
+{
+	return (m_lb->GetEncVel() + m_rb->GetEncVel()) / 2;
+}

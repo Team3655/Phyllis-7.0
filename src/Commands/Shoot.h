@@ -16,10 +16,6 @@ private:
 
 	frc::JoystickButton* m_abortBtn;
 
-#ifdef TEMP
-	frc::JoystickButton* m_shootBtn;
-#endif // TEMP
-
 	frc::Timer* m_timer;
 
 public:

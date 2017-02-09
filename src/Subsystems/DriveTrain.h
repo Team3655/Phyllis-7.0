@@ -73,6 +73,8 @@ public:
 	double GetScale();
 
 	void SetPosition(double pos);
+	void GetPosition(double& lPos, double& rPos);
+	double GetVelocity();
 };
 
 #endif // DRIVE_TRAIN_H

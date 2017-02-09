@@ -2,13 +2,13 @@
 #define COLLECT_GEAR_H
 
 #include "../CommandBase.h"
+#include "../OI.h"
 
+// Summary:
+//
 class CollectGear : public CommandBase
 {
 private:
-#ifdef TEMP
-	frc::JoystickButton* m_intakeBtn;
-#endif
 	frc::JoystickButton* m_endBtn;
 
 	bool m_direction;

@@ -14,7 +14,7 @@ Drive::Drive() :
 {
 	Requires(drive.get());
 
-	int code = oi.get()->GetPrefs()->GetInt("joy_btn_switch_mode", 21);
+	int code = oi.get()->GetPrefs()->GetInt("joy_btn_drive_mode", 21);
 	m_atSwitch = new frc::JoystickButton(oi.get()->GetStick(oi.get()->InterpretStick(code)), oi.get()->InterpretButton(code));
 }
 

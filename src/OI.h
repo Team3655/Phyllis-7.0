@@ -17,6 +17,7 @@ private:
 	frc::JoystickButton* m_shift;
 	frc::JoystickButton* m_collectGear;
 	frc::JoystickButton* m_ejectGear;
+	frc::JoystickButton* m_collectFuel;
 
 	frc::Joystick* m_coDriver;
 	frc::JoystickButton* m_shoot;

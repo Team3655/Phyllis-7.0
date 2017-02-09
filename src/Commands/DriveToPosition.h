@@ -5,8 +5,13 @@
 
 class DriveToPosition : public CommandBase
 {
+private:
+	double m_position;
+	double m_lPosition,
+		   m_rPosition;
+
 public:
-	DriveToPosition();
+	DriveToPosition(double position);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

@@ -99,7 +99,7 @@ constexpr int CS_SHOOT_CAM_PORT = 1;
 
 //---------------------------------------------------------
 // Utility functions
-inline bool is_about(double target, double acceptableRange)
+inline bool is_about(double target, double value, double acceptableRange)
 {
 	return target >= target + acceptableRange && target < target - acceptableRange;
 }

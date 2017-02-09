@@ -4,41 +4,30 @@ CollectFuel::CollectFuel()
 {
 	Requires(fuelCollector.get());
 
-	m_collectBtn = new frc::JoystickButton(oi.get()->GetStick(0), 3);
+	int code = oi.get()->GetPrefs()->GetInt("joy_btn_fuel_end_intake");
+	m_endBtn = new frc::JoystickButton(oi.get()->GetStick(oi.get()->InterpretStick(code)), oi.get()->InterpretButton(code));
 }
 
-// Called just before this Command runs the first time
 void CollectFuel::Initialize()
 {
-
+	m_speed = oi.get()->GetPrefs()->GetDouble("fuel_intake_speed", FUEL_INTAKE_SPEED);
 }
 
-// Called repeatedly when this Command is scheduled to run
 void CollectFuel::Execute()
 {
-	static bool intake = false;
-	if (m_collectBtn->Get())
-	{
-		fuelCollector.get()->SetIntake(intake);
-		intake = !intake;
-	}
+	fuelCollector.get()->SetIntake(m_speed);
 }
 
-// Make this return true when this Command no longer needs to run execute()
 bool CollectFuel::IsFinished()
 {
-	return false;
+	return m_endBtn->Get();
 }
 
-// Called once after isFinished returns true
 void CollectFuel::End()
 {
-
+	fuelCollector.get()->SetIntake(0);
 }
 
-// Called when another command which requires one or more of the same
-// subsystems is scheduled to run
 void CollectFuel::Interrupted()
 {
-
 }

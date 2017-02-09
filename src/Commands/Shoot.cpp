@@ -8,11 +8,8 @@ Shoot::Shoot(double speedProp)
 	m_isAligned = false;
 	m_speedProportion = speedProp;
 
-	m_abortBtn = new frc::JoystickButton(oi.get()->GetStick(JOY_BOARD_PORT), 2);
-
-#ifdef TEMP
-	m_shootBtn = new frc::JoystickButton(oi.get()->GetStick(JOY_DRIVER_PORT), 1);
-#endif // TEMP
+	int code = oi.get()->GetPrefs()->GetInt("joy_btn_shoot_end");
+	m_abortBtn = new frc::JoystickButton(oi.get()->GetStick(oi.get()->InterpretStick(code)), oi.get()->InterpretButton(code));
 
 	m_timer = new frc::Timer();
 }
@@ -47,7 +44,7 @@ void Shoot::Execute()
 
 bool Shoot::IsFinished()
 {
-	// When no more balls are present or not aligned
+	// When no more balls are present or not aligned or abort pressed
 	return false || !m_isAligned || m_abortBtn->Get();
 }
 

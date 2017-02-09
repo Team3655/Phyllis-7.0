@@ -13,26 +13,31 @@
 #include "Commands/Shoot.h"
 #include "Commands/Shift.h"
 #include "Commands/CollectGear.h"
+#include "Commands/CollectFuel.h"
 
 OI::OI() :
 	m_driver(new Joystick(JOY_DRIVER_PORT)),
 	m_coDriver(new Joystick(JOY_CODRIVER_PORT)),
-	m_board(new Joystick(2)),
+	m_board(new Joystick(JOY_BOARD_PORT)),
 	m_prefs(frc::Preferences::GetInstance())
 {
-	int code = m_prefs->GetInt("joy_btn_collect_gear", 2);
+	int code = m_prefs->GetInt("joy_btn_gear_collect", 2);
 	m_collectGear = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	m_collectGear->WhenPressed(new CollectGear(true));
 
-	code = m_prefs->GetInt("joy_btn_eject_gear", 3);
+	code = m_prefs->GetInt("joy_btn_gear_eject", 3);
 	m_ejectGear = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	m_ejectGear->WhenPressed(new CollectGear(false));
+
+	code = m_prefs->GetInt("joy_btn_fuel_intake", 23);
+	m_collectFuel = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code))
+	m_collectFuel->WhenPressed(new CollectFuel());
 
 	//code = m_prefs->GetInt("joy_btn_shoot", 1);
 	//m_shoot = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	//m_shoot->WhenPressed(new Shoot());
 
-	code = m_prefs->GetInt("joy_btn_shift", 5);
+	code = m_prefs->GetInt("joy_btn_drive_shift", 5);
 	m_shift = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	m_shift->WhenPressed(new Shift());
 }

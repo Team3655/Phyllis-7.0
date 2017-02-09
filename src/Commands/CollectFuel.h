@@ -2,11 +2,14 @@
 #define COLLECT_FUEL_H
 
 #include "../CommandBase.h"
+#include "../OI.h"
 
 class CollectFuel : public CommandBase
 {
 private:
-	frc::JoystickButton* m_collectBtn;
+	frc::JoystickButton* m_endBtn;
+
+	double m_speed;
 
 public:
 	CollectFuel();
@@ -17,4 +20,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // COLLECT_FUEL_H
+#endif // COLLECT_FUEL_H

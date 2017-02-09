@@ -1,37 +1,34 @@
 #include "DriveToPosition.h"
 
-DriveToPosition::DriveToPosition()
+DriveToPosition::DriveToPosition(double position)
 {
 	Requires(drive.get());
+
+	m_position = position;
 }
 
-// Called just before this Command runs the first time
 void DriveToPosition::Initialize()
 {
 	//drive.get()->SetTalonMode(CANTalon::TalonControlMode::kPositionMode);
 }
 
-// Called repeatedly when this Command is scheduled to run
 void DriveToPosition::Execute()
 {
-	drive.get()->SetPosition(5000);
+	drive.get()->SetPosition(m_position);
+	drive.get()->GetPosition(m_lPosition, m_rPosition);
 }
 
-// Make this return true when this Command no longer needs to run execute()
 bool DriveToPosition::IsFinished()
 {
-	return false;
+	return is_about(m_position, m_lPosition, 50.0) &&
+		   is_about(m_position, m_rPosition, 50.0) &&
+		   drive.get()->GetVelocity() == 0.0;
 }
 
-// Called once after isFinished returns true
 void DriveToPosition::End()
 {
-
 }
 
-// Called when another command which requires one or more of the same
-// subsystems is scheduled to run
 void DriveToPosition::Interrupted()
 {
-
 }
