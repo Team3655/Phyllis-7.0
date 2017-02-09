@@ -20,8 +20,7 @@ void VisionManager::Initialize(frc::Preferences* prefs)
 			[]()
 			{
 
-			});
-*/
+			});*/
 
 	m_currentCam = 0;
 	m_pegCam = m_cs->StartAutomaticCapture();

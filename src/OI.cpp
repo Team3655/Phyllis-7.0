@@ -10,9 +10,9 @@
 #include "OI.h"
 #include "RobotMap.h"
 
-#include <WPILib.h>
 #include "Commands/Shoot.h"
 #include "Commands/Shift.h"
+#include "Commands/CollectGear.h"
 
 OI::OI() :
 	m_driver(new Joystick(JOY_DRIVER_PORT)),
@@ -20,16 +20,20 @@ OI::OI() :
 	m_board(new Joystick(2)),
 	m_prefs(frc::Preferences::GetInstance())
 {
-	//m_shoot = new JoystickButton(m_driver, 1);
-	//m_shoot->WhenPressed(new Shoot());
-
-	m_collectGear = new JoystickButton(m_driver, 3);
+	int code = m_prefs->GetInt("joy_btn_collect_gear", 2);
+	m_collectGear = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	m_collectGear->WhenPressed(new CollectGear(true));
 
-	m_ejectGear = new JoystickButton(m_driver, 2);
+	code = m_prefs->GetInt("joy_btn_eject_gear", 3);
+	m_ejectGear = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	m_ejectGear->WhenPressed(new CollectGear(false));
 
-	m_shift = new JoystickButton(m_driver, 4);
+	//code = m_prefs->GetInt("joy_btn_shoot", 1);
+	//m_shoot = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
+	//m_shoot->WhenPressed(new Shoot());
+
+	code = m_prefs->GetInt("joy_btn_shift", 5);
+	m_shift = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	m_shift->WhenPressed(new Shift());
 }
 
@@ -37,8 +41,21 @@ OI::~OI()
 {
 	delete m_driver;
 	delete m_coDriver;
+	delete m_board;
 	delete m_shoot;
 	delete m_shift;
+	delete m_collectGear;
+	delete m_ejectGear;
+}
+
+int OI::InterpretStick(int code)
+{
+	return (int)code / 10;
+}
+
+int OI::InterpretButton(int code)
+{
+	return (int)code % 10;
 }
 
 double OI::Deadband(double input)

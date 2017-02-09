@@ -116,8 +116,6 @@ public:
 		{
 			autonomousCommand->Cancel();
 		}
-		autonomousCommand = std::make_unique<Shoot>();
-		autonomousCommand.get()->Start();
 	}
 
 	void TeleopPeriodic() override
