@@ -4,6 +4,7 @@
 #include <Joystick.h>
 #include <Buttons/JoystickButton.h>
 #include <Preferences.h>
+
 #include "RobotMap.h"
 
 // Summary:
@@ -15,15 +16,14 @@ private:
 
 	frc::Joystick* m_driver;
 	frc::JoystickButton* m_shift;
+
+	frc::Joystick* m_codriver;
+
+	frc::Joystick* m_board;
 	frc::JoystickButton* m_collectGear;
 	frc::JoystickButton* m_ejectGear;
 	frc::JoystickButton* m_collectFuel;
-
-	frc::Joystick* m_coDriver;
 	frc::JoystickButton* m_shoot;
-	//frc::JoystickButton* m_manualOverride;
-
-	frc::Joystick* m_board;
 
 	double m_deadband;
 	bool m_enableDeadband;

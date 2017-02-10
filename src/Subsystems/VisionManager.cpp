@@ -14,13 +14,13 @@ void VisionManager::InitDefaultCommand()
 
 void VisionManager::Initialize(frc::Preferences* prefs)
 {
-	/*m_vision = new frc::VisionRunner<grip::GripPipeline>(
+	m_vision = new frc::VisionRunner<grip::GripPipeline>(
 			cs::UsbCamera(),
 			new grip::GripPipeline(),
-			[]()
+			[](grip::GripPipeline& pipeline)
 			{
-
-			});*/
+				//frc::SmartDashboard::PutNumber();
+			});
 
 	m_currentCam = 0;
 	m_pegCam = m_cs->StartAutomaticCapture();

@@ -20,7 +20,7 @@
 
 OI::OI() :
 	m_driver(new Joystick(JOY_DRIVER_PORT)),
-	m_coDriver(new Joystick(JOY_CODRIVER_PORT)),
+	m_codriver(new Joystick(JOY_CODRIVER_PORT)),
 	m_board(new Joystick(JOY_BOARD_PORT)),
 	m_prefs(frc::Preferences::GetInstance())
 {
@@ -36,9 +36,9 @@ OI::OI() :
 	m_collectFuel = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	m_collectFuel->WhenPressed(new CollectFuel());
 
-	//code = m_prefs->GetInt("joy_btn_shoot", 1);
-	//m_shoot = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
-	//m_shoot->WhenPressed(new Shoot());
+	code = m_prefs->GetInt("joy_btn_shoot", 1);
+	m_shoot = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
+	m_shoot->WhenPressed(new Shoot());
 
 	code = m_prefs->GetInt("joy_btn_drive_shift", 5);
 	m_shift = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
@@ -48,7 +48,7 @@ OI::OI() :
 OI::~OI()
 {
 	delete m_driver;
-	delete m_coDriver;
+	delete m_codriver;
 	delete m_board;
 	delete m_shoot;
 	delete m_shift;
@@ -91,7 +91,7 @@ Joystick* OI::GetStick(int stick)
 		return m_driver;
 		break;
 	case 1:
-		return m_coDriver;
+		return m_codriver;
 		break;
 	case 2:
 		return m_board;
