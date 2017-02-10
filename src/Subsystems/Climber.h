@@ -34,4 +34,4 @@ public:
 	void DashboardOutput(bool verbose = false) override;
 };
 
-#endif  // CLIMBER_H
+#endif // CLIMBER_H

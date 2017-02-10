@@ -41,4 +41,4 @@ public:
 	bool IsAtSpeed();
 };
 
-#endif  // SHOOTER_H
+#endif // SHOOTER_H
