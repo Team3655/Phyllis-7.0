@@ -9,7 +9,7 @@
 #include "../ExtSubsystem.h"
 
 // Summary:
-//
+//  Structure that contains color data
 struct Color
 {
 	char* name;
@@ -26,14 +26,14 @@ struct Color
 	}
 };
 
-#define OFF 	Color(0, 0, 0, "OFF")
-#define WHITE 	Color(1, 1, 1, "WHITE")
-#define RED		Color(1, 0, 0, "RED")
-#define GREEN	Color(0, 1, 0, "GREEN")
-#define BLUE	Color(0, 0, 1, "BLUE")
-#define YELLOW	Color(1, 1, 0, "YELLOW")
-#define	VIOLET	Color(1, 0, 1, "VIOLET")
-#define CYAN	Color(0, 1, 1, "CYAN")
+#define OFF     Color(0, 0, 0, "OFF")
+#define WHITE   Color(1, 1, 1, "WHITE")
+#define RED     Color(1, 0, 0, "RED")
+#define GREEN   Color(0, 1, 0, "GREEN")
+#define BLUE    Color(0, 0, 1, "BLUE")
+#define YELLOW  Color(1, 1, 0, "YELLOW")
+#define	VIOLET  Color(1, 0, 1, "VIOLET")
+#define CYAN    Color(0, 1, 1, "CYAN")
 
 // Summary:
 //	Controls indicators (mainly lights) for robot feedback

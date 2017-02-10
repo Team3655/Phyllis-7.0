@@ -71,7 +71,8 @@ int OI::InterpretButton(std::string& code)
 	for (int i = 0; i < code.length(); i++)
 	{
 		if (code[i] == '-') b = true;
-		str += code[i];
+		if (b)
+			str += code[i];
 	}
 	return std::stoi(str);
 }
