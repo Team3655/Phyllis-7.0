@@ -3,6 +3,8 @@
 
 #include "../CommandBase.h"
 
+// Summary:
+//
 class AlignWithPeg : public CommandBase
 {
 public:

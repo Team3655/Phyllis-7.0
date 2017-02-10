@@ -4,6 +4,8 @@
 #include "../CommandBase.h"
 #include "../OI.h"
 
+// Summary:
+//
 class CollectFuel : public CommandBase
 {
 private:

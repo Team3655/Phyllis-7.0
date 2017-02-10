@@ -15,6 +15,9 @@
 #include "Commands/CollectGear.h"
 #include "Commands/CollectFuel.h"
 
+#include <string>
+#include <sstream>
+
 OI::OI() :
 	m_driver(new Joystick(JOY_DRIVER_PORT)),
 	m_coDriver(new Joystick(JOY_CODRIVER_PORT)),
@@ -30,7 +33,7 @@ OI::OI() :
 	m_ejectGear->WhenPressed(new CollectGear(false));
 
 	code = m_prefs->GetInt("joy_btn_fuel_intake", 23);
-	m_collectFuel = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code))
+	m_collectFuel = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	m_collectFuel->WhenPressed(new CollectFuel());
 
 	//code = m_prefs->GetInt("joy_btn_shoot", 1);
@@ -51,16 +54,26 @@ OI::~OI()
 	delete m_shift;
 	delete m_collectGear;
 	delete m_ejectGear;
+	delete m_collectFuel;
 }
 
-int OI::InterpretStick(int code)
+int OI::InterpretStick(std::string& code)
 {
-	return (int)code / 10;
+	// Lazy as shit so I'm not doing this efficiently
+	return std::stoi(std::string(code[0]));
 }
 
-int OI::InterpretButton(int code)
+int OI::InterpretButton(std::string& code)
 {
-	return (int)code % 10;
+	// Here too
+	std::string str;
+	bool b = false;
+	for (int i = 0; i < code.length(); i++)
+	{
+		if (code[i] == '-') b = true;
+		str += code[i];
+	}
+	return std::stoi(str);
 }
 
 double OI::Deadband(double input)

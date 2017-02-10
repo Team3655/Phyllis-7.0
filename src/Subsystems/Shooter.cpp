@@ -68,5 +68,5 @@ void Shooter::Set(double speed)
 
 bool Shooter::IsAtSpeed()
 {
-	return is_about(m_shooter->Get(), 50.0);
+	return is_about(m_targetSpeed, m_shooter->Get(), 50.0);
 }

@@ -26,8 +26,6 @@ private:
 	std::unique_ptr<frc::Command> autonomousCommand;
 	frc::SendableChooser<frc::Command*> chooser;
 
-	frc::CameraServer* cs;
-
 public:
 	void InitializeSubsystems(frc::Preferences* prefs)
 	{
@@ -37,11 +35,7 @@ public:
 		CommandBase::climber.get()->Initialize(prefs);
 		CommandBase::fuelCollector.get()->Initialize(prefs);
 		CommandBase::lights.get()->Initialize(prefs);
-		//CommandBase::visionManager.get()->Initialize(prefs);
-
-		// Temp
-		cs = frc::CameraServer::GetInstance();
-		cs->StartAutomaticCapture(0);
+		CommandBase::visionManager.get()->Initialize(prefs);
 	}
 
 	void UpdateDashboard(bool verbose = false)
@@ -52,7 +46,7 @@ public:
 		CommandBase::climber.get()->DashboardOutput(verbose);
 		CommandBase::fuelCollector.get()->DashboardOutput(verbose);
 		CommandBase::lights.get()->DashboardOutput(verbose);
-		//CommandBase::visionManager.get()->DashboardOutput(verbose);
+		CommandBase::visionManager.get()->DashboardOutput(verbose);
 	}
 
 	void RobotInit() override

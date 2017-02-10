@@ -36,8 +36,8 @@ public:
 
 	frc::Joystick* GetStick(int stick);
 
-	int InterpretStick(int code);
-	int InterpretButton(int code);
+	int InterpretStick(std::string& code);
+	int InterpretButton(std::string& code);
 
 	double GetXAxis(int stick);
 	double GetYAxis(int stick);

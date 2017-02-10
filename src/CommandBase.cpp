@@ -22,8 +22,8 @@ std::shared_ptr<Climber> CommandBase::climber =
 		std::make_shared<Climber>();
 std::shared_ptr<FuelCollector> CommandBase::fuelCollector =
 		std::make_shared<FuelCollector>();
-//std::shared_ptr<VisionManager> CommandBase::visionManager =
-		//std::make_shared<VisionManager>();
+std::shared_ptr<VisionManager> CommandBase::visionManager =
+		std::make_shared<VisionManager>();
 std::shared_ptr<Lights> CommandBase::lights =
 		std::make_shared<Lights>();
 

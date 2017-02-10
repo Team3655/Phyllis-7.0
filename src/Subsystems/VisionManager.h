@@ -33,4 +33,4 @@ public:
 	void SetCamera(int camera);
 };
 
-#endif  // VISION_MANAGER_H
+#endif // VISION_MANAGER_H
