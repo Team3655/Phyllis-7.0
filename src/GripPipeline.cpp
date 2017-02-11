@@ -8,6 +8,7 @@ namespace grip {
 GripPipeline::GripPipeline()
 {
 	this->switchSwitch = true;
+	timer = new frc::Timer();
 }
 /**
 * Runs an iteration of the Pipeline and updates outputs.
@@ -15,8 +16,10 @@ GripPipeline::GripPipeline()
 * Sources need to be set before calling this method. 
 *
 */
-void GripPipeline::process(cv::Mat source0)
+void GripPipeline::Process(cv::Mat source0)
 {
+	timer->Reset();
+	timer->Start();
 	//Step Switch0:
 	//input
 	bool switchSwitch = this->switchSwitch;
@@ -57,6 +60,10 @@ void GripPipeline::process(cv::Mat source0)
 	double filterContoursMinRatio = 0;  // default Double
 	double filterContoursMaxRatio = 1000;  // default Double
 	filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter, filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight, filterContoursSolidity, filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio, filterContoursMaxRatio, this->filterContoursOutput);
+
+	cv::Rect rect = cv::boundingRect<cv::Point>(this->filterContoursOutput[0]);
+	timer->Stop();
+	procTime = timer->Get();
 }
 
 /**
@@ -218,5 +225,26 @@ std::vector<std::vector<cv::Point> >* GripPipeline::getfilterContoursOutput()
 		}
 	}
 
-} // end grip namespace
+	cv::Rect& grip::GripPipeline::getTarget(int idx)
+	{
+		return targets[idx];
+	}
 
+	double grip::GripPipeline::getTargetCenterX(int idx)
+	{
+		cv::Rect& r = targets[idx];
+		return r.x + r.width / 2;
+	}
+
+	double grip::GripPipeline::getTargetCenterY(int idx)
+	{
+		cv::Rect& r = targets[idx];
+		return r.y + r.height / 2;
+	}
+
+	double grip::GripPipeline::getProcTime()
+	{
+		return procTime;
+	}
+
+} // end grip namespace

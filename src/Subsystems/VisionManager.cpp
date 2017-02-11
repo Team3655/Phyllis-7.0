@@ -19,11 +19,13 @@ void VisionManager::Initialize(frc::Preferences* prefs)
 			new grip::GripPipeline(),
 			[](grip::GripPipeline& pipeline)
 			{
-				//frc::SmartDashboard::PutNumber();
+				frc::SmartDashboard::PutNumber("CenterX", pipeline.getTargetCenterX(0));
+				frc::SmartDashboard::PutNumber("Processing Time", pipeline.getProcTime());
 			});
 
 	m_currentCam = 0;
 	m_pegCam = m_cs->StartAutomaticCapture();
+	m_sink = m_cs->GetVideo();
 }
 
 void VisionManager::DashboardOutput(bool verbose)
@@ -31,6 +33,15 @@ void VisionManager::DashboardOutput(bool verbose)
 	if (verbose)
 	{
 
+	}
+}
+
+void VisionManager::vision_thread()
+{
+	while (true)
+	{
+		m_sink.GrabFrame(m_mat);
+		m_vision->DoProcess(m_mat);
 	}
 }
 
@@ -47,4 +58,14 @@ void VisionManager::SetCamera(int camera)
 		break;
 	}
 	m_currentCam = camera;
+}
+
+void VisionManager::StartProc()
+{
+	if (m_visionThread == nullptr)
+	{
+		m_visionThread = new std::thread(vision_thread());
+		m_visionThread->detach();
+	}
+	m_isRunning = true;
 }
