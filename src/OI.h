@@ -15,11 +15,11 @@ private:
 	frc::Preferences* m_prefs;
 
 	frc::Joystick* m_driver;
-	frc::JoystickButton* m_shift;
-
 	frc::Joystick* m_codriver;
-
 	frc::Joystick* m_board;
+	frc::Joystick* m_board2;
+
+	frc::JoystickButton* m_shift;
 	frc::JoystickButton* m_collectGear;
 	frc::JoystickButton* m_ejectGear;
 	frc::JoystickButton* m_collectFuel;

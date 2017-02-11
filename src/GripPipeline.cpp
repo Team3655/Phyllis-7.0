@@ -61,7 +61,10 @@ void GripPipeline::Process(cv::Mat source0)
 	double filterContoursMaxRatio = 1000;  // default Double
 	filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter, filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight, filterContoursSolidity, filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio, filterContoursMaxRatio, this->filterContoursOutput);
 
-	cv::Rect rect = cv::boundingRect<cv::Point>(this->filterContoursOutput[0]);
+	for (int i = 0; i < filterContoursOutput.size(); i++)
+	{
+		targets.push_back(cv::boundingRect(this->filterContoursOutput[i]));
+	}
 	timer->Stop();
 	procTime = timer->Get();
 }

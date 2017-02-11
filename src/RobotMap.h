@@ -91,6 +91,7 @@ constexpr double FUEL_INTAKE_D = 0;
 constexpr int JOY_DRIVER_PORT = 0;
 constexpr int JOY_CODRIVER_PORT = 1;
 constexpr int JOY_BOARD_PORT = 2;
+constexpr int JOY_BOARD_PORT2 = 3;
 
 //---------------------------------------------------------
 // Camera

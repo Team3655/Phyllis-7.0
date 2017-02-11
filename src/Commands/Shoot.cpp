@@ -8,7 +8,7 @@ Shoot::Shoot(double speedProp)
 	m_isAligned = false;
 	m_speedProportion = speedProp;
 
-	int code = oi.get()->GetPrefs()->GetInt("joy_btn_shoot_end");
+	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_shoot_end");
 	m_abortBtn = new frc::JoystickButton(oi.get()->GetStick(oi.get()->InterpretStick(code)), oi.get()->InterpretButton(code));
 
 	m_timer = new frc::Timer();

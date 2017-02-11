@@ -16,31 +16,31 @@
 #include "Commands/CollectFuel.h"
 
 #include <string>
-#include <sstream>
 
 OI::OI() :
 	m_driver(new Joystick(JOY_DRIVER_PORT)),
 	m_codriver(new Joystick(JOY_CODRIVER_PORT)),
 	m_board(new Joystick(JOY_BOARD_PORT)),
+	m_board2(new Joystick(JOY_BOARD_PORT2)),
 	m_prefs(frc::Preferences::GetInstance())
 {
-	int code = m_prefs->GetInt("joy_btn_gear_collect", 2);
+	std::string code = m_prefs->GetString("joy_btn_gear_collect");
 	m_collectGear = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	m_collectGear->WhenPressed(new CollectGear(true));
 
-	code = m_prefs->GetInt("joy_btn_gear_eject", 3);
+	code = m_prefs->GetString("joy_btn_gear_eject");
 	m_ejectGear = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	m_ejectGear->WhenPressed(new CollectGear(false));
 
-	code = m_prefs->GetInt("joy_btn_fuel_intake", 23);
+	code = m_prefs->GetString("joy_btn_fuel_intake");
 	m_collectFuel = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	m_collectFuel->WhenPressed(new CollectFuel());
 
-	code = m_prefs->GetInt("joy_btn_shoot", 1);
+	code = m_prefs->GetString("joy_btn_shoot");
 	m_shoot = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
-	m_shoot->WhenPressed(new Shoot());
+	m_shoot->WhenPressed(new Shoot(m_prefs->GetDouble("shoot_speed")));
 
-	code = m_prefs->GetInt("joy_btn_drive_shift", 5);
+	code = m_prefs->GetString("joy_btn_drive_shift");
 	m_shift = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	m_shift->WhenPressed(new Shift());
 }
@@ -60,7 +60,7 @@ OI::~OI()
 int OI::InterpretStick(std::string& code)
 {
 	// Lazy as shit so I'm not doing this efficiently
-	return std::stoi(std::string(code[0]));
+	return std::stoi(std::string((char*)code[0]));
 }
 
 int OI::InterpretButton(std::string& code)

@@ -38,11 +38,7 @@ void VisionManager::DashboardOutput(bool verbose)
 
 void VisionManager::vision_thread()
 {
-	while (true)
-	{
-		m_sink.GrabFrame(m_mat);
-		m_vision->DoProcess(m_mat);
-	}
+	m_vision->RunForever();
 }
 
 void VisionManager::SetCamera(int camera)
@@ -64,7 +60,7 @@ void VisionManager::StartProc()
 {
 	if (m_visionThread == nullptr)
 	{
-		m_visionThread = new std::thread(vision_thread());
+		m_visionThread = new std::thread(&VisionManager::vision_thread, this);
 		m_visionThread->detach();
 	}
 	m_isRunning = true;

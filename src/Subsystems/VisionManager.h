@@ -34,7 +34,7 @@ private:
 
 	int m_currentCam;
 
-	static void vision_thread();
+	void vision_thread();
 
 public:
 	VisionManager();

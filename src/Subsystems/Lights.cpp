@@ -1,8 +1,11 @@
 #include "Lights.h"
 #include "../RobotMap.h"
 
+#include <SmartDashboard/SmartDashboard.h>
+
 Lights::Lights() :
-	frc::Subsystem("Lights")
+	frc::Subsystem("Lights"),
+	m_color(OFF)
 {
 	m_red = new frc::Solenoid(0);
 	m_green = new frc::Solenoid(1);
