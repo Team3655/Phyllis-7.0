@@ -35,7 +35,7 @@ std::string FuelCollector::state_to_string(uint32_t state)
 
 void FuelCollector::InitDefaultCommand()
 {
-	SetDefaultCommand(new CollectFuel());
+	//SetDefaultCommand(new CollectFuel());
 }
 
 void FuelCollector::Initialize(frc::Preferences* prefs)
@@ -56,6 +56,8 @@ void FuelCollector::Initialize(frc::Preferences* prefs)
 			prefs->GetDouble("fuel_intake_p", FUEL_INTAKE_P),
 			prefs->GetDouble("fuel_intake_i", FUEL_INTAKE_I),
 			prefs->GetDouble("fuel_intake_d", FUEL_INTAKE_D));
+
+	m_state = CollectState::kStopped;
 }
 
 void FuelCollector::DashboardOutput(bool verbose)

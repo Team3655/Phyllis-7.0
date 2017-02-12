@@ -228,19 +228,23 @@ std::vector<std::vector<cv::Point> >* GripPipeline::getfilterContoursOutput()
 		}
 	}
 
-	cv::Rect& grip::GripPipeline::getTarget(int idx)
+	bool grip::GripPipeline::getTarget(int idx, cv::Rect& rect)
 	{
-		return targets[idx];
+		if (targets.size() <= 0) return false;
+		rect = targets[idx];
+		return true;
 	}
 
 	double grip::GripPipeline::getTargetCenterX(int idx)
 	{
+		if (targets.size() <= 0) return -2;
 		cv::Rect& r = targets[idx];
 		return r.x + r.width / 2;
 	}
 
 	double grip::GripPipeline::getTargetCenterY(int idx)
 	{
+		if (targets.size() <= 0) return -2;
 		cv::Rect& r = targets[idx];
 		return r.y + r.height / 2;
 	}

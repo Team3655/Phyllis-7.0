@@ -4,12 +4,13 @@
 Climber::Climber() :
 	Subsystem("Climber")
 {
-
+	m_state = ClimbState::kDown;
 }
 
 Climber::~Climber()
 {
-
+	delete m_climbLeft;
+	delete m_climbRight;
 }
 
 void Climber::InitDefaultCommand()
@@ -22,7 +23,6 @@ void Climber::Initialize(frc::Preferences* prefs)
 	m_climbLeft = new CANTalon(CLIMB_LEFT_PORT);
 	m_climbLeft->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
 	m_climbLeft->SetPID(CLIMB_LEFT_P, CLIMB_LEFT_I, CLIMB_LEFT_D);
-	//m_climbLeft->SetPID()
 	m_climbRight = new CANTalon(CLIMB_RIGHT_PORT);
 	m_climbRight->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
 	m_climbRight->SetPID(CLIMB_RIGHT_P, CLIMB_RIGHT_I, CLIMB_RIGHT_D);

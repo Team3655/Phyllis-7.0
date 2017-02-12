@@ -98,6 +98,12 @@ constexpr int JOY_BOARD_PORT2 = 3;
 constexpr int CS_PEG_CAM_PORT = 0;
 constexpr int CS_SHOOT_CAM_PORT = 1;
 
+//--------------------------------------------------------
+// Lights
+constexpr int LIGHT_RED_PORT = 1;
+constexpr int LIGHT_GREEN_PORT = 2;
+constexpr int LIGHT_BLUE_PORT = 3;
+
 //---------------------------------------------------------
 // Utility functions
 inline bool is_about(double target, double value, double acceptableRange)

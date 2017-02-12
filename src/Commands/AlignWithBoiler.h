@@ -3,7 +3,8 @@
 
 #include "../CommandBase.h"
 
-class AlignWithBoiler : public CommandBase {
+class AlignWithBoiler : public CommandBase
+{
 public:
 	AlignWithBoiler();
 	void Initialize();
@@ -13,4 +14,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // ALIGN_WITH_BOILER_H
+#endif // ALIGN_WITH_BOILER_H

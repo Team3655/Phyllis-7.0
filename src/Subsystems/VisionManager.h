@@ -24,17 +24,12 @@ private:
 	cs::CvSink m_sink;
 	cv::Mat m_mat;
 
-	// thread
-	std::thread* m_visionThread;
-	std::mutex m_resourceLock; // unused so far
 	bool m_isRunning = false;
 
 	// Processing
 	frc::VisionRunner<grip::GripPipeline>* m_vision;
 
 	int m_currentCam;
-
-	void vision_thread();
 
 public:
 	VisionManager();

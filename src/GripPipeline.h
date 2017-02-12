@@ -50,9 +50,9 @@ class GripPipeline
 		cv::Mat* gethslThresholdOutput();
 		std::vector<std::vector<cv::Point> >* getfindContoursOutput();
 		std::vector<std::vector<cv::Point> >* getfilterContoursOutput();
-		cv::Rect& getTarget(int idx);
-		double getTargetCenterX(int idx);
-		double getTargetCenterY(int idx);
+		bool getTarget(int, cv::Rect&);
+		double getTargetCenterX(int);
+		double getTargetCenterY(int);
 		double getProcTime();
 };
 

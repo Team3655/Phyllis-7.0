@@ -4,18 +4,18 @@ Shoot::Shoot(double speedProp)
 {
 	Requires(shooter.get());
 	Requires(fuelCollector.get());
-	Requires(drive.get());
+	//Requires(drive.get());
 	m_isAligned = false;
 	m_speedProportion = speedProp;
-
-	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_shoot_end");
-	m_abortBtn = new frc::JoystickButton(oi.get()->GetStick(oi.get()->InterpretStick(code)), oi.get()->InterpretButton(code));
-
-	m_timer = new frc::Timer();
 }
 
 void Shoot::Initialize()
 {
+	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_shoot_end");
+	m_abortBtn = new frc::JoystickButton(oi.get()->GetStick(oi.get()->InterpretStick(code)), oi.get()->InterpretButton(code));
+
+	m_timer = new frc::Timer();
+
 	drive.get()->Disable();
 	m_isAligned = false; // Get alignment
 	m_timer->Start();
@@ -23,23 +23,12 @@ void Shoot::Initialize()
 
 void Shoot::Execute()
 {
-#ifdef TEMP
-	if (m_shootBtn->Get())
-	{
-		shooter.get()->Set(m_speedProportion * SHOOT_MAX_CPMS);
-	}
-	else
-	{
-		shooter.get()->Set(0);
-	}
-#else
 	shooter.get()->Set(m_speedProportion * SHOOT_MAX_CPMS);
 	if (m_timer->HasPeriodPassed(SHOOT_RESET_TIME / 1000))
 	{
 		fuelCollector.get()->IndexOne();
 		m_timer->Reset();
 	}
-#endif // TEMP
 }
 
 bool Shoot::IsFinished()

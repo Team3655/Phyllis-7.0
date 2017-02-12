@@ -3,14 +3,14 @@
 CollectFuel::CollectFuel()
 {
 	Requires(fuelCollector.get());
-
-	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_fuel_end_intake");
-	m_endBtn = new frc::JoystickButton(oi.get()->GetStick(oi.get()->InterpretStick(code)), oi.get()->InterpretButton(code));
 }
 
 void CollectFuel::Initialize()
 {
 	m_speed = oi.get()->GetPrefs()->GetDouble("fuel_intake_speed", FUEL_INTAKE_SPEED);
+
+	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_fuel_end_intake");
+	m_endBtn = new frc::JoystickButton(oi.get()->GetStick(oi.get()->InterpretStick(code)), oi.get()->InterpretButton(code));
 }
 
 void CollectFuel::Execute()

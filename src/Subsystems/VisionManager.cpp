@@ -14,6 +14,8 @@ void VisionManager::InitDefaultCommand()
 
 void VisionManager::Initialize(frc::Preferences* prefs)
 {
+	m_cs = frc::CameraServer::GetInstance();
+
 	m_vision = new frc::VisionRunner<grip::GripPipeline>(
 			cs::UsbCamera(),
 			new grip::GripPipeline(),
@@ -24,7 +26,7 @@ void VisionManager::Initialize(frc::Preferences* prefs)
 			});
 
 	m_currentCam = 0;
-	m_pegCam = m_cs->StartAutomaticCapture();
+	m_pegCam = m_cs->StartAutomaticCapture(0);
 	m_sink = m_cs->GetVideo();
 }
 
@@ -34,11 +36,6 @@ void VisionManager::DashboardOutput(bool verbose)
 	{
 
 	}
-}
-
-void VisionManager::vision_thread()
-{
-	m_vision->RunForever();
 }
 
 void VisionManager::SetCamera(int camera)
@@ -58,10 +55,6 @@ void VisionManager::SetCamera(int camera)
 
 void VisionManager::StartProc()
 {
-	if (m_visionThread == nullptr)
-	{
-		m_visionThread = new std::thread(&VisionManager::vision_thread, this);
-		m_visionThread->detach();
-	}
+	m_vision->RunForever();
 	m_isRunning = true;
 }

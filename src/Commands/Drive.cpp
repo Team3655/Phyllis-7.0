@@ -10,18 +10,18 @@
 #include "Drive.h"
 
 Drive::Drive() :
-	CommandBase("")
+	CommandBase("Drive")
 {
 	Requires(drive.get());
-
-	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_drive_mode");
-	m_atSwitch = new frc::JoystickButton(oi.get()->GetStick(oi.get()->InterpretStick(code)), oi.get()->InterpretButton(code));
 }
 
 // Called just before this Command runs the first time
 void Drive::Initialize()
 {
 	drive.get()->SetTalonMode(CANTalon::ControlMode::kPercentVbus);
+
+	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_drive_mode");
+	m_atSwitch = new frc::JoystickButton(oi.get()->GetStick(oi.get()->InterpretStick(code)), oi.get()->InterpretButton(code));
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -50,7 +50,7 @@ bool Drive::IsFinished()
 // Called once after isFinished returns true
 void Drive::End()
 {
-	drive.get()->TankDrive(0, 0);
+	//drive.get()->TankDrive(0, 0);
 }
 
 // Called when another command which requires one or more of the same
