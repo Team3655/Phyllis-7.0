@@ -40,6 +40,8 @@ private:
 	bool m_reverse = false;
 	bool m_disabled = false;
 
+	frc::LiveWindow* m_lw;
+
 	CANTalon::TalonControlMode get_talon_mode();
 	void set_pid_values();
 

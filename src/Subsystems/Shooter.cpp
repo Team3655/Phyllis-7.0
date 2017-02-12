@@ -4,7 +4,8 @@
 #include "../Commands/Shoot.h"
 
 Shooter::Shooter() :
-	frc::Subsystem("Shooter")
+	frc::Subsystem("Shooter"),
+	m_lw(frc::LiveWindow::GetInstance())
 {
 	m_targetSpeed = 0;
 }
@@ -49,6 +50,8 @@ void Shooter::Initialize(frc::Preferences* prefs)
 	m_shooter->Enable();
 
 	m_targetSpeed = prefs->GetDouble("shoot_speed", SHOOT_SPEED);
+
+	m_lw->AddActuator("Shooter", "Shoot Motor", m_shooter);
 }
 
 void Shooter::DashboardOutput(bool verbose)

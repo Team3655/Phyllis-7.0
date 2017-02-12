@@ -15,6 +15,7 @@
 DriveTrain::DriveTrain() :
 	frc::Subsystem("Drive")
 {
+	m_lw = frc::LiveWindow::GetInstance();
 }
 
 DriveTrain::~DriveTrain()
@@ -61,6 +62,9 @@ void DriveTrain::Initialize(frc::Preferences* prefs)
 	m_drive = new RobotDrive(m_lb, m_rb);
 
 	m_shiftState = m_shifter->Get();
+
+	m_lw->AddActuator("Drive", "Drive L", m_lb);
+	m_lw->AddActuator("Drive", "Drive R", m_rb);
 }
 
 void DriveTrain::DashboardOutput(bool verbose)

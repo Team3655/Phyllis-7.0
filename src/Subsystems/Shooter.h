@@ -24,6 +24,8 @@ private:
 
 	double m_targetSpeed;
 
+	frc::LiveWindow* m_lw;
+
 	std::string state_to_string(uint32_t state);
 
 public:
