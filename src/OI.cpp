@@ -59,17 +59,14 @@ OI::~OI()
 
 int OI::InterpretStick(std::string& code)
 {
-	// Lazy as shit so I'm not doing this efficiently
-	/*if (code.length() <= 0) return 0;
-	return std::stoi(std::string((char*)code[0]));*/
-	return 0;
+	if (code.length() <= 0) return 0;
+	return code[0] - 48;
 }
 
 int OI::InterpretButton(std::string& code)
 {
-	// Here too
-	/*if (code.length() <= 0) return 0;
-	std::string str;
+	if (code.length() <= 0) return 0;
+	std::string str = "";
 	bool b = false;
 	for (int i = 0; i < code.length(); i++)
 	{
@@ -77,8 +74,7 @@ int OI::InterpretButton(std::string& code)
 			str += code[i];
 		if (code[i] == '-') b = true;
 	}
-	return std::stoi(str);*/
-	return 1;
+	return std::stoi(str);
 }
 
 double OI::Deadband(double input)
