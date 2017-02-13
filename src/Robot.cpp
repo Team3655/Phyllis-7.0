@@ -26,6 +26,8 @@ private:
 	std::unique_ptr<frc::Command> autonomousCommand;
 	frc::SendableChooser<frc::Command*> chooser;
 
+	frc::LiveWindow* lw;
+
 public:
 	void InitializeSubsystems(frc::Preferences* prefs)
 	{
@@ -56,6 +58,9 @@ public:
 		//chooser.AddDefault("Default Auto", new ExampleCommand());
 		// chooser.AddObject("My Auto", new MyAutoCommand());
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
+
+		lw = frc::LiveWindow::GetInstance();
+		lw->Run();
 
 		CommandBase::visionManager.get()->StartProc();
 	}
