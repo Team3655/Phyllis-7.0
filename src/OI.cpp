@@ -24,6 +24,23 @@ OI::OI() :
 	m_board2(new Joystick(JOY_BOARD_PORT2)),
 	m_prefs(frc::Preferences::GetInstance())
 {
+
+}
+
+OI::~OI()
+{
+	delete m_driver;
+	delete m_codriver;
+	delete m_board;
+	delete m_shoot;
+	delete m_shift;
+	delete m_collectGear;
+	delete m_ejectGear;
+	delete m_collectFuel;
+}
+
+void OI::Initialize()
+{
 	std::string code = m_prefs->GetString("joy_btn_gear_collect");
 	m_collectGear = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	m_collectGear->WhenPressed(new CollectGear(true));
@@ -43,18 +60,6 @@ OI::OI() :
 	code = m_prefs->GetString("joy_btn_drive_shift");
 	m_shift = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	m_shift->WhenPressed(new Shift());
-}
-
-OI::~OI()
-{
-	delete m_driver;
-	delete m_codriver;
-	delete m_board;
-	delete m_shoot;
-	delete m_shift;
-	delete m_collectGear;
-	delete m_ejectGear;
-	delete m_collectFuel;
 }
 
 int OI::InterpretStick(std::string& code)

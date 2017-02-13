@@ -57,7 +57,7 @@ public:
 		// chooser.AddObject("My Auto", new MyAutoCommand());
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
 
-		//CommandBase::visionManager.get()->StartProc();
+		CommandBase::visionManager.get()->StartProc();
 	}
 
 	void RobotPeriodic() override

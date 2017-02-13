@@ -32,6 +32,8 @@ public:
 	OI();
 	~OI();
 
+	void Initialize();
+
 	frc::Preferences* GetPrefs() { return m_prefs; }
 
 	frc::Joystick* GetStick(int stick);

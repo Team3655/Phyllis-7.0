@@ -25,11 +25,14 @@ private:
 	cv::Mat m_mat;
 
 	bool m_isRunning = false;
+	std::thread* m_visionThread;
 
 	// Processing
 	frc::VisionRunner<grip::GripPipeline>* m_vision;
 
 	int m_currentCam;
+
+	void vision_thread();
 
 public:
 	VisionManager();
