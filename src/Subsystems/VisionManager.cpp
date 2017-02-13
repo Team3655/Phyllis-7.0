@@ -1,39 +1,47 @@
 #include "VisionManager.h"
 #include "../RobotMap.h"
+#include "../Commands/ManageVision.h"
 
 VisionManager::VisionManager() :
 	frc::Subsystem("Vision Manager")
 {
-	m_currentCam = -1;
+}
+
+VisionManager::~VisionManager()
+{
+	delete m_vision;
+	delete m_visionThread;
 }
 
 void VisionManager::InitDefaultCommand()
 {
-	// SetDefaultCommand(new MySpecialCommand());
+	SetDefaultCommand(new ManageVision());
 }
 
 void VisionManager::Initialize(frc::Preferences* prefs)
 {
 	m_cs = frc::CameraServer::GetInstance();
 
-	m_pegCam = m_cs->StartAutomaticCapture(0);
-	m_pegCam.SetResolution(480, 360);
+	m_currentCam = CS_CAM_PEG_PORT;
+	m_currentCam = m_cs->StartAutomaticCapture(CS_CAM_PEG_PORT);
+	m_currentCam.SetResolution(480, 360);
 
 	m_vision = new frc::VisionRunner<grip::GripPipeline>(
-			m_pegCam,
+			m_currentCam,
 			new grip::GripPipeline(),
 			[&](grip::GripPipeline& pipeline)
 			{
 				frc::SmartDashboard::PutNumber("CenterX", pipeline.getTargetCenterX(0));
 				frc::SmartDashboard::PutNumber("Processing Time", pipeline.getProcTime());
 			});
-
-	m_currentCam = 0;
+	m_lock = new std::mutex();
 }
 
 void VisionManager::DashboardOutput(bool verbose)
 {
-	frc::SmartDashboard::PutBoolean("Vision Processing", m_isRunning);
+	m_lock->lock();
+	frc::SmartDashboard::PutBoolean("Vision Processing Running", m_isRunning);
+	m_lock->unlock();
 
 	if (verbose)
 	{
@@ -43,22 +51,18 @@ void VisionManager::DashboardOutput(bool verbose)
 
 void VisionManager::vision_thread()
 {
-	m_vision->RunForever();
-}
-
-void VisionManager::SetCamera(int camera)
-{
-	switch (camera)
+	while (true)
 	{
-	default:
-	case 0:
-		m_pegCam = m_cs->StartAutomaticCapture(camera);
-		break;
-	case 1:
-		m_shootCam = m_cs->StartAutomaticCapture(camera);
-		break;
+		m_vision->RunOnce();
+
+		m_lock->lock();
+		if (m_isRunning)
+		{
+			m_lock->unlock();
+			break;
+		}
+		m_lock->unlock();
 	}
-	m_currentCam = camera;
 }
 
 void VisionManager::StartProc()
@@ -66,4 +70,26 @@ void VisionManager::StartProc()
 	m_visionThread = new std::thread(&VisionManager::vision_thread, this);
 	m_visionThread->detach();
 	m_isRunning = true;
+}
+
+void VisionManager::SwitchCamera()
+{
+	m_lock->lock();
+	m_isRunning = false;
+	m_lock->unlock();
+
+	m_currentCam = m_cs->StartAutomaticCapture(CS_CAM_PEG_PORT);
+	m_currentCam.SetResolution(CS_CAM_RES_X, CS_CAM_RES_Y);
+
+	m_vision = new frc::VisionRunner<grip::GripPipeline>(
+			m_currentCam,
+			new grip::GripPipeline(),
+			[&](grip::GripPipeline& pipeline)
+			{
+				frc::SmartDashboard::PutNumber("CenterX", pipeline.getTargetCenterX(0));
+				frc::SmartDashboard::PutNumber("Processing Time", pipeline.getProcTime());
+			});
+
+	m_visionThread = new std::thread(&VisionManager::vision_thread, this);
+
 }

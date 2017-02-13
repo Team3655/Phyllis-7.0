@@ -95,8 +95,10 @@ constexpr int JOY_BOARD_PORT2 = 3;
 
 //---------------------------------------------------------
 // Camera
-constexpr int CS_PEG_CAM_PORT = 0;
-constexpr int CS_SHOOT_CAM_PORT = 1;
+constexpr int CS_CAM_PEG_PORT = 0;
+constexpr int CS_CAM_SHOOT_PORT = 1;
+constexpr int CS_CAM_RES_X = 480;
+constexpr int CS_CAM_RES_Y = 360;
 
 //--------------------------------------------------------
 // Lights

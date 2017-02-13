@@ -24,7 +24,8 @@ class Robot: public frc::IterativeRobot
 {
 private:
 	std::unique_ptr<frc::Command> autonomousCommand;
-	frc::SendableChooser<frc::Command*> chooser;
+	frc::SendableChooser<frc::Command*> autoModes;
+	frc::SendableChooser<int> positions;
 
 	frc::LiveWindow* lw;
 
@@ -55,14 +56,20 @@ public:
 	{
 		InitializeSubsystems(CommandBase::oi.get()->GetPrefs());
 
-		//chooser.AddDefault("Default Auto", new ExampleCommand());
-		// chooser.AddObject("My Auto", new MyAutoCommand());
-		frc::SmartDashboard::PutData("Auto Modes", &chooser);
+		positions.AddObject("1", 1);
+		positions.AddObject("2", 2);
+		positions.AddObject("3", 3);
+		frc::SmartDashboard::PutData("Postion", &positions);
+
+		autoModes.AddObject("Cross Baseline", new AutoCrossLine());
+		autoModes.AddObject("Peg Gear", new AutoPegGear());
+		autoModes.AddObject("Pickup and Peg Gear", new AutoPickupAndPeg());
+		autoModes.AddObject("Pickup Gear", new AutoPickupGear());
+		autoModes.AddObject("Shoot", new AutoShoot());
+		frc::SmartDashboard::PutData("Auto Modes", &autoModes);
 
 		lw = frc::LiveWindow::GetInstance();
 		lw->Run();
-
-		CommandBase::visionManager.get()->StartProc();
 	}
 
 	void RobotPeriodic() override
@@ -98,7 +105,7 @@ public:
 	 */
 	void AutonomousInit() override
 	{
-		autonomousCommand.reset(chooser.GetSelected());
+		autonomousCommand.reset(autoModes.GetSelected());
 
 		if (autonomousCommand.get() != nullptr)
 		{

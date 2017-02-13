@@ -3,9 +3,9 @@
 
 #include <Commands/CommandGroup.h>
 
-class AutoShoot : public CommandGroup {
+class AutoShoot : public frc::CommandGroup {
 public:
 	AutoShoot();
 };
 
-#endif  // AUTO_SHOOT_H
+#endif // AUTO_SHOOT_H

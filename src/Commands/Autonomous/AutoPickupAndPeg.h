@@ -3,10 +3,10 @@
 
 #include <Commands/CommandGroup.h>
 
-class AutoPickupAndPeg : public CommandGroup
+class AutoPickupAndPeg : public frc::CommandGroup
 {
 public:
 	AutoPickupAndPeg();
 };
 
-#endif  // AUTO_PICKUP_AND_PEG_H
+#endif // AUTO_PICKUP_AND_PEG_H

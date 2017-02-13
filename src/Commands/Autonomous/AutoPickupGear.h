@@ -3,10 +3,10 @@
 
 #include <Commands/CommandGroup.h>
 
-class AutoPickupGear : public CommandGroup
+class AutoPickupGear : public frc::CommandGroup
 {
 public:
 	AutoPickupGear();
 };
 
-#endif  // AUTO_PICKUP_GEAR_H
+#endif // AUTO_PICKUP_GEAR_H

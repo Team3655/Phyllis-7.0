@@ -18,32 +18,33 @@ class VisionManager : public frc::Subsystem, public ExtSubsystem
 {
 private:
 	frc::CameraServer* m_cs;
-	cs::UsbCamera m_pegCam;
-	cs::UsbCamera m_shootCam;
+	cs::UsbCamera m_currentCam;
 
 	cs::CvSink m_sink;
 	cv::Mat m_mat;
 
 	bool m_isRunning = false;
 	std::thread* m_visionThread;
+	std::mutex* m_lock;
+
+	m_currentCam = -1;
 
 	// Processing
 	frc::VisionRunner<grip::GripPipeline>* m_vision;
-
-	int m_currentCam;
 
 	void vision_thread();
 
 public:
 	VisionManager();
+	~VisionManager();
 	void InitDefaultCommand();
 
 	void Initialize(frc::Preferences* prefs) override;
 	void DashboardOutput(bool verbose = false) override;
 
-	void SetCamera(int camera);
-
 	void StartProc();
+
+	void SwitchCamera();
 
 	bool IsRunning() { return m_isRunning; }
 };
