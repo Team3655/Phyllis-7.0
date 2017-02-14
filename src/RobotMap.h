@@ -99,6 +99,7 @@ constexpr int CS_CAM_PEG_PORT = 0;
 constexpr int CS_CAM_SHOOT_PORT = 1;
 constexpr int CS_CAM_RES_X = 480;
 constexpr int CS_CAM_RES_Y = 360;
+constexpr double CS_CAM_HORIZON_ANGLE = 0.0; // unknown
 
 //--------------------------------------------------------
 // Lights

@@ -22,7 +22,7 @@ void VisionManager::Initialize(frc::Preferences* prefs)
 {
 	m_cs = frc::CameraServer::GetInstance();
 
-	m_currentCam = CS_CAM_PEG_PORT;
+	m_currentCamID = CS_CAM_PEG_PORT;
 	m_currentCam = m_cs->StartAutomaticCapture(CS_CAM_PEG_PORT);
 	m_currentCam.SetResolution(480, 360);
 
@@ -78,7 +78,9 @@ void VisionManager::SwitchCamera()
 	m_isRunning = false;
 	m_lock->unlock();
 
-	m_currentCam = m_cs->StartAutomaticCapture(CS_CAM_PEG_PORT);
+	m_currentCamID = m_currentCamID == CS_CAM_PEG_PORT ? CS_CAM_SHOOT_PORT : CS_CAM_PEG_PORT;
+
+	m_currentCam = m_cs->StartAutomaticCapture(m_currentCamID);
 	m_currentCam.SetResolution(CS_CAM_RES_X, CS_CAM_RES_Y);
 
 	m_vision = new frc::VisionRunner<grip::GripPipeline>(
@@ -90,6 +92,10 @@ void VisionManager::SwitchCamera()
 				frc::SmartDashboard::PutNumber("Processing Time", pipeline.getProcTime());
 			});
 
-	m_visionThread = new std::thread(&VisionManager::vision_thread, this);
+	m_lock->lock();
+	m_isRunning = true;
+	m_lock->unlock();
 
+	m_visionThread = new std::thread(&VisionManager::vision_thread, this);
+	m_visionThread->detach();
 }

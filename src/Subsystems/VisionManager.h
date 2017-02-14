@@ -27,7 +27,7 @@ private:
 	std::thread* m_visionThread;
 	std::mutex* m_lock;
 
-	m_currentCam = -1;
+	int m_currentCamID = -1;
 
 	// Processing
 	frc::VisionRunner<grip::GripPipeline>* m_vision;

@@ -1,4 +1,6 @@
 #include "GripPipeline.h"
+#include <cmath>
+#include "RobotMap.h"
 /**
 * Initializes a GripPipeline.
 */
@@ -228,30 +230,38 @@ std::vector<std::vector<cv::Point> >* GripPipeline::getfilterContoursOutput()
 		}
 	}
 
-	bool grip::GripPipeline::getTarget(int idx, cv::Rect& rect)
-	{
-		if (targets.size() <= 0) return false;
-		rect = targets[idx];
-		return true;
-	}
+bool grip::GripPipeline::getTarget(int idx, cv::Rect& rect)
+{
+	if (targets.size() <= 0) return false;
+	rect = targets[idx];
+	return true;
+}
 
-	double grip::GripPipeline::getTargetCenterX(int idx)
-	{
-		if (targets.size() <= 0) return -2;
-		cv::Rect& r = targets[idx];
-		return r.x + r.width / 2;
-	}
+double grip::GripPipeline::getTargetCenterX(int idx)
+{
+	if (targets.size() <= 0) return -2;
+	cv::Rect& r = targets[idx];
+	return r.x + r.width / 2;
+}
 
-	double grip::GripPipeline::getTargetCenterY(int idx)
-	{
-		if (targets.size() <= 0) return -2;
-		cv::Rect& r = targets[idx];
-		return r.y + r.height / 2;
-	}
+double grip::GripPipeline::getTargetCenterY(int idx)
+{
+	if (targets.size() <= 0) return -2;
+	cv::Rect& r = targets[idx];
+	return r.y + r.height / 2;
+}
 
-	double grip::GripPipeline::getProcTime()
-	{
-		return procTime;
-	}
+double grip::GripPipeline::getProcTime()
+{
+	return procTime * 1000;
+}
+
+double GripPipeline::getDistance()
+{
+	cv::Rect r;
+	if (getTarget(0, r))
+		return 0;
+	return (m_currentTargetHeight * (10/12) * CS_CAM_RES_Y) / (2 * r.height * (std::tan((float)CS_CAM_HORIZON_ANGLE)));
+}
 
 } // end grip namespace

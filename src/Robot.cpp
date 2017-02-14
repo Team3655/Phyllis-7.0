@@ -18,7 +18,11 @@
 
 #include "CommandBase.h"
 
-#include "Commands/Shoot.h"
+#include "Commands/Autonomous/AutoShoot.h"
+#include "Commands/Autonomous/AutoCrossLine.h"
+#include "Commands/Autonomous/AutoPegGear.h"
+#include "Commands/Autonomous/AutoPickupAndPeg.h"
+#include "Commands/Autonomous/AutoPickupGear.h"
 
 class Robot: public frc::IterativeRobot
 {

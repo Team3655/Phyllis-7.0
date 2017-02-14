@@ -33,6 +33,7 @@ class GripPipeline
 		std::vector<cv::Rect> targets;
 		frc::Timer* timer;
 		double procTime;
+		double m_currentTargetHeight = 5.51967;
 		template<typename T>
 		void pipelineswitch(bool sw, T &onTrue, T &onFalse, T &output);
 		void resizeImage(cv::Mat &, double , double , int , cv::Mat &);
@@ -54,6 +55,7 @@ class GripPipeline
 		double getTargetCenterX(int);
 		double getTargetCenterY(int);
 		double getProcTime();
+		double getDistance();
 };
 
 
