@@ -16,6 +16,29 @@
 
 namespace grip {
 
+// Summary:
+//
+struct CameraStuff
+{
+	double targetHeight;
+	double angle;
+
+	CameraStuff(double height, double angle)
+	{
+		targetHeight = height;
+		this->angle = angle;
+	}
+
+	CameraStuff()
+	{
+		targetHeight = 0;
+		this->angle = 0;
+	}
+};
+
+#define BOILER grip::CameraStuff(CS_TARGET_BOILER_HEIGHT, CS_CAM2_HORIZON_ANGLE)
+#define PEG	grip::CameraStuff(CS_TARGET_PEG_HEIGHT, CS_CAM1_HORIZON_ANGLE)
+
 /**
 * GripPipeline class.
 * 
@@ -33,7 +56,7 @@ class GripPipeline
 		std::vector<cv::Rect> targets;
 		frc::Timer* timer;
 		double procTime;
-		double m_currentTargetHeight = 5.51967;
+		CameraStuff stuff;
 		template<typename T>
 		void pipelineswitch(bool sw, T &onTrue, T &onFalse, T &output);
 		void resizeImage(cv::Mat &, double , double , int , cv::Mat &);
@@ -56,6 +79,8 @@ class GripPipeline
 		double getTargetCenterY(int);
 		double getProcTime();
 		double getDistance();
+
+		void setStuff(grip::CameraStuff cs);
 };
 
 
