@@ -1,5 +1,4 @@
 #include "VisionManager.h"
-#include "../RobotMap.h"
 #include "../Commands/ManageVision.h"
 
 VisionManager::VisionManager() :
@@ -25,6 +24,7 @@ void VisionManager::Initialize(frc::Preferences* prefs)
 	m_currentCamID = CS_CAM_PEG_PORT;
 	m_currentCam = m_cs->StartAutomaticCapture(CS_CAM_PEG_PORT);
 	m_currentCam.SetResolution(480, 360);
+	m_currentCam.SetFPS(m_currentFPS);
 
 	m_vision = new frc::VisionRunner<grip::GripPipeline>(
 			m_currentCam,
@@ -35,6 +35,8 @@ void VisionManager::Initialize(frc::Preferences* prefs)
 				frc::SmartDashboard::PutNumber("Processing Time", pipeline.getProcTime());
 			});
 	m_lock = new std::mutex();
+
+	m_currentFPS = prefs->GetDouble("cam_fps");
 }
 
 void VisionManager::DashboardOutput(bool verbose)
@@ -82,10 +84,14 @@ void VisionManager::SwitchCamera()
 
 	m_currentCam = m_cs->StartAutomaticCapture(m_currentCamID);
 	m_currentCam.SetResolution(CS_CAM_RES_X, CS_CAM_RES_Y);
+	m_currentCam.SetFPS(m_currentFPS);
+
+	grip::GripPipeline* g = new grip::GripPipeline();
+	g->setStuff((m_currentCamID == 0) ? PEG : BOILER);
 
 	m_vision = new frc::VisionRunner<grip::GripPipeline>(
 			m_currentCam,
-			new grip::GripPipeline(),
+			g,
 			[&](grip::GripPipeline& pipeline)
 			{
 				frc::SmartDashboard::PutNumber("CenterX", pipeline.getTargetCenterX(0));

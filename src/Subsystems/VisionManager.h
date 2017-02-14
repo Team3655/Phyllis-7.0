@@ -11,6 +11,7 @@
 
 #include "../GripPipeline.h"
 #include "../ExtSubsystem.h"
+#include "../RobotMap.h"
 
 // Summary:
 // 	Class for managing cameras and vision processing
@@ -28,6 +29,7 @@ private:
 	std::mutex* m_lock;
 
 	int m_currentCamID = -1;
+	int m_currentFPS = CS_CAM_FPS_DEFAULT;
 
 	// Processing
 	frc::VisionRunner<grip::GripPipeline>* m_vision;

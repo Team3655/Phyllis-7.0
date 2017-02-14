@@ -99,7 +99,11 @@ constexpr int CS_CAM_PEG_PORT = 0;
 constexpr int CS_CAM_SHOOT_PORT = 1;
 constexpr int CS_CAM_RES_X = 480;
 constexpr int CS_CAM_RES_Y = 360;
-constexpr double CS_CAM_HORIZON_ANGLE = 0.0; // unknown
+constexpr int CS_CAM_FPS_DEFAULT = 20;
+constexpr double CS_CAM1_HORIZON_ANGLE = 0.0; // unknown
+constexpr double CS_CAM2_HORIZON_ANGLE = 0.0; // unknown
+constexpr double CS_TARGET_BOILER_HEIGHT = 5.51467;
+constexpr double CS_TARGET_PEG_HEIGHT = 0.0;
 
 //--------------------------------------------------------
 // Lights
