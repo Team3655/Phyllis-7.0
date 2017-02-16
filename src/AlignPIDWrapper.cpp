@@ -6,7 +6,7 @@
  */
 
 #include <AlignPIDWrapper.h>
-#include <SmartDashboard.h>
+#include <SmartDashboard/SmartDashboard.h>
 #include "CommandBase.h"
 
 AlignPIDWrapper::AlignPIDWrapper()
@@ -21,5 +21,5 @@ double AlignPIDWrapper::PIDGet()
 
 void AlignPIDWrapper::PIDWrite(double output)
 {
-	//CommandBase::drive.get();
+	CommandBase::drive.get()->ArcadeDrive(ALIGN_FORWARD_SPEED, output);
 }

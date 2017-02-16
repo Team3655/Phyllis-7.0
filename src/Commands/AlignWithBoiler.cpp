@@ -1,4 +1,5 @@
 #include "AlignWithBoiler.h"
+#include "../AlignPIDWrapper.h"
 
 AlignWithBoiler::AlignWithBoiler(frc::JoystickButton* abortBtn)
 {
@@ -7,12 +8,14 @@ AlignWithBoiler::AlignWithBoiler(frc::JoystickButton* abortBtn)
 
 	frc::Preferences* prefs = oi.get()->GetPrefs();
 
+	AlignPIDWrapper* pidSO = new AlignPIDWrapper();
+
 	m_pid = new frc::PIDController(
 			prefs->GetDouble("align_drive_p"),
 			prefs->GetDouble("align_drive_i"),
 			prefs->GetDouble("align_drive_d"),
-			drive.get(),
-			visionManager.get());
+			pidSO,
+			pidSO);
 
 	m_abortBtn = abortBtn;
 }

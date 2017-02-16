@@ -13,12 +13,10 @@
 
 class AlignPIDWrapper : public frc::PIDSource, public frc::PIDOutput
 {
-private:
-
 public:
 	AlignPIDWrapper();
 	double PIDGet() override;
 	void PIDWrite(double output) override;
-}
+};
 
 #endif // ALIGN_PID_WRAPPER_H

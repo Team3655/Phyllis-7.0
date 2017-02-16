@@ -119,8 +119,8 @@ void DriveTrain::SetTalonMode(uint32_t mode)
 	//m_lb->SetTalonControlMode(mode);
 	//m_rb->SetTalonControlMode(mode);
 
-	m_lb->SetControlMode(mode);
-	m_rb->SetControlMode(mode);
+	m_lb->SetControlMode((CANTalon::ControlMode)mode);
+	m_rb->SetControlMode((CANTalon::ControlMode)mode);
 
 	set_pid_values();
 }
