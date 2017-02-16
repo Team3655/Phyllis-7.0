@@ -51,6 +51,11 @@ void VisionManager::DashboardOutput(bool verbose)
 	}
 }
 
+double VisionManager::PIDGet()
+{
+	return frc::SmartDashboard::GetNumber("CenterX", 0);
+}
+
 void VisionManager::vision_thread()
 {
 	while (true)
@@ -74,13 +79,13 @@ void VisionManager::StartProc()
 	m_isRunning = true;
 }
 
-void VisionManager::SwitchCamera()
+void VisionManager::SwitchCamera(int id)
 {
 	m_lock->lock();
 	m_isRunning = false;
 	m_lock->unlock();
 
-	m_currentCamID = m_currentCamID == CS_CAM_PEG_PORT ? CS_CAM_SHOOT_PORT : CS_CAM_PEG_PORT;
+	m_currentCamID = id == 1 ? CS_CAM_SHOOT_PORT : CS_CAM_PEG_PORT;
 
 	m_currentCam = m_cs->StartAutomaticCapture(m_currentCamID);
 	m_currentCam.SetResolution(CS_CAM_RES_X, CS_CAM_RES_Y);
@@ -102,6 +107,5 @@ void VisionManager::SwitchCamera()
 	m_isRunning = true;
 	m_lock->unlock();
 
-	m_visionThread = new std::thread(&VisionManager::vision_thread, this);
-	m_visionThread->detach();
+	StartProc();
 }

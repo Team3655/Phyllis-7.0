@@ -20,7 +20,7 @@
 
 // Summary:
 //	Class to manage the drive base of the robot
-class DriveTrain : public frc::Subsystem, public ExtSubsystem
+class DriveTrain : public frc::Subsystem, public ExtSubsystem, public frc::PIDOutput
 {
 private:
 	frc::RobotDrive* m_drive;
@@ -52,6 +52,8 @@ public:
 
 	void Initialize(frc::Preferences* prefs) override;
 	void DashboardOutput(bool verbose = false) override;
+
+	void PIDWrite(double output) override;
 
 	void SetTalonMode(uint32_t mode);
 

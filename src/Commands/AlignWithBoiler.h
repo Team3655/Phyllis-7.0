@@ -5,8 +5,12 @@
 
 class AlignWithBoiler : public CommandBase
 {
+private:
+	frc::PIDController* m_pid;
+
 public:
 	AlignWithBoiler();
+	~AlignWithBoiler();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

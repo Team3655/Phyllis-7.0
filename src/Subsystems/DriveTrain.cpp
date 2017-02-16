@@ -81,6 +81,11 @@ void DriveTrain::DashboardOutput(bool verbose)
 	}
 }
 
+void DriveTrain::PIDWrite(double output)
+{
+	ArcadeDrive(ALIGN_FORWARD_SPEED, output);
+}
+
 CANTalon::TalonControlMode DriveTrain::get_talon_mode()
 {
 	return (CANTalon::TalonControlMode)(m_lb->GetTalonControlMode() & m_rb->GetTalonControlMode());
@@ -114,7 +119,7 @@ void DriveTrain::set_pid_values()
 	}
 }
 
-void DriveTrain::SetTalonMode(CANTalon::ControlMode mode)
+void DriveTrain::SetTalonMode(uint32_t mode)
 {
 	//m_lb->SetTalonControlMode(mode);
 	//m_rb->SetTalonControlMode(mode);

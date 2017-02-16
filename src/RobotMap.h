@@ -56,7 +56,8 @@ constexpr double SHOOT_MAX_CPMS = 1.0; // unknown
 // Gear Collector
 constexpr int GEAR_INTAKE_PORT = 5;
 constexpr double GEAR_INTAKE_SPEED = 0.4;
-constexpr int GEAR_TRANS_PORT = 6;
+constexpr int GEAR_TRANS_BACK_PORT = 6;
+constexpr int GEAR_TRANS_FRONT_PORT = 0; // unknown
 constexpr double GEAR_TRANS_SPEED = -0.5;
 
 //---------------------------------------------------------
@@ -105,6 +106,19 @@ constexpr double CS_CAM2_HORIZON_ANGLE = 0.0; // unknown
 constexpr double CS_TARGET_BOILER_HEIGHT = 5.51467;
 constexpr double CS_TARGET_PEG_HEIGHT = 0.0;
 
+//-------------------------------------------------------=
+// Alignment
+constexpr double ALIGN_DRIVE_P = 1.0;
+constexpr double ALIGN_DRIVE_I = 0.0;
+constexpr double ALIGN_DRIVE_D = 0.0;
+constexpr double ALIGN_FORWARD_SPEED = .4;
+constexpr double ALIGN_ACCEPT_DIST_CLOSE = 1.0; // unknown
+constexpr double ALIGN_PEG_TOLERANCE = .1;
+constexpr double ALIGN_BOILER_TOLERANCE = .05;
+constexpr double ALIGN_DIST_P = 1.0;
+constexpr double ALIGN_DIST_I = 0.0;
+constexpr double ALIGN_DIST_D = 0.0;
+
 //--------------------------------------------------------
 // Lights
 constexpr int LIGHT_RED_PORT = 1;
@@ -116,6 +130,11 @@ constexpr int LIGHT_BLUE_PORT = 3;
 inline bool is_about(double target, double value, double acceptableRange)
 {
 	return target >= target + acceptableRange && target < target - acceptableRange;
+}
+
+inline void sleep(double timeMS)
+{
+	std::this_thread::sleep_for(std::chrono::milliseconds(timeMS));
 }
 
 #endif  // ROBOTMAP_H
