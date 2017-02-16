@@ -46,8 +46,8 @@ void GearCollector::Initialize(frc::Preferences* prefs)
 	m_intake = new CANTalon(GEAR_INTAKE_PORT);
 	m_intake->SetControlMode(CANTalon::ControlMode::kPercentVbus);
 
-	m_transportFront = new CANTalon(GEAR_TRANS_BACK_PORT);
-	m_transportFront->SetControlMode(CANTalon::ControlMode::kPercentVbus);
+	m_transportBack = new CANTalon(GEAR_TRANS_BACK_PORT);
+	m_transportBack->SetControlMode(CANTalon::ControlMode::kPercentVbus);
 
 	m_transportFront = new CANTalon(GEAR_TRANS_FRONT_PORT);
 	m_transportFront->SetControlMode(CANTalon::ControlMode::kFollower);
@@ -90,11 +90,11 @@ bool GearCollector::IsGearPresent()
 void GearCollector::SetIntake(int direction)
 {
 	m_intake->Set(m_intakeSpeed * direction);
-	m_transport->Set(m_transSpeed * direction);
+	m_transportBack->Set(m_transSpeed * direction);
 }
 
 void GearCollector::Stop()
 {
 	m_intake->Set(0);
-	m_transport->Set(0);
+	m_transportBack->Set(0);
 }

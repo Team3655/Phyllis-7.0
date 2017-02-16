@@ -3,7 +3,7 @@
 
 #include <Preferences.h>
 
-AlignWithPeg::AlignWithPeg()
+AlignWithPeg::AlignWithPeg(frc::JoystickButton* abortBtn)
 {
 	Requires(drive.get());
 	Requires(visionManager.get());
@@ -17,6 +17,8 @@ AlignWithPeg::AlignWithPeg()
 			prefs->GetDouble("align_drive_d"),
 			drive.get(),
 			visionManager.get());
+
+	m_abortBtn = abortBtn;
 }
 
 AlignWithPeg::~AlignWithPeg()
@@ -38,12 +40,11 @@ void AlignWithPeg::Execute()
 
 bool AlignWithPeg::IsFinished()
 {
-	return m_pid->OnTarget() && frc::SmartDashboard::GetNumber("Distance", -1);
+	return m_pid->OnTarget() && frc::SmartDashboard::GetNumber("Distance", -2);
 }
 
 void AlignWithPeg::End()
 {
-	new WaitForPeg()->Start();
 }
 
 void AlignWithPeg::Interrupted()

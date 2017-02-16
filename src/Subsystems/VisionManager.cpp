@@ -51,11 +51,6 @@ void VisionManager::DashboardOutput(bool verbose)
 	}
 }
 
-double VisionManager::PIDGet()
-{
-	return frc::SmartDashboard::GetNumber("CenterX", 0);
-}
-
 void VisionManager::vision_thread()
 {
 	while (true)

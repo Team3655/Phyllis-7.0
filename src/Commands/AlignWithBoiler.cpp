@@ -1,6 +1,6 @@
 #include "AlignWithBoiler.h"
 
-AlignWithBoiler::AlignWithBoiler()
+AlignWithBoiler::AlignWithBoiler(frc::JoystickButton* abortBtn)
 {
 	Requires(drive.get());
 	Requires(visionManager.get());
@@ -13,6 +13,8 @@ AlignWithBoiler::AlignWithBoiler()
 			prefs->GetDouble("align_drive_d"),
 			drive.get(),
 			visionManager.get());
+
+	m_abortBtn = abortBtn;
 }
 
 AlignWithBoiler::~AlignWithBoiler()

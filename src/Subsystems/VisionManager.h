@@ -15,7 +15,7 @@
 
 // Summary:
 // 	Class for managing cameras and vision processing
-class VisionManager : public frc::Subsystem, public ExtSubsystem, public frc::PIDSource
+class VisionManager : public frc::Subsystem, public ExtSubsystem
 {
 private:
 	frc::CameraServer* m_cs;
@@ -43,8 +43,6 @@ public:
 
 	void Initialize(frc::Preferences* prefs) override;
 	void DashboardOutput(bool verbose = false) override;
-
-	double PIDGet() override;
 
 	void StartProc();
 

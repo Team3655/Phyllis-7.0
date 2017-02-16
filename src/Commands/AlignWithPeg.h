@@ -12,8 +12,10 @@ class AlignWithPeg : public CommandBase
 private:
 	frc::PIDController* m_pid;
 
+	frc::JoystickButton* m_abortBtn;
+
 public:
-	AlignWithPeg();
+	AlignWithPeg(frc::JoystickButton*);
 	~AlignWithPeg();
 	void Initialize();
 	void Execute();

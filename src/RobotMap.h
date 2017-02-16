@@ -10,7 +10,7 @@
 #ifndef ROBOTMAP_H
 #define ROBOTMAP_H
 
-//#define TEMP
+#include <thread>
 
 //---------------------------------------------------------
 // Drive
@@ -132,7 +132,7 @@ inline bool is_about(double target, double value, double acceptableRange)
 	return target >= target + acceptableRange && target < target - acceptableRange;
 }
 
-inline void sleep(double timeMS)
+inline void sleep(uint timeMS)
 {
 	std::this_thread::sleep_for(std::chrono::milliseconds(timeMS));
 }

@@ -5,8 +5,12 @@
 
 class WaitForPeg : public CommandBase
 {
+private:
+	frc::JoystickButton* m_abortBtn;
+
 public:
-	WaitForPeg();
+	WaitForPeg(frc::JoystickButton*);
+	~WaitForPeg();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -14,4 +18,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // WAIT_FOR_PEG_H
+#endif // WAIT_FOR_PEG_H

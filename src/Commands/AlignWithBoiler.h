@@ -8,8 +8,10 @@ class AlignWithBoiler : public CommandBase
 private:
 	frc::PIDController* m_pid;
 
+	frc::JoystickButton* m_abortBtn;
+
 public:
-	AlignWithBoiler();
+	AlignWithBoiler(frc::JoystickButton*);
 	~AlignWithBoiler();
 	void Initialize();
 	void Execute();
