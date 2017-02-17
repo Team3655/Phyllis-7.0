@@ -14,10 +14,10 @@
 
 //---------------------------------------------------------
 // Drive
-constexpr int DRIVE_LF_PORT = 1;
-constexpr int DRIVE_LEFT_PORT = 3;
-constexpr int DRIVE_RF_PORT = 2;
-constexpr int DRIVE_RIGHT_PORT = 4;
+constexpr int DRIVE_LF_PORT = 0;
+constexpr int DRIVE_LEFT_PORT = 1;
+constexpr int DRIVE_RF_PORT = 15;
+constexpr int DRIVE_RIGHT_PORT = 14;
 
 constexpr int DRIVE_SHIFT_PORT = 0;
 
@@ -44,7 +44,7 @@ constexpr int DRIVE_ENC_CPR = 1440;
 
 //---------------------------------------------------------
 // Shooter
-constexpr int SHOOT_MOTOR_PORT = 7;
+constexpr int SHOOT_MOTOR_PORT = 6;
 constexpr double SHOOT_P = 1;
 constexpr double SHOOT_I = 0;
 constexpr double SHOOT_D = 0;
@@ -54,33 +54,26 @@ constexpr double SHOOT_MAX_CPMS = 1.0; // unknown
 
 //---------------------------------------------------------
 // Gear Collector
-constexpr int GEAR_INTAKE_PORT = 5;
+constexpr int GEAR_INTAKE_PORT = 4;
 constexpr double GEAR_INTAKE_SPEED = 0.4;
-constexpr int GEAR_TRANS_BACK_PORT = 6;
-constexpr int GEAR_TRANS_FRONT_PORT = 0; // unknown
+constexpr int GEAR_TRANS_BACK_PORT = 11;
+//constexpr int GEAR_TRANS_FRONT_PORT = 0; // unknown
 constexpr double GEAR_TRANS_SPEED = -0.5;
 
 //---------------------------------------------------------
 // Climber
-constexpr int CLIMB_LEFT_PORT = 0;
-constexpr double CLIMB_LEFT_P = 1;
-constexpr double CLIMB_LEFT_I = 0;
-constexpr double CLIMB_LEFT_D = 0;
-constexpr int CLIMB_RIGHT_PORT = 1;
-constexpr double CLIMB_RIGHT_P = 1;
-constexpr double CLIMB_RIGHT_I = 0;
-constexpr double CLIMB_RIGHT_D = 0;
-constexpr double CLIMB_UP_POS = 0;
+constexpr int CLIMB_LEFT_PORT = 2;
+constexpr int CLIMB_RIGHT_PORT = 13;
 
 //---------------------------------------------------------
 // Fuel Collector
-constexpr int FUEL_METER_PORT = 0; // unknown
+constexpr int FUEL_METER_PORT = 10; // unknown
 constexpr int FUEL_METER_P = 1.0;
 constexpr int FUEL_METER_I = 0.0;
 constexpr int FUEL_METER_D = 0.0;
 constexpr double FUEL_METER_CPR = 1024; // unknown
 constexpr double FUEL_BALL_PER_TURN = 4; // unknown
-constexpr int FUEL_INTAKE_PORT = 8;
+constexpr int FUEL_INTAKE_PORT = 5;
 constexpr double FUEL_INTAKE_SPEED = 0;
 constexpr double FUEL_INTAKE_P = 1;
 constexpr double FUEL_INTAKE_I = 0;
