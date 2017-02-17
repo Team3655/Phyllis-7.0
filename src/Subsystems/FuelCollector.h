@@ -43,6 +43,8 @@ public:
 
 	// Set the motor that collects balls
 	void SetIntake(double speed);
+
+	void Index(double speed);
 };
 
 #endif // FUEL_COLLECTOR_H

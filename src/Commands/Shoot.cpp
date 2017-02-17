@@ -4,7 +4,7 @@ Shoot::Shoot(double speedProp)
 {
 	Requires(shooter.get());
 	Requires(fuelCollector.get());
-	//Requires(drive.get());
+	Requires(drive.get());
 	m_isAligned = false;
 	m_speedProportion = speedProp;
 }
@@ -13,6 +13,8 @@ void Shoot::Initialize()
 {
 	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_shoot_end");
 	m_abortBtn = new frc::JoystickButton(oi.get()->GetStick(oi.get()->InterpretStick(code)), oi.get()->InterpretButton(code));
+
+	m_index = new frc::JoystickButton(oi.get()->GetStick(2), 2);
 
 	m_timer = new frc::Timer();
 
@@ -23,18 +25,22 @@ void Shoot::Initialize()
 
 void Shoot::Execute()
 {
-	shooter.get()->Set(m_speedProportion * SHOOT_MAX_CPMS);
-	if (m_timer->HasPeriodPassed(SHOOT_RESET_TIME / 1000))
+	shooter.get()->Set(-.5);
+	//shooter.get()->Set(m_speedProportion * SHOOT_MAX_CPMS);
+	/*if (m_timer->HasPeriodPassed(SHOOT_RESET_TIME / 1000))
 	{
 		fuelCollector.get()->IndexOne();
 		m_timer->Reset();
-	}
+	}*/
+	if (m_index->Get())
+		fuelCollector.get()->Index(.5);
+	else fuelCollector.get()->Index(0);
 }
 
 bool Shoot::IsFinished()
 {
 	// When no more balls are present or not aligned or abort pressed
-	return false || !m_isAligned || m_abortBtn->Get();
+	return false || m_abortBtn->Get(); //!isAligned
 }
 
 void Shoot::End()

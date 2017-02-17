@@ -17,7 +17,7 @@ Shooter::~Shooter()
 
 void Shooter::InitDefaultCommand()
 {
-	SetDefaultCommand(new Shoot(m_targetSpeed)); // Probably gets called before m_targetSpeed is set
+	//SetDefaultCommand(new Shoot(m_targetSpeed)); // Probably gets called before m_targetSpeed is set
 }
 
 std::string Shooter::state_to_string(uint32_t state)

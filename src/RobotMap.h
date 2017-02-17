@@ -50,7 +50,7 @@ constexpr double SHOOT_I = 0;
 constexpr double SHOOT_D = 0;
 constexpr double SHOOT_SPEED = .5; // Temp
 constexpr double SHOOT_RESET_TIME = 500; // ms
-constexpr double SHOOT_MAX_CPMS = 1.0; // unknown
+constexpr double SHOOT_MAX_CPMS = 1000; // unknown
 
 //---------------------------------------------------------
 // Gear Collector
