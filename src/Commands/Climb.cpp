@@ -5,7 +5,7 @@ Climb::Climb()
 	Requires(climber.get());
 
 	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_climb_stop");
-	m_stopBtn = new frc::JoystickButton(oi.get()->InterpretStick(code), oi.get()->InterpretButton(code));
+	m_stopBtn = new frc::JoystickButton(oi.get()->GetStick(oi.get()->InterpretStick(code)), oi.get()->InterpretButton(code));
 	m_stopBtn->CancelWhenPressed(this); // Try or use IsFinished
 }
 

@@ -24,6 +24,7 @@ private:
 	frc::JoystickButton* m_ejectGear;
 	frc::JoystickButton* m_collectFuel;
 	frc::JoystickButton* m_shoot;
+	frc::JoystickButton* m_climb;
 
 	double m_deadband;
 	bool m_enableDeadband;

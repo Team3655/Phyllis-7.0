@@ -14,6 +14,7 @@
 #include "Commands/Shift.h"
 #include "Commands/CollectGear.h"
 #include "Commands/CollectFuel.h"
+#include "Commands/Climb.h"
 
 #include <string>
 
@@ -60,6 +61,10 @@ void OI::Initialize()
 	code = m_prefs->GetString("joy_btn_drive_shift");
 	m_shift = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	m_shift->WhenPressed(new Shift());
+
+	code = m_prefs->GetString("joy_btn_climb");
+	m_climb = new frc::JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
+	m_climb->WhenPressed(new Climb());
 }
 
 int OI::InterpretStick(std::string& code)
