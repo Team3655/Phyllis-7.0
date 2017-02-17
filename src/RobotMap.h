@@ -64,6 +64,7 @@ constexpr double GEAR_TRANS_SPEED = -0.5;
 // Climber
 constexpr int CLIMB_LEFT_PORT = 2;
 constexpr int CLIMB_RIGHT_PORT = 13;
+constexpr int CLIMB_SPEED = .5;
 
 //---------------------------------------------------------
 // Fuel Collector

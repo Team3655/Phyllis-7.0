@@ -21,11 +21,9 @@ void Climber::InitDefaultCommand()
 void Climber::Initialize(frc::Preferences* prefs)
 {
 	m_climbLeft = new CANTalon(CLIMB_LEFT_PORT);
-	m_climbLeft->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
-	m_climbLeft->SetPID(CLIMB_LEFT_P, CLIMB_LEFT_I, CLIMB_LEFT_D);
+	m_climbLeft->SetControlMode(CANTalon::ControlMode::kPercentVbus);
 	m_climbRight = new CANTalon(CLIMB_RIGHT_PORT);
-	m_climbRight->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
-	m_climbRight->SetPID(CLIMB_RIGHT_P, CLIMB_RIGHT_I, CLIMB_RIGHT_D);
+	m_climbRight->SetControlMode(CANTalon::ControlMode::kPercentVbus);
 }
 
 std::string Climber::state_to_string(uint32_t state)
@@ -56,4 +54,10 @@ void Climber::DashboardOutput(bool verbose)
 		frc::SmartDashboard::PutNumber("Position L", m_climbLeft->GetEncPosition());
 		frc::SmartDashboard::PutNumber("Position R", m_climbRight->GetEncPosition());
 	}
+}
+
+void Climber::SetSpeed(double speed)
+{
+	m_climbLeft->Set(speed);
+	m_climbRight->Set(speed);
 }

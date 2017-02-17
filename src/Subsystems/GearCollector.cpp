@@ -6,7 +6,7 @@
 GearCollector::GearCollector() :
 	Subsystem("Gear Collector")
 {
-	m_gearPoll = new std::thread(&GearCollector::gear_poller, this);
+
 }
 
 GearCollector::~GearCollector()
@@ -49,12 +49,16 @@ void GearCollector::Initialize(frc::Preferences* prefs)
 	m_transportBack = new CANTalon(GEAR_TRANS_BACK_PORT);
 	m_transportBack->SetControlMode(CANTalon::ControlMode::kPercentVbus);
 
-	m_transportFront = new CANTalon(GEAR_TRANS_FRONT_PORT);
-	m_transportFront->SetControlMode(CANTalon::ControlMode::kFollower);
-	m_transportFront->Set(m_transportBack->GetDeviceID());
+	// Currently only one talon
+	//m_transportFront = new CANTalon(GEAR_TRANS_FRONT_PORT);
+	//m_transportFront->SetControlMode(CANTalon::ControlMode::kFollower);
+	//m_transportFront->Set(m_transportBack->GetDeviceID());
 
 	m_intakeSpeed = frc::SmartDashboard::GetNumber("gear_intake_speed", GEAR_INTAKE_SPEED);
 	m_transSpeed = frc::SmartDashboard::GetNumber("gear_trans_speed", GEAR_TRANS_SPEED);
+
+	m_pollLock = new std::mutex();
+	m_gearPoll = new std::thread(&GearCollector::gear_poller, this);
 }
 
 void GearCollector::DashboardOutput(bool verbose)

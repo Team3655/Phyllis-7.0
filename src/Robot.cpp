@@ -36,6 +36,8 @@ private:
 public:
 	void InitializeSubsystems(frc::Preferences* prefs)
 	{
+		CommandBase::oi.get()->Initialize();
+
 		CommandBase::drive.get()->Initialize(prefs);
 		CommandBase::shooter.get()->Initialize(prefs);
 		CommandBase::gearCollector.get()->Initialize(prefs);
@@ -72,8 +74,6 @@ public:
 		autoModes.AddObject("Shoot", new AutoShoot());
 		frc::SmartDashboard::PutData("Auto Modes", &autoModes);
 
-		lw = frc::LiveWindow::GetInstance();
-		lw->Run();
 	}
 
 	void RobotPeriodic() override

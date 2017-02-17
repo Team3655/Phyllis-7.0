@@ -32,6 +32,8 @@ public:
 
 	void Initialize(frc::Preferences* prefs) override;
 	void DashboardOutput(bool verbose = false) override;
+
+	void SetSpeed(double speed);
 };
 
 #endif // CLIMBER_H

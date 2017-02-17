@@ -101,6 +101,9 @@ Joystick* OI::GetStick(int stick)
 	case 2:
 		return m_board;
 		break;
+	case 3:
+		return m_board2;
+		break;
 	}
 }
 

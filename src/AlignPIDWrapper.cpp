@@ -1,9 +1,11 @@
-/*
- * AlignPIDWrapper.cpp
- *
- *  Created on: Feb 16, 2017
- *      Author: sagnew
- */
+///////////////////////////////////////////////////////////////////////////////
+//
+// AlignPIDWrapper.cpp
+//
+//  Created on: Feb 16, 2017
+//     Author: Silas A.
+//
+///////////////////////////////////////////////////////////////////////////////
 
 #include <AlignPIDWrapper.h>
 #include <SmartDashboard/SmartDashboard.h>
