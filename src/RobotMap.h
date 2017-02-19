@@ -59,7 +59,6 @@ constexpr double GEAR_INTAKE_SPEED = -0.4; // Maybe faster
 constexpr int GEAR_TRANS_BACK_PORT = 11;
 constexpr int GEAR_TRANS_FRONT_PORT = 12;
 constexpr double GEAR_TRANS_SPEED = 0.5;
-constexpr int GEAR_SENSOR_PORT = 0; // unknown
 
 //---------------------------------------------------------
 // Climber
