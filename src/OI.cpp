@@ -64,7 +64,7 @@ void OI::Initialize()
 
 	code = m_prefs->GetString("joy_btn_climb");
 	m_climb = new frc::JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
-	m_climb->WhenPressed(new Climb());
+	m_climb->WhenPressed(new Climb(m_climb));
 }
 
 int OI::InterpretStick(std::string& code)
@@ -92,7 +92,7 @@ double OI::Deadband(double input)
 	return input <= m_deadband && input >= -m_deadband ? 0 : input;
 }
 
-Joystick* OI::GetStick(int stick)
+frc::Joystick* OI::GetStick(int stick)
 {
 	switch (stick)
 	{
@@ -114,17 +114,17 @@ Joystick* OI::GetStick(int stick)
 
 double OI::GetXAxis(int stick)
 {
-	return GetStick(stick)->GetAxis(Joystick::AxisType::kXAxis);
+	return GetStick(stick)->GetAxis(frc::Joystick::AxisType::kXAxis);
 }
 
 double OI::GetYAxis(int stick)
 {
-	return GetStick(stick)->GetAxis(Joystick::AxisType::kYAxis);
+	return GetStick(stick)->GetAxis(frc::Joystick::AxisType::kYAxis);
 }
 
 double OI::GetZAxis(int stick)
 {
-	return GetStick(stick)->GetAxis(Joystick::AxisType::kZAxis);
+	return GetStick(stick)->GetAxis(frc::Joystick::AxisType::kZAxis);
 }
 
 void OI::SetDeadband(double band)

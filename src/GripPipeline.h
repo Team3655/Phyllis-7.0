@@ -16,28 +16,38 @@
 
 namespace grip {
 
+//
+enum class Target
+{
+	kPeg,
+	kBoiler
+};
+
 // Summary:
 //
 struct CameraStuff
 {
 	double targetHeight;
 	double angle;
+	Target target;
 
-	CameraStuff(double height, double angle)
+	CameraStuff(double height, double angle, Target target)
 	{
 		targetHeight = height;
 		this->angle = angle;
+		this->target = target;
 	}
 
 	CameraStuff()
 	{
 		targetHeight = 0;
 		this->angle = 0;
+		this->target = Target::kPeg;
 	}
 };
 
-#define BOILER grip::CameraStuff(CS_TARGET_BOILER_HEIGHT, CS_CAM2_HORIZON_ANGLE)
-#define PEG	grip::CameraStuff(CS_TARGET_PEG_HEIGHT, CS_CAM1_HORIZON_ANGLE)
+#define BOILER grip::CameraStuff(CS_TARGET_BOILER_HEIGHT, CS_CAM2_HORIZON_ANGLE, grip::Target::kBoiler)
+#define PEG	grip::CameraStuff(CS_TARGET_PEG_HEIGHT, CS_CAM1_HORIZON_ANGLE, grip::Target::kPeg)
 
 /**
 * GripPipeline class.
@@ -63,6 +73,8 @@ class GripPipeline
 		void hslThreshold(cv::Mat &, double [], double [], double [], cv::Mat &);
 		void findContours(cv::Mat &, bool , std::vector<std::vector<cv::Point> > &);
 		void filterContours(std::vector<std::vector<cv::Point> > &, double , double , double , double , double , double , double [], double , double , double , double , std::vector<std::vector<cv::Point> > &);
+
+		double getOffsetCenter(double, double);
 
 	public:
 		GripPipeline();

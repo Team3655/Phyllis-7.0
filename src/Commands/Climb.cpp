@@ -1,17 +1,15 @@
 #include "Climb.h"
 
-Climb::Climb()
+Climb::Climb(frc::JoystickButton* thisBtn)
 {
 	Requires(climber.get());
 
-	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_climb_stop");
-	m_stopBtn = new frc::JoystickButton(oi.get()->GetStick(oi.get()->InterpretStick(code)), oi.get()->InterpretButton(code));
-	m_stopBtn->CancelWhenPressed(this); // Try or use IsFinished
+	m_thisBtn = thisBtn;
+
 }
 
 Climb::~Climb()
 {
-	delete m_stopBtn;
 }
 
 void Climb::Initialize()
@@ -20,12 +18,12 @@ void Climb::Initialize()
 
 void Climb::Execute()
 {
-	climber.get()->SetSpeed(CLIMB_SPEED);
+	climber.get()->SetSpeed(-CLIMB_SPEED);
 }
 
 bool Climb::IsFinished()
 {
-	return false; //m_stopBtn->Get();
+	return !m_thisBtn->Get();
 }
 
 void Climb::End()

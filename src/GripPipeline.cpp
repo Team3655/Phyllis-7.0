@@ -270,4 +270,9 @@ void GripPipeline::setStuff(grip::CameraStuff cs)
 	stuff = cs;
 }
 
+double GripPipeline::getOffsetCenter(double offset, double distance)
+{
+	return (90 - std::cos((float)(offset / distance))) / (CS_CAM_FOV / 2);
+}
+
 } // end grip namespace

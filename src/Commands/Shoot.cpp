@@ -25,7 +25,7 @@ void Shoot::Initialize()
 
 void Shoot::Execute()
 {
-	shooter.get()->Set(-.5);
+	shooter.get()->Set(.5);
 	//shooter.get()->Set(m_speedProportion * SHOOT_MAX_CPMS);
 	/*if (m_timer->HasPeriodPassed(SHOOT_RESET_TIME / 1000))
 	{
@@ -40,7 +40,7 @@ void Shoot::Execute()
 bool Shoot::IsFinished()
 {
 	// When no more balls are present or not aligned or abort pressed
-	return false || m_abortBtn->Get(); //!isAligned
+	return m_abortBtn->Get(); //!isAligned
 }
 
 void Shoot::End()

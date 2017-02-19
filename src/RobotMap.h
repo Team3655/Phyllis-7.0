@@ -55,16 +55,16 @@ constexpr double SHOOT_MAX_CPMS = 1000; // unknown
 //---------------------------------------------------------
 // Gear Collector
 constexpr int GEAR_INTAKE_PORT = 4;
-constexpr double GEAR_INTAKE_SPEED = 0.4;
+constexpr double GEAR_INTAKE_SPEED = -0.4; // Maybe faster
 constexpr int GEAR_TRANS_BACK_PORT = 11;
-//constexpr int GEAR_TRANS_FRONT_PORT = 0; // unknown
-constexpr double GEAR_TRANS_SPEED = -0.5;
+constexpr int GEAR_TRANS_FRONT_PORT = 12;
+constexpr double GEAR_TRANS_SPEED = 0.5;
 
 //---------------------------------------------------------
 // Climber
 constexpr int CLIMB_LEFT_PORT = 2;
 constexpr int CLIMB_RIGHT_PORT = 13;
-constexpr int CLIMB_SPEED = .5;
+constexpr double CLIMB_SPEED = .5;
 
 //---------------------------------------------------------
 // Fuel Collector
@@ -72,13 +72,10 @@ constexpr int FUEL_METER_PORT = 10; // unknown
 constexpr int FUEL_METER_P = 1.0;
 constexpr int FUEL_METER_I = 0.0;
 constexpr int FUEL_METER_D = 0.0;
-constexpr double FUEL_METER_CPR = 1024; // unknown
-constexpr double FUEL_BALL_PER_TURN = 4; // unknown
+constexpr double FUEL_METER_CPR = 16400; // ~16384
+constexpr double FUEL_BALL_PER_TURN = .8889; // .8 repeating
 constexpr int FUEL_INTAKE_PORT = 5;
-constexpr double FUEL_INTAKE_SPEED = 0;
-constexpr double FUEL_INTAKE_P = 1;
-constexpr double FUEL_INTAKE_I = 0;
-constexpr double FUEL_INTAKE_D = 0;
+constexpr double FUEL_INTAKE_SPEED = -.9;
 
 //---------------------------------------------------------
 // Input
@@ -95,6 +92,7 @@ constexpr int CS_CAM_SHOOT_PORT = 1;
 constexpr int CS_CAM_RES_X = 480;
 constexpr int CS_CAM_RES_Y = 360;
 constexpr int CS_CAM_FPS_DEFAULT = 20;
+constexpr double CS_CAM_FOV = 65.0;
 constexpr double CS_CAM1_HORIZON_ANGLE = 0.0; // unknown
 constexpr double CS_CAM2_HORIZON_ANGLE = 0.0; // unknown
 constexpr double CS_TARGET_BOILER_HEIGHT = 5.51467;

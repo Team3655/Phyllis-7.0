@@ -23,7 +23,8 @@ void Climber::Initialize(frc::Preferences* prefs)
 	m_climbLeft = new CANTalon(CLIMB_LEFT_PORT);
 	m_climbLeft->SetControlMode(CANTalon::ControlMode::kPercentVbus);
 	m_climbRight = new CANTalon(CLIMB_RIGHT_PORT);
-	m_climbRight->SetControlMode(CANTalon::ControlMode::kPercentVbus);
+	m_climbRight->SetControlMode(CANTalon::ControlMode::kFollower);
+	m_climbRight->Set(m_climbLeft->GetDeviceID());
 }
 
 std::string Climber::state_to_string(uint32_t state)
@@ -58,6 +59,5 @@ void Climber::DashboardOutput(bool verbose)
 
 void Climber::SetSpeed(double speed)
 {
-	m_climbLeft->Set(speed);
-	m_climbRight->Set(speed);
+	m_climbLeft->Set(-speed);
 }

@@ -7,10 +7,10 @@
 class Climb : public CommandBase
 {
 private:
-	frc::JoystickButton* m_stopBtn;
+	frc::JoystickButton* m_thisBtn;
 
 public:
-	Climb();
+	Climb(frc::JoystickButton*);
 	~Climb();
 	void Initialize();
 	void Execute();
