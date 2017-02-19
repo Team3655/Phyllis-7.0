@@ -35,12 +35,9 @@ private:
 
 public:
 	MotionControl(DriveTrain* drive);
-	~MotionControl();
 
 	void Fill();
 	void Fill(int start, int end, double profile[][3], int profileSize);
-
-	void Run();
 };
 
 #endif // MOTION_CONTROL_H
