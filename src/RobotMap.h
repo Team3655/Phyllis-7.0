@@ -36,11 +36,11 @@ constexpr double DRIVE_RIGHT_SPD_P = 1;
 constexpr double DRIVE_RIGHT_SPD_I = 0;
 constexpr double DRIVE_RIGHT_SPD_D = 0;
 
-constexpr double DRIVE_ALLOWED_ERROR = 100;
+constexpr double DRIVE_ALLOWED_ERROR = 10;
 
 constexpr double DRIVE_DEFAULT_SCALE = 1.0;
 
-constexpr int DRIVE_ENC_CPR = 1440;
+constexpr int DRIVE_ENC_CPR = 866; // about
 
 //---------------------------------------------------------
 // Shooter
@@ -48,13 +48,14 @@ constexpr int SHOOT_MOTOR_PORT = 6;
 constexpr double SHOOT_P = 1;
 constexpr double SHOOT_I = 0;
 constexpr double SHOOT_D = 0;
-constexpr double SHOOT_SPEED = .5; // Temp
+constexpr double SHOOT_SPEED = .5;
 constexpr double SHOOT_RESET_TIME = 500; // ms
-constexpr double SHOOT_MAX_CPMS = 1000; // unknown
+constexpr double SHOOT_MAX_SPEED = 93972; // counts/100ms
 
 //---------------------------------------------------------
 // Gear Collector
 constexpr int GEAR_INTAKE_PORT = 4;
+constexpr int GEAR_SENSOR_PORT = 9;
 constexpr double GEAR_INTAKE_SPEED = -0.4; // Maybe faster
 constexpr int GEAR_TRANS_BACK_PORT = 11;
 constexpr int GEAR_TRANS_FRONT_PORT = 12;
@@ -113,9 +114,11 @@ constexpr double ALIGN_DIST_D = 0.0;
 
 //--------------------------------------------------------
 // Lights
-constexpr int LIGHT_RED_PORT = 1;
-constexpr int LIGHT_GREEN_PORT = 2;
-constexpr int LIGHT_BLUE_PORT = 3;
+constexpr int LIGHT_PEG_PORT = 1;
+constexpr int LIGHT_BOILER_PORT = 2;
+constexpr int LIGHT_RED_PORT = 4;
+constexpr int LIGHT_GREEN_PORT = 5;
+constexpr int LIGHT_BLUE_PORT = 6;
 
 //---------------------------------------------------------
 // Utility Functions

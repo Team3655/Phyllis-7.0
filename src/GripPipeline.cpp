@@ -31,32 +31,31 @@ void GripPipeline::Process(cv::Mat source0)
 	//Step Resize_Image0:
 	//input
 	cv::Mat resizeImageInput = switchOutput;
-	double resizeImageWidth = 360.0;  // default Double
-	double resizeImageHeight = 240.0;  // default Double
+	double resizeImageWidth = 480.0;  // default Double
+	double resizeImageHeight = 360.0;  // default Double
 	int resizeImageInterpolation = cv::INTER_CUBIC;
 	resizeImage(resizeImageInput, resizeImageWidth, resizeImageHeight, resizeImageInterpolation, this->resizeImageOutput);
 	//Step HSL_Threshold0:
 	//input
 	cv::Mat hslThresholdInput = resizeImageOutput;
-	double hslThresholdHue[] = { 69.0, 115.5 };
-	double hslThresholdSaturation[] = { 186.0, 255.0 };
+	double hslThresholdHue[] = { 18, 65.0 };
+	double hslThresholdSaturation[] = { 30.0, 140.0 };
 	double hslThresholdLuminance[] = { 200.0, 255.0 };
 	hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, this->hslThresholdOutput);
 	//Step Find_Contours0:
 	//input
 	cv::Mat findContoursInput = hslThresholdOutput;
-	bool findContoursExternalOnly = false;  // default Boolean
-	findContours(findContoursInput, findContoursExternalOnly, this->findContoursOutput);
+	findContours(findContoursInput, false, this->findContoursOutput);
 	//Step Filter_Contours0:
 	//input
 	std::vector<std::vector<cv::Point>> filterContoursContours = findContoursOutput;
-	double filterContoursMinArea = 15.0;  // default Double
-	double filterContoursMinPerimeter = 15.0;  // default Double
-	double filterContoursMinWidth = 10.0;  // default Double
+	double filterContoursMinArea = 30.0;  // default Double
+	double filterContoursMinPerimeter = 20.0;  // default Double
+	double filterContoursMinWidth = 5.0;  // default Double
 	double filterContoursMaxWidth = 1000;  // default Double
 	double filterContoursMinHeight = 20.0;  // default Double
 	double filterContoursMaxHeight = 1000;  // default Double
-	double filterContoursSolidity[] = { 70.0, 100 };
+	double filterContoursSolidity[] = { 80.0, 100 };
 	double filterContoursMaxVertices = 1000000;  // default Double
 	double filterContoursMinVertices = 0.0;  // default Double
 	double filterContoursMinRatio = 0;  // default Double
@@ -67,6 +66,7 @@ void GripPipeline::Process(cv::Mat source0)
 	{
 		targets.push_back(cv::boundingRect(this->filterContoursOutput[i]));
 	}
+
 	timer->Stop();
 	procTime = timer->Get();
 }
@@ -173,7 +173,7 @@ void GripPipeline::resizeImage(cv::Mat &input, double width, double height, int 
 //void hslThreshold(Mat *input, double hue[], double sat[], double lum[], Mat *out) {
 void GripPipeline::hslThreshold(cv::Mat &input, double hue[], double sat[], double lum[], cv::Mat &out)
 {
-	cv::cvtColor(input, out, cv::COLOR_BGR2HLS);
+	cv::cvtColor(input, out, cv::COLOR_RGB2GRAY);
 	cv::inRange(out, cv::Scalar(hue[0], lum[0], sat[0]), cv::Scalar(hue[1], lum[1], sat[1]), out);
 }
 

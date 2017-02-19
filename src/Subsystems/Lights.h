@@ -51,6 +51,9 @@ private:
 	frc::DriverStation::Alliance m_alliance;
 	int m_position;
 
+	frc::Solenoid* m_pegCamLight;
+	frc::Solenoid* m_shootCamLight;
+
 	frc::Solenoid* m_red;
 	frc::Solenoid* m_green;
 	frc::Solenoid* m_blue;
@@ -64,6 +67,9 @@ public:
 
 	void Initialize(frc::Preferences* prefs) override;
 	void DashboardOutput(bool verbose = false) override;
+
+	void SetPegCamLight(bool on);
+	void SetShootCamLight(bool on);
 
 	void SetColor(const Color& color);
 

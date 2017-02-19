@@ -26,9 +26,15 @@ void Lights::Initialize(frc::Preferences* prefs)
 	m_alliance = frc::DriverStation::GetInstance().GetAlliance();
 	m_position = frc::DriverStation::GetInstance().GetLocation();
 
+	m_pegCamLight = new frc::Solenoid(LIGHT_PEG_PORT);
+	m_shootCamLight = new frc::Solenoid(LIGHT_BOILER_PORT);
+
 	m_red = new frc::Solenoid(LIGHT_RED_PORT);
 	m_green = new frc::Solenoid(LIGHT_GREEN_PORT);
 	m_blue = new frc::Solenoid(LIGHT_BLUE_PORT);
+
+	SetPegCamLight(true);
+	SetShootCamLight(true);
 }
 
 void Lights::DashboardOutput(bool verbose)
@@ -39,6 +45,16 @@ void Lights::DashboardOutput(bool verbose)
 	{
 
 	}
+}
+
+void Lights::SetPegCamLight(bool on)
+{
+	m_pegCamLight->Set(on);
+}
+
+void Lights::SetShootCamLight(bool on)
+{
+	m_shootCamLight->Set(on);
 }
 
 void Lights::SetColor(const Color& color)

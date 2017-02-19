@@ -13,6 +13,7 @@
 #include <string>
 #include <math.h>
 #include <Timer.h>
+#include <CameraServer.h>
 
 namespace grip {
 
@@ -91,6 +92,8 @@ class GripPipeline
 		double getTargetCenterY(int);
 		double getProcTime();
 		double getDistance();
+
+		int getTargets() { return targets.size(); }
 
 		void setStuff(grip::CameraStuff cs);
 };

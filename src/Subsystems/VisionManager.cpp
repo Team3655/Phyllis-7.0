@@ -1,5 +1,4 @@
 #include "VisionManager.h"
-#include "../Commands/ManageVision.h"
 
 VisionManager::VisionManager() :
 	frc::Subsystem("Vision Manager")
@@ -14,7 +13,6 @@ VisionManager::~VisionManager()
 
 void VisionManager::InitDefaultCommand()
 {
-	SetDefaultCommand(new ManageVision());
 }
 
 void VisionManager::Initialize(frc::Preferences* prefs)
@@ -33,6 +31,7 @@ void VisionManager::Initialize(frc::Preferences* prefs)
 			{
 				frc::SmartDashboard::PutNumber("CenterX", pipeline.getTargetCenterX(0));
 				frc::SmartDashboard::PutNumber("Processing Time", pipeline.getProcTime());
+				frc::SmartDashboard::PutNumber("Targets", pipeline.getTargets());
 			});
 	m_lock = new std::mutex();
 
@@ -97,6 +96,7 @@ void VisionManager::SwitchCamera(int id)
 			{
 				frc::SmartDashboard::PutNumber("CenterX", pipeline.getTargetCenterX(0));
 				frc::SmartDashboard::PutNumber("Processing Time", pipeline.getProcTime());
+				frc::SmartDashboard::PutNumber("Targets", pipeline.getTargets());
 			});
 
 	m_lock->lock();

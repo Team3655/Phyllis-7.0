@@ -44,6 +44,7 @@ public:
 	void StartProc();
 
 	void SwitchCamera(int id);
+	int GetCurrentCam() { return m_currentCamID; }
 
 	bool IsRunning() { return m_isRunning; }
 };

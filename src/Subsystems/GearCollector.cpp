@@ -54,11 +54,14 @@ void GearCollector::Initialize(frc::Preferences* prefs)
 
 	m_intakeSpeed = frc::SmartDashboard::GetNumber("gear_intake_speed", GEAR_INTAKE_SPEED);
 	m_transSpeed = frc::SmartDashboard::GetNumber("gear_trans_speed", GEAR_TRANS_SPEED);
+
+	m_gearSensor = new frc::DigitalInput(GEAR_SENSOR_PORT);
 }
 
 void GearCollector::DashboardOutput(bool verbose)
 {
 	frc::SmartDashboard::PutString("State", state_to_string(m_state));
+	frc::SmartDashboard::PutBoolean("Gear Present", IsGearPresent());
 
 	if (verbose)
 	{

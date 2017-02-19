@@ -5,6 +5,7 @@ Shoot::Shoot(double speedProp)
 	Requires(shooter.get());
 	Requires(fuelCollector.get());
 	Requires(drive.get());
+
 	m_isAligned = false;
 	m_speedProportion = speedProp;
 }
@@ -25,16 +26,12 @@ void Shoot::Initialize()
 
 void Shoot::Execute()
 {
-	shooter.get()->Set(.5);
-	//shooter.get()->Set(m_speedProportion * SHOOT_MAX_CPMS);
-	/*if (m_timer->HasPeriodPassed(SHOOT_RESET_TIME / 1000))
+	shooter.get()->Set(m_speedProportion * SHOOT_MAX_SPEED);
+	if (m_timer->HasPeriodPassed(SHOOT_RESET_TIME / 1000))
 	{
 		fuelCollector.get()->IndexOne();
 		m_timer->Reset();
-	}*/
-	if (m_index->Get())
-		fuelCollector.get()->Index(.5);
-	else fuelCollector.get()->Index(0);
+	}
 }
 
 bool Shoot::IsFinished()
