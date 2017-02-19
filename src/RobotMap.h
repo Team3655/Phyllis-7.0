@@ -7,8 +7,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef ROBOTMAP_H
-#define ROBOTMAP_H
+#ifndef ROBOT_MAP_H
+#define ROBOT_MAP_H
 
 #include <thread>
 
@@ -118,7 +118,7 @@ constexpr int LIGHT_GREEN_PORT = 2;
 constexpr int LIGHT_BLUE_PORT = 3;
 
 //---------------------------------------------------------
-// Utility functions
+// Utility Functions
 inline bool is_about(double target, double value, double acceptableRange)
 {
 	return target >= target + acceptableRange && target < target - acceptableRange;
@@ -129,4 +129,25 @@ inline void sleep(uint timeMS)
 	std::this_thread::sleep_for(std::chrono::milliseconds(timeMS));
 }
 
-#endif  // ROBOTMAP_H
+//----------------------------------------------------------
+// Motion Profiling
+// [position] [velocity] [duration(ms)]
+
+constexpr int MIN_POINTS = 5;
+constexpr int TIMEOUT_LOOPS = 10;
+
+// Profiles for driving to the peg
+const double MpPrePeg[][3] =
+{
+	{ 0.0, 0.0, 20 }
+};
+const int MpPrePegSize = 1;
+
+// Profiles for driving from the peg
+const double MpPostPeg[][3] =
+{
+	{ 0.0, 0.0, 20 }
+};
+const int MpPostPegSize = 1;
+
+#endif  // ROBOT_MAP_H
