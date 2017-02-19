@@ -59,6 +59,7 @@ private:
 
 public:
 	Lights();
+	~Lights();
 	void InitDefaultCommand();
 
 	void Initialize(frc::Preferences* prefs) override;

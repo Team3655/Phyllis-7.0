@@ -58,20 +58,21 @@ void VisionManager::vision_thread()
 		m_vision->RunOnce();
 
 		m_lock->lock();
-		if (m_isRunning)
+		if (!m_isRunning)
 		{
 			m_lock->unlock();
 			break;
 		}
 		m_lock->unlock();
+		sleep(20);
 	}
 }
 
 void VisionManager::StartProc()
 {
+	m_isRunning = true;
 	m_visionThread = new std::thread(&VisionManager::vision_thread, this);
 	m_visionThread->detach();
-	m_isRunning = true;
 }
 
 void VisionManager::SwitchCamera(int id)

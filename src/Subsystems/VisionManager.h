@@ -21,9 +21,6 @@ private:
 	frc::CameraServer* m_cs;
 	cs::UsbCamera m_currentCam;
 
-	cs::CvSink m_sink;
-	cv::Mat m_mat;
-
 	bool m_isRunning = false;
 	std::thread* m_visionThread;
 	std::mutex* m_lock;

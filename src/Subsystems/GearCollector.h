@@ -4,7 +4,7 @@
 #include <Commands/Subsystem.h>
 #include <CANTalon.h>
 #include <Preferences.h>
-#include <thread>
+#include <DigitalInput.h>
 
 #include "../ExtSubsystem.h"
 
@@ -27,12 +27,7 @@ private:
 	CANTalon* m_transportFront;
 	CANTalon* m_transportBack;
 
-	// Photo-sensor
-	bool m_polling = true;
-	bool m_isPresent;
-	bool m_wasPresent;
-	std::thread* m_gearPoll;
-	std::mutex* m_pollLock;
+	DigitalInput* m_gearSensor;
 
 	double m_intakeSpeed;
 	double m_transSpeed;

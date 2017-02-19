@@ -6,20 +6,19 @@
 GearCollector::GearCollector() :
 	Subsystem("Gear Collector")
 {
-
 }
 
 GearCollector::~GearCollector()
 {
-	m_polling = false;
 	delete m_intake;
 	delete m_transportFront;
 	delete m_transportBack;
+	delete m_gearSensor;
 }
 
 void GearCollector::InitDefaultCommand()
 {
-	//SetDefaultCommand(new CollectGear());
+
 }
 
 std::string GearCollector::state_to_string(uint32_t state)
@@ -55,9 +54,6 @@ void GearCollector::Initialize(frc::Preferences* prefs)
 
 	m_intakeSpeed = frc::SmartDashboard::GetNumber("gear_intake_speed", GEAR_INTAKE_SPEED);
 	m_transSpeed = frc::SmartDashboard::GetNumber("gear_trans_speed", GEAR_TRANS_SPEED);
-
-	m_pollLock = new std::mutex();
-	m_gearPoll = new std::thread(&GearCollector::gear_poller, this);
 }
 
 void GearCollector::DashboardOutput(bool verbose)
@@ -70,24 +66,9 @@ void GearCollector::DashboardOutput(bool verbose)
 	}
 }
 
-void GearCollector::gear_poller()
-{
-	while (true)
-	{
-		m_pollLock->lock();
-		m_wasPresent = m_isPresent;
-		m_isPresent = false; // Check if present
-		m_pollLock->unlock();
-
-		if (!m_polling)
-			break;
-		sleep(100);
-	}
-}
-
 bool GearCollector::IsGearPresent()
 {
-	return false; // Not implemented
+	return !m_gearSensor->Get(); // Defaults to on
 }
 
 void GearCollector::SetIntake(int direction)

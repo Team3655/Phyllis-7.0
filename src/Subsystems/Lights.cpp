@@ -9,6 +9,13 @@ Lights::Lights() :
 {
 }
 
+Lights::~Lights()
+{
+	delete m_red;
+	delete m_green;
+	delete m_blue;
+}
+
 void Lights::InitDefaultCommand()
 {
 	//SetDefaultCommand(new ManageLights());
