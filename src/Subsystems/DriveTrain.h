@@ -18,10 +18,14 @@
 
 #include "../ExtSubsystem.h"
 
+class MotionControl;
+
 // Summary:
 //	Class to manage the drive base of the robot
 class DriveTrain : public frc::Subsystem, public ExtSubsystem
 {
+	friend MotionControl;
+
 private:
 	frc::RobotDrive* m_drive;
 
@@ -65,6 +69,8 @@ public:
 	void Reverse(bool reverse);
 	bool IsReversed() { return m_reverse; }
 
+	// Enables/Disables robot so no error can happen
+	// Example uses: when shooting or in motion profile mode
 	void Disable() { m_disabled = true; }
 	void Enable() { m_disabled = false; }
 
