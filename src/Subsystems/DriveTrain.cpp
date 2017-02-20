@@ -133,7 +133,7 @@ void DriveTrain::ArcadeDrive(double move, double rotate)
 		move = -move;
 		rotate = -rotate;
 	}
-	m_drive->ArcadeDrive(move, rotate * m_scaleFactor);
+	m_drive->ArcadeDrive(move, rotate /** m_shifter->Get() ? 0.5 : 1.0*/);
 }
 
 void DriveTrain::TankDrive(double left, double right)
@@ -158,7 +158,7 @@ void DriveTrain::Shift()
 	if (m_disabled) return;
 	m_shifter->Set(!m_shiftState);
 	m_shiftState = m_shifter->Get();
-	m_scaleFactor = m_shiftState ? 0.5 : 1.0;
+	//m_scaleFactor = m_shiftState ? 0.5 : 1.0;
 }
 
 void DriveTrain::SetScale(double scale)

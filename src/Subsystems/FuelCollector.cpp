@@ -41,11 +41,15 @@ void FuelCollector::InitDefaultCommand()
 void FuelCollector::Initialize(frc::Preferences* prefs)
 {
 	m_meter = new CANTalon(FUEL_METER_PORT);
-	m_meter->SetControlMode(CANTalon::ControlMode::kPercentVbus);
-	m_meter->SetPID(
+	m_meter->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
+	/*m_meter->SetPID(
 			prefs->GetDouble("fuel_meter_p", FUEL_METER_P),
 			prefs->GetDouble("fuel_meter_i", FUEL_METER_I),
-			prefs->GetDouble("fuel_meter_d", FUEL_METER_D));
+			prefs->GetDouble("fuel_meter_d", FUEL_METER_D));*/
+	m_meter->SetPID(
+			1.0,
+			0.0,
+			1.0);
 
 	//m_meter->Reset();
 	m_currentMeterPos = 0;
@@ -69,7 +73,8 @@ void FuelCollector::DashboardOutput(bool verbose)
 
 void FuelCollector::IndexOne()
 {
-	m_currentMeterPos += (1 / FUEL_BALL_PER_TURN) * FUEL_METER_CPR;
+	m_currentMeterPos = m_meter->GetEncPosition();
+	m_currentMeterPos += -(1 / FUEL_BALL_PER_TURN) * FUEL_METER_CPR;
 	m_meter->Set(m_currentMeterPos);
 }
 

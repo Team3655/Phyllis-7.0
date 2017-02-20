@@ -15,7 +15,6 @@ private:
 	double m_speedProportion;
 
 	frc::JoystickButton* m_abortBtn;
-	frc::JoystickButton* m_index;
 
 	frc::Timer* m_timer;
 

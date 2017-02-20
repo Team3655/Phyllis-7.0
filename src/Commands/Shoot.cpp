@@ -15,8 +15,6 @@ void Shoot::Initialize()
 	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_shoot_end");
 	m_abortBtn = new frc::JoystickButton(oi.get()->GetStick(oi.get()->InterpretStick(code)), oi.get()->InterpretButton(code));
 
-	m_index = new frc::JoystickButton(oi.get()->GetStick(2), 2);
-
 	m_timer = new frc::Timer();
 
 	drive.get()->Disable();
@@ -43,6 +41,7 @@ bool Shoot::IsFinished()
 void Shoot::End()
 {
 	shooter.get()->Set(0);
+	//fuelCollector.get()->Index(0);
 	drive.get()->Enable();
 }
 

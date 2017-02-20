@@ -65,7 +65,7 @@ constexpr double GEAR_TRANS_SPEED = 0.5;
 // Climber
 constexpr int CLIMB_LEFT_PORT = 2;
 constexpr int CLIMB_RIGHT_PORT = 13;
-constexpr double CLIMB_SPEED = .5;
+constexpr double CLIMB_SPEED = .9;
 
 //---------------------------------------------------------
 // Fuel Collector
@@ -74,7 +74,7 @@ constexpr int FUEL_METER_P = 1.0;
 constexpr int FUEL_METER_I = 0.0;
 constexpr int FUEL_METER_D = 0.0;
 constexpr double FUEL_METER_CPR = 16400; // ~16384
-constexpr double FUEL_BALL_PER_TURN = .8889; // .8 repeating
+constexpr double FUEL_BALL_PER_TURN = .5; // .8 repeating
 constexpr int FUEL_INTAKE_PORT = 5;
 constexpr double FUEL_INTAKE_SPEED = -.9;
 
