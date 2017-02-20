@@ -93,13 +93,32 @@ constexpr int CS_CAM_SHOOT_PORT = 1;
 constexpr int CS_CAM_RES_X = 480;
 constexpr int CS_CAM_RES_Y = 360;
 constexpr int CS_CAM_FPS_DEFAULT = 20;
-constexpr double CS_CAM_FOV = 65.0;
+constexpr double CS_CAM_FOV = 68.5;
 constexpr double CS_CAM1_HORIZON_ANGLE = 0.0; // unknown
 constexpr double CS_CAM2_HORIZON_ANGLE = 0.0; // unknown
 constexpr double CS_TARGET_BOILER_HEIGHT = 5.51467;
 constexpr double CS_TARGET_PEG_HEIGHT = 0.0;
 
-//-------------------------------------------------------=
+//--------------------------------------------------------
+// Image Processing
+constexpr double IMG_RESIZE_W = 480.0;
+constexpr double IMG_RESIZE_H = 360.0;
+constexpr double IMG_HSL_HUE[] = { 18.0, 65.0 };
+constexpr double IMG_HSL_SAT[] = { 30.0, 140.0 };
+constexpr double IMG_HSL_LUM[] = { 200.0, 255.0 };
+constexpr double IMG_CONT_MIN_AREA = 30.0;
+constexpr double IMG_CONT_MIN_PERIM = 20.0;
+constexpr double IMG_CONT_MIN_WIDTH = 5.0;
+constexpr double IMG_CONT_MAX_WIDTH = 1000;
+constexpr double IMG_CONT_MIN_HEIGHT = 20.0;
+constexpr double IMG_CONT_MAX_HEIGHT = 1000;
+constexpr double IMG_CONT_SOLID[] = { 80.0, 100.0 };
+constexpr double IMG_CONT_MAX_VERTEX = 1000000;
+constexpr double IMG_CONT_MIN_VERTEX = 0.0;
+constexpr double IMG_CONT_MIN_RATIO = 0;
+constexpr double IMG_CONT_MAX_RATIO = 1000;
+
+//--------------------------------------------------------
 // Alignment
 constexpr double ALIGN_DRIVE_P = 1.0;
 constexpr double ALIGN_DRIVE_I = 0.0;
