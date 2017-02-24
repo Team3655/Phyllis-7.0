@@ -62,9 +62,6 @@ void DriveTrain::Initialize(frc::Preferences* prefs)
 	m_drive = new RobotDrive(m_lb, m_rb);
 
 	m_shiftState = m_shifter->Get();
-
-	m_lw->AddActuator("Drive", "Drive L", m_lb);
-	m_lw->AddActuator("Drive", "Drive R", m_rb);
 }
 
 void DriveTrain::DashboardOutput(bool verbose)
@@ -145,12 +142,12 @@ void DriveTrain::TankDrive(double left, double right)
 		right = -right;
 	}
 	m_drive->TankDrive(left, right);
-	//std::cout << "L counts: " << m_lb->GetEncPosition() << ": R count: " << m_rb->GetEncPosition() << std::endl;
 }
 
-void DriveTrain::Reverse(bool reverse)
+void DriveTrain::Reverse()
 {
-	m_reverse = reverse;
+	m_reverse = !m_reverse;
+	m_lb->SetInverted(m_reverse);
 }
 
 void DriveTrain::Shift()

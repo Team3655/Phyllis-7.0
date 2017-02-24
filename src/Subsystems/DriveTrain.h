@@ -66,7 +66,7 @@ public:
 	void TankDrive(double left, double right);
 
 	// Sets which side is the front of the robot
-	void Reverse(bool reverse);
+	void Reverse();
 	bool IsReversed() { return m_reverse; }
 
 	// Enables/Disables robot so no error can happen
