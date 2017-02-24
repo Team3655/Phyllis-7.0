@@ -30,7 +30,6 @@ AlignWithPeg::~AlignWithPeg()
 void AlignWithPeg::Initialize()
 {
 	m_pid->SetTolerance(ALIGN_PEG_TOLERANCE);
-	visionManager.get()->SwitchCamera(CS_CAM_PEG_PORT);
 	drive.get()->SetTalonMode(CANTalon::TalonControlMode::kPositionMode);
 }
 

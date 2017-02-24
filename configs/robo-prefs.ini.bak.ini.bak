@@ -50,4 +50,4 @@ string "/Preferences/joy_btn_shoot_end"="2-9"
 double "/Preferences/shoot_d"=0
 double "/Preferences/shoot_i"=0
 double "/Preferences/shoot_p"=1
-double "/Preferences/shoot_speed"=1
+double "/Preferences/shoot_speed"=0.3

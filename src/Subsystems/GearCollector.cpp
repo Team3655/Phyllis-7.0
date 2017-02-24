@@ -71,7 +71,7 @@ void GearCollector::DashboardOutput(bool verbose)
 
 bool GearCollector::IsGearPresent()
 {
-	return !m_gearSensor->Get(); // Defaults to on
+	return !m_gearSensor->Get(); // Defaults to on (true = no gear)
 }
 
 void GearCollector::SetIntake(int direction)

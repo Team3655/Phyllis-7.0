@@ -5,10 +5,10 @@ WaitForPeg::WaitForPeg(frc::JoystickButton* abortBtn)
 	Requires(drive.get());
 	Requires(gearCollector.get());
 
-	//frc::Preferences* prefs = oi.get()->GetPrefs();
-	//std::string code;
-
 	m_abortBtn = abortBtn;
+
+	m_lightFlashTimer = new frc::Timer();
+	m_gearGoneTimer = new frc::Timer();
 
 	//code = prefs->GetString("joy_btn_peg_abort");
 	//m_abortBtn = new frc::JoystickButton(oi.get()->InterpretStick(code), oi.get()->InterpretButton(code));
@@ -17,21 +17,39 @@ WaitForPeg::WaitForPeg(frc::JoystickButton* abortBtn)
 WaitForPeg::~WaitForPeg()
 {
 	delete m_abortBtn;
+	delete m_lightFlashTimer;
+	delete m_gearGoneTimer;
 }
 
 void WaitForPeg::Initialize()
 {
 	drive.get()->Disable();
+	m_lightFlashTimer->Start();
 }
 
 void WaitForPeg::Execute()
 {
-	// Maybe flash lights
+	if (m_lightFlashTimer->HasPeriodPassed(GEAR_SENSOR_FLASH_INTERVAL / 1000))
+		m_toggle = !m_toggle;
+	if (m_toggle)
+	{
+		m_lightFlashTimer->Reset();
+		lights.get()->SetColor(RED);
+	}
+	else
+	{
+		m_lightFlashTimer->Reset();
+		lights.get()->SetColor(OFF);
+	}
+
+	if (!gearCollector.get()->IsGearPresent())
+		m_gearGoneTimer->Start();
 }
 
 bool WaitForPeg::IsFinished()
 {
-	return !gearCollector.get()->IsGearPresent() || m_abortBtn->Get();
+	return (!gearCollector.get()->IsGearPresent() && m_gearGoneTimer->HasPeriodPassed(GEAR_SENSOR_ELAPSED_TIME / 1000))
+			|| m_abortBtn->Get();
 }
 
 void WaitForPeg::End()

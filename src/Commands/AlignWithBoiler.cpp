@@ -28,7 +28,6 @@ AlignWithBoiler::~AlignWithBoiler()
 void AlignWithBoiler::Initialize()
 {
 	m_pid->SetTolerance(ALIGN_BOILER_TOLERANCE);
-	visionManager.get()->SwitchCamera(CS_CAM_SHOOT_PORT);
 	drive.get()->SetTalonMode(CANTalon::TalonControlMode::kPositionMode);
 }
 
