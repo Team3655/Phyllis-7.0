@@ -32,4 +32,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // DRIVE_H
+#endif // DRIVE_H

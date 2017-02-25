@@ -15,6 +15,7 @@
 #include "Commands/CollectGear.h"
 #include "Commands/CollectFuel.h"
 #include "Commands/Climb.h"
+#include "Commands/InvertDrive.h"
 
 #include <string>
 
@@ -65,6 +66,10 @@ void OI::Initialize()
 	code = m_prefs->GetString("joy_btn_climb");
 	m_climb = new frc::JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	m_climb->WhenPressed(new Climb(m_climb));
+
+	code = m_prefs->GetString("joy_btn_invert");
+	m_invertDrive = new frc::JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
+	m_invertDrive->WhenPressed(new InvertDrive());
 }
 
 int OI::InterpretStick(std::string& code)
