@@ -11,11 +11,11 @@ class DriveProfile : public CommandBase
 private:
 	MotionControl* m_motionControl;
 
-	int m_start, m_end, m_prSize;
-	double m_profile[][3];
+	frc::JoystickButton* m_abortBtn;
 
 public:
-	DriveProfile(int start, int end, int prSize, double profile[]);
+	DriveProfile(std::list<Profile*>& seq);
+	~DriveProfile();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

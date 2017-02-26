@@ -105,16 +105,16 @@ constexpr double CS_TARGET_PEG_HEIGHT = 0.0;
 // Image Processing
 constexpr double IMG_RESIZE_W = 480.0;
 constexpr double IMG_RESIZE_H = 360.0;
-constexpr double IMG_HSL_HUE[] = { 18.0, 65.0 };
-constexpr double IMG_HSL_SAT[] = { 30.0, 140.0 };
-constexpr double IMG_HSL_LUM[] = { 200.0, 255.0 };
+constexpr double IMG_HSL_HUE[] = {  18.0, 65.0 };
+constexpr double IMG_HSL_SAT[] = {  30.0, 140.0 };
+constexpr double IMG_HSL_LUM[] = {  200.0, 255.0 };
 constexpr double IMG_CONT_MIN_AREA = 30.0;
 constexpr double IMG_CONT_MIN_PERIM = 20.0;
 constexpr double IMG_CONT_MIN_WIDTH = 5.0;
 constexpr double IMG_CONT_MAX_WIDTH = 1000;
 constexpr double IMG_CONT_MIN_HEIGHT = 20.0;
 constexpr double IMG_CONT_MAX_HEIGHT = 1000;
-constexpr double IMG_CONT_SOLID[] = { 80.0, 100.0 };
+constexpr double IMG_CONT_SOLID[] = {  80.0, 100.0 };
 constexpr double IMG_CONT_MAX_VERTEX = 1000000;
 constexpr double IMG_CONT_MIN_VERTEX = 0.0;
 constexpr double IMG_CONT_MIN_RATIO = 0;
@@ -155,23 +155,10 @@ inline void sleep(uint timeMS)
 
 //----------------------------------------------------------
 // Motion Profiling
-// [position] [velocity] [duration(ms)]
 
 constexpr int MIN_POINTS = 5;
 constexpr int TIMEOUT_LOOPS = 10;
 
-// Profiles for driving to the peg
-const double MpPrePeg[][3] =
-{
-	{ 0.0, 0.0, 20 }
-};
-const int MpPrePegSize = 1;
-
-// Profiles for driving from the peg
-const double MpPostPeg[][3] =
-{
-	{ 0.0, 0.0, 20 }
-};
-const int MpPostPegSize = 1;
+// Profiles in Profiles.h
 
 #endif  // ROBOT_MAP_H

@@ -1,21 +1,31 @@
 #include "DriveProfile.h"
+#include "Profiles.h"
 
-DriveProfile::DriveProfile(int start, int end, int prSize, double profile[]) :
-	m_start(start), m_end(end), m_prSize(prSize), m_profile(profile)
+#include <list>
+
+DriveProfile::DriveProfile(std::list<Profile*>& seq)
 {
 	Requires(drive.get());
 
-	m_motionControl = new MotionControl(drive.get());
+	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_profile_abort");
+	m_abortBtn = new frc::JoystickButton(oi.get()->GetStick(oi.get()->InterpretStick(code)), oi.get()->InterpretButton(code));
+
+	m_motionControl = new MotionControl(drive.get(), seq);
+}
+
+DriveProfile::~DriveProfile()
+{
+	delete m_motionControl;
+	delete m_abortBtn;
 }
 
 void DriveProfile::Initialize()
 {
-	m_motionControl->Fill(m_start, m_end, m_profile, m_prSize);
 }
 
 void DriveProfile::Execute()
 {
-	m_motionControl->
+	m_motionControl->Update();
 }
 
 bool DriveProfile::IsFinished()

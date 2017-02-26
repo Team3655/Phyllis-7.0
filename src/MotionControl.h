@@ -12,18 +12,36 @@
 
 #include "Subsystems/DriveTrain.h"
 #include "RobotMap.h"
+#include "Profiles.h"
 
 #include <Notifier.h>
 #include <CANTalon.h>
 
+#include <list>
+
 typedef CANTalon::TrajectoryPoint Point;
+
+#define NO_TURN 0
+#define LEFT 1
+#define RIGHT 2
 
 // Summary:
 //
 class MotionControl
 {
 private:
-	CANTalon::MotionProfileStatus m_status;
+	std::list<Profile*> m_sequence;
+	std::list<Profile*>::iterator m_currentPr;
+
+	CANTalon::MotionProfileStatus m_leftStatus, m_rightStatus;
+
+	int m_loopTimeout;
+	int m_state = 0;
+
+	bool m_isFinished;
+
+	CANTalon::SetValueMotionProfile m_leftSetValue = CANTalon::SetValueMotionProfileDisable,
+									m_rightSetValue = CANTalon::SetValueMotionProfileDisable;
 
 	CANTalon* m_driveLeft;
 	CANTalon* m_driveRight;
@@ -32,12 +50,16 @@ private:
 
 	void periodic_tasks();
 	Point create_point(double position, double velocity, double duration, int slot, bool first, bool last, bool velOnly = false);
+	Point invert_point(Point& point);
 
 public:
-	MotionControl(DriveTrain* drive);
+	MotionControl(DriveTrain* drive, std::list<Profile*>& profileSeq);
 
-	void Fill();
-	void Fill(int start, int end, double profile[][3], int profileSize);
+	void Fill(int start, int end, Profile& profile);
+
+	void Update();
+
+	bool IsFinished() { return m_isFinished; }
 };
 
 #endif // MOTION_CONTROL_H
