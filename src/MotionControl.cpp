@@ -61,7 +61,7 @@ void MotionControl::Fill(int start, int end, Profile& profile)
 	{
 		pt = create_point(profile.profile[i][0], profile.profile[i][1], profile.profile[i][2], 1, i == 0, i == profile.size - 1);
 		if (!m_driveLeft->PushMotionProfileTrajectory(profile.turn == RIGHT ? invert_point(pt) : pt) ||
-			!m_driveRight->PushMotionProfileTrajectory(profile.turn == LEFT ? invert_point(pt) : pt))
+			!m_driveRight->PushMotionProfileTrajectory(profile.turn == LEFT ? pt : invert_point(pt)))
 		{
 			std::cout << "SO SCHADE!" << std::endl;
 		}
