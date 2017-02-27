@@ -36,8 +36,6 @@ private:
 public:
 	void InitializeSubsystems(frc::Preferences* prefs)
 	{
-		CommandBase::oi.get()->Initialize();
-
 		CommandBase::drive.get()->Initialize(prefs);
 		CommandBase::shooter.get()->Initialize(prefs);
 		CommandBase::gearCollector.get()->Initialize(prefs);
@@ -45,6 +43,8 @@ public:
 		CommandBase::fuelCollector.get()->Initialize(prefs);
 		CommandBase::lights.get()->Initialize(prefs);
 		CommandBase::visionManager.get()->Initialize(prefs);
+
+		CommandBase::oi.get()->Initialize();
 	}
 
 	void UpdateDashboard(bool verbose = false)

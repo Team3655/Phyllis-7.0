@@ -38,10 +38,12 @@ private:
 	int m_loopTimeout;
 	int m_state = 0;
 
-	bool m_isFinished;
+	bool m_isFinished = false;
 
 	CANTalon::SetValueMotionProfile m_leftSetValue = CANTalon::SetValueMotionProfileDisable,
 									m_rightSetValue = CANTalon::SetValueMotionProfileDisable;
+
+	DriveTrain* m_drive;
 
 	CANTalon* m_driveLeft;
 	CANTalon* m_driveRight;
@@ -55,10 +57,13 @@ private:
 public:
 	MotionControl(DriveTrain* drive, std::list<Profile*>& profileSeq);
 
+	void Initialize();
+
 	void Fill(int start, int end, Profile& profile);
 
 	void Update();
 
+	void Finish();
 	bool IsFinished() { return m_isFinished; }
 };
 

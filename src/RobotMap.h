@@ -22,9 +22,10 @@ constexpr int DRIVE_RIGHT_PORT = 14;
 constexpr int DRIVE_SHIFT_PORT = 0;
 
 // Left
-constexpr double DRIVE_LEFT_POS_P = .1;
-constexpr double DRIVE_LEFT_POS_I = .003;
-constexpr double DRIVE_LEFT_POS_D = 2;
+constexpr double DRIVE_LEFT_POS_P = 2;
+constexpr double DRIVE_LEFT_POS_I = .01;
+constexpr double DRIVE_LEFT_POS_D = 0.1;
+constexpr double DRIVE_LEFT_POS_F = 3.41;
 constexpr double DRIVE_LEFT_SPD_P = 1;
 constexpr double DRIVE_LEFT_SPD_I = 0;
 constexpr double DRIVE_LEFT_SPD_D = 0;
@@ -32,6 +33,7 @@ constexpr double DRIVE_LEFT_SPD_D = 0;
 constexpr double DRIVE_RIGHT_POS_P = 2;
 constexpr double DRIVE_RIGHT_POS_I = .01;
 constexpr double DRIVE_RIGHT_POS_D = .1;
+constexpr double DRIVE_RIGHT_POS_F = 3.41;
 constexpr double DRIVE_RIGHT_SPD_P = 1;
 constexpr double DRIVE_RIGHT_SPD_I = 0;
 constexpr double DRIVE_RIGHT_SPD_D = 0;
@@ -156,7 +158,7 @@ inline void sleep(uint timeMS)
 //----------------------------------------------------------
 // Motion Profiling
 
-constexpr int MIN_POINTS = 5;
+constexpr int MIN_POINTS = 8;
 constexpr int TIMEOUT_LOOPS = 10;
 
 // Profiles in Profiles.h

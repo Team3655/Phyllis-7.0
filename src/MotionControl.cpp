@@ -9,6 +9,8 @@
 
 #include "MotionControl.h"
 
+#include <iostream>
+
 void MotionControl::periodic_tasks()
 {
 	m_driveLeft->ProcessMotionProfileBuffer();
@@ -17,15 +19,10 @@ void MotionControl::periodic_tasks()
 
 MotionControl::MotionControl(DriveTrain* drive, std::list<Profile*>& sequence) :
 	m_notifier(new frc::Notifier(&MotionControl::periodic_tasks, this)),
-	m_driveLeft(drive->m_lb), m_driveRight(drive->m_rb),
+	m_driveLeft(drive->m_lb), m_driveRight(drive->m_rb), m_drive(drive),
 	m_sequence(sequence)
 {
-	drive->SetTalonMode(CANTalon::TalonControlMode::kMotionProfileMode);
-
-	m_driveLeft->ChangeMotionControlFramePeriod(5);
-	m_driveRight->ChangeMotionControlFramePeriod(5);
-
-	m_notifier->StartPeriodic(.01); // 10ms
+	m_currentPr = m_sequence.begin();
 }
 
 Point MotionControl::create_point(double position, double velocity, double duration, int slot, bool first, bool last, bool velOnly)
@@ -55,12 +52,36 @@ void MotionControl::Fill(int start, int end, Profile& profile)
 
 	Point pt;
 
+	if (m_leftStatus.hasUnderrun)
+		m_driveLeft->ClearMotionProfileHasUnderrun();
+	if (m_rightStatus.hasUnderrun)
+		m_driveRight->ClearMotionProfileHasUnderrun();
+
 	for (int i = start; i < end; i++)
 	{
-		pt = create_point(profile.profile[i][0], profile.profile[i][1], profile.profile[i][2], 1, i == 0, i + 1 == profile.size);
-		m_driveLeft->PushMotionProfileTrajectory(profile.turn == RIGHT ? invert_point(pt) : pt);
-		m_driveRight->PushMotionProfileTrajectory(profile.turn == LEFT ? invert_point(pt) : pt);
+		pt = create_point(profile.profile[i][0], profile.profile[i][1], profile.profile[i][2], 1, i == 0, i == profile.size - 1);
+		if (!m_driveLeft->PushMotionProfileTrajectory(profile.turn == RIGHT ? invert_point(pt) : pt) ||
+			!m_driveRight->PushMotionProfileTrajectory(profile.turn == LEFT ? invert_point(pt) : pt))
+		{
+			std::cout << "SO SCHADE!" << std::endl;
+		}
+
+		std::cout << pt.position << "  " << pt.isLastPoint << std::endl;
 	}
+}
+
+void MotionControl::Initialize()
+{
+	m_drive->SetTalonMode(frc::CANSpeedController::kMotionProfile);
+
+	m_driveLeft->ChangeMotionControlFramePeriod(5);
+	m_driveRight->ChangeMotionControlFramePeriod(5);
+
+	m_notifier->StartPeriodic(.01); // 10ms
+
+	m_drive->Disable();
+
+	m_driveRight->Enable();
 }
 
 void MotionControl::Update()
@@ -72,75 +93,91 @@ void MotionControl::Update()
 	else
 	{
 		if (m_loopTimeout == 0)
-			;// error
+			std::cout << "HILFE!!" << std::endl;// error
 		else
 			--m_loopTimeout;
 	}
 
-	if (m_driveLeft->GetTalonControlMode() != CANTalon::kMotionProfileMode ||
-		m_driveRight->GetTalonControlMode() != CANTalon::kMotionProfileMode)
+	if (m_driveLeft->GetControlMode() != CANSpeedController::kMotionProfile ||
+		m_driveRight->GetControlMode() != CANSpeedController::kMotionProfile)
 	{
 		// Not in MP mode
 	}
-	else
+	bool l = false, r = false;
+	bool ls = false, rs = false;
+	switch (m_state)
 	{
-		bool l = false, r = false;
-		bool ls = false, rs = false;
-		switch (m_state)
+	case -1:
+		m_isFinished = true;
+		break;
+	case 0:
+		m_leftSetValue = CANTalon::SetValueMotionProfileDisable;
+		m_rightSetValue = CANTalon::SetValueMotionProfileDisable;
+
+		m_driveLeft->SetEncPosition(0);
+		m_driveRight->SetEncPosition(0);
+
+		Fill(0, (*m_currentPr)->size, *(*m_currentPr));
+
+		m_state = 1;
+		m_loopTimeout = TIMEOUT_LOOPS;
+		break;
+	case 1:
+
+		if (m_leftStatus.btmBufferCnt > MIN_POINTS)
 		{
-		case 0:
+			ls = true;
+		}
+		if (m_rightStatus.btmBufferCnt > MIN_POINTS)
+		{
+			rs = true;
+		}
+
+		if (rs && ls)
+		{
+			m_state = 2;
+			m_loopTimeout = TIMEOUT_LOOPS;
+			m_rightSetValue = CANTalon::SetValueMotionProfileEnable;
+			m_leftSetValue = CANTalon::SetValueMotionProfileEnable;
+		}
+		break;
+	case 2:
+		if (!m_leftStatus.isUnderrun || !m_rightStatus.isUnderrun)
+			m_loopTimeout = TIMEOUT_LOOPS;
+
+		if (m_leftStatus.activePointValid && m_leftStatus.activePoint.isLastPoint)
+		{
+			l = true;
+		}
+		if (m_rightStatus.activePointValid && m_rightStatus.activePoint.isLastPoint)
+		{
+			r = true;
+		}
+
+		if (l && r)
+		{
+			m_state = 0;
+			m_loopTimeout = -1;
+
 			m_leftSetValue = CANTalon::SetValueMotionProfileDisable;
 			m_rightSetValue = CANTalon::SetValueMotionProfileDisable;
 
-			Fill(0, (*m_currentPr)->size - 1, *(*m_currentPr));
-
-			m_state = 1;
-			m_loopTimeout = TIMEOUT_LOOPS;
-			break;
-		case 1:
-
-			if (m_leftStatus.btmBufferCnt > MIN_POINTS)
-			{
-				m_leftSetValue = CANTalon::SetValueMotionProfileEnable;
-				ls = true;
-			}
-			if (m_rightStatus.btmBufferCnt > MIN_POINTS)
-			{
-				m_rightSetValue = CANTalon::SetValueMotionProfileEnable;
-				rs = true;
-			}
-
-			if (rs && ls)
-			{
-				m_state = 2;
-				m_loopTimeout = TIMEOUT_LOOPS;
-			}
-			break;
-		case 2:
-			if (!m_leftStatus.isUnderrun || !m_rightStatus.isUnderrun)
-				m_loopTimeout = TIMEOUT_LOOPS;
-
-			if (m_leftStatus.activePointValid && m_leftStatus.activePoint.isLastPoint)
-			{
-				m_leftSetValue = CANTalon::SetValueMotionProfileHold;
-				l = true;
-			}
-			if (m_rightStatus.activePointValid && m_rightStatus.activePoint.isLastPoint)
-			{
-				m_rightSetValue = CANTalon::SetValueMotionProfileHold;
-				r = true;
-			}
-
-			if (l && r)
-			{
-				m_state = 0;
-				m_loopTimeout = -1;
-
-				m_currentPr++;
-				if (m_currentPr == m_sequence.end())
-					m_state = -1;
-			}
-			break;
+			m_currentPr++;
+			if (m_currentPr == m_sequence.end())
+				m_state = -1;
 		}
+		break;
 	}
+	m_driveLeft->Set(m_leftSetValue);
+	m_driveRight->Set(m_rightSetValue);
+
+	//std::cout << m_leftStatus.isUnderrun << "  " << m_leftStatus.activePoint.isLastPoint << "  " << m_leftStatus.activePointValid << "  " << m_leftStatus.activePoint.position << std::endl;
+	//std::cout << m_driveLeft->GetClosedLoopError() << std::endl;
+	std::cout << m_leftStatus.outputEnable << std::endl;
+}
+
+void MotionControl::Finish()
+{
+	m_drive->Enable();
+	m_drive->SetTalonMode(CANSpeedController::kSpeed);
 }

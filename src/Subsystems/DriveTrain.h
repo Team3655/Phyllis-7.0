@@ -57,7 +57,7 @@ public:
 	void Initialize(frc::Preferences* prefs) override;
 	void DashboardOutput(bool verbose = false) override;
 
-	void SetTalonMode(uint32_t mode);
+	void SetTalonMode(CANSpeedController::ControlMode mode);
 
 	// Drive the bot in Arcade Drive (invert doesn't work)
 	void ArcadeDrive(double move, double rotate);

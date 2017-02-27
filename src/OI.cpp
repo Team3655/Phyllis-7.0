@@ -16,6 +16,7 @@
 #include "Commands/CollectFuel.h"
 #include "Commands/Climb.h"
 #include "Commands/InvertDrive.h"
+#include "Commands/DriveProfile.h"
 
 #include <string>
 
@@ -70,6 +71,12 @@ void OI::Initialize()
 	code = m_prefs->GetString("joy_btn_invert");
 	m_invertDrive = new frc::JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	m_invertDrive->WhenPressed(new InvertDrive());
+
+	m_profileTest = new frc::JoystickButton(GetStick(3), 6);
+	std::list<Profile*> p;
+	p.emplace_back(new Profile(LEFT, MpTestSize, MpTest));
+
+	m_profileTest->WhenPressed(new DriveProfile(p));
 }
 
 int OI::InterpretStick(std::string& code)

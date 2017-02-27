@@ -26,6 +26,7 @@ private:
 	frc::JoystickButton* m_shoot;
 	frc::JoystickButton* m_climb;
 	frc::JoystickButton* m_invertDrive;
+	frc::JoystickButton* m_profileTest;
 
 	double m_deadband;
 	bool m_enableDeadband;

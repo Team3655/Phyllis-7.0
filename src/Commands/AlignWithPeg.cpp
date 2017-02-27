@@ -30,7 +30,7 @@ AlignWithPeg::~AlignWithPeg()
 void AlignWithPeg::Initialize()
 {
 	m_pid->SetTolerance(ALIGN_PEG_TOLERANCE);
-	drive.get()->SetTalonMode(CANTalon::TalonControlMode::kPositionMode);
+	drive.get()->SetTalonMode(CANSpeedController::kPosition);
 }
 
 void AlignWithPeg::Execute()

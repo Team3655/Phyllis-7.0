@@ -21,6 +21,7 @@ DriveProfile::~DriveProfile()
 
 void DriveProfile::Initialize()
 {
+	m_motionControl->Initialize();
 }
 
 void DriveProfile::Execute()
@@ -30,12 +31,12 @@ void DriveProfile::Execute()
 
 bool DriveProfile::IsFinished()
 {
-	return false;
+	return m_abortBtn->Get() || m_motionControl->IsFinished();
 }
 
 void DriveProfile::End()
 {
-
+	m_motionControl->Finish();
 }
 
 void DriveProfile::Interrupted()
