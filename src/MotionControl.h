@@ -59,7 +59,7 @@ public:
 
 	void Initialize();
 
-	void Fill(int start, int end, Profile& profile);
+	void Fill(int start, int end, Profile& profile, bool split);
 
 	void Update();
 

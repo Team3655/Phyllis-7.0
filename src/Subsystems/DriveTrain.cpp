@@ -126,7 +126,6 @@ void DriveTrain::ArcadeDrive(double move, double rotate)
 		rotate = -rotate;
 	}
 	m_drive->ArcadeDrive(move, rotate /** m_shifter->Get() ? 0.5 : 1.0*/);
-	std::cout << m_lb->GetClosedLoopError() << std::endl;
 }
 
 void DriveTrain::TankDrive(double left, double right)
