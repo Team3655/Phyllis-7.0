@@ -45,10 +45,13 @@ Point MotionControl::invert_point(Point& point)
 	return point;
 }
 
-void MotionControl::Fill(int start, int end, Profile& profile)
+void MotionControl::Fill(int start, int end, Profile& profile, bool split)
 {
-	m_driveLeft->ClearMotionProfileTrajectories();
-	m_driveRight->ClearMotionProfileTrajectories();
+	if (!split)
+	{
+		m_driveLeft->ClearMotionProfileTrajectories();
+		m_driveRight->ClearMotionProfileTrajectories();
+	}
 
 	Point pt;
 
@@ -60,13 +63,23 @@ void MotionControl::Fill(int start, int end, Profile& profile)
 	for (int i = start; i < end; i++)
 	{
 		pt = create_point(profile.profile[i][0], profile.profile[i][1], profile.profile[i][2], 1, i == 0, i == profile.size - 1);
-		if (!m_driveLeft->PushMotionProfileTrajectory(profile.turn == RIGHT ? invert_point(pt) : pt) ||
-			!m_driveRight->PushMotionProfileTrajectory(profile.turn == LEFT ? pt : invert_point(pt)))
+		if (profile.turn == LEFT)
 		{
-			std::cout << "SO SCHADE!" << std::endl;
+			m_driveLeft->PushMotionProfileTrajectory(invert_point(pt));
+			m_driveRight->PushMotionProfileTrajectory(pt);
+		}
+		else if (profile.turn == RIGHT)
+		{
+			m_driveLeft->PushMotionProfileTrajectory(pt);
+			m_driveRight->PushMotionProfileTrajectory(pt);
+		}
+		else if (profile.turn == NO_TURN)
+		{
+			m_driveLeft->PushMotionProfileTrajectory(pt);
+			m_driveRight->PushMotionProfileTrajectory(invert_point(pt));
 		}
 
-		std::cout << pt.position << "  " << pt.isLastPoint << std::endl;
+		std::cout << pt.position << " : " << m_leftStatus.topBufferCnt << "  " << m_rightStatus.topBufferCnt << std::endl;
 	}
 }
 
@@ -101,7 +114,7 @@ void MotionControl::Update()
 	if (m_driveLeft->GetControlMode() != CANSpeedController::kMotionProfile ||
 		m_driveRight->GetControlMode() != CANSpeedController::kMotionProfile)
 	{
-		// Not in MP mode
+		return;
 	}
 	bool l = false, r = false;
 	bool ls = false, rs = false;
@@ -117,7 +130,7 @@ void MotionControl::Update()
 		m_driveLeft->SetEncPosition(0);
 		m_driveRight->SetEncPosition(0);
 
-		Fill(0, (*m_currentPr)->size, *(*m_currentPr));
+		Fill(0, (*m_currentPr)->size, *(*m_currentPr), (*m_currentPr)->split);
 
 		m_state = 1;
 		m_loopTimeout = TIMEOUT_LOOPS;
@@ -145,6 +158,12 @@ void MotionControl::Update()
 		if (!m_leftStatus.isUnderrun || !m_rightStatus.isUnderrun)
 			m_loopTimeout = TIMEOUT_LOOPS;
 
+		if ((*m_currentPr)->split && m_leftStatus.topBufferCnt < 10 && m_rightStatus.topBufferCnt < 10)
+		{
+			m_state = 0;
+			m_currentPr++;
+		}
+
 		if (m_leftStatus.activePointValid && m_leftStatus.activePoint.isLastPoint)
 		{
 			l = true;
@@ -170,14 +189,10 @@ void MotionControl::Update()
 	}
 	m_driveLeft->Set(m_leftSetValue);
 	m_driveRight->Set(m_rightSetValue);
-
-	//std::cout << m_leftStatus.isUnderrun << "  " << m_leftStatus.activePoint.isLastPoint << "  " << m_leftStatus.activePointValid << "  " << m_leftStatus.activePoint.position << std::endl;
-	//std::cout << m_driveLeft->GetClosedLoopError() << std::endl;
-	std::cout << m_leftStatus.outputEnable << std::endl;
 }
 
 void MotionControl::Finish()
 {
 	m_drive->Enable();
-	m_drive->SetTalonMode(CANSpeedController::kSpeed);
+	m_drive->SetTalonMode(CANSpeedController::kPercentVbus);
 }

@@ -17,7 +17,7 @@ Drive::Drive() :
 
 void Drive::Initialize()
 {
-	drive.get()->SetTalonMode(CANTalon::ControlMode::kPercentVbus); // WARNING: This causes MP to be unusable
+	drive.get()->SetTalonMode(CANSpeedController::kPercentVbus); // WARNING: This causes MP to be unusable
 
 	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_drive_mode");
 	m_atSwitch = new frc::JoystickButton(oi.get()->GetStick(oi.get()->InterpretStick(code)), oi.get()->InterpretButton(code));
@@ -47,5 +47,4 @@ void Drive::End()
 
 void Drive::Interrupted()
 {
-
 }

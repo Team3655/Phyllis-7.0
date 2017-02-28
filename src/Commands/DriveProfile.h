@@ -11,6 +11,8 @@ class DriveProfile : public CommandBase
 private:
 	MotionControl* m_motionControl;
 
+	std::list<Profile*> m_seq;
+
 	frc::JoystickButton* m_abortBtn;
 
 public:

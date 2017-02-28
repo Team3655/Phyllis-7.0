@@ -72,9 +72,11 @@ void OI::Initialize()
 	m_invertDrive = new frc::JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	m_invertDrive->WhenPressed(new InvertDrive());
 
-	m_profileTest = new frc::JoystickButton(GetStick(3), 6);
+	m_profileTest = new frc::JoystickButton(GetStick(0), 7);
 	std::list<Profile*> p;
-	p.emplace_back(new Profile(LEFT, MpTestSize, MpTest));
+	//p.emplace_back(new Profile(NO_TURN, MpTestSize, MpTest, false));
+	p.emplace_back(create_profile(new Profile(), NO_TURN, MpTestSize, MpTest, 0, 50, true));
+	p.emplace_back(create_profile(new Profile(), NO_TURN, MpTestSize, MpTest, 50, 71, true));
 
 	m_profileTest->WhenPressed(new DriveProfile(p));
 }
