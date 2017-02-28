@@ -21,7 +21,6 @@ DriveTrain::DriveTrain() :
 DriveTrain::~DriveTrain()
 {
 	delete m_shifter;
-	delete m_drive;
 	delete m_lf;
 	delete m_lb;
 	delete m_rf;
@@ -58,8 +57,6 @@ void DriveTrain::Initialize(frc::Preferences* prefs)
 	//m_rb->SetInverted(true);
 
 	//m_rb->SetSensorDirection(true);
-
-	m_drive = new RobotDrive(m_lb, m_rb);
 
 	m_shiftState = m_shifter->Get();
 }
@@ -130,7 +127,39 @@ void DriveTrain::ArcadeDrive(double move, double rotate)
 		move = -move;
 		rotate = -rotate;
 	}
-	m_drive->ArcadeDrive(move, rotate /** m_shifter->Get() ? 0.5 : 1.0*/);
+
+	double leftMotorOutput;
+	double rightMotorOutput;
+
+	if (move > 0.0)
+	{
+		if (rotate > 0.0)
+		{
+			leftMotorOutput = move - rotate;
+			rightMotorOutput = std::max(move, rotate);
+		}
+		else
+		{
+			leftMotorOutput = std::max(move, -rotate);
+			rightMotorOutput = move + rotate;
+		}
+	}
+	else
+	{
+		if (rotate > 0.0)
+		{
+			leftMotorOutput = -std::max(-move, rotate);
+		  	rightMotorOutput = move + rotate;
+		}
+		else
+		{
+			leftMotorOutput = move - rotate;
+			rightMotorOutput = -std::max(-move, -rotate);
+		}
+	}
+
+	m_lb->Set(leftMotorOutput);
+	m_rb->Set(rightMotorOutput);
 }
 
 void DriveTrain::TankDrive(double left, double right)
@@ -141,7 +170,8 @@ void DriveTrain::TankDrive(double left, double right)
 		left = -left;
 		right = -right;
 	}
-	m_drive->TankDrive(left, right);
+	m_lb->Set(left);
+	m_rb->Set(right);
 }
 
 void DriveTrain::Reverse()

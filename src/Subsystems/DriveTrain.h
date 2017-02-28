@@ -27,8 +27,6 @@ class DriveTrain : public frc::Subsystem, public ExtSubsystem
 	friend MotionControl;
 
 private:
-	frc::RobotDrive* m_drive;
-
 	// Slaves
 	CANTalon* m_lf;
 	CANTalon* m_rf;
