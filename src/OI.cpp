@@ -74,7 +74,7 @@ void OI::Initialize()
 
 	m_profileTest = new frc::JoystickButton(GetStick(0), 7);
 	std::list<Profile*> p;
-	p.emplace_back(new Profile(NO_TURN, MpTestSize, MpTest, false));
+	//p.emplace_back(new Profile(FORWARD, MpTestSize, MpTest, false));
 
 	m_profileTest->WhenPressed(new DriveProfile(p));
 }

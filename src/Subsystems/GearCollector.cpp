@@ -61,7 +61,7 @@ void GearCollector::Initialize(frc::Preferences* prefs)
 void GearCollector::DashboardOutput(bool verbose)
 {
 	frc::SmartDashboard::PutString("State", state_to_string(m_state));
-	frc::SmartDashboard::PutBoolean("Gear Present", IsGearPresent());
+	frc::SmartDashboard::PutBoolean("Gear Gone", IsGearPresent());
 
 	if (verbose)
 	{
@@ -71,7 +71,7 @@ void GearCollector::DashboardOutput(bool verbose)
 
 bool GearCollector::IsGearPresent()
 {
-	return !m_gearSensor->Get(); // Defaults to on (true = no gear)
+	return m_gearSensor->Get(); // Defaults to on (true = gear)
 }
 
 void GearCollector::SetIntake(int direction)

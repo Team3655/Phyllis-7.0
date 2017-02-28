@@ -3,10 +3,12 @@
 
 #include <Commands/CommandGroup.h>
 
+#include "../../Profiles.h"
+
 class AutoPegGear : public frc::CommandGroup
 {
 public:
-	AutoPegGear();
+	AutoPegGear(std::list<Profile*>& prePegSeq, std::list<Profile*>& postPegSeq);
 };
 
 #endif // AUTO_PEG_GEAR_H

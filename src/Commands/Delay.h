@@ -1,17 +1,19 @@
-#ifndef TURN_H
-#define TURN_H
+#ifndef DELAY_H
+#define DELAY_H
 
 #include "../CommandBase.h"
 
 // Summary:
 //
-class Turn : public CommandBase
+class Delay : public CommandBase
 {
 private:
-	double m_speedDirect;
+	double m_delay;
+
+	frc::Timer* m_delayTimer;
 
 public:
-	Turn(double sd);
+	Delay(double delay);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -19,4 +21,4 @@ public:
 	void Interrupted();
 };
 
-#endif // TURN_H
+#endif // DELAY_H

@@ -73,13 +73,16 @@ void MotionControl::Fill(int start, int end, Profile& profile, bool split)
 			m_driveLeft->PushMotionProfileTrajectory(pt);
 			m_driveRight->PushMotionProfileTrajectory(pt);
 		}
-		else if (profile.turn == NO_TURN)
+		else if (profile.turn == FORWARD)
 		{
 			m_driveLeft->PushMotionProfileTrajectory(pt);
 			m_driveRight->PushMotionProfileTrajectory(invert_point(pt));
 		}
-
-		std::cout << pt.position << " : " << m_leftStatus.topBufferCnt << "  " << m_rightStatus.topBufferCnt << std::endl;
+		else if (profile.turn == REVERSE)
+		{
+			m_driveLeft->PushMotionProfileTrajectory(invert_point(pt));
+			m_driveRight->PushMotionProfileTrajectory(invert_point(pt));
+		}
 	}
 }
 
@@ -116,8 +119,6 @@ void MotionControl::Update()
 	{
 		return;
 	}
-	bool l = false, r = false;
-	bool ls = false, rs = false;
 	switch (m_state)
 	{
 	case -1:
@@ -139,16 +140,7 @@ void MotionControl::Update()
 		break;
 	case 1:
 
-		if (m_leftStatus.btmBufferCnt > MIN_POINTS)
-		{
-			ls = true;
-		}
-		if (m_rightStatus.btmBufferCnt > MIN_POINTS)
-		{
-			rs = true;
-		}
-
-		if (rs && ls)
+		if (m_leftStatus.btmBufferCnt > MIN_POINTS && m_rightStatus.btmBufferCnt > MIN_POINTS)
 		{
 			m_state = 2;
 			m_loopTimeout = TIMEOUT_LOOPS;
@@ -160,16 +152,8 @@ void MotionControl::Update()
 		if (!m_leftStatus.isUnderrun || !m_rightStatus.isUnderrun)
 			m_loopTimeout = TIMEOUT_LOOPS;
 
-		if (m_leftStatus.activePointValid && m_leftStatus.activePoint.isLastPoint)
-		{
-			l = true;
-		}
-		if (m_rightStatus.activePointValid && m_rightStatus.activePoint.isLastPoint)
-		{
-			r = true;
-		}
-
-		if (l && r)
+		if (m_leftStatus.activePointValid && m_leftStatus.activePoint.isLastPoint &&
+			m_rightStatus.activePointValid && m_rightStatus.activePoint.isLastPoint)
 		{
 			m_state = 0;
 			m_loopTimeout = -1;

@@ -33,7 +33,7 @@ void Lights::Initialize(frc::Preferences* prefs)
 	m_green = new frc::Solenoid(LIGHT_GREEN_PORT);
 	m_blue = new frc::Solenoid(LIGHT_BLUE_PORT);
 
-	SetPegCamLight(true);
+	SetPegCamLight(false);
 }
 
 void Lights::DashboardOutput(bool verbose)

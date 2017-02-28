@@ -1,17 +1,15 @@
 #include "WaitForPeg.h"
 
-WaitForPeg::WaitForPeg(frc::JoystickButton* abortBtn)
+WaitForPeg::WaitForPeg()
 {
 	Requires(drive.get());
 	Requires(gearCollector.get());
 
-	m_abortBtn = abortBtn;
-
 	m_lightFlashTimer = new frc::Timer();
 	m_gearGoneTimer = new frc::Timer();
 
-	//code = prefs->GetString("joy_btn_peg_abort");
-	//m_abortBtn = new frc::JoystickButton(oi.get()->InterpretStick(code), oi.get()->InterpretButton(code));
+	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_peg_abort");
+	m_abortBtn = new frc::JoystickButton(oi.get()->GetStick(oi.get()->InterpretStick(code)), oi.get()->InterpretButton(code));
 }
 
 WaitForPeg::~WaitForPeg()

@@ -6,7 +6,7 @@
 class AutoCrossLine : public frc::CommandGroup
 {
 public:
-	AutoCrossLine();
+	AutoCrossLine(double delay);
 };
 
 #endif  // AUTO_CROSS_LINE_H

@@ -29,7 +29,6 @@ class Robot: public frc::IterativeRobot
 private:
 	std::unique_ptr<frc::Command> autonomousCommand;
 	frc::SendableChooser<frc::Command*> autoModes;
-	frc::SendableChooser<int> positions;
 
 	frc::LiveWindow* lw;
 
@@ -62,18 +61,17 @@ public:
 	{
 		InitializeSubsystems(CommandBase::oi.get()->GetPrefs());
 
-		positions.AddObject("1", 1);
-		positions.AddObject("2", 2);
-		positions.AddObject("3", 3);
-		frc::SmartDashboard::PutData("Postion", &positions);
+		// Add Variable delay
+		autoModes.AddDefault("Cross Line", new AutoCrossLine(0));
+		// Peg 1 to 1
+		// Peg 1 to 2
+		// Peg 2 to 1
+		// Peg 2 to 2
+		// Peg 2 to 3
+		// Peg 3 to 2
+		// Peg 3 to 3
 
-		autoModes.AddObject("Cross Baseline", new AutoCrossLine());
-		autoModes.AddObject("Peg Gear", new AutoPegGear());
-		autoModes.AddObject("Pickup and Peg Gear", new AutoPickupAndPeg());
-		autoModes.AddObject("Pickup Gear", new AutoPickupGear());
-		autoModes.AddObject("Shoot", new AutoShoot());
 		frc::SmartDashboard::PutData("Auto Modes", &autoModes);
-
 	}
 
 	void RobotPeriodic() override

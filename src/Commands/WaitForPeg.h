@@ -16,7 +16,7 @@ private:
 	bool m_toggle = false;
 
 public:
-	WaitForPeg(frc::JoystickButton*);
+	WaitForPeg();
 	~WaitForPeg();
 	void Initialize();
 	void Execute();

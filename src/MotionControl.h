@@ -21,9 +21,10 @@
 
 typedef CANTalon::TrajectoryPoint Point;
 
-#define NO_TURN 0
-#define LEFT 1
-#define RIGHT 2
+#define FORWARD 0
+#define REVERSE 1
+#define LEFT 2
+#define RIGHT 3
 
 // Summary:
 //
