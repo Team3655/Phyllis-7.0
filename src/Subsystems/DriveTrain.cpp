@@ -35,6 +35,7 @@ void DriveTrain::InitDefaultCommand()
 void DriveTrain::Initialize(frc::Preferences* prefs)
 {
 	m_shifter = new Solenoid(DRIVE_SHIFT_PORT);
+	m_comp = new frc::Relay(DRIVE_COMPRESS_PORT);
 
 	m_lb = new CANTalon(DRIVE_LEFT_PORT);
 	m_lb->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
@@ -105,9 +106,6 @@ void DriveTrain::set_pid_values()
 
 void DriveTrain::SetTalonMode(CANSpeedController::ControlMode mode)
 {
-	//m_lb->SetTalonControlMode((CANTalon::TalonControlMode)mode);
-	//m_rb->SetTalonControlMode((CANTalon::TalonControlMode)mode);
-
 	m_lb->SetControlMode(mode);
 	m_rb->SetControlMode(mode);
 
@@ -181,6 +179,11 @@ void DriveTrain::Shift()
 	m_shifter->Set(!m_shiftState);
 	m_shiftState = m_shifter->Get();
 	//m_scaleFactor = m_shiftState ? 0.5 : 1.0;
+}
+
+void DriveTrain::PowerCompressor(bool on)
+{
+	m_comp->Set(on ? frc::Relay::Value::kOn : frc::Relay::Value::kOff);
 }
 
 void DriveTrain::SetScale(double scale)

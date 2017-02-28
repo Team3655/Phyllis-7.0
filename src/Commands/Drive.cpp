@@ -28,10 +28,12 @@ void Drive::Execute()
 	if (m_atSwitch->Get())
 	{
 		drive.get()->TankDrive(oi.get()->GetYAxis(JOY_DRIVER_PORT), -oi.get()->GetYAxis(JOY_CODRIVER_PORT));
+		drive.get()->PowerCompressor(false);
 	}
 	else
 	{
 		drive.get()->ArcadeDrive(-oi.get()->GetXAxis(JOY_CODRIVER_PORT), -oi.get()->GetYAxis(JOY_CODRIVER_PORT));
+		drive.get()->PowerCompressor(true);
 	}
 }
 

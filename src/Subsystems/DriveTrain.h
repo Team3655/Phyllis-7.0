@@ -15,6 +15,7 @@
 #include <CANTalon.h>
 #include <Solenoid.h>
 #include <Preferences.h>
+#include <Relay.h>
 
 #include "../ExtSubsystem.h"
 
@@ -36,6 +37,7 @@ private:
 
 	frc::Solenoid* m_shifter;
 	bool m_shiftState;
+	frc::Relay* m_comp;
 
 	double m_scaleFactor = 1.0;
 
@@ -72,8 +74,9 @@ public:
 	void Disable() { m_disabled = true; }
 	void Enable() { m_disabled = false; }
 
-	// Toggles high/low gear
+	// Shifter
 	void Shift();
+	void PowerCompressor(bool on);
 
 	void SetScale(double scale);
 	double GetScale();

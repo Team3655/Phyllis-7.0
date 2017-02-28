@@ -122,6 +122,8 @@ void MotionControl::Update()
 	{
 	case -1:
 		m_isFinished = true;
+		m_leftSetValue = CANTalon::SetValueMotionProfileDisable;
+		m_rightSetValue = CANTalon::SetValueMotionProfileDisable;
 		break;
 	case 0:
 		m_leftSetValue = CANTalon::SetValueMotionProfileDisable;
@@ -158,12 +160,6 @@ void MotionControl::Update()
 		if (!m_leftStatus.isUnderrun || !m_rightStatus.isUnderrun)
 			m_loopTimeout = TIMEOUT_LOOPS;
 
-		if ((*m_currentPr)->split && m_leftStatus.topBufferCnt < 10 && m_rightStatus.topBufferCnt < 10)
-		{
-			m_state = 0;
-			m_currentPr++;
-		}
-
 		if (m_leftStatus.activePointValid && m_leftStatus.activePoint.isLastPoint)
 		{
 			l = true;
@@ -178,8 +174,10 @@ void MotionControl::Update()
 			m_state = 0;
 			m_loopTimeout = -1;
 
-			m_leftSetValue = CANTalon::SetValueMotionProfileDisable;
-			m_rightSetValue = CANTalon::SetValueMotionProfileDisable;
+			m_leftSetValue = CANTalon::SetValueMotionProfileHold;
+			m_rightSetValue = CANTalon::SetValueMotionProfileHold;
+
+			m_sequence.remove(*m_currentPr); // Remove finished profile
 
 			m_currentPr++;
 			if (m_currentPr == m_sequence.end())
