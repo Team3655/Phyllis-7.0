@@ -59,14 +59,8 @@ void DriveTrain::Initialize(frc::Preferences* prefs)
 	//m_rb->SetInverted(true);
 	m_lb->SetInverted(true);
 
-<<<<<<< HEAD
-	//m_rb->SetSensorDirection(true);
-=======
 	m_rb->SetSensorDirection(false);
 	m_lb->SetSensorDirection(false);
-
-	m_drive = new RobotDrive(m_lb, m_rb);
->>>>>>> branch 'master' of https://github.com/Team3655/Phyllis-7.0.git
 
 	m_shiftState = m_shifter->Get();
 }
