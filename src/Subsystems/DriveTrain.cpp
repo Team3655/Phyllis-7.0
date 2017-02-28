@@ -38,6 +38,7 @@ void DriveTrain::Initialize(frc::Preferences* prefs)
 
 	m_lb = new CANTalon(DRIVE_LEFT_PORT);
 	m_lb->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
+	m_lb->ConfigEncoderCodesPerRev(100);
 
 	m_lf = new CANTalon(DRIVE_LF_PORT);
 	m_lf->SetControlMode(CANTalon::ControlMode::kFollower);
@@ -45,18 +46,27 @@ void DriveTrain::Initialize(frc::Preferences* prefs)
 
 	m_rb = new CANTalon(DRIVE_RIGHT_PORT);
 	m_rb->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
+	m_rb->ConfigEncoderCodesPerRev(100);
 
 	m_rf = new CANTalon(DRIVE_RF_PORT);
 	m_rf->SetControlMode(CANTalon::ControlMode::kFollower);
 	m_rf->Set(m_rb->GetDeviceID());
 
-	SetTalonMode(CANTalon::ControlMode::kPercentVbus);
+	SetTalonMode(CANSpeedController::kSpeed);
 	set_pid_values();
 
 	//m_rf->SetInverted(true);
 	//m_rb->SetInverted(true);
+	m_lb->SetInverted(true);
 
+<<<<<<< HEAD
 	//m_rb->SetSensorDirection(true);
+=======
+	m_rb->SetSensorDirection(false);
+	m_lb->SetSensorDirection(false);
+
+	m_drive = new RobotDrive(m_lb, m_rb);
+>>>>>>> branch 'master' of https://github.com/Team3655/Phyllis-7.0.git
 
 	m_shiftState = m_shifter->Get();
 }
@@ -82,39 +92,30 @@ CANTalon::TalonControlMode DriveTrain::get_talon_mode()
 
 void DriveTrain::set_pid_values()
 {
-	switch (CANTalon::TalonControlMode::kSpeedMode)
+	for (int i = 0; i < 2; i++)
 	{
-	case CANTalon::TalonControlMode::kPositionMode:
+		m_lb->SelectProfileSlot(i);
+		m_rb->SelectProfileSlot(i);
 		m_lb->SetPID(
-				frc::SmartDashboard::GetNumber("drive_left_pos_p", DRIVE_LEFT_POS_P),
-				frc::SmartDashboard::GetNumber("drive_left_pos_i", DRIVE_LEFT_POS_I),
-				frc::SmartDashboard::GetNumber("drive_left_pos_d", DRIVE_LEFT_POS_D));
+				DRIVE_LEFT_POS_P,
+				DRIVE_LEFT_POS_I,
+				DRIVE_LEFT_POS_D);
+		m_lb->SetF(DRIVE_LEFT_POS_F);
 		m_rb->SetPID(
-				frc::SmartDashboard::GetNumber("drive_right_pos_p", DRIVE_RIGHT_POS_P),
-				frc::SmartDashboard::GetNumber("drive_right_pos_i", DRIVE_RIGHT_POS_I),
-				frc::SmartDashboard::GetNumber("drive_right_pos_d", DRIVE_RIGHT_POS_D));
-		break;
-	default:
-	case CANTalon::TalonControlMode::kSpeedMode:
-		m_lb->SetPID(
-				frc::SmartDashboard::GetNumber("drive_left_spd_p", DRIVE_LEFT_POS_P),
-				frc::SmartDashboard::GetNumber("drive_left_spd_i", DRIVE_LEFT_POS_I),
-				frc::SmartDashboard::GetNumber("drive_left_spd_d", DRIVE_LEFT_POS_D));
-		m_rb->SetPID(
-				frc::SmartDashboard::GetNumber("drive_right_spd_p", DRIVE_RIGHT_POS_P),
-				frc::SmartDashboard::GetNumber("drive_right_spd_i", DRIVE_RIGHT_POS_I),
-				frc::SmartDashboard::GetNumber("drive_right_spd_d", DRIVE_RIGHT_POS_D));
-		break;
+				DRIVE_RIGHT_POS_P,
+				DRIVE_RIGHT_POS_I,
+				DRIVE_RIGHT_POS_D);
+		m_rb->SetF(DRIVE_LEFT_POS_F);
 	}
 }
 
-void DriveTrain::SetTalonMode(uint32_t mode)
+void DriveTrain::SetTalonMode(CANSpeedController::ControlMode mode)
 {
 	//m_lb->SetTalonControlMode((CANTalon::TalonControlMode)mode);
 	//m_rb->SetTalonControlMode((CANTalon::TalonControlMode)mode);
 
-	m_lb->SetControlMode((CANTalon::ControlMode)mode);
-	m_rb->SetControlMode((CANTalon::ControlMode)mode);
+	m_lb->SetControlMode(mode);
+	m_rb->SetControlMode(mode);
 
 	set_pid_values();
 }
