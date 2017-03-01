@@ -18,7 +18,6 @@ Lights::~Lights()
 
 void Lights::InitDefaultCommand()
 {
-	//SetDefaultCommand(new ManageLights());
 }
 
 void Lights::Initialize(frc::Preferences* prefs)
@@ -38,7 +37,9 @@ void Lights::Initialize(frc::Preferences* prefs)
 
 void Lights::DashboardOutput(bool verbose)
 {
-	frc::SmartDashboard::PutString("Color", m_color.name);
+	frc::SmartDashboard::PutString("Light Color", m_color.name);
+	frc::SmartDashboard::PutBoolean("Peg Light", m_pegCamLight->Get());
+	frc::SmartDashboard::PutBoolean("Shoot Light", m_shootCamLight->Get());
 
 	if (verbose)
 	{

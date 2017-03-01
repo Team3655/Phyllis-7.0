@@ -35,21 +35,16 @@ std::string FuelCollector::state_to_string(uint32_t state)
 
 void FuelCollector::InitDefaultCommand()
 {
-	//SetDefaultCommand(new CollectFuel());
 }
 
 void FuelCollector::Initialize(frc::Preferences* prefs)
 {
 	m_meter = new CANTalon(FUEL_METER_PORT);
 	m_meter->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
-	/*m_meter->SetPID(
+	m_meter->SetPID(
 			prefs->GetDouble("fuel_meter_p", FUEL_METER_P),
 			prefs->GetDouble("fuel_meter_i", FUEL_METER_I),
-			prefs->GetDouble("fuel_meter_d", FUEL_METER_D));*/
-	m_meter->SetPID(
-			1.0,
-			0.0,
-			1.0);
+			prefs->GetDouble("fuel_meter_d", FUEL_METER_D));
 
 	//m_meter->Reset();
 	m_currentMeterPos = 0;
@@ -63,11 +58,13 @@ void FuelCollector::Initialize(frc::Preferences* prefs)
 void FuelCollector::DashboardOutput(bool verbose)
 {
 	frc::SmartDashboard::PutString("State", state_to_string(m_state));
-	frc::SmartDashboard::PutNumber("Balls Indexed", m_currentMeterPos / (FUEL_METER_CPR / FUEL_BALL_PER_TURN));
+	frc::SmartDashboard::PutBoolean("Fuel Intake On", m_intake->Get() > 0.0);
+	frc::SmartDashboard::PutBoolean("Meter On", !!m_meter->Get());
 
 	if (verbose)
 	{
 		frc::SmartDashboard::PutNumber("Meter Count", m_meter->GetEncPosition());
+		frc::SmartDashboard::PutNumber("Balls Indexed to Shooter", m_currentMeterPos / (FUEL_METER_CPR / FUEL_BALL_PER_TURN));
 	}
 }
 

@@ -33,9 +33,9 @@ private:
 
 	frc::LiveWindow* lw;
 
-	std::list<Profile*> seq1;
-	std::list<Profile*> seq2;
-	std::list<Profile*> seq3;
+	std::list<Profile*> seq1, seq2, seq3, seq4, seq5, seq6, lineSeq1;
+
+	double autonDelay;
 
 public:
 	void InitializeSubsystems(frc::Preferences* prefs)
@@ -66,23 +66,38 @@ public:
 	{
 		InitializeSubsystems(CommandBase::oi.get()->GetPrefs());
 
-		// Add Variable delay
-		autoModes.AddDefault("Cross Line", new AutoCrossLine(0));
+		autoModes.AddDefault("Cross Line", new AutoCrossLine(0, &lineSeq1));
 		// Peg 1 to 1
-
 		seq1.push_back(new Profile(REVERSE, MpPeg86Size, MpPeg86, false));
 		seq1.push_back(new Profile(RIGHT, Mp45TurnSize, Mp45Turn, false));
 		seq1.push_back(new Profile(REVERSE, Mp28p5Size, Mp28p5, false));
-		autoModes.AddObject("Peg Pos 1", new AutoPegGear(&seq1, nullptr));
+		autoModes.AddObject("Red Peg Pos 1", new AutoPegGear(0, &seq1, nullptr));
+
 		// Peg 2 to 2
 		seq2.push_back(new Profile(REVERSE, Mp115p5Size, Mp115p5, false));
-		autoModes.AddObject("Peg Pos 2", new AutoPegGear(&seq2, nullptr));
+		autoModes.AddObject("Red Peg Pos 2", new AutoPegGear(0, &seq2, nullptr));
 
 		// Peg 3 to 3
 		seq3.push_back(new Profile(REVERSE, Mp104p5Size, Mp104p5, false));
 		seq3.push_back(new Profile(LEFT, Mp45TurnSize, Mp45Turn, false));
 		seq3.push_back(new Profile(REVERSE, Mp35p125Size, Mp35p125, false));
-		autoModes.AddObject("Peg Pos 3", new AutoPegGear(&seq3, nullptr));
+		autoModes.AddObject("Red Peg Pos 3", new AutoPegGear(0, &seq3, nullptr));
+
+		// Peg 1 to 1
+		seq4.push_back(new Profile(REVERSE, MpPeg86Size, MpPeg86, false));
+		seq4.push_back(new Profile(LEFT, Mp45TurnSize, Mp45Turn, false));
+		seq4.push_back(new Profile(REVERSE, Mp28p5Size, Mp28p5, false));
+		autoModes.AddObject("Blue Peg Pos 1", new AutoPegGear(0, &seq4, nullptr));
+
+		// Peg 2 to 2
+		seq5.push_back(new Profile(REVERSE, Mp115p5Size, Mp115p5, false));
+		autoModes.AddObject("Blue Peg Pos 2", new AutoPegGear(0, &seq5, nullptr));
+
+		// Peg 3 to 3
+		seq6.push_back(new Profile(REVERSE, Mp104p5Size, Mp104p5, false));
+		seq6.push_back(new Profile(RIGHT, Mp45TurnSize, Mp45Turn, false));
+		seq6.push_back(new Profile(REVERSE, Mp35p125Size, Mp35p125, false));
+		autoModes.AddObject("Blue Peg Pos 3", new AutoPegGear(0, &seq6, nullptr));
 
 		frc::SmartDashboard::PutData("Auto Modes", &autoModes);
 	}

@@ -17,7 +17,7 @@ void MotionControl::periodic_tasks()
 	m_driveRight->ProcessMotionProfileBuffer();
 }
 
-MotionControl::MotionControl(DriveTrain* drive, std::list<Profile*>& sequence) :
+MotionControl::MotionControl(std::shared_ptr<DriveTrain> drive, std::list<Profile*>& sequence) :
 	m_notifier(new frc::Notifier(&MotionControl::periodic_tasks, this)),
 	m_driveLeft(drive->m_lb), m_driveRight(drive->m_rb), m_drive(drive),
 	m_sequence(sequence)

@@ -46,7 +46,7 @@ private:
 
 	frc::LiveWindow* m_lw;
 
-	CANTalon::TalonControlMode get_talon_mode();
+	CANSpeedController::ControlMode get_talon_mode();
 	void set_pid_values();
 
 public:
@@ -81,7 +81,6 @@ public:
 	void SetScale(double scale);
 	double GetScale();
 
-	void SetPosition(double pos);
 	void GetPosition(double& lPos, double& rPos);
 	double GetVelocity();
 };

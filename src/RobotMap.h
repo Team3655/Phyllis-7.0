@@ -76,8 +76,8 @@ constexpr double CLIMB_SPEED = .9;
 // Fuel Collector
 constexpr int FUEL_METER_PORT = 10; // unknown
 constexpr int FUEL_METER_P = 1.0;
-constexpr int FUEL_METER_I = 0.0;
-constexpr int FUEL_METER_D = 0.0;
+constexpr int FUEL_METER_I = 2.0;
+constexpr int FUEL_METER_D = 1.0;
 constexpr double FUEL_METER_CPR = 16400; // ~16384
 constexpr double FUEL_BALL_PER_TURN = .5; // .8 repeating
 constexpr int FUEL_INTAKE_PORT = 5;

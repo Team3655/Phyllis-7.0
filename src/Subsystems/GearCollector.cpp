@@ -18,7 +18,6 @@ GearCollector::~GearCollector()
 
 void GearCollector::InitDefaultCommand()
 {
-
 }
 
 std::string GearCollector::state_to_string(uint32_t state)
@@ -60,8 +59,9 @@ void GearCollector::Initialize(frc::Preferences* prefs)
 
 void GearCollector::DashboardOutput(bool verbose)
 {
-	frc::SmartDashboard::PutString("State", state_to_string(m_state));
-	frc::SmartDashboard::PutBoolean("Gear Gone", IsGearPresent());
+	frc::SmartDashboard::PutString("Gear Collector State", state_to_string(m_state));
+	frc::SmartDashboard::PutBoolean("Gear Present", IsGearPresent());
+	frc::SmartDashboard::PutBoolean("Gear Intake On", m_intake->Get() > 0.0);
 
 	if (verbose)
 	{

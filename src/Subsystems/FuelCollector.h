@@ -39,8 +39,6 @@ public:
 
 	void IndexOne();
 
-	// bool IsBallPresent();
-
 	// Set the motor that collects balls
 	void SetIntake(double speed);
 

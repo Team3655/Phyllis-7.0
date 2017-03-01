@@ -17,7 +17,6 @@ Shooter::~Shooter()
 
 void Shooter::InitDefaultCommand()
 {
-	//SetDefaultCommand(new Shoot(m_targetSpeed)); // Probably gets called before m_targetSpeed is set
 }
 
 std::string Shooter::state_to_string(uint32_t state)
@@ -42,7 +41,7 @@ std::string Shooter::state_to_string(uint32_t state)
 void Shooter::Initialize(frc::Preferences* prefs)
 {
 	m_shooter = new CANTalon(SHOOT_MOTOR_PORT);
-	m_shooter->SetTalonControlMode(CANTalon::TalonControlMode::kSpeedMode);
+	m_shooter->SetControlMode(CANSpeedController::kPercentVbus);
 	m_shooter->SetPID(
 			frc::SmartDashboard::GetNumber("shoot_p", SHOOT_P),
 			frc::SmartDashboard::GetNumber("shoot_i", SHOOT_I),
@@ -59,7 +58,7 @@ void Shooter::Initialize(frc::Preferences* prefs)
 void Shooter::DashboardOutput(bool verbose)
 {
 	frc::SmartDashboard::PutString("State", state_to_string(m_state));
-	frc::SmartDashboard::PutNumber("Speed", m_shooter->Get());
+	frc::SmartDashboard::PutNumber("Speed", m_shooter->Get() * 100);
 
 	if (verbose)
 	{

@@ -3,9 +3,8 @@
 #include "../Delay.h"
 #include "../DriveProfile.h"
 
-AutoCrossLine::AutoCrossLine(double delay)
+AutoCrossLine::AutoCrossLine(double delay, std::list<Profile*>* seq)
 {
 	AddSequential(new Delay(delay));
-	std::list<Profile*> seq;
-	AddSequential(new DriveProfile(seq));
+	AddSequential(new DriveProfile(*seq));
 }

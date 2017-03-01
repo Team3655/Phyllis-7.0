@@ -44,7 +44,7 @@ private:
 	CANTalon::SetValueMotionProfile m_leftSetValue = CANTalon::SetValueMotionProfileDisable,
 									m_rightSetValue = CANTalon::SetValueMotionProfileDisable;
 
-	DriveTrain* m_drive;
+	std::shared_ptr<DriveTrain> m_drive;
 
 	CANTalon* m_driveLeft;
 	CANTalon* m_driveRight;
@@ -56,7 +56,7 @@ private:
 	Point invert_point(Point& point);
 
 public:
-	MotionControl(DriveTrain* drive, std::list<Profile*>& profileSeq);
+	MotionControl(std::shared_ptr<DriveTrain> drive, std::list<Profile*>& profileSeq);
 	~MotionControl();
 
 	void Initialize();

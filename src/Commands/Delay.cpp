@@ -3,6 +3,7 @@
 Delay::Delay(double delay)
 {
 	Requires(drive.get());
+	Requires(lights.get());
 
 	m_delay = delay;
 	m_delayTimer = new frc::Timer();
@@ -16,7 +17,7 @@ void Delay::Initialize()
 
 void Delay::Execute()
 {
-	// Lights Maybe
+	lights.get()->SetColor(RED);
 }
 
 bool Delay::IsFinished()

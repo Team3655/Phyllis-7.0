@@ -49,4 +49,5 @@ void Drive::End()
 
 void Drive::Interrupted()
 {
+	End();
 }

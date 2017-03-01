@@ -4,7 +4,6 @@
 Climber::Climber() :
 	Subsystem("Climber")
 {
-	m_state = ClimbState::kDown;
 }
 
 Climber::~Climber()
@@ -15,7 +14,6 @@ Climber::~Climber()
 
 void Climber::InitDefaultCommand()
 {
-	//SetDefaultCommand(new MySpecialCommand());
 }
 
 void Climber::Initialize(frc::Preferences* prefs)
@@ -48,12 +46,12 @@ std::string Climber::state_to_string(uint32_t state)
 
 void Climber::DashboardOutput(bool verbose)
 {
-	frc::SmartDashboard::PutString("State", state_to_string(m_state));
+	frc::SmartDashboard::PutBoolean("Climbing", !!m_climbLeft->Get());
 
 	if (verbose)
 	{
-		frc::SmartDashboard::PutNumber("Position L", m_climbLeft->GetEncPosition());
-		frc::SmartDashboard::PutNumber("Position R", m_climbRight->GetEncPosition());
+		frc::SmartDashboard::PutNumber("Climb Left", m_climbLeft->Get());
+		frc::SmartDashboard::PutNumber("Climb Left", m_climbRight->Get());
 	}
 }
 

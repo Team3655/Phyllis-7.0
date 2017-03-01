@@ -21,6 +21,7 @@ DriveTrain::DriveTrain() :
 DriveTrain::~DriveTrain()
 {
 	delete m_shifter;
+	delete m_comp;
 	delete m_lf;
 	delete m_lb;
 	delete m_rf;
@@ -69,20 +70,21 @@ void DriveTrain::Initialize(frc::Preferences* prefs)
 void DriveTrain::DashboardOutput(bool verbose)
 {
 	frc::SmartDashboard::PutString("Gear", m_shiftState ? "High" : "Low");
+	frc::SmartDashboard::PutBoolean("Compressor On", m_comp->Get() == frc::Relay::Value::kOn);
 
 	if (verbose)
 	{
 		frc::SmartDashboard::PutNumber("Count L", m_lb->GetEncVel());
 		frc::SmartDashboard::PutNumber("Count R", m_rb->GetEncVel());
 
-		frc::SmartDashboard::PutNumber("Pre L", m_lb->Get());
-		frc::SmartDashboard::PutNumber("Pre R", m_rb->Get());
+		frc::SmartDashboard::PutNumber("Left Out", m_lb->Get());
+		frc::SmartDashboard::PutNumber("Right Out", m_rb->Get());
 	}
 }
 
-CANTalon::TalonControlMode DriveTrain::get_talon_mode()
+CANSpeedController::ControlMode DriveTrain::get_talon_mode()
 {
-	return (CANTalon::TalonControlMode)(m_lb->GetTalonControlMode() & m_rb->GetTalonControlMode());
+	return (CANSpeedController::ControlMode)(m_lb->GetControlMode() & m_rb->GetControlMode());
 }
 
 void DriveTrain::set_pid_values()
@@ -194,13 +196,6 @@ void DriveTrain::SetScale(double scale)
 double DriveTrain::GetScale()
 {
 	return m_scaleFactor;
-}
-
-void DriveTrain::SetPosition(double pos)
-{
-	if (m_disabled) return;
-	m_lb->Set(pos);
-	m_rb->Set(-pos);
 }
 
 void DriveTrain::GetPosition(double& lPos, double& rPos)
