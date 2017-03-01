@@ -11,18 +11,19 @@ DriveProfile::DriveProfile(std::list<Profile*>& seq)
 
 	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_profile_abort");
 	m_abortBtn = new frc::JoystickButton(oi.get()->GetStick(oi.get()->InterpretStick(code)), oi.get()->InterpretButton(code));
+
+	m_motionControl = new MotionControl(drive.get(), m_seq);
 }
 
 DriveProfile::~DriveProfile()
 {
-	delete m_motionControl;
+	if (m_motionControl != nullptr)
+		delete m_motionControl;
 	delete m_abortBtn;
 }
 
 void DriveProfile::Initialize()
 {
-	if (m_motionControl != nullptr) delete m_motionControl;
-	m_motionControl = new MotionControl(drive.get(), m_seq);
 	m_motionControl->Initialize();
 }
 

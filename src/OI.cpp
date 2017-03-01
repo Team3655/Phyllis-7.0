@@ -71,12 +71,6 @@ void OI::Initialize()
 	code = m_prefs->GetString("joy_btn_invert");
 	m_invertDrive = new frc::JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	m_invertDrive->WhenPressed(new InvertDrive());
-
-	m_profileTest = new frc::JoystickButton(GetStick(0), 7);
-	std::list<Profile*> p;
-	//p.emplace_back(new Profile(FORWARD, MpTestSize, MpTest, false));
-
-	m_profileTest->WhenPressed(new DriveProfile(p));
 }
 
 int OI::InterpretStick(std::string& code)

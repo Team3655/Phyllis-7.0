@@ -23,6 +23,7 @@
 #include "Commands/Autonomous/AutoPegGear.h"
 #include "Commands/Autonomous/AutoPickupAndPeg.h"
 #include "Commands/Autonomous/AutoPickupGear.h"
+#include "MotionControl.h"
 
 class Robot: public frc::IterativeRobot
 {
@@ -31,6 +32,10 @@ private:
 	frc::SendableChooser<frc::Command*> autoModes;
 
 	frc::LiveWindow* lw;
+
+	std::list<Profile*> seq1;
+	std::list<Profile*> seq2;
+	std::list<Profile*> seq3;
 
 public:
 	void InitializeSubsystems(frc::Preferences* prefs)
@@ -64,12 +69,20 @@ public:
 		// Add Variable delay
 		autoModes.AddDefault("Cross Line", new AutoCrossLine(0));
 		// Peg 1 to 1
-		// Peg 1 to 2
-		// Peg 2 to 1
+
+		seq1.push_back(new Profile(REVERSE, MpPeg86Size, MpPeg86, false));
+		seq1.push_back(new Profile(RIGHT, Mp45TurnSize, Mp45Turn, false));
+		seq1.push_back(new Profile(REVERSE, Mp28p5Size, Mp28p5, false));
+		autoModes.AddObject("Peg Pos 1", new AutoPegGear(&seq1, nullptr));
 		// Peg 2 to 2
-		// Peg 2 to 3
-		// Peg 3 to 2
+		seq2.push_back(new Profile(REVERSE, Mp115p5Size, Mp115p5, false));
+		autoModes.AddObject("Peg Pos 2", new AutoPegGear(&seq2, nullptr));
+
 		// Peg 3 to 3
+		seq3.push_back(new Profile(REVERSE, Mp104p5Size, Mp104p5, false));
+		seq3.push_back(new Profile(LEFT, Mp45TurnSize, Mp45Turn, false));
+		seq3.push_back(new Profile(REVERSE, Mp35p125Size, Mp35p125, false));
+		autoModes.AddObject("Peg Pos 3", new AutoPegGear(&seq3, nullptr));
 
 		frc::SmartDashboard::PutData("Auto Modes", &autoModes);
 	}

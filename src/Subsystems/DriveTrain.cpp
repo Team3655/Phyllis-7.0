@@ -152,7 +152,7 @@ void DriveTrain::ArcadeDrive(double move, double rotate)
 	}
 
 	m_lb->Set(leftMotorOutput);
-	m_rb->Set(rightMotorOutput);
+	m_rb->Set(-rightMotorOutput);
 }
 
 void DriveTrain::TankDrive(double left, double right)
@@ -164,7 +164,7 @@ void DriveTrain::TankDrive(double left, double right)
 		right = -right;
 	}
 	m_lb->Set(left);
-	m_rb->Set(right);
+	m_rb->Set(-right);
 }
 
 void DriveTrain::Reverse()

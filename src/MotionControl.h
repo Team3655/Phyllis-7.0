@@ -21,7 +21,7 @@
 
 typedef CANTalon::TrajectoryPoint Point;
 
-#define FORWARD 0
+#define NOT_REVERSE 0
 #define REVERSE 1
 #define LEFT 2
 #define RIGHT 3
@@ -37,7 +37,7 @@ private:
 	CANTalon::MotionProfileStatus m_leftStatus, m_rightStatus;
 
 	int m_loopTimeout;
-	int m_state = 0;
+	int m_state = -1;
 
 	bool m_isFinished = false;
 
@@ -57,6 +57,7 @@ private:
 
 public:
 	MotionControl(DriveTrain* drive, std::list<Profile*>& profileSeq);
+	~MotionControl();
 
 	void Initialize();
 

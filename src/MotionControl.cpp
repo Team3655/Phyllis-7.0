@@ -22,7 +22,11 @@ MotionControl::MotionControl(DriveTrain* drive, std::list<Profile*>& sequence) :
 	m_driveLeft(drive->m_lb), m_driveRight(drive->m_rb), m_drive(drive),
 	m_sequence(sequence)
 {
-	m_currentPr = m_sequence.begin();
+}
+
+MotionControl::~MotionControl()
+{
+	delete m_notifier;
 }
 
 Point MotionControl::create_point(double position, double velocity, double duration, int slot, bool first, bool last, bool velOnly)
@@ -73,7 +77,7 @@ void MotionControl::Fill(int start, int end, Profile& profile, bool split)
 			m_driveLeft->PushMotionProfileTrajectory(pt);
 			m_driveRight->PushMotionProfileTrajectory(pt);
 		}
-		else if (profile.turn == FORWARD)
+		else if (profile.turn == NOT_REVERSE)
 		{
 			m_driveLeft->PushMotionProfileTrajectory(pt);
 			m_driveRight->PushMotionProfileTrajectory(invert_point(pt));
@@ -88,6 +92,9 @@ void MotionControl::Fill(int start, int end, Profile& profile, bool split)
 
 void MotionControl::Initialize()
 {
+	m_currentPr = m_sequence.begin();
+	if (m_currentPr != m_sequence.end()) m_state = 0;
+
 	m_drive->SetTalonMode(frc::CANSpeedController::kMotionProfile);
 
 	m_driveLeft->ChangeMotionControlFramePeriod(5);
@@ -123,8 +130,6 @@ void MotionControl::Update()
 	{
 	case -1:
 		m_isFinished = true;
-		m_leftSetValue = CANTalon::SetValueMotionProfileDisable;
-		m_rightSetValue = CANTalon::SetValueMotionProfileDisable;
 		break;
 	case 0:
 		m_leftSetValue = CANTalon::SetValueMotionProfileDisable;
@@ -161,8 +166,6 @@ void MotionControl::Update()
 			m_leftSetValue = CANTalon::SetValueMotionProfileHold;
 			m_rightSetValue = CANTalon::SetValueMotionProfileHold;
 
-			m_sequence.remove(*m_currentPr); // Remove finished profile
-
 			m_currentPr++;
 			if (m_currentPr == m_sequence.end())
 				m_state = -1;
@@ -171,6 +174,8 @@ void MotionControl::Update()
 	}
 	m_driveLeft->Set(m_leftSetValue);
 	m_driveRight->Set(m_rightSetValue);
+
+	std::cout << m_state << std::endl;
 }
 
 void MotionControl::Finish()
