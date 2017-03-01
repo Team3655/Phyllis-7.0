@@ -66,6 +66,7 @@ public:
 	{
 		InitializeSubsystems(CommandBase::oi.get()->GetPrefs());
 
+		// Default Cross baseline
 		autoModes.AddDefault("Cross Line", new AutoCrossLine(0, &lineSeq1));
 		// Peg 1 to 1
 		seq1.push_back(new Profile(REVERSE, MpPeg86Size, MpPeg86, false));
@@ -78,7 +79,7 @@ public:
 		autoModes.AddObject("Red Peg Pos 2", new AutoPegGear(0, &seq2, nullptr));
 
 		// Peg 3 to 3
-		seq3.push_back(new Profile(REVERSE, Mp104p5Size, Mp104p5, false));
+		seq3.push_back(new Profile(REVERSE, Mp100Size, Mp100, false));
 		seq3.push_back(new Profile(LEFT, Mp45TurnSize, Mp45Turn, false));
 		seq3.push_back(new Profile(REVERSE, Mp35p125Size, Mp35p125, false));
 		autoModes.AddObject("Red Peg Pos 3", new AutoPegGear(0, &seq3, nullptr));
@@ -94,11 +95,13 @@ public:
 		autoModes.AddObject("Blue Peg Pos 2", new AutoPegGear(0, &seq5, nullptr));
 
 		// Peg 3 to 3
-		seq6.push_back(new Profile(REVERSE, Mp104p5Size, Mp104p5, false));
+		seq6.push_back(new Profile(REVERSE, Mp100Size, Mp100, false));
 		seq6.push_back(new Profile(RIGHT, Mp45TurnSize, Mp45Turn, false));
 		seq6.push_back(new Profile(REVERSE, Mp35p125Size, Mp35p125, false));
 		autoModes.AddObject("Blue Peg Pos 3", new AutoPegGear(0, &seq6, nullptr));
 
+		// Nothing
+		autoModes.AddObject("Nothing", nullptr);
 		frc::SmartDashboard::PutData("Auto Modes", &autoModes);
 	}
 
@@ -114,7 +117,6 @@ public:
 	 */
 	void DisabledInit() override
 	{
-
 	}
 
 	void DisabledPeriodic() override

@@ -16,7 +16,7 @@
 #include "Commands/CollectFuel.h"
 #include "Commands/Climb.h"
 #include "Commands/InvertDrive.h"
-#include "Commands/DriveProfile.h"
+#include "Commands/WaitForPeg.h"
 
 #include <string>
 
@@ -71,6 +71,9 @@ void OI::Initialize()
 	code = m_prefs->GetString("joy_btn_invert");
 	m_invertDrive = new frc::JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	m_invertDrive->WhenPressed(new InvertDrive());
+
+	m_waitForPeg = new frc::JoystickButton(GetStick(0), 7);
+	m_waitForPeg->WhenPressed(new WaitForPeg());
 }
 
 int OI::InterpretStick(std::string& code)

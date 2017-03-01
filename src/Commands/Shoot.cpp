@@ -15,21 +15,14 @@ void Shoot::Initialize()
 	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_shoot_end");
 	m_abortBtn = new frc::JoystickButton(oi.get()->GetStick(oi.get()->InterpretStick(code)), oi.get()->InterpretButton(code));
 
-	m_timer = new frc::Timer();
-
 	drive.get()->Disable();
 	m_isAligned = false; // Get alignment
-	m_timer->Start();
 }
 
 void Shoot::Execute()
 {
-	shooter.get()->Set(m_speedProportion * SHOOT_MAX_SPEED);
-	if (m_timer->HasPeriodPassed(SHOOT_RESET_TIME / 1000))
-	{
-		fuelCollector.get()->IndexOne();
-		m_timer->Reset();
-	}
+	shooter.get()->Set(m_speedProportion);
+	fuelCollector.get()->Index(.5);
 }
 
 bool Shoot::IsFinished()
@@ -41,11 +34,10 @@ bool Shoot::IsFinished()
 void Shoot::End()
 {
 	shooter.get()->Set(0);
-	//fuelCollector.get()->Index(0);
+	fuelCollector.get()->Index(0);
 	drive.get()->Enable();
 }
 
 void Shoot::Interrupted()
 {
-
 }

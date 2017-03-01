@@ -16,8 +16,6 @@ private:
 
 	frc::JoystickButton* m_abortBtn;
 
-	frc::Timer* m_timer;
-
 public:
 	Shoot(double speedProp);
 	void Initialize();
