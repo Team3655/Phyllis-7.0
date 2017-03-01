@@ -33,7 +33,8 @@ private:
 
 	frc::LiveWindow* lw;
 
-	std::list<Profile*> seq1, seq2, seq3, seq4, seq5, seq6, lineSeq1;
+	std::list<Profile*> rp1PreSeq, rp2PreSeq, rp3PreSeq, bp1PreSeq, bp2PreSeq, bp3PreSeq, lineSeq1;
+	std::list<Profile*> rp1PostSeq, rp2PostSeq, rp3PostSeq, bp1PostSeq, bp2PostSeq, bp3PostSeq;
 
 	double autonDelay;
 
@@ -69,36 +70,52 @@ public:
 		// Default Cross baseline
 		autoModes.AddDefault("Cross Line", new AutoCrossLine(0, &lineSeq1));
 		// Peg 1 to 1
-		seq1.push_back(new Profile(REVERSE, MpPeg86Size, MpPeg86, false));
-		seq1.push_back(new Profile(RIGHT, Mp45TurnSize, Mp45Turn, false));
-		seq1.push_back(new Profile(REVERSE, Mp28p5Size, Mp28p5, false));
-		autoModes.AddObject("Red Peg Pos 1", new AutoPegGear(0, &seq1, nullptr));
+		rp1PreSeq.push_back(new Profile(REVERSE, MpPeg86Size, MpPeg86, false));
+		rp1PreSeq.push_back(new Profile(RIGHT, Mp45TurnSize, Mp45Turn, false));
+		rp1PreSeq.push_back(new Profile(REVERSE, Mp28p5Size, Mp28p5, false));
+		rp1PostSeq.push_back(new Profile(FORWARD, Mp28p5Size, Mp28p5, false));
+		rp1PostSeq.push_back(new Profile(LEFT, Mp45TurnSize, Mp45Turn, false));
+		rp1PostSeq.push_back(new Profile(LEFT, Mp180TurnSize, Mp180Turn, false));
+		rp1PostSeq.push_back(new Profile(FORWARD, MpPeg86Size, MpPeg86, false));
+		autoModes.AddObject("Red Peg Pos 1", new AutoPegGear(0, &rp1PreSeq, &rp1PostSeq));
 
 		// Peg 2 to 2
-		seq2.push_back(new Profile(REVERSE, Mp115p5Size, Mp115p5, false));
-		autoModes.AddObject("Red Peg Pos 2", new AutoPegGear(0, &seq2, nullptr));
+		rp2PreSeq.push_back(new Profile(REVERSE, Mp115p5Size, Mp115p5, false));
+		autoModes.AddObject("Red Peg Pos 2", new AutoPegGear(0, &rp2PreSeq, nullptr));
 
 		// Peg 3 to 3
-		seq3.push_back(new Profile(REVERSE, Mp100Size, Mp100, false));
-		seq3.push_back(new Profile(LEFT, Mp45TurnSize, Mp45Turn, false));
-		seq3.push_back(new Profile(REVERSE, Mp35p125Size, Mp35p125, false));
-		autoModes.AddObject("Red Peg Pos 3", new AutoPegGear(0, &seq3, nullptr));
+		rp3PreSeq.push_back(new Profile(REVERSE, Mp100Size, Mp100, false));
+		rp3PreSeq.push_back(new Profile(LEFT, Mp45TurnSize, Mp45Turn, false));
+		rp3PreSeq.push_back(new Profile(REVERSE, Mp35p125Size, Mp35p125, false));
+		rp3PostSeq.push_back(new Profile(FORWARD, Mp35p125Size, Mp35p125, false));
+		rp3PostSeq.push_back(new Profile(RIGHT, Mp45TurnSize, Mp45Turn, false));
+		rp3PostSeq.push_back(new Profile(RIGHT, Mp180TurnSize, Mp180Turn, false));
+		rp3PostSeq.push_back(new Profile(FORWARD, MpPeg86Size, MpPeg86, false));
+		autoModes.AddObject("Red Peg Pos 3", new AutoPegGear(0, &rp3PreSeq, &rp3PostSeq));
 
 		// Peg 1 to 1
-		seq4.push_back(new Profile(REVERSE, MpPeg86Size, MpPeg86, false));
-		seq4.push_back(new Profile(LEFT, Mp45TurnSize, Mp45Turn, false));
-		seq4.push_back(new Profile(REVERSE, Mp28p5Size, Mp28p5, false));
-		autoModes.AddObject("Blue Peg Pos 1", new AutoPegGear(0, &seq4, nullptr));
+		bp1PreSeq.push_back(new Profile(REVERSE, MpPeg86Size, MpPeg86, false));
+		bp1PreSeq.push_back(new Profile(LEFT, Mp45TurnSize, Mp45Turn, false));
+		bp1PreSeq.push_back(new Profile(REVERSE, Mp28p5Size, Mp28p5, false));
+		bp1PreSeq.push_back(new Profile(FORWARD, Mp28p5Size, Mp28p5, false));
+		bp1PreSeq.push_back(new Profile(RIGHT, Mp45TurnSize, Mp45Turn, false));
+		bp1PreSeq.push_back(new Profile(RIGHT, Mp180TurnSize, Mp180Turn, false));
+		bp1PreSeq.push_back(new Profile(FORWARD, MpPeg86Size, MpPeg86, false));
+		autoModes.AddObject("Blue Peg Pos 1", new AutoPegGear(0, &bp1PreSeq, &bp1PostSeq));
 
 		// Peg 2 to 2
-		seq5.push_back(new Profile(REVERSE, Mp115p5Size, Mp115p5, false));
-		autoModes.AddObject("Blue Peg Pos 2", new AutoPegGear(0, &seq5, nullptr));
+		bp2PreSeq.push_back(new Profile(REVERSE, Mp115p5Size, Mp115p5, false));
+		autoModes.AddObject("Red Peg Pos 2", new AutoPegGear(0, &bp2PreSeq, nullptr));
 
 		// Peg 3 to 3
-		seq6.push_back(new Profile(REVERSE, Mp100Size, Mp100, false));
-		seq6.push_back(new Profile(RIGHT, Mp45TurnSize, Mp45Turn, false));
-		seq6.push_back(new Profile(REVERSE, Mp35p125Size, Mp35p125, false));
-		autoModes.AddObject("Blue Peg Pos 3", new AutoPegGear(0, &seq6, nullptr));
+		bp3PreSeq.push_back(new Profile(REVERSE, Mp100Size, Mp100, false));
+		bp3PreSeq.push_back(new Profile(RIGHT, Mp45TurnSize, Mp45Turn, false));
+		bp3PreSeq.push_back(new Profile(REVERSE, Mp35p125Size, Mp35p125, false));
+		bp3PreSeq.push_back(new Profile(FORWARD, Mp35p125Size, Mp35p125, false));
+		bp3PreSeq.push_back(new Profile(LEFT, Mp45TurnSize, Mp45Turn, false));
+		bp3PreSeq.push_back(new Profile(LEFT, Mp180TurnSize, Mp180Turn, false));
+		bp3PreSeq.push_back(new Profile(FORWARD, MpPeg86Size, MpPeg86, false));
+		autoModes.AddObject("Red Peg Pos 3", new AutoPegGear(0, &bp3PreSeq, &bp3PostSeq));
 
 		// Nothing
 		autoModes.AddObject("Nothing", nullptr);
