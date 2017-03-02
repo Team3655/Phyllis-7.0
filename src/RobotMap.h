@@ -59,7 +59,7 @@ constexpr double SHOOT_MAX_SPEED = 93972; // counts/100ms
 // Gear Collector
 constexpr int GEAR_INTAKE_PORT = 4;
 constexpr int GEAR_SENSOR_PORT = 9;
-constexpr double GEAR_SENSOR_ELAPSED_TIME = 500; // ms
+constexpr double GEAR_SENSOR_ELAPSED_TIME = 2000; // ms
 constexpr double GEAR_SENSOR_FLASH_INTERVAL = 1000; // ms
 constexpr double GEAR_INTAKE_SPEED = -0.4; // Maybe faster
 constexpr int GEAR_TRANS_BACK_PORT = 11;

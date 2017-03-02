@@ -76,12 +76,14 @@ bool GearCollector::IsGearPresent()
 
 void GearCollector::SetIntake(int direction)
 {
+	m_state = CollectState::kCollecting;
 	m_intake->Set(m_intakeSpeed * direction);
 	m_transportBack->Set(m_transSpeed * direction);
 }
 
 void GearCollector::Stop()
 {
+	m_state = CollectState::kStopped;
 	m_intake->Set(0);
 	m_transportBack->Set(0);
 }

@@ -53,7 +53,7 @@ void FuelCollector::Initialize(frc::Preferences* prefs)
 
 void FuelCollector::DashboardOutput(bool verbose)
 {
-	frc::SmartDashboard::PutString("State", state_to_string(m_state));
+	frc::SmartDashboard::PutString("Fuel Collector State", state_to_string(m_state));
 	frc::SmartDashboard::PutBoolean("Fuel Intake On", m_intake->Get() > 0.0);
 	frc::SmartDashboard::PutBoolean("Meter On", !!m_meter->Get());
 
