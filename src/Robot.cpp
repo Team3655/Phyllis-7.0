@@ -94,7 +94,7 @@ public:
 		autoModes.AddObject("Red Peg Pos 3", new AutoPegGear(0, &rp3PreSeq, &rp3PostSeq));
 
 		// Peg 1 to 1
-		bp1PreSeq.push_back(new Profile(REVERSE, MpPeg92Size, MpPeg92, false));
+		bp1PreSeq.push_back(new Profile(REVERSE, MpPeg86Size, MpPeg86, false));
 		bp1PreSeq.push_back(new Profile(RIGHT, Mp45TurnSize, Mp45Turn, false));
 		bp1PreSeq.push_back(new Profile(REVERSE, Mp28p5Size, Mp28p5, false));
 		bp1PostSeq.push_back(new Profile(NOT_REVERSE, Mp35p125Size, Mp35p125, false));
@@ -187,8 +187,6 @@ public:
 	{
 		frc::LiveWindow::GetInstance()->Run();
 	}
-
-
 };
 
 START_ROBOT_CLASS(Robot)

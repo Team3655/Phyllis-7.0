@@ -193,7 +193,7 @@ const double Mp90Turn[][3] =
 	{ 2.95, 0, 20 }
 };
 const int Mp90TurnSize = 86;
-
+// TODO: SHORTEN
 const double Mp180Turn[][3] =
 {
 		{0,	0	,25},
