@@ -68,7 +68,7 @@ public:
 		InitializeSubsystems(CommandBase::oi.get()->GetPrefs());
 
 		// Default Cross baseline
-		autoModes.AddDefault("Cross Line", new AutoCrossLine(0, &lineSeq1));
+		//autoModes.Add("Cross Line", new AutoCrossLine(0, &lineSeq1));
 		// Peg 1 to 1
 		rp1PreSeq.push_back(new Profile(REVERSE, MpPeg86Size, MpPeg86, false));
 		rp1PreSeq.push_back(new Profile(RIGHT, Mp45TurnSize, Mp45Turn, false));
@@ -118,7 +118,9 @@ public:
 		autoModes.AddObject("Blue Peg Pos 3", new AutoPegGear(0, &bp3PreSeq, &bp3PostSeq));
 
 		// Nothing
-		autoModes.AddObject("Nothing", nullptr);
+		autoModes.AddDefault("Nothing", nullptr);
+
+		frc::SmartDashboard::Delete("Auto Modes"); // Attempt to fix no show chooser
 		frc::SmartDashboard::PutData("Auto Modes", &autoModes);
 	}
 
