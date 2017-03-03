@@ -20,7 +20,7 @@ void VisionManager::Initialize(frc::Preferences* prefs)
 	m_cs = frc::CameraServer::GetInstance();
 
 	m_cam = m_cs->StartAutomaticCapture(CS_CAM_PEG_PORT);
-	m_cam.SetResolution(480, 360);
+	m_cam.SetResolution(360, 240);
 	m_cam.SetFPS(CS_CAM_FPS_DEFAULT);
 
 	m_vision = new frc::VisionRunner<grip::GripPipeline>(

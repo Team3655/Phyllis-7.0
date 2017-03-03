@@ -45,35 +45,32 @@ OI::~OI()
 void OI::Initialize()
 {
 	std::string code = m_prefs->GetString("joy_btn_gear_collect");
-	m_collectGear = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
-	m_collectGear->WhenPressed(new CollectGear(true));
+	m_collectGear = new JoystickButton(GetStick(2), 11);
+	m_collectGear->WhenPressed(new CollectGear(false));
 
 	code = m_prefs->GetString("joy_btn_gear_eject");
-	m_ejectGear = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
-	m_ejectGear->WhenPressed(new CollectGear(false));
+	m_ejectGear = new JoystickButton(GetStick(2), 10);
+	m_ejectGear->WhenPressed(new CollectGear(true));
 
 	code = m_prefs->GetString("joy_btn_fuel_intake");
-	m_collectFuel = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
+	m_collectFuel = new JoystickButton(GetStick(2), 3);
 	m_collectFuel->WhenPressed(new CollectFuel());
 
 	code = m_prefs->GetString("joy_btn_shoot");
-	m_shoot = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
-	m_shoot->WhenPressed(new Shoot(m_prefs->GetDouble("shoot_speed")));
+	m_shoot = new JoystickButton(GetStick(2), 6);
+	m_shoot->WhenPressed(new Shoot(.85));
 
 	code = m_prefs->GetString("joy_btn_drive_shift");
-	m_shift = new JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
+	m_shift = new JoystickButton(GetStick(1), 2);
 	m_shift->WhenPressed(new Shift());
 
 	code = m_prefs->GetString("joy_btn_climb");
-	m_climb = new frc::JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
+	m_climb = new frc::JoystickButton(GetStick(2), 8);
 	m_climb->WhenPressed(new Climb(m_climb));
 
-	code = m_prefs->GetString("joy_btn_invert");
-	m_invertDrive = new frc::JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
-	m_invertDrive->WhenPressed(new InvertDrive());
-
-	m_waitForPeg = new frc::JoystickButton(GetStick(0), 7);
-	m_waitForPeg->WhenPressed(new WaitForPeg());
+	//code = m_prefs->GetString("joy_btn_invert");
+	//m_invertDrive = new frc::JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
+	//m_invertDrive->WhenPressed(new InvertDrive());
 }
 
 int OI::InterpretStick(std::string& code)

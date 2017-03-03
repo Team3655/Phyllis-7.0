@@ -9,6 +9,7 @@ AutoPegGear::AutoPegGear(double delay, std::list<Profile*>* prePegSeq, std::list
 	AddSequential(new Delay(delay));
 	if (prePegSeq != nullptr)
 		AddSequential(new DriveProfile(*prePegSeq));
+	// Peg Alignment Code here
 	AddSequential(new WaitForPeg());
 	if (postPegSeq != nullptr)
 		AddSequential(new DriveProfile(*postPegSeq));
