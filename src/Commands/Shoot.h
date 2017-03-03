@@ -15,6 +15,7 @@ private:
 	double m_speedProportion;
 
 	frc::JoystickButton* m_abortBtn;
+	frc::JoystickButton* m_meterBtn;
 
 public:
 	Shoot(double speedProp);
