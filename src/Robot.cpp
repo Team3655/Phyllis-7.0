@@ -70,7 +70,7 @@ public:
 		// Default Cross baseline
 		//autoModes.Add("Cross Line", new AutoCrossLine(0, &lineSeq1));
 		// Peg 1 to 1
-		rp1PreSeq.push_back(new Profile(REVERSE, MpPeg85Size, MpPeg85, false));
+		rp1PreSeq.push_back(new Profile(REVERSE, Mp88Size, Mp88, false));
 		rp1PreSeq.push_back(new Profile(RIGHT, Mp45TurnSize, Mp45Turn, false));
 		rp1PreSeq.push_back(new Profile(REVERSE, Mp28p5Size, Mp28p5, false));
 		rp1PostSeq.push_back(new Profile(NOT_REVERSE, Mp28p5Size, Mp28p5, false));
@@ -107,8 +107,8 @@ public:
 		bp2PreSeq.push_back(new Profile(REVERSE, Mp81p5Size, Mp81p5, false));
 		autoModes.AddObject("Red Peg Pos 2", new AutoPegGear(0, &bp2PreSeq, nullptr));
 
-		// Peg 3 to 3 BLUE BOILER SIDE
-		bp3PreSeq.push_back(new Profile(REVERSE, MpPeg85Size, MpPeg85, false));
+		// Peg 3 to 3
+		bp3PreSeq.push_back(new Profile(REVERSE, Mp88Size, Mp88, false));
 		bp3PreSeq.push_back(new Profile(LEFT, Mp45TurnSize, Mp45Turn, false));
 		bp3PreSeq.push_back(new Profile(REVERSE, Mp35p125Size, Mp35p125, false));
 		bp3PostSeq.push_back(new Profile(NOT_REVERSE, Mp35p125Size, Mp35p125, false));
