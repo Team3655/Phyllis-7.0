@@ -66,7 +66,11 @@ void OI::Initialize()
 
 	code = m_prefs->GetString("joy_btn_climb");
 	m_climb = new frc::JoystickButton(GetStick(2), 8);
-	m_climb->WhenPressed(new Climb(m_climb));
+	m_climb->WhenPressed(new Climb(m_climb, .6));
+
+	code = m_prefs->GetString("joy_btn_climb_fast");
+	m_climbFast = new frc::JoystickButton(GetStick(3), 6);
+	m_climbFast->WhenPressed(new Climb(m_climbFast, .95));
 
 	//code = m_prefs->GetString("joy_btn_invert");
 	//m_invertDrive = new frc::JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
