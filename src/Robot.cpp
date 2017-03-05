@@ -84,7 +84,7 @@ public:
 		autoModes.AddObject("Blue Peg Pos 2", new AutoPegGear(0, &rp2PreSeq, nullptr));
 
 		// Peg 3 to 3
-		rp3PreSeq.push_back(new Profile(REVERSE, MpPeg92Size, MpPeg92, false));
+		rp3PreSeq.push_back(new Profile(REVERSE, Mp88Size, Mp88, false));
 		rp3PreSeq.push_back(new Profile(LEFT, Mp45TurnSize, Mp45Turn, false));
 		rp3PreSeq.push_back(new Profile(REVERSE, Mp35p125Size, Mp35p125, false));
 		rp3PostSeq.push_back(new Profile(NOT_REVERSE, Mp35p125Size, Mp35p125, false));
