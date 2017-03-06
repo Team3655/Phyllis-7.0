@@ -51,6 +51,12 @@ private:
 
 	frc::Notifier* m_notifier;
 
+	// Fill Threading
+	std::thread* m_fillerThread;
+	bool m_beenFilled = false;
+
+	void fill();
+
 	void periodic_tasks();
 	Point create_point(double position, double velocity, double duration, int slot, bool first, bool last, bool velOnly = false);
 	Point invert_point(Point& point);
@@ -61,7 +67,7 @@ public:
 
 	void Initialize();
 
-	void Fill(int start, int end, Profile& profile, bool split);
+	void Fill();
 
 	void Update();
 

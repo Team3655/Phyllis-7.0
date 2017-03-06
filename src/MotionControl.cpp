@@ -49,45 +49,67 @@ Point MotionControl::invert_point(Point& point)
 	return point;
 }
 
-void MotionControl::Fill(int start, int end, Profile& profile, bool split)
+void MotionControl::fill()
 {
-	if (!split)
+	while (m_currentPr != m_sequence.end())
 	{
-		m_driveLeft->ClearMotionProfileTrajectories();
-		m_driveRight->ClearMotionProfileTrajectories();
-	}
+		bool finished = false;
+		int idx = 0;
+		CANTalon::MotionProfileStatus left, right;
+		Point pt;
 
-	Point pt;
+		Profile* profile = *m_currentPr;
+
+		while (!finished)
+		{
+			m_driveLeft->GetMotionProfileStatus(left);
+			m_driveRight->GetMotionProfileStatus(right);
+			if (left.topBufferCnt >= 127 || right.topBufferCnt >= 127)
+			{
+				std::this_thread::sleep_for(std::chrono::milliseconds(100));
+				continue;
+			}
+			pt = create_point(profile->profile[idx][0], profile->profile[idx][1], profile->profile[idx][2], 1, idx == 0, idx == profile->size - 1);
+			if (profile->turn == LEFT)
+			{
+				m_driveLeft->PushMotionProfileTrajectory(invert_point(pt));
+				m_driveRight->PushMotionProfileTrajectory(pt);
+			}
+			else if (profile->turn == RIGHT)
+			{
+				m_driveLeft->PushMotionProfileTrajectory(pt);
+				m_driveRight->PushMotionProfileTrajectory(pt);
+			}
+			else if (profile->turn == NOT_REVERSE)
+			{
+				m_driveLeft->PushMotionProfileTrajectory(pt);
+				m_driveRight->PushMotionProfileTrajectory(invert_point(pt));
+			}
+			else if (profile->turn == REVERSE)
+			{
+				m_driveLeft->PushMotionProfileTrajectory(invert_point(pt));
+				m_driveRight->PushMotionProfileTrajectory(invert_point(pt));
+			}
+			idx++;
+			if (idx >= profile->size)
+				finished = true;
+		}
+		m_currentPr++;
+	}
+}
+
+void MotionControl::Fill()
+{
+	if (m_beenFilled) return;
 
 	if (m_leftStatus.hasUnderrun)
 		m_driveLeft->ClearMotionProfileHasUnderrun();
 	if (m_rightStatus.hasUnderrun)
 		m_driveRight->ClearMotionProfileHasUnderrun();
 
-	for (int i = start; i < end; i++)
-	{
-		pt = create_point(profile.profile[i][0], profile.profile[i][1], profile.profile[i][2], 1, i == 0, i == profile.size - 1);
-		if (profile.turn == LEFT)
-		{
-			m_driveLeft->PushMotionProfileTrajectory(invert_point(pt));
-			m_driveRight->PushMotionProfileTrajectory(pt);
-		}
-		else if (profile.turn == RIGHT)
-		{
-			m_driveLeft->PushMotionProfileTrajectory(pt);
-			m_driveRight->PushMotionProfileTrajectory(pt);
-		}
-		else if (profile.turn == NOT_REVERSE)
-		{
-			m_driveLeft->PushMotionProfileTrajectory(pt);
-			m_driveRight->PushMotionProfileTrajectory(invert_point(pt));
-		}
-		else if (profile.turn == REVERSE)
-		{
-			m_driveLeft->PushMotionProfileTrajectory(invert_point(pt));
-			m_driveRight->PushMotionProfileTrajectory(invert_point(pt));
-		}
-	}
+	if (m_fillerThread != nullptr) delete m_fillerThread;
+	m_fillerThread = new std::thread(&MotionControl::fill, this);
+	m_beenFilled = true;
 }
 
 void MotionControl::Initialize()
@@ -138,7 +160,7 @@ void MotionControl::Update()
 		m_driveLeft->SetEncPosition(0);
 		m_driveRight->SetEncPosition(0);
 
-		Fill(0, (*m_currentPr)->size, *(*m_currentPr), (*m_currentPr)->split);
+		Fill();
 
 		m_state = 1;
 		m_loopTimeout = TIMEOUT_LOOPS;
