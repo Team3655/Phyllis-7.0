@@ -7,6 +7,7 @@ AlignWithPeg::AlignWithPeg(frc::JoystickButton* abortBtn)
 {
 	Requires(drive.get());
 	Requires(visionManager.get());
+	Requires(lights.get());
 
 	frc::Preferences* prefs = oi.get()->GetPrefs();
 
@@ -20,6 +21,8 @@ AlignWithPeg::AlignWithPeg(frc::JoystickButton* abortBtn)
 			pidSO);
 
 	m_abortBtn = abortBtn;
+
+	lights.get()->SetPegCamLight(true);
 }
 
 AlignWithPeg::~AlignWithPeg()
@@ -40,11 +43,12 @@ void AlignWithPeg::Execute()
 
 bool AlignWithPeg::IsFinished()
 {
-	return m_pid->OnTarget() && frc::SmartDashboard::GetNumber("Distance", -2);
+	return m_pid->OnTarget() && frc::SmartDashboard::GetNumber("Distance", -2) || (m_abortBtn != nullptr) ? m_abortBtn->Get() : false;
 }
 
 void AlignWithPeg::End()
 {
+	lights.get()->SetPegCamLight(false);
 }
 
 void AlignWithPeg::Interrupted()

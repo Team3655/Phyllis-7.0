@@ -13,11 +13,14 @@
 #include <Commands/Subsystem.h>
 #include <RobotDrive.h>
 #include <CANTalon.h>
-#include <Solenoid.h>
+#include <DoubleSolenoid.h>
 #include <Preferences.h>
 #include <Relay.h>
 
 #include "../ExtSubsystem.h"
+
+#define HIGH frc::DoubleSolenoid::Value::kForward
+#define LOW frc::DoubleSolenoid::Value::kReverse
 
 class MotionControl;
 
@@ -35,9 +38,8 @@ private:
 	CANTalon* m_lb;
 	CANTalon* m_rb;
 
-	frc::Solenoid* m_shifter;
+	frc::DoubleSolenoid* m_shifter;
 	bool m_shiftState;
-	frc::Relay* m_comp;
 
 	double m_scaleFactor = 1.0;
 
@@ -76,7 +78,6 @@ public:
 
 	// Shifter
 	void Shift();
-	void PowerCompressor(bool on);
 
 	void SetScale(double scale);
 	double GetScale();

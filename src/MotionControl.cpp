@@ -107,7 +107,7 @@ void MotionControl::Fill()
 	if (m_rightStatus.hasUnderrun)
 		m_driveRight->ClearMotionProfileHasUnderrun();
 
-	if (m_fillerThread != nullptr) delete m_fillerThread;
+	//if (m_fillerThread != nullptr) delete m_fillerThread;
 	m_fillerThread = new std::thread(&MotionControl::fill, this);
 	m_beenFilled = true;
 }
@@ -188,7 +188,6 @@ void MotionControl::Update()
 			m_leftSetValue = CANTalon::SetValueMotionProfileHold;
 			m_rightSetValue = CANTalon::SetValueMotionProfileHold;
 
-			m_currentPr++;
 			if (m_currentPr == m_sequence.end())
 				m_state = -1;
 		}

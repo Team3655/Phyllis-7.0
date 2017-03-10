@@ -19,8 +19,8 @@ constexpr int DRIVE_LEFT_PORT = 1;
 constexpr int DRIVE_RF_PORT = 15;
 constexpr int DRIVE_RIGHT_PORT = 14;
 
-constexpr int DRIVE_SHIFT_PORT = 0;
-constexpr int DRIVE_COMPRESS_PORT = 1; // unknown
+constexpr int DRIVE_SHIFT_HIGH_PORT = 0;
+constexpr int DRIVE_SHIFT_LOW_PORT = 1;
 
 // Left
 constexpr double DRIVE_LEFT_POS_P = 1.0;
@@ -138,9 +138,9 @@ constexpr double ALIGN_DIST_D = 0.0;
 
 //--------------------------------------------------------
 // Lights
-constexpr int LIGHT_PEG_PORT = 1;
+constexpr int LIGHT_PEG_PORT = 4;
 constexpr int LIGHT_BOILER_PORT = 2;
-constexpr int LIGHT_RED_PORT = 4;
+constexpr int LIGHT_RED_PORT = 3;
 constexpr int LIGHT_GREEN_PORT = 5;
 constexpr int LIGHT_BLUE_PORT = 6;
 

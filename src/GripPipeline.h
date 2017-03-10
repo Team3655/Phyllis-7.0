@@ -63,7 +63,7 @@ class GripPipeline
 		CameraStuff stuff;
 		void findContours(cv::Mat&, bool, std::vector<std::vector<cv::Point> >&);
 		void filterContours(
-				std::vector<std::vector<cv::Point> >& inputContours,
+				std::vector<std::vector<cv::Point>>& inputContours,
 				const double minArea,
 				const double minPerimeter,
 				const double minWidth,
@@ -75,7 +75,7 @@ class GripPipeline
 				const double minVertexCount,
 				const double minRatio,
 				const double maxRatio,
-				std::vector<std::vector<cv::Point> >& output);
+				std::vector<std::vector<cv::Point>>& output);
 		double getOffsetCenter(double, double);
 
 	public:

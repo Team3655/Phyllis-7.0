@@ -21,7 +21,6 @@ DriveTrain::DriveTrain() :
 DriveTrain::~DriveTrain()
 {
 	delete m_shifter;
-	delete m_comp;
 	delete m_lf;
 	delete m_lb;
 	delete m_rf;
@@ -35,8 +34,7 @@ void DriveTrain::InitDefaultCommand()
 
 void DriveTrain::Initialize(frc::Preferences* prefs)
 {
-	m_shifter = new Solenoid(DRIVE_SHIFT_PORT);
-	m_comp = new frc::Relay(DRIVE_COMPRESS_PORT);
+	m_shifter = new DoubleSolenoid(DRIVE_SHIFT_HIGH_PORT, DRIVE_SHIFT_LOW_PORT);
 
 	m_lb = new CANTalon(DRIVE_LEFT_PORT);
 	m_lb->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
@@ -69,8 +67,7 @@ void DriveTrain::Initialize(frc::Preferences* prefs)
 
 void DriveTrain::DashboardOutput(bool verbose)
 {
-	frc::SmartDashboard::PutString("Gear", m_shiftState ? "High" : "Low");
-	frc::SmartDashboard::PutBoolean("Compressor On", m_comp->Get() == frc::Relay::Value::kOn);
+	frc::SmartDashboard::PutString("Drive Gear", m_shifter->Get() == HIGH ? "High" : "Low");
 
 	if (verbose)
 	{
@@ -178,14 +175,8 @@ void DriveTrain::Reverse()
 void DriveTrain::Shift()
 {
 	if (m_disabled) return;
-	m_shifter->Set(!m_shiftState);
-	m_shiftState = m_shifter->Get();
+	m_shifter->Set(m_shifter->Get() == HIGH ? LOW : HIGH);
 	//m_scaleFactor = m_shiftState ? 0.5 : 1.0;
-}
-
-void DriveTrain::PowerCompressor(bool on)
-{
-	m_comp->Set(on ? frc::Relay::Value::kOn : frc::Relay::Value::kOff);
 }
 
 void DriveTrain::SetScale(double scale)
