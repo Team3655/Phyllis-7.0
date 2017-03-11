@@ -20,8 +20,11 @@ void VisionManager::Initialize(frc::Preferences* prefs)
 	m_cs = frc::CameraServer::GetInstance();
 
 	m_cam = m_cs->StartAutomaticCapture(CS_CAM_PEG_PORT);
-	m_cam.SetResolution(360, 240);
+	m_cam.SetResolution(CS_CAM_RES_X, CS_CAM_RES_Y);
 	m_cam.SetFPS(CS_CAM_FPS_DEFAULT);
+
+	m_sink = m_cs->GetVideo();
+	m_output = m_cs->PutVideo("Proc", CS_CAM_RES_X, CS_CAM_RES_Y);
 
 	m_vision = new frc::VisionRunner<grip::GripPipeline>(
 			m_cam,
@@ -31,6 +34,7 @@ void VisionManager::Initialize(frc::Preferences* prefs)
 				frc::SmartDashboard::PutNumber("CenterX", pipeline.getTargetCenterX(0));
 				frc::SmartDashboard::PutNumber("Processing Time", pipeline.getProcTime());
 				frc::SmartDashboard::PutNumber("Targets", pipeline.getTargets());
+				m_output.PutFrame(pipeline.getProcessedFrame());
 			});
 	m_lock = new std::mutex();
 }

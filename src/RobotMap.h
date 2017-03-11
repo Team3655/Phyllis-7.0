@@ -95,8 +95,8 @@ constexpr int JOY_BOARD_PORT2 = 3;
 // Camera
 constexpr int CS_CAM_PEG_PORT = 0;
 constexpr int CS_CAM_SHOOT_PORT = 1;
-constexpr int CS_CAM_RES_X = 480;
-constexpr int CS_CAM_RES_Y = 360;
+constexpr int CS_CAM_RES_X = 360;
+constexpr int CS_CAM_RES_Y = 240;
 constexpr int CS_CAM_FPS_DEFAULT = 20;
 constexpr double CS_CAM_FOV = 68.5;
 constexpr double CS_CAM1_HORIZON_ANGLE = 0.0; // unknown

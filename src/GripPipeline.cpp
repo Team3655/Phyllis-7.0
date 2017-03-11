@@ -45,6 +45,8 @@ void GripPipeline::Process(cv::Mat source)
 			IMG_CONT_MAX_RATIO,
 			this->filterContoursOutput);
 
+
+
 	for (int i = 0; i < filterContoursOutput.size(); i++)
 	{
 		targets.push_back(cv::boundingRect(this->filterContoursOutput[i]));
@@ -61,7 +63,7 @@ void GripPipeline::Process(cv::Mat source)
  * @param externalOnly if only external contours are to be found.
  * @param contours vector of contours to put contours in.
  */
-void GripPipeline::findContours(cv::Mat &input, bool externalOnly, std::vector<std::vector<cv::Point> > &contours)
+void GripPipeline::findContours(cv::Mat& input, bool externalOnly, std::vector<std::vector<cv::Point>>& contours)
 {
 	std::vector<cv::Vec4i> hierarchy;
 	contours.clear();
@@ -69,7 +71,6 @@ void GripPipeline::findContours(cv::Mat &input, bool externalOnly, std::vector<s
 	int method = cv::CHAIN_APPROX_SIMPLE;
 	cv::findContours(input, contours, hierarchy, mode, method);
 }
-
 
 /**
  * Filters through contours.
@@ -88,7 +89,7 @@ void GripPipeline::findContours(cv::Mat &input, bool externalOnly, std::vector<s
  * @param output vector of filtered contours.
  */
 void GripPipeline::filterContours(
-		std::vector<std::vector<cv::Point> >& inputContours,
+		std::vector<std::vector<cv::Point>>& inputContours,
 		const double minArea,
 		const double minPerimeter,
 		const double minWidth,
@@ -100,7 +101,7 @@ void GripPipeline::filterContours(
 		const double minVertexCount,
 		const double minRatio,
 		const double maxRatio,
-		std::vector<std::vector<cv::Point> >& output)
+		std::vector<std::vector<cv::Point>>& output)
 {
 	std::vector<cv::Point> hull;
 	output.clear();
@@ -132,19 +133,12 @@ double grip::GripPipeline::getTargetCenterX(int idx)
 {
 	if (targets.size() <= 0) return -2;
 	double center = -2;
-	if (stuff.target == Target::kPeg && targets.size() > 1)
-	{
-		cv::Rect r1 = targets[idx];
-		cv::Rect r2 = targets[idx + 1];
-		if (r1.x < r2.x) // NOTE: may be reversed
-			center = (r1.x + r2.x +r2.width) / 2;
-		else
-			center = (r2.x + r1.x +r1.width) / 2;
-	}
-	else if (stuff.target == Target::kBoiler)
-	{
-
-	}
+	cv::Rect r1 = targets[idx];
+	cv::Rect r2 = targets[idx + 1];
+	if (r1.x < r2.x) // NOTE: may be reversed
+		center = (r1.x + r2.x +r2.width) / 2;
+	else
+		center = (r2.x + r1.x +r1.width) / 2;
 	return center;
 }
 
@@ -175,7 +169,7 @@ void GripPipeline::setStuff(grip::CameraStuff cs)
 
 double GripPipeline::getOffsetCenter(double offset, double distance)
 {
-	return (90 - std::cos((float)(offset / distance))) / (CS_CAM_FOV / 2);
+	return (90 - std::cos((float)(offset / distance))) / CS_CAM_FOV - 1;
 }
 
 } // end grip namespace
