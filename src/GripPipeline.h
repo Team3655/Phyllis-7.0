@@ -17,51 +17,46 @@
 
 namespace grip {
 
-//
-enum class Target
-{
-	kPeg,
-	kBoiler
-};
-
 // Summary:
 //
 struct CameraStuff
 {
 	double targetHeight;
 	double angle;
-	Target target;
 
-	CameraStuff(double height, double angle, Target target)
+	CameraStuff(double height, double angle)
 	{
 		targetHeight = height;
 		this->angle = angle;
-		this->target = target;
 	}
 
 	CameraStuff()
 	{
 		targetHeight = 0;
 		this->angle = 0;
-		this->target = Target::kPeg;
 	}
 };
 
-#define BOILER grip::CameraStuff(CS_TARGET_BOILER_HEIGHT, CS_CAM2_HORIZON_ANGLE, grip::Target::kBoiler)
 #define PEG	grip::CameraStuff(CS_TARGET_PEG_HEIGHT, CS_CAM1_HORIZON_ANGLE, grip::Target::kPeg)
 
+// Summary:
+//
 class GripPipeline
 {
 	private:
 		cv::Mat resizeImageOutput;
 		cv::Mat hslThresholdOutput;
-		std::vector<std::vector<cv::Point> > findContoursOutput;
-		std::vector<std::vector<cv::Point> > filterContoursOutput;
+
+		std::vector<std::vector<cv::Point>> findContoursOutput;
+		std::vector<std::vector<cv::Point>> filterContoursOutput;
 		std::vector<cv::Rect> targets;
+
 		frc::Timer* timer;
 		double procTime;
+
 		CameraStuff stuff;
-		void findContours(cv::Mat&, bool, std::vector<std::vector<cv::Point> >&);
+
+		void findContours(cv::Mat&, bool, std::vector<std::vector<cv::Point>>&);
 		void filterContours(
 				std::vector<std::vector<cv::Point>>& inputContours,
 				const double minArea,
@@ -86,6 +81,8 @@ class GripPipeline
 		double getTargetCenterY(int);
 		double getProcTime();
 		double getDistance();
+
+		cv::Mat& getProcessedFrame() { return hslThresholdOutput; }
 
 		int getTargets() { return targets.size(); }
 

@@ -20,6 +20,8 @@ class VisionManager : public frc::Subsystem, public ExtSubsystem
 private:
 	frc::CameraServer* m_cs;
 	cs::UsbCamera m_cam;
+	cs::CvSink m_sink;
+	cs::CvSource m_output;
 
 	bool m_isRunning = false;
 	std::thread* m_visionThread;
