@@ -42,9 +42,9 @@ void Shooter::Initialize(frc::Preferences* prefs)
 	m_shooter = new CANTalon(SHOOT_MOTOR_PORT);
 	m_shooter->SetControlMode(CANSpeedController::kPercentVbus);
 	m_shooter->SetPID(
-			frc::SmartDashboard::GetNumber("shoot_p", SHOOT_P),
-			frc::SmartDashboard::GetNumber("shoot_i", SHOOT_I),
-			frc::SmartDashboard::GetNumber("shoot_d", SHOOT_D));
+			prefs->GetDouble("shoot_p", SHOOT_P),
+			prefs->GetDouble("shoot_i", SHOOT_I),
+			prefs->GetDouble("shoot_d", SHOOT_D));
 	m_shooter->Enable();
 
 	m_shooter->SetSensorDirection(true);
@@ -55,7 +55,7 @@ void Shooter::Initialize(frc::Preferences* prefs)
 void Shooter::DashboardOutput(bool verbose)
 {
 	frc::SmartDashboard::PutString("Shooter State", state_to_string(m_state));
-	frc::SmartDashboard::PutNumber("Shooter Speed", m_shooter->Get() * 100);
+	frc::SmartDashboard::PutNumber("Shooter Speed", m_shooter->Get());
 
 	if (verbose)
 	{
