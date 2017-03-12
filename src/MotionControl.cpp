@@ -154,8 +154,9 @@ void MotionControl::Update()
 		m_isFinished = true;
 		break;
 	case 0:
-		m_leftSetValue = CANTalon::SetValueMotionProfileDisable;
-		m_rightSetValue = CANTalon::SetValueMotionProfileDisable;
+		//m_leftSetValue = CANTalon::SetValueMotionProfileDisable;
+		//m_rightSetValue = CANTalon::SetValueMotionProfileDisable;
+		// attempt to fix
 
 		m_driveLeft->SetEncPosition(0);
 		m_driveRight->SetEncPosition(0);
