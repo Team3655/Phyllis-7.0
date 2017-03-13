@@ -62,7 +62,7 @@ void VisionManager::vision_thread()
 		int i = 0;
 		if ((i = m_sink.GrabFrame(frame)) == 0)
 		{
-			std::cout << "HILFE" << std::endl;
+			std::cout << m_sink.GetError();
 		}
 		m_pipeline->Process(frame);
 		std::cout << i << std::endl;
@@ -76,7 +76,7 @@ void VisionManager::vision_thread()
 			break;
 		}
 		m_lock->unlock();
-		sleep(20);
+		//sleep(20);
 	}
 }
 
