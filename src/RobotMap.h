@@ -106,18 +106,18 @@ constexpr double CS_TARGET_PEG_HEIGHT = 0.0;
 
 //--------------------------------------------------------
 // Image Processing
-constexpr double IMG_RESIZE_W = 480.0;
-constexpr double IMG_RESIZE_H = 360.0;
-constexpr double IMG_HSL_HUE[] = {  18.0, 65.0 };
-constexpr double IMG_HSL_SAT[] = {  30.0, 140.0 };
-constexpr double IMG_HSL_LUM[] = {  200.0, 255.0 };
-constexpr double IMG_CONT_MIN_AREA = 30.0;
-constexpr double IMG_CONT_MIN_PERIM = 20.0;
+constexpr double IMG_RESIZE_W = 360.0;
+constexpr double IMG_RESIZE_H = 240.0;
+constexpr double IMG_HSL_HUE[] = { 0, 180 }; // 18.0 , 65.0
+constexpr double IMG_HSL_SAT[] = { 0, 255 }; // 30 , 140
+constexpr double IMG_HSL_LUM[] = { 0, 255 }; // 200 255
+constexpr double IMG_CONT_MIN_AREA = 10; // 30
+constexpr double IMG_CONT_MIN_PERIM = 10; // 20
 constexpr double IMG_CONT_MIN_WIDTH = 5.0;
 constexpr double IMG_CONT_MAX_WIDTH = 1000;
 constexpr double IMG_CONT_MIN_HEIGHT = 20.0;
 constexpr double IMG_CONT_MAX_HEIGHT = 1000;
-constexpr double IMG_CONT_SOLID[] = {  80.0, 100.0 };
+constexpr double IMG_CONT_SOLID[] = { 10, 100.0 }; // 70
 constexpr double IMG_CONT_MAX_VERTEX = 1000000;
 constexpr double IMG_CONT_MIN_VERTEX = 0.0;
 constexpr double IMG_CONT_MIN_RATIO = 0;

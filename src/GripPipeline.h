@@ -43,7 +43,7 @@ struct CameraStuff
 //
 class GripPipeline
 {
-	private:
+	public:
 		cv::Mat resizeImageOutput;
 		cv::Mat hslThresholdOutput;
 
@@ -71,7 +71,6 @@ class GripPipeline
 				const double minRatio,
 				const double maxRatio,
 				std::vector<std::vector<cv::Point>>& output);
-		double getOffsetCenter(double, double);
 
 	public:
 		GripPipeline();

@@ -18,17 +18,23 @@ void GripPipeline::Process(cv::Mat source)
 {
 	timer->Reset();
 	timer->Start();
+
+	std::cout << source.type() << std::endl;
+
 	// Resize
-	cv::resize(source, resizeImageOutput, cv::Size(IMG_RESIZE_W, IMG_RESIZE_H), 0.0, 0.0, cv::INTER_CUBIC);
+	//cv::resize(source, resizeImageOutput, cv::Size(IMG_RESIZE_W, IMG_RESIZE_H), 0.0, 0.0, cv::INTER_CUBIC);
 	// HSL Threshold
-	cv::Mat hslThresholdInput = resizeImageOutput;
-	cv::cvtColor(resizeImageOutput, hslThresholdOutput, cv::COLOR_RGB2GRAY);
-	cv::inRange(hslThresholdOutput,
+	cv::Mat hslThresholdInput = source;//resizeImageOutput;
+	if (hslThresholdInput.empty()) return;
+	cv::inRange(hslThresholdInput,
 			cv::Scalar(IMG_HSL_HUE[0], IMG_HSL_LUM[0], IMG_HSL_SAT[0]),
 			cv::Scalar(IMG_HSL_HUE[1], IMG_HSL_LUM[1], IMG_HSL_SAT[1]),
 			hslThresholdOutput);
+	if (hslThresholdOutput.empty()) return;
+	//cv::cvtColor(this->hslThresholdOutput, this->hslThresholdOutput, cv::COLOR_RGB2GRAY);
+
 	// Contours
-	findContours(hslThresholdOutput, false, this->findContoursOutput);
+	findContours(hslThresholdOutput, false, findContoursOutput);
 	// Filter Contours
 	filterContours(
 			findContoursOutput,
@@ -45,8 +51,7 @@ void GripPipeline::Process(cv::Mat source)
 			IMG_CONT_MAX_RATIO,
 			this->filterContoursOutput);
 
-
-
+	targets.clear();
 	for (int i = 0; i < filterContoursOutput.size(); i++)
 	{
 		targets.push_back(cv::boundingRect(this->filterContoursOutput[i]));
@@ -67,9 +72,7 @@ void GripPipeline::findContours(cv::Mat& input, bool externalOnly, std::vector<s
 {
 	std::vector<cv::Vec4i> hierarchy;
 	contours.clear();
-	int mode = externalOnly ? cv::RETR_EXTERNAL : cv::RETR_LIST;
-	int method = cv::CHAIN_APPROX_SIMPLE;
-	cv::findContours(input, contours, hierarchy, mode, method);
+	cv::findContours(input, contours, hierarchy, externalOnly ? cv::RETR_EXTERNAL : cv::RETR_LIST, cv::CHAIN_APPROX_SIMPLE);
 }
 
 /**
@@ -105,8 +108,8 @@ void GripPipeline::filterContours(
 {
 	std::vector<cv::Point> hull;
 	output.clear();
-	for (std::vector<cv::Point> contour: inputContours) {
-		cv::Rect bb = boundingRect(contour);
+	for (std::vector<cv::Point> contour : inputContours) {
+		cv::Rect bb = cv::boundingRect(contour);
 		if (bb.width < minWidth || bb.width > maxWidth) continue;
 		if (bb.height < minHeight || bb.height > maxHeight) continue;
 		double area = cv::contourArea(contour);
@@ -131,7 +134,7 @@ bool grip::GripPipeline::getTarget(int idx, cv::Rect& rect)
 
 double grip::GripPipeline::getTargetCenterX(int idx)
 {
-	if (targets.size() <= 0) return -2;
+	if (targets.size() < 2) return -2;
 	double center = -2;
 	cv::Rect r1 = targets[idx];
 	cv::Rect r2 = targets[idx + 1];
@@ -165,11 +168,6 @@ double GripPipeline::getDistance()
 void GripPipeline::setStuff(grip::CameraStuff cs)
 {
 	stuff = cs;
-}
-
-double GripPipeline::getOffsetCenter(double offset, double distance)
-{
-	return (90 - std::cos((float)(offset / distance))) / CS_CAM_FOV - 1;
 }
 
 } // end grip namespace

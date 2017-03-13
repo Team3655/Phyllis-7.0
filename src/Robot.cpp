@@ -124,6 +124,9 @@ public:
 
 		frc::SmartDashboard::Delete("Auto Modes"); // Attempt to fix no show chooser
 		frc::SmartDashboard::PutData("Auto Modes", &autoModes);
+
+		CommandBase::visionManager.get()->StartProc();
+		CommandBase::lights.get()->SetPegCamLight(true);
 	}
 
 	void RobotPeriodic() override

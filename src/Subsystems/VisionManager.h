@@ -23,6 +23,8 @@ private:
 	cs::CvSink m_sink;
 	cs::CvSource m_output;
 
+	grip::GripPipeline* m_pipeline;
+
 	bool m_isRunning = false;
 	std::thread* m_visionThread;
 	std::mutex* m_lock;
