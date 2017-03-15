@@ -52,7 +52,7 @@ void DriveTrain::Initialize(frc::Preferences* prefs)
 	m_rf->SetControlMode(CANTalon::ControlMode::kFollower);
 	m_rf->Set(m_rb->GetDeviceID());
 
-	SetTalonMode(CANSpeedController::kSpeed);
+	SetTalonMode(frc::CANSpeedController::kSpeed);
 	set_pid_values();
 
 	//m_rf->SetInverted(true);
