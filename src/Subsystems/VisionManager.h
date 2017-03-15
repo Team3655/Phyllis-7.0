@@ -20,19 +20,19 @@ class VisionManager : public frc::Subsystem, public ExtSubsystem
 private:
 	frc::CameraServer* m_cs;
 	cs::UsbCamera m_cam;
-	cs::CvSink m_sink;
-	cs::CvSource m_output;
+	static cs::CvSink m_sink;
+	static cs::CvSource m_output;
 
-	grip::GripPipeline* m_pipeline;
+	static grip::GripPipeline* m_pipeline;
 
-	bool m_isRunning = false;
-	std::thread* m_visionThread;
-	std::mutex* m_lock;
+	static bool m_isRunning;
+	static std::thread* m_visionThread;
+	static std::mutex* m_lock;
 
 	// Processing
 	frc::VisionRunner<grip::GripPipeline>* m_vision;
 
-	void vision_thread();
+	static void vision_thread();
 
 public:
 	VisionManager();

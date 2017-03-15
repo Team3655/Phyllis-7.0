@@ -8,17 +8,18 @@ GripPipeline::GripPipeline()
 {
 	timer = new frc::Timer();
 }
+
 /**
 * Runs an iteration of the Pipeline and updates outputs.
 *
 * Sources need to be set before calling this method. 
 *
 */
-void GripPipeline::Process(cv::Mat source)
+void GripPipeline::Process(cv::Mat& source)
 {
 	timer->Reset();
 	timer->Start();
-	/*
+
 	// Resize
 	if (source.empty())
 	{
@@ -26,18 +27,21 @@ void GripPipeline::Process(cv::Mat source)
 		return;
 	}
 	cv::resize(source, resizeImageOutput, cv::Size(IMG_RESIZE_W, IMG_RESIZE_H));
-	// HSL Threshold
-	cv::Mat hslThresholdInput = resizeImageOutput;
-	if (hslThresholdInput.empty()) return;
-	cv::inRange(hslThresholdInput,
+
+	cv::Mat hslThreshold = source;
+	std::cout << "color pre" << std::endl;
+	if (hslThreshold.empty()) return;
+	cv::cvtColor(hslThreshold, hslThreshold, cv::COLOR_BGR2GRAY);
+	std::cout << "hsl pre" << std::endl;
+	if (hslThreshold.empty()) return;
+	cv::inRange(hslThreshold,
 			cv::Scalar(IMG_HSL_HUE[0], IMG_HSL_LUM[0], IMG_HSL_SAT[0]),
 			cv::Scalar(IMG_HSL_HUE[1], IMG_HSL_LUM[1], IMG_HSL_SAT[1]),
-			hslThresholdOutput);
-	if (hslThresholdOutput.empty()) return;
-	cv::cvtColor(this->hslThresholdOutput, this->hslThresholdOutput, cv::COLOR_BGR2GRAY);
+			hslThreshold);
+	std::cout << "hsl post" << std::endl;
 
 	// Contours
-	findContours(hslThresholdOutput, false, findContoursOutput);
+	findContours(hslThreshold, false, findContoursOutput);
 	// Filter Contours
 	filterContours(
 			findContoursOutput,
@@ -58,11 +62,11 @@ void GripPipeline::Process(cv::Mat source)
 	for (int i = 0; i < filterContoursOutput.size(); i++)
 	{
 		targets.push_back(cv::boundingRect(this->filterContoursOutput[i]));
+		//rectangle(hslThreshold, cv::Point(targets[i].x, targets[i].y), cv::Point(targets[i].width, targets[i].height),
+				//cv::Scalar(255, 255, 255), 5);
 	}
 
-*/
-	hslThresholdOutput = source;
-
+	source = hslThreshold;
 	timer->Stop();
 	procTime = timer->Get();
 }

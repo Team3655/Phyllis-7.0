@@ -1,5 +1,13 @@
 #include "VisionManager.h"
 
+cs::CvSink VisionManager::m_sink;
+cs::CvSource VisionManager::m_output;
+grip::GripPipeline* VisionManager::m_pipeline;
+bool VisionManager::m_isRunning = false;
+std::thread* VisionManager::m_visionThread;
+std::mutex* VisionManager::m_lock;
+
+
 VisionManager::VisionManager() :
 	frc::Subsystem("Vision Manager")
 {
@@ -18,13 +26,6 @@ void VisionManager::InitDefaultCommand()
 void VisionManager::Initialize(frc::Preferences* prefs)
 {
 	m_cs = frc::CameraServer::GetInstance();
-
-	m_cam = m_cs->StartAutomaticCapture();
-	m_cam.SetResolution(CS_CAM_RES_X, CS_CAM_RES_Y);
-	m_cam.SetFPS(20);
-
-	m_sink = m_cs->GetVideo();
-	m_output = m_cs->PutVideo("Proc", CS_CAM_RES_X, CS_CAM_RES_Y);
 
 	m_pipeline = new grip::GripPipeline();
 
@@ -55,16 +56,54 @@ void VisionManager::DashboardOutput(bool verbose)
 
 void VisionManager::vision_thread()
 {
-	static int i = 0;
-	cv::Mat frame;
+	// Get the USB camera from CameraServer
+	cs::UsbCamera camera = CameraServer::GetInstance()->StartAutomaticCapture("cam0", 0);
+	// Set the resolution
+	camera.SetResolution(640, 480);
+	// Get a CvSink. This will capture Mats from the Camera
+	cs::CvSink cvSink = CameraServer::GetInstance()->GetVideo("cam0");
+	// Setup a CvSource. This will send images back to the Dashboard
+	cs::CvSource outputStream = CameraServer::GetInstance()->
+			PutVideo("Proc", 640, 480);
+
+	// Mats are very memory expensive. Lets reuse this Mat.
+	cv::Mat mat;
+
+	while (true) {
+		// Tell the CvSink to grab a frame from the camera and put it
+		// in the source mat.  If there is an error notify the output.
+		if (cvSink.GrabFrame(mat) == 0) {
+			// Send the output the error.
+			outputStream.NotifyError(cvSink.GetError());
+			// skip the rest of the current iteration
+			continue;
+		}
+		// Put a rectangle on the image
+		//rectangle(mat, cv::Point(100, 100), cv::Point(400, 400),
+		//		cv::Scalar(255, 255, 255), 5);
+		/*cv::cvtColor(mat, mat, cv::COLOR_BGR2GRAY);
+
+		cv::inRange(mat,
+				cv::Scalar(0, 200, 200),
+				cv::Scalar(100, 255, 255),
+				mat);*/
+		m_pipeline->Process(mat);
+
+		frc::SmartDashboard::PutNumber("CenterX", m_pipeline->getTargetCenterX(0));
+		frc::SmartDashboard::PutNumber("Processing Time", m_pipeline->getProcTime());
+		frc::SmartDashboard::PutNumber("Targets", m_pipeline->getTargets());
+
+		// Give the output stream a new image to display
+		outputStream.PutFrame(mat);
+	}
+
+	/*cv::Mat frame;
+	cs::CvSink cvSink = CameraServer::GetInstance()->GetVideo();
 	while (true)
 	{
-		std::cout << i << std::endl;
-		i++;
-		//m_vision->RunOnce();
-		if (m_sink.GrabFrame(frame) == 0)
+		if (cvSink.GrabFrame(frame) == 0)
 		{
-			std::cout << m_sink.GetError() << std::endl;
+			std::cout << cvSink.GetError() << std::endl;
 		}
 		std::cout << "pre proc" << std::endl;
 		m_pipeline->Process(frame);
@@ -79,13 +118,13 @@ void VisionManager::vision_thread()
 			break;
 		}
 		m_lock->unlock();
-		//sleep(20);
-	}
+		sleep(500);*/
+
 }
 
 void VisionManager::StartProc()
 {
 	m_isRunning = true;
-	m_visionThread = new std::thread(&VisionManager::vision_thread, this);
+	m_visionThread = new std::thread(&VisionManager::vision_thread);
 	m_visionThread->detach();
 }

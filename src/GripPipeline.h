@@ -74,7 +74,7 @@ class GripPipeline
 
 	public:
 		GripPipeline();
-		void Process(cv::Mat source);
+		void Process(cv::Mat& source);
 		bool getTarget(int, cv::Rect&);
 		double getTargetCenterX(int);
 		double getTargetCenterY(int);
