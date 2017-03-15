@@ -28,13 +28,16 @@ void GripPipeline::Process(cv::Mat& source)
 	}
 	cv::resize(source, resizeImageOutput, cv::Size(IMG_RESIZE_W, IMG_RESIZE_H));
 
-	cv::Mat hslThreshold = source;
+	cv::Mat hslMat = source;
+	cv::cvtColor(hslMat, hslMat, cv::COLOR_BGR2HSV);
+
+	cv::Mat hslThreshold;
 	std::cout << "color pre" << std::endl;
-	if (hslThreshold.empty()) return;
-	cv::cvtColor(hslThreshold, hslThreshold, cv::COLOR_BGR2GRAY);
+	//if (hslMat.empty()) return;
+	//cv::cvtColor(hslMat, hslThreshold, cv::COLOR_BGR2GRAY);
 	std::cout << "hsl pre" << std::endl;
-	if (hslThreshold.empty()) return;
-	cv::inRange(hslThreshold,
+	if (hslMat.empty()) return;
+	cv::inRange(hslMat,
 			cv::Scalar(IMG_HSL_HUE[0], IMG_HSL_LUM[0], IMG_HSL_SAT[0]),
 			cv::Scalar(IMG_HSL_HUE[1], IMG_HSL_LUM[1], IMG_HSL_SAT[1]),
 			hslThreshold);
