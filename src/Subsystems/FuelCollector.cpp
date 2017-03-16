@@ -39,16 +39,14 @@ void FuelCollector::InitDefaultCommand()
 
 void FuelCollector::Initialize(frc::Preferences* prefs)
 {
-	m_meter = new CANTalon(FUEL_METER_PORT);
-	m_meter->SetControlMode(CANSpeedController::kPercentVbus);
-
-	//m_meter->Reset();
-	m_currentMeterPos = 0;
+	m_meter = new frc::Servo(FUEL_METER_PORT);
 
 	m_intake = new CANTalon(FUEL_INTAKE_PORT);
 	m_intake->SetControlMode(CANTalon::ControlMode::kPercentVbus);
 
 	m_state = CollectState::kStopped;
+
+	m_meter->Set(0);
 }
 
 void FuelCollector::DashboardOutput(bool verbose)
@@ -59,16 +57,8 @@ void FuelCollector::DashboardOutput(bool verbose)
 
 	if (verbose)
 	{
-		frc::SmartDashboard::PutNumber("Meter Count", m_meter->GetEncPosition());
-		frc::SmartDashboard::PutNumber("Balls Indexed to Shooter", m_currentMeterPos / (FUEL_METER_CPR / FUEL_BALL_PER_TURN));
-	}
-}
 
-void FuelCollector::IndexOne()
-{
-	m_currentMeterPos = m_meter->GetEncPosition();
-	m_currentMeterPos += -(1 / FUEL_BALL_PER_TURN) * FUEL_METER_CPR;
-	m_meter->Set(m_currentMeterPos);
+	}
 }
 
 void FuelCollector::SetIntake(double speed)
@@ -76,7 +66,7 @@ void FuelCollector::SetIntake(double speed)
 	m_intake->Set(speed);
 }
 
-void FuelCollector::Index(double speed)
+void FuelCollector::Index(double angle)
 {
-	m_meter->Set(-speed);
+	m_meter->SetAngle(angle);
 }

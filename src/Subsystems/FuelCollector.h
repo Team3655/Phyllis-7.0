@@ -22,10 +22,8 @@ private:
 		kEjecting = 2
 	} m_state;
 
-	CANTalon* m_meter;
 	CANTalon* m_intake;
-
-	int m_currentMeterPos;
+	frc::Servo* m_meter;
 
 	std::string state_to_string(uint32_t state);
 
@@ -37,12 +35,11 @@ public:
 	void Initialize(frc::Preferences* prefs) override;
 	void DashboardOutput(bool verbose = false) override;
 
-	void IndexOne();
-
 	// Set the motor that collects balls
 	void SetIntake(double speed);
 
-	void Index(double speed);
+	void Index(double angle);
+	double GetIndex() { return m_meter->Get(); }
 };
 
 #endif // FUEL_COLLECTOR_H

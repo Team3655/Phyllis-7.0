@@ -28,6 +28,7 @@ private:
 	frc::JoystickButton* m_climbFast;
 	frc::JoystickButton* m_invertDrive;
 	frc::JoystickButton* m_waitForPeg;
+	frc::JoystickButton* m_meter;
 
 	double m_deadband;
 	bool m_enableDeadband;

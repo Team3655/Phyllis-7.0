@@ -58,19 +58,18 @@ void Shooter::Initialize(frc::Preferences* prefs)
 
 	m_shooter->SetSensorDirection(true);
 
-	//m_targetSpeed = prefs->GetDouble("shoot_speed", SHOOT_SPEED);
+	m_targetSpeed = prefs->GetDouble("shoot_speed", SHOOT_SPEED);
 }
 
 void Shooter::DashboardOutput(bool verbose)
 {
 	frc::SmartDashboard::PutString("Shooter State", state_to_string(m_state));
-	frc::SmartDashboard::PutNumber("Shooter Speed", m_shooter->GetEncVel());
+	//frc::SmartDashboard::PutNumber("Shooter Speed", m_shooter->GetEncVel());
 
 	if (verbose)
 	{
 
 	}
-	std::cout << "Speed: " << m_shooter->GetEncVel() << std::endl;
 }
 
 void Shooter::Set(double speed)

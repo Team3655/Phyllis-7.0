@@ -75,12 +75,7 @@ constexpr double CLIMB_SPEED = .6;
 
 //---------------------------------------------------------
 // Fuel Collector
-constexpr int FUEL_METER_PORT = 10; // unknown
-constexpr int FUEL_METER_P = 1.0;
-constexpr int FUEL_METER_I = 2.0;
-constexpr int FUEL_METER_D = 1.0;
-constexpr double FUEL_METER_CPR = 16400; // ~16384
-constexpr double FUEL_BALL_PER_TURN = .5; // .8 repeating
+constexpr int FUEL_METER_PORT = 8;
 constexpr int FUEL_INTAKE_PORT = 5;
 constexpr double FUEL_INTAKE_SPEED = -.9;
 
@@ -117,7 +112,7 @@ constexpr double IMG_CONT_MIN_PERIM = 20;
 constexpr double IMG_CONT_MIN_WIDTH = 5.0;
 constexpr double IMG_CONT_MAX_WIDTH = 1000;
 constexpr double IMG_CONT_MIN_HEIGHT = 20.0;
-constexpr double IMG_CONT_MAX_HEIGHT = 1000;
+constexpr double IMG_CONT_MAX_HEIGHT = 100;
 constexpr double IMG_CONT_SOLID[] = { 70, 100.0 };
 constexpr double IMG_CONT_MAX_VERTEX = 1000000;
 constexpr double IMG_CONT_MIN_VERTEX = 0.0;

@@ -17,6 +17,7 @@
 #include "Commands/Climb.h"
 #include "Commands/InvertDrive.h"
 #include "Commands/WaitForPeg.h"
+#include "Commands/Meter.h"
 
 #include <string>
 
@@ -71,6 +72,9 @@ void OI::Initialize()
 	code = m_prefs->GetString("joy_btn_climb_fast");
 	m_climbFast = new frc::JoystickButton(GetStick(3), 6);
 	m_climbFast->WhenPressed(new Climb(m_climbFast, .95));
+
+	m_meter = new frc::JoystickButton(GetStick(2), 7);
+	m_meter->WhenPressed(new Meter());
 
 	//code = m_prefs->GetString("joy_btn_invert");
 	//m_invertDrive = new frc::JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
