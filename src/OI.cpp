@@ -60,7 +60,11 @@ void OI::Initialize()
 
 	code = m_prefs->GetString("joy_btn_shoot");
 	m_shoot = new JoystickButton(GetStick(2), 6);
+<<<<<<< HEAD
 	m_shoot->WhenPressed(new Shoot(.75));
+=======
+	m_shoot->WhenPressed(new Shoot(0));
+>>>>>>> refs/remotes/origin/master
 
 	code = m_prefs->GetString("joy_btn_drive_shift");
 	m_shift = new JoystickButton(GetStick(1), 2);
