@@ -28,7 +28,7 @@ void GripPipeline::Process(cv::Mat& source)
 	}
 	cv::resize(source, resizeImageOutput, cv::Size(IMG_RESIZE_W, IMG_RESIZE_H));
 
-	cv::Mat hslMat = source;
+	cv::Mat hslMat = resizeImageOutput;
 	cv::cvtColor(hslMat, hslMat, cv::COLOR_BGR2HSV);
 
 	cv::Mat hslThreshold;

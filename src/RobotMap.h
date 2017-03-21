@@ -66,6 +66,8 @@ constexpr double GEAR_INTAKE_SPEED = -0.4; // Maybe faster
 constexpr int GEAR_TRANS_BACK_PORT = 11;
 constexpr int GEAR_TRANS_FRONT_PORT = 12;
 constexpr double GEAR_TRANS_SPEED = 0.5;
+constexpr int GEAR_EJECTOR_F_PORT = 2;
+constexpr int GEAR_EJECTOR_B_PORT = 3;
 
 //---------------------------------------------------------
 // Climber
@@ -75,7 +77,8 @@ constexpr double CLIMB_SPEED = .6;
 
 //---------------------------------------------------------
 // Fuel Collector
-constexpr int FUEL_METER_PORT = 8;
+constexpr int FUEL_METER_F_PORT = 5;
+constexpr int FUEL_METER_B_PORT = 6;
 constexpr int FUEL_INTAKE_PORT = 5;
 constexpr double FUEL_INTAKE_SPEED = -.9;
 
@@ -104,9 +107,9 @@ constexpr double CS_TARGET_PEG_HEIGHT = 0.0;
 // Image Processing
 constexpr double IMG_RESIZE_W = 360.0;
 constexpr double IMG_RESIZE_H = 240.0;
-constexpr double IMG_HSL_HUE[] = { 35, 90 };
+constexpr double IMG_HSL_HUE[] = { 35, 110 };
 constexpr double IMG_HSL_SAT[] = { 100, 255 };
-constexpr double IMG_HSL_LUM[] = { 100, 255 };
+constexpr double IMG_HSL_LUM[] = { 150, 255 };
 constexpr double IMG_CONT_MIN_AREA = 30;
 constexpr double IMG_CONT_MIN_PERIM = 20;
 constexpr double IMG_CONT_MIN_WIDTH = 5.0;

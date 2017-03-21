@@ -54,6 +54,8 @@ void GearCollector::Initialize(frc::Preferences* prefs)
 	m_intakeSpeed = frc::SmartDashboard::GetNumber("gear_intake_speed", GEAR_INTAKE_SPEED);
 	m_transSpeed = frc::SmartDashboard::GetNumber("gear_trans_speed", GEAR_TRANS_SPEED);
 
+	m_gearEjector = new frc::DoubleSolenoid(GEAR_EJECTOR_F_PORT, GEAR_EJECTOR_B_PORT);
+
 	m_gearSensor = new frc::DigitalInput(GEAR_SENSOR_PORT);
 }
 
@@ -86,4 +88,14 @@ void GearCollector::Stop()
 	m_state = CollectState::kStopped;
 	m_intake->Set(0);
 	m_transportBack->Set(0);
+}
+
+void GearCollector::Eject(bool eject)
+{
+	m_gearEjector->Set(eject ? frc::DoubleSolenoid::kForward : frc::DoubleSolenoid::kReverse);
+}
+
+bool GearCollector::IsEjected()
+{
+	return m_gearEjector->Get() == frc::DoubleSolenoid::kForward;
 }

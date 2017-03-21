@@ -39,14 +39,12 @@ void FuelCollector::InitDefaultCommand()
 
 void FuelCollector::Initialize(frc::Preferences* prefs)
 {
-	m_meter = new frc::Servo(FUEL_METER_PORT);
-
 	m_intake = new CANTalon(FUEL_INTAKE_PORT);
 	m_intake->SetControlMode(CANTalon::ControlMode::kPercentVbus);
 
 	m_state = CollectState::kStopped;
 
-	m_meter->Set(0);
+	m_meter = new frc::DoubleSolenoid(FUEL_METER_F_PORT, FUEL_METER_B_PORT);
 }
 
 void FuelCollector::DashboardOutput(bool verbose)
@@ -66,7 +64,7 @@ void FuelCollector::SetIntake(double speed)
 	m_intake->Set(speed);
 }
 
-void FuelCollector::Index(double angle)
+void FuelCollector::Index(bool index)
 {
-	m_meter->SetAngle(angle);
+	m_meter->Set(index ? frc::DoubleSolenoid::kForward : frc::DoubleSolenoid::kReverse);
 }

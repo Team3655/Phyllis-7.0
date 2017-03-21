@@ -3,6 +3,7 @@
 
 #include <Commands/Subsystem.h>
 #include <CANTalon.h>
+#include <DoubleSolenoid.h>
 #include <Preferences.h>
 #include <DigitalInput.h>
 
@@ -27,12 +28,12 @@ private:
 	CANTalon* m_transportFront;
 	CANTalon* m_transportBack;
 
+	frc::DoubleSolenoid* m_gearEjector;
+
 	DigitalInput* m_gearSensor;
 
 	double m_intakeSpeed;
 	double m_transSpeed;
-
-	void gear_poller();
 
 	std::string state_to_string(uint32_t state);
 
@@ -49,6 +50,9 @@ public:
 	// Set all of the motors
 	void SetIntake(int direction);
 	void Stop();
+
+	void Eject(bool eject);
+	bool IsEjected();
 };
 
 #endif // GEAR_COLLECTOR_H

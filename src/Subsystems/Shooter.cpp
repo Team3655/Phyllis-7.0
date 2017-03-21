@@ -41,7 +41,7 @@ void Shooter::Initialize(frc::Preferences* prefs)
 {
 	m_shooter = new CANTalon(SHOOT_MOTOR_PORT);
 	m_shooter->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Absolute);
-	m_shooter->SetControlMode(frc::CANSpeedController::kSpeed);
+	m_shooter->SetControlMode(frc::CANSpeedController::kPercentVbus);
 	m_shooter->SetStatusFrameRateMs(CANTalon::StatusFrameRateFeedback, 100);
 
 	for (int i = 0; i < 2; i++)

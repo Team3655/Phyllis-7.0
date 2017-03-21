@@ -6,6 +6,7 @@
 #include <Ultrasonic.h>
 #include <CANTalon.h>
 #include <Preferences.h>
+#include <DoubleSolenoid.h>
 #include <Timer.h>
 
 #include "../ExtSubsystem.h"
@@ -23,7 +24,8 @@ private:
 	} m_state;
 
 	CANTalon* m_intake;
-	frc::Servo* m_meter;
+
+	frc::DoubleSolenoid* m_meter;
 
 	std::string state_to_string(uint32_t state);
 
@@ -38,7 +40,7 @@ public:
 	// Set the motor that collects balls
 	void SetIntake(double speed);
 
-	void Index(double angle);
+	void Index(bool index);
 	double GetIndex() { return m_meter->Get(); }
 };
 

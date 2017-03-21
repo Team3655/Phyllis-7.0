@@ -18,6 +18,7 @@
 #include "Commands/InvertDrive.h"
 #include "Commands/WaitForPeg.h"
 #include "Commands/Meter.h"
+#include "Commands/EjectGear.h"
 
 #include <string>
 
@@ -59,7 +60,7 @@ void OI::Initialize()
 
 	code = m_prefs->GetString("joy_btn_shoot");
 	m_shoot = new JoystickButton(GetStick(2), 6);
-	m_shoot->WhenPressed(new Shoot(1800));
+	m_shoot->WhenPressed(new Shoot(.75));
 
 	code = m_prefs->GetString("joy_btn_drive_shift");
 	m_shift = new JoystickButton(GetStick(1), 2);
@@ -79,6 +80,9 @@ void OI::Initialize()
 	//code = m_prefs->GetString("joy_btn_invert");
 	//m_invertDrive = new frc::JoystickButton(GetStick(InterpretStick(code)), InterpretButton(code));
 	//m_invertDrive->WhenPressed(new InvertDrive());
+
+	m_putGear = new frc::JoystickButton(GetStick(2), 5);
+	m_putGear->WhenPressed(new EjectGear());
 }
 
 int OI::InterpretStick(std::string& code)
