@@ -15,9 +15,6 @@ void Shoot::Initialize()
 	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_shoot_end");
 	m_abortBtn = new frc::JoystickButton(oi.get()->GetStick(2), 9);
 
-	code = oi.get()->GetPrefs()->GetString("joy_btn_shoot_meter");
-	m_meterBtn = new frc::JoystickButton(oi.get()->GetStick(1), 1);
-
 	drive.get()->Disable();
 	m_isAligned = false; // Get alignment
 }
@@ -25,9 +22,6 @@ void Shoot::Initialize()
 void Shoot::Execute()
 {
 	shooter.get()->Set(m_speedProportion);
-	if (m_meterBtn->Get())
-		fuelCollector.get()->Index(.5);
-	else fuelCollector.get()->Index(0);
 }
 
 bool Shoot::IsFinished()
