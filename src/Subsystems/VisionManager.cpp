@@ -28,17 +28,6 @@ void VisionManager::Initialize(frc::Preferences* prefs)
 	m_cs = frc::CameraServer::GetInstance();
 
 	m_pipeline = new grip::GripPipeline();
-
-	/*m_vision = new frc::VisionRunner<grip::GripPipeline>(
-			m_cam,
-			m_pipeline,
-			[&](grip::GripPipeline& pipeline)
-			{
-				frc::SmartDashboard::PutNumber("CenterX", pipeline.getTargetCenterX(0));
-				frc::SmartDashboard::PutNumber("Processing Time", pipeline.getProcTime());
-				frc::SmartDashboard::PutNumber("Targets", pipeline.getTargets());
-				m_output.PutFrame(pipeline.getProcessedFrame());
-			});*/
 	m_lock = new std::mutex();
 }
 
@@ -58,24 +47,16 @@ void VisionManager::vision_thread()
 {
 	// Get the USB camera from CameraServer
 	cs::UsbCamera camera = CameraServer::GetInstance()->StartAutomaticCapture("cam0", 0);
-	// Set the resolution
 	camera.SetResolution(640, 480);
-	// Get a CvSink. This will capture Mats from the Camera
 	cs::CvSink cvSink = CameraServer::GetInstance()->GetVideo("cam0");
-	// Setup a CvSource. This will send images back to the Dashboard
-	cs::CvSource outputStream = CameraServer::GetInstance()->
-			PutVideo("Proc", 640, 480);
+	cs::CvSource outputStream = CameraServer::GetInstance()->PutVideo("Proc", 640, 480);
 
-	// Mats are very memory expensive. Lets reuse this Mat.
 	cv::Mat mat;
 
 	while (true) {
-		// Tell the CvSink to grab a frame from the camera and put it
-		// in the source mat.  If there is an error notify the output.
-		if (cvSink.GrabFrame(mat) == 0) {
-			// Send the output the error.
+		if (cvSink.GrabFrame(mat) == 0)
+		{
 			outputStream.NotifyError(cvSink.GetError());
-			// skip the rest of the current iteration
 			continue;
 		}
 		// Put a rectangle on the image

@@ -34,7 +34,7 @@ void DriveTrain::InitDefaultCommand()
 
 void DriveTrain::Initialize(frc::Preferences* prefs)
 {
-	m_shifter = new DoubleSolenoid(DRIVE_SHIFT_HIGH_PORT, DRIVE_SHIFT_LOW_PORT);
+	m_shifter = new frc::DoubleSolenoid(DRIVE_SHIFT_HIGH_PORT, DRIVE_SHIFT_LOW_PORT);
 
 	m_lb = new CANTalon(DRIVE_LEFT_PORT);
 	m_lb->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
@@ -79,9 +79,9 @@ void DriveTrain::DashboardOutput(bool verbose)
 	}
 }
 
-CANSpeedController::ControlMode DriveTrain::get_talon_mode()
+frc::CANSpeedController::ControlMode DriveTrain::get_talon_mode()
 {
-	return (CANSpeedController::ControlMode)(m_lb->GetControlMode() & m_rb->GetControlMode());
+	return (frc::CANSpeedController::ControlMode)(m_lb->GetControlMode() & m_rb->GetControlMode());
 }
 
 void DriveTrain::set_pid_values()
@@ -103,7 +103,7 @@ void DriveTrain::set_pid_values()
 	}
 }
 
-void DriveTrain::SetTalonMode(CANSpeedController::ControlMode mode)
+void DriveTrain::SetTalonMode(frc::CANSpeedController::ControlMode mode)
 {
 	m_lb->SetControlMode(mode);
 	m_rb->SetControlMode(mode);

@@ -52,7 +52,6 @@ private:
 	int m_position;
 
 	frc::Solenoid* m_pegCamLight;
-	frc::Solenoid* m_shootCamLight;
 
 	frc::Solenoid* m_red;
 	frc::Solenoid* m_green;

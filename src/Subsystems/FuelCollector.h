@@ -41,7 +41,7 @@ public:
 	void SetIntake(double speed);
 
 	void Index(bool index);
-	double GetIndex() { return m_meter->Get(); }
+	double GetIndex() { return m_meter->Get() == frc::DoubleSolenoid::kForward; }
 };
 
 #endif // FUEL_COLLECTOR_H

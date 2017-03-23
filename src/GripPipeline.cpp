@@ -31,17 +31,19 @@ void GripPipeline::Process(cv::Mat& source)
 	cv::Mat hslMat = resizeImageOutput;
 	cv::cvtColor(hslMat, hslMat, cv::COLOR_BGR2HSV);
 
-	cv::Mat hslThreshold;
+	cv::Mat hsl, hslThresholdLO, hslThresholdHI;
 	//if (hslMat.empty()) return;
 	//cv::cvtColor(hslMat, hslThreshold, cv::COLOR_BGR2GRAY);
 	if (hslMat.empty()) return;
 	cv::inRange(hslMat,
-			cv::Scalar(IMG_HSL_HUE[0], IMG_HSL_LUM[0], IMG_HSL_SAT[0]),
-			cv::Scalar(IMG_HSL_HUE[1], IMG_HSL_LUM[1], IMG_HSL_SAT[1]),
-			hslThreshold);
+			cv::Scalar(IMG_HSV_HI_HUE[0], IMG_HSL_LUM[0], IMG_HSL_SAT[0]),
+			cv::Scalar(IMG_HSV_HI_HUE[1], IMG_HSL_LUM[1], IMG_HSL_SAT[1]),
+			hslThresholdLO);
+
+	hsl = hslThresholdLO;
 
 	// Contours
-	findContours(hslThreshold, false, findContoursOutput);
+	findContours(hsl, false, findContoursOutput);
 	// Filter Contours
 	filterContours(
 			findContoursOutput,
@@ -62,11 +64,11 @@ void GripPipeline::Process(cv::Mat& source)
 	for (int i = 0; i < filterContoursOutput.size(); i++)
 	{
 		targets.push_back(cv::boundingRect(this->filterContoursOutput[i]));
-		rectangle(hslThreshold, cv::Point(targets[i].x, targets[i].y), cv::Point(targets[i].width, targets[i].height),
+		rectangle(hsl, cv::Point(targets[i].x, targets[i].y), cv::Point(targets[i].width, targets[i].height),
 				cv::Scalar(255, 0, 0), 5);
 	}
 
-	source = hslThreshold;
+	source = hsl;
 	timer->Stop();
 	procTime = timer->Get();
 }

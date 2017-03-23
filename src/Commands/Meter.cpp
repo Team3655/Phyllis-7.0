@@ -7,7 +7,5 @@ Meter::Meter()
 
 void Meter::Initialize()
 {
-	static double last = 0;
-	CommandBase::fuelCollector.get()->Index(last);
-	last = last == 0 ? 90 : 0;
+	CommandBase::fuelCollector.get()->Index(!CommandBase::fuelCollector.get()->GetIndex());
 }

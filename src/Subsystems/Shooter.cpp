@@ -42,11 +42,7 @@ void Shooter::Initialize(frc::Preferences* prefs)
 	m_shooter = new CANTalon(SHOOT_MOTOR_PORT);
 	m_shooter->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Absolute);
 	m_shooter->SetControlMode(frc::CANSpeedController::kPercentVbus);
-<<<<<<< HEAD
-	m_shooter->SetStatusFrameRateMs(CANTalon::StatusFrameRateFeedback, 100);
-=======
 	//m_shooter->SetStatusFrameRateMs(CANTalon::StatusFrameRateFeedback, 100);
->>>>>>> refs/remotes/origin/master
 
 	for (int i = 0; i < 2; i++)
 	{

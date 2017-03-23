@@ -77,8 +77,8 @@ constexpr double CLIMB_SPEED = .6;
 
 //---------------------------------------------------------
 // Fuel Collector
-constexpr int FUEL_METER_F_PORT = 5;
-constexpr int FUEL_METER_B_PORT = 6;
+constexpr int FUEL_METER_F_PORT = 4;
+constexpr int FUEL_METER_B_PORT = 5;
 constexpr int FUEL_INTAKE_PORT = 5;
 constexpr double FUEL_INTAKE_SPEED = -.9;
 
@@ -107,16 +107,17 @@ constexpr double CS_TARGET_PEG_HEIGHT = 0.0;
 // Image Processing
 constexpr double IMG_RESIZE_W = 360.0;
 constexpr double IMG_RESIZE_H = 240.0;
-constexpr double IMG_HSL_HUE[] = { 35, 110 };
+constexpr double IMG_HSV_HI_HUE[] = { 40, 80 };
+//constexpr double IMG_HSV_LO_HUE[] = { 155, 180 }; // Runs hi first
 constexpr double IMG_HSL_SAT[] = { 100, 255 };
-constexpr double IMG_HSL_LUM[] = { 150, 255 };
-constexpr double IMG_CONT_MIN_AREA = 30;
-constexpr double IMG_CONT_MIN_PERIM = 20;
-constexpr double IMG_CONT_MIN_WIDTH = 5.0;
+constexpr double IMG_HSL_LUM[] = { 50, 255 };
+constexpr double IMG_CONT_MIN_AREA = 10;
+constexpr double IMG_CONT_MIN_PERIM = 10;
+constexpr double IMG_CONT_MIN_WIDTH = 10;
 constexpr double IMG_CONT_MAX_WIDTH = 1000;
-constexpr double IMG_CONT_MIN_HEIGHT = 20.0;
+constexpr double IMG_CONT_MIN_HEIGHT = 5;
 constexpr double IMG_CONT_MAX_HEIGHT = 100;
-constexpr double IMG_CONT_SOLID[] = { 70, 100.0 };
+constexpr double IMG_CONT_SOLID[] = { 50, 100.0 };
 constexpr double IMG_CONT_MAX_VERTEX = 1000000;
 constexpr double IMG_CONT_MIN_VERTEX = 0.0;
 constexpr double IMG_CONT_MIN_RATIO = 0;
@@ -137,8 +138,7 @@ constexpr double ALIGN_DIST_D = 0.0;
 
 //--------------------------------------------------------
 // Lights
-constexpr int LIGHT_PEG_PORT = 4;
-constexpr int LIGHT_BOILER_PORT = 2;
+constexpr int LIGHT_PEG_PORT = 6;
 constexpr int LIGHT_RED_PORT = 3;
 constexpr int LIGHT_GREEN_PORT = 5;
 constexpr int LIGHT_BLUE_PORT = 6;
@@ -163,4 +163,4 @@ constexpr int TIMEOUT_LOOPS = 10;
 
 // Profiles in Profiles.h
 
-#endif  // ROBOT_MAP_H
+#endif // ROBOT_MAP_H

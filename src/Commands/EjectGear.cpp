@@ -7,5 +7,5 @@ EjectGear::EjectGear()
 
 void EjectGear::Initialize()
 {
-	CommandBase::gearCollector.get()->Eject(CommandBase::gearCollector.get()->IsEjected());
+	CommandBase::gearCollector.get()->Eject(!CommandBase::gearCollector.get()->IsEjected());
 }

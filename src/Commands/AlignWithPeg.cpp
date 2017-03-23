@@ -32,8 +32,8 @@ AlignWithPeg::~AlignWithPeg()
 
 void AlignWithPeg::Initialize()
 {
-	m_pid->SetTolerance(ALIGN_PEG_TOLERANCE);
-	drive.get()->SetTalonMode(CANSpeedController::kPosition);
+	//m_pid->SetTolerance(ALIGN_PEG_TOLERANCE);
+	drive.get()->SetTalonMode(CANSpeedController::kPercentVbus);
 }
 
 void AlignWithPeg::Execute()
@@ -43,7 +43,7 @@ void AlignWithPeg::Execute()
 
 bool AlignWithPeg::IsFinished()
 {
-	return m_pid->OnTarget() && frc::SmartDashboard::GetNumber("Distance", -2) || (m_abortBtn != nullptr) ? m_abortBtn->Get() : false;
+	return m_pid->OnTarget() || (m_abortBtn != nullptr) ? m_abortBtn->Get() : false;
 }
 
 void AlignWithPeg::End()
