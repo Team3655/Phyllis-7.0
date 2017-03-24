@@ -51,14 +51,15 @@ Point MotionControl::invert_point(Point& point)
 
 void MotionControl::fill()
 {
-	while (m_currentPr != m_sequence.end())
+	std::list<Profile*>::iterator pr = m_sequence.begin();
+	while (pr != m_sequence.end())
 	{
 		bool finished = false;
 		int idx = 0;
 		CANTalon::MotionProfileStatus left, right;
 		Point pt;
 
-		Profile* profile = *m_currentPr;
+		Profile* profile = *pr;
 
 		while (!finished)
 		{
@@ -94,7 +95,7 @@ void MotionControl::fill()
 			if (idx >= profile->size)
 				finished = true;
 		}
-		m_currentPr++;
+		pr++;
 	}
 }
 
@@ -143,8 +144,8 @@ void MotionControl::Update()
 			--m_loopTimeout;
 	}
 
-	if (m_driveLeft->GetControlMode() != CANSpeedController::kMotionProfile ||
-		m_driveRight->GetControlMode() != CANSpeedController::kMotionProfile)
+	if (m_driveLeft->GetControlMode() != frc::CANSpeedController::kMotionProfile ||
+		m_driveRight->GetControlMode() != frc::CANSpeedController::kMotionProfile)
 	{
 		return;
 	}
@@ -154,8 +155,8 @@ void MotionControl::Update()
 		m_isFinished = true;
 		break;
 	case 0:
-		//m_leftSetValue = CANTalon::SetValueMotionProfileDisable;
-		//m_rightSetValue = CANTalon::SetValueMotionProfileDisable;
+		m_leftSetValue = CANTalon::SetValueMotionProfileDisable;
+		m_rightSetValue = CANTalon::SetValueMotionProfileDisable;
 		// attempt to fix
 
 		m_driveLeft->SetEncPosition(0);
@@ -165,9 +166,9 @@ void MotionControl::Update()
 
 		m_state = 1;
 		m_loopTimeout = TIMEOUT_LOOPS;
+
 		break;
 	case 1:
-
 		if (m_leftStatus.btmBufferCnt > MIN_POINTS && m_rightStatus.btmBufferCnt > MIN_POINTS)
 		{
 			m_state = 2;
@@ -178,10 +179,13 @@ void MotionControl::Update()
 		break;
 	case 2:
 		if (!m_leftStatus.isUnderrun || !m_rightStatus.isUnderrun)
+		{
 			m_loopTimeout = TIMEOUT_LOOPS;
+			//std::cout << "N00B";
+		}
 
-		if (m_leftStatus.activePointValid && m_leftStatus.activePoint.isLastPoint &&
-			m_rightStatus.activePointValid && m_rightStatus.activePoint.isLastPoint)
+		if ((m_leftStatus.activePointValid && m_leftStatus.activePoint.isLastPoint) &&
+			(m_rightStatus.activePointValid && m_rightStatus.activePoint.isLastPoint))
 		{
 			m_state = 0;
 			m_loopTimeout = -1;
@@ -189,6 +193,7 @@ void MotionControl::Update()
 			m_leftSetValue = CANTalon::SetValueMotionProfileHold;
 			m_rightSetValue = CANTalon::SetValueMotionProfileHold;
 
+			m_currentPr++;
 			if (m_currentPr == m_sequence.end())
 				m_state = -1;
 		}
@@ -203,5 +208,5 @@ void MotionControl::Update()
 void MotionControl::Finish()
 {
 	m_drive->Enable();
-	m_drive->SetTalonMode(CANSpeedController::kPercentVbus);
+	m_drive->SetTalonMode(frc::CANSpeedController::kPercentVbus);
 }

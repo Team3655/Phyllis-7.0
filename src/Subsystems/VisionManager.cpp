@@ -46,14 +46,16 @@ void VisionManager::DashboardOutput(bool verbose)
 void VisionManager::vision_thread()
 {
 	// Get the USB camera from CameraServer
-	cs::UsbCamera camera = CameraServer::GetInstance()->StartAutomaticCapture("cam0", 0);
+	cs::UsbCamera camera = frc::CameraServer::GetInstance()->StartAutomaticCapture("cam0", 0);
+	camera.SetFPS(10);
 	camera.SetResolution(640, 480);
-	cs::CvSink cvSink = CameraServer::GetInstance()->GetVideo("cam0");
-	cs::CvSource outputStream = CameraServer::GetInstance()->PutVideo("Proc", 640, 480);
+	cs::CvSink cvSink = frc::CameraServer::GetInstance()->GetVideo("cam0");
+	cs::CvSource outputStream = frc::CameraServer::GetInstance()->PutVideo("Proc", 640, 480);
 
 	cv::Mat mat;
 
-	while (true) {
+	while (true)
+	{
 		if (cvSink.GrabFrame(mat) == 0)
 		{
 			outputStream.NotifyError(cvSink.GetError());

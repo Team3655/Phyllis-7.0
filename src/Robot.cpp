@@ -73,7 +73,7 @@ public:
 		rp1PreSeq.push_back(new Profile(REVERSE, Mp81p5Size, Mp81p5, false));
 		rp1PreSeq.push_back(new Profile(RIGHT, Mp45TurnSize, Mp45Turn, false));
 		//rp1PreSeq.push_back(new Profile(REVERSE, Mp28p5Size, Mp28p5, false));
-		rp1PostSeq.push_back(new Profile(NOT_REVERSE, Mp28p5Size, Mp28p5, false));
+		rp1PostSeq.push_back(new Profile(NOT_REVERSE, Mp35p125Size, Mp35p125, false));
 		rp1PostSeq.push_back(new Profile(LEFT, Mp45TurnSize, Mp45Turn, false));
 		rp1PostSeq.push_back(new Profile(LEFT, Mp180TurnSize, Mp180Turn, false));
 		rp1PostSeq.push_back(new Profile(NOT_REVERSE, MpPeg85Size, MpPeg85, false));
@@ -94,11 +94,12 @@ public:
 		autoModes.AddObject("Blue Peg Pos 3", new AutoPegGear(0, &rp3PreSeq, new std::list<Profile*>{ new Profile(REVERSE, Mp35p125Size, Mp35p125, false) }, nullptr));
 
 		// Peg 1 to 1
-		bp1PreSeq.push_back(new Profile(REVERSE, MpPeg85Size, MpPeg85, false));
+		bp1PreSeq.push_back(new Profile(REVERSE, Mp87Size, Mp87, false));
 		bp1PreSeq.push_back(new Profile(RIGHT, Mp45TurnSize, Mp45Turn, false));
 		//bp1PreSeq.push_back(new Profile(REVERSE, Mp28p5Size, Mp28p5, false));
 		bp1PostSeq.push_back(new Profile(NOT_REVERSE, Mp35p125Size, Mp35p125, false));
 		bp1PostSeq.push_back(new Profile(LEFT, Mp45TurnSize, Mp45Turn, false));
+
 		bp1PostSeq.push_back(new Profile(LEFT, Mp180TurnSize, Mp180Turn, false));
 		bp1PostSeq.push_back(new Profile(NOT_REVERSE, MpPeg92Size, MpPeg92, false));
 		autoModes.AddObject("Red Peg Pos 1", new AutoPegGear(0, &bp1PreSeq, new std::list<Profile*>{ new Profile(REVERSE, Mp28p5Size, Mp28p5, false) }, nullptr));

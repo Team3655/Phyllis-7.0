@@ -29,18 +29,16 @@ void GripPipeline::Process(cv::Mat& source)
 	cv::resize(source, resizeImageOutput, cv::Size(IMG_RESIZE_W, IMG_RESIZE_H));
 
 	cv::Mat hslMat = resizeImageOutput;
-	cv::cvtColor(hslMat, hslMat, cv::COLOR_BGR2HSV);
+	cv::cvtColor(hslMat, hslMat, cv::COLOR_BGR2GRAY);
 
-	cv::Mat hsl, hslThresholdLO, hslThresholdHI;
+	cv::Mat hsl = hslMat;
 	//if (hslMat.empty()) return;
 	//cv::cvtColor(hslMat, hslThreshold, cv::COLOR_BGR2GRAY);
-	if (hslMat.empty()) return;
-	cv::inRange(hslMat,
+	//if (hslMat.empty()) return;
+	/*cv::inRange(hslMat,
 			cv::Scalar(IMG_HSV_HI_HUE[0], IMG_HSL_LUM[0], IMG_HSL_SAT[0]),
 			cv::Scalar(IMG_HSV_HI_HUE[1], IMG_HSL_LUM[1], IMG_HSL_SAT[1]),
-			hslThresholdLO);
-
-	hsl = hslThresholdLO;
+			hslThresholdLO);*/
 
 	// Contours
 	findContours(hsl, false, findContoursOutput);
@@ -120,17 +118,22 @@ void GripPipeline::filterContours(
 {
 	std::vector<cv::Point> hull;
 	output.clear();
-	for (std::vector<cv::Point> contour : inputContours) {
+	for (std::vector<cv::Point> contour : inputContours)
+	{
 		cv::Rect bb = cv::boundingRect(contour);
 		if (bb.width < minWidth || bb.width > maxWidth) continue;
 		if (bb.height < minHeight || bb.height > maxHeight) continue;
+
 		double area = cv::contourArea(contour);
 		if (area < minArea) continue;
+
 		if (arcLength(contour, true) < minPerimeter) continue;
 		cv::convexHull(cv::Mat(contour, true), hull);
 		double solid = 100 * area / cv::contourArea(hull);
 		if (solid < solidity[0] || solid > solidity[1]) continue;
+
 		if (contour.size() < minVertexCount || contour.size() > maxVertexCount)	continue;
+
 		double ratio = bb.width / bb.height;
 		if (ratio < minRatio || ratio > maxRatio) continue;
 		output.push_back(contour);
@@ -182,4 +185,4 @@ void GripPipeline::setStuff(grip::CameraStuff cs)
 	stuff = cs;
 }
 
-} // end grip namespace
+}
