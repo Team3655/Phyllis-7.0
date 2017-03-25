@@ -60,7 +60,7 @@ void DriveTrain::Initialize(frc::Preferences* prefs)
 	m_lb->SetInverted(true);
 
 	m_rb->SetSensorDirection(false);
-	m_lb->SetSensorDirection(false);
+	m_lb->SetSensorDirection(true); // For encoder inversion
 
 	m_shiftState = m_shifter->Get();
 }

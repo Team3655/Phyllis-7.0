@@ -26,7 +26,7 @@ constexpr int DRIVE_SHIFT_LOW_PORT = 1;
 constexpr double DRIVE_LEFT_POS_P = 1.0;
 constexpr double DRIVE_LEFT_POS_I = 0.0;
 constexpr double DRIVE_LEFT_POS_D = 0.0;
-constexpr double DRIVE_LEFT_POS_F = 3.41;
+constexpr double DRIVE_LEFT_POS_F = 1.36;
 constexpr double DRIVE_LEFT_SPD_P = 1;
 constexpr double DRIVE_LEFT_SPD_I = 0;
 constexpr double DRIVE_LEFT_SPD_D = 0;
@@ -34,7 +34,7 @@ constexpr double DRIVE_LEFT_SPD_D = 0;
 constexpr double DRIVE_RIGHT_POS_P = 1.0;
 constexpr double DRIVE_RIGHT_POS_I = 0.0;
 constexpr double DRIVE_RIGHT_POS_D = 0.0;
-constexpr double DRIVE_RIGHT_POS_F = 3.41;
+constexpr double DRIVE_RIGHT_POS_F = 1.36;
 constexpr double DRIVE_RIGHT_SPD_P = 1;
 constexpr double DRIVE_RIGHT_SPD_I = 0;
 constexpr double DRIVE_RIGHT_SPD_D = 0;
@@ -43,7 +43,7 @@ constexpr double DRIVE_ALLOWED_ERROR = 10;
 
 constexpr double DRIVE_DEFAULT_SCALE = 1.0;
 
-constexpr int DRIVE_ENC_CPR = 866; // about
+constexpr int DRIVE_ENC_CPR = 0; // about
 
 //---------------------------------------------------------
 // Shooter

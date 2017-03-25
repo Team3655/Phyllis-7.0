@@ -75,9 +75,9 @@ public:
 		//rp1PreSeq.push_back(new Profile(REVERSE, Mp28p5Size, Mp28p5, false));
 		rp1PostSeq.push_back(new Profile(NOT_REVERSE, Mp35p125Size, Mp35p125, false));
 		rp1PostSeq.push_back(new Profile(LEFT, Mp45TurnSize, Mp45Turn, false));
-		rp1PostSeq.push_back(new Profile(LEFT, Mp180TurnSize, Mp180Turn, false));
+		//rp1PostSeq.push_back(new Profile(LEFT, Mp180TurnSize, Mp180Turn, false));
 		rp1PostSeq.push_back(new Profile(NOT_REVERSE, MpPeg85Size, MpPeg85, false));
-		autoModes.AddObject("Blue Peg Pos 1", new AutoPegGear(0, &rp1PreSeq, new std::list<Profile*>{ new Profile(REVERSE, Mp28p5Size, Mp28p5, false) }, nullptr));
+		autoModes.AddObject("Blue Peg Pos 1", new AutoPegGear(0, &rp1PreSeq, new std::list<Profile*>{ new Profile(REVERSE, Mp35p125Size, Mp35p125, false) }, nullptr));
 
 		// Peg 2 to 2
 		rp2PreSeq.push_back(new Profile(REVERSE, Mp81p5Size, Mp81p5, false));
@@ -89,7 +89,7 @@ public:
 		//rp3PreSeq.push_back(new Profile(REVERSE, Mp35p125Size, Mp35p125, false));
 		rp3PostSeq.push_back(new Profile(NOT_REVERSE, Mp35p125Size, Mp35p125, false));
 		rp3PostSeq.push_back(new Profile(RIGHT, Mp45TurnSize, Mp45Turn, false));
-		rp3PostSeq.push_back(new Profile(RIGHT, Mp180TurnSize, Mp180Turn, false));
+		//rp3PostSeq.push_back(new Profile(RIGHT, Mp180TurnSize, Mp180Turn, false));
 		rp3PostSeq.push_back(new Profile(NOT_REVERSE, MpPeg92Size, MpPeg92, false));
 		autoModes.AddObject("Blue Peg Pos 3", new AutoPegGear(0, &rp3PreSeq, new std::list<Profile*>{ new Profile(REVERSE, Mp35p125Size, Mp35p125, false) }, nullptr));
 
@@ -99,8 +99,7 @@ public:
 		//bp1PreSeq.push_back(new Profile(REVERSE, Mp28p5Size, Mp28p5, false));
 		bp1PostSeq.push_back(new Profile(NOT_REVERSE, Mp35p125Size, Mp35p125, false));
 		bp1PostSeq.push_back(new Profile(LEFT, Mp45TurnSize, Mp45Turn, false));
-
-		bp1PostSeq.push_back(new Profile(LEFT, Mp180TurnSize, Mp180Turn, false));
+		//bp1PostSeq.push_back(new Profile(LEFT, Mp180TurnSize, Mp180Turn, false));
 		bp1PostSeq.push_back(new Profile(NOT_REVERSE, MpPeg92Size, MpPeg92, false));
 		autoModes.AddObject("Red Peg Pos 1", new AutoPegGear(0, &bp1PreSeq, new std::list<Profile*>{ new Profile(REVERSE, Mp28p5Size, Mp28p5, false) }, nullptr));
 
@@ -114,7 +113,7 @@ public:
 		//bp3PreSeq.push_back(new Profile(REVERSE, Mp35p125Size, Mp35p125, false));
 		bp3PostSeq.push_back(new Profile(NOT_REVERSE, Mp35p125Size, Mp35p125, false));
 		bp3PostSeq.push_back(new Profile(RIGHT, Mp45TurnSize, Mp45Turn, false));
-		bp3PostSeq.push_back(new Profile(RIGHT, Mp180TurnSize, Mp180Turn, false));
+		//bp3PostSeq.push_back(new Profile(RIGHT, Mp180TurnSize, Mp180Turn, false));
 		bp3PostSeq.push_back(new Profile(NOT_REVERSE, MpPeg85Size, MpPeg85, false));
 		autoModes.AddObject("Red Peg Pos 3", new AutoPegGear(0, &bp3PreSeq, new std::list<Profile*>{ new Profile(REVERSE, Mp35p125Size, Mp35p125, false) }, nullptr));
 
@@ -126,7 +125,7 @@ public:
 		frc::SmartDashboard::Delete("Auto Modes"); // Attempt to fix no show chooser
 		frc::SmartDashboard::PutData("Auto Modes", &autoModes);
 
-		CommandBase::visionManager.get()->StartProc();
+		//CommandBase::visionManager.get()->StartProc();
 		CommandBase::lights.get()->SetPegCamLight(true);
 	}
 
