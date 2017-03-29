@@ -23,7 +23,7 @@ constexpr int DRIVE_SHIFT_HIGH_PORT = 0;
 constexpr int DRIVE_SHIFT_LOW_PORT = 1;
 
 // Left
-constexpr double DRIVE_LEFT_POS_P = 1.0;
+constexpr double DRIVE_LEFT_POS_P = 0.9;
 constexpr double DRIVE_LEFT_POS_I = 0.0;
 constexpr double DRIVE_LEFT_POS_D = 0.0;
 constexpr double DRIVE_LEFT_POS_F = 0.1186488;
@@ -31,7 +31,7 @@ constexpr double DRIVE_LEFT_SPD_P = 1;
 constexpr double DRIVE_LEFT_SPD_I = 0;
 constexpr double DRIVE_LEFT_SPD_D = 0;
 // Right
-constexpr double DRIVE_RIGHT_POS_P = 1.0;
+constexpr double DRIVE_RIGHT_POS_P = 0.9;
 constexpr double DRIVE_RIGHT_POS_I = 0.0;
 constexpr double DRIVE_RIGHT_POS_D = 0.0;
 constexpr double DRIVE_RIGHT_POS_F = 0.1186488;
