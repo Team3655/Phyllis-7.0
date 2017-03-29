@@ -60,7 +60,7 @@ void DriveTrain::Initialize(frc::Preferences* prefs)
 	m_lb->SetInverted(true);
 
 	m_rb->SetSensorDirection(false);
-	m_lb->SetSensorDirection(true); // For encoder inversion
+	m_lb->SetSensorDirection(false); // For encoder inversion
 
 	m_shiftState = m_shifter->Get();
 }
@@ -91,12 +91,12 @@ void DriveTrain::set_pid_values()
 		m_lb->SelectProfileSlot(i);
 		m_rb->SelectProfileSlot(i);
 		m_lb->SetPID(
-				DRIVE_LEFT_POS_P,
+				.9,
 				DRIVE_LEFT_POS_I,
 				DRIVE_LEFT_POS_D);
 		m_lb->SetF(DRIVE_LEFT_POS_F);
 		m_rb->SetPID(
-				DRIVE_RIGHT_POS_P,
+				.9,
 				DRIVE_RIGHT_POS_I,
 				DRIVE_RIGHT_POS_D);
 		m_rb->SetF(DRIVE_LEFT_POS_F);

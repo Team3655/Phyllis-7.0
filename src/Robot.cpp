@@ -23,6 +23,7 @@
 #include "Commands/Autonomous/AutoPegGear.h"
 #include "Commands/Autonomous/AutoPickupAndPeg.h"
 #include "Commands/Autonomous/AutoPickupGear.h"
+#include "Commands/DriveProfile.h"
 #include "MotionControl.h"
 
 class Robot: public frc::IterativeRobot
@@ -108,7 +109,7 @@ public:
 		autoModes.AddObject("Red Peg Pos 2", new AutoPegGear(0, &bp2PreSeq, nullptr, nullptr));
 
 		// Peg 3 to 3
-		bp3PreSeq.push_back(new Profile(REVERSE, Mp88Size, Mp88, false));
+		bp3PreSeq.push_back(new Profile(REVERSE, Mp90Size, Mp90, false));
 		bp3PreSeq.push_back(new Profile(LEFT, Mp45TurnSize, Mp45Turn, false));
 		//bp3PreSeq.push_back(new Profile(REVERSE, Mp35p125Size, Mp35p125, false));
 		bp3PostSeq.push_back(new Profile(NOT_REVERSE, Mp35p125Size, Mp35p125, false));
@@ -116,6 +117,10 @@ public:
 		//bp3PostSeq.push_back(new Profile(RIGHT, Mp180TurnSize, Mp180Turn, false));
 		bp3PostSeq.push_back(new Profile(NOT_REVERSE, MpPeg85Size, MpPeg85, false));
 		autoModes.AddObject("Red Peg Pos 3", new AutoPegGear(0, &bp3PreSeq, new std::list<Profile*>{ new Profile(REVERSE, Mp35p125Size, Mp35p125, false) }, nullptr));
+
+//		std::list<Profile*> temp;
+//		temp.push_back(new Profile(NOT_REVERSE, kMotionProfileSz, kMotionProfile, false));
+//		autoModes.AddObject("1 Rot", new DriveProfile(temp));
 
 		// Maybe add non post autos
 
@@ -125,7 +130,7 @@ public:
 		frc::SmartDashboard::Delete("Auto Modes"); // Attempt to fix no show chooser
 		frc::SmartDashboard::PutData("Auto Modes", &autoModes);
 
-		//CommandBase::visionManager.get()->StartProc();
+		CommandBase::visionManager.get()->StartProc();
 		CommandBase::lights.get()->SetPegCamLight(true);
 	}
 
