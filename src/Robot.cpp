@@ -25,6 +25,7 @@
 #include "Commands/Autonomous/AutoPickupGear.h"
 #include "Commands/DriveProfile.h"
 #include "MotionControl.h"
+#include "Logger.h"
 
 class Robot: public frc::IterativeRobot
 {
@@ -42,6 +43,8 @@ private:
 public:
 	void InitializeSubsystems(frc::Preferences* prefs)
 	{
+		// Logger
+		Logger::Initialize("/Logs/");
 		CommandBase::drive.get()->Initialize(prefs);
 		CommandBase::shooter.get()->Initialize(prefs);
 		CommandBase::gearCollector.get()->Initialize(prefs);
@@ -117,12 +120,6 @@ public:
 		//bp3PostSeq.push_back(new Profile(RIGHT, Mp180TurnSize, Mp180Turn, false));
 		bp3PostSeq.push_back(new Profile(NOT_REVERSE, MpPeg85Size, MpPeg85, false));
 		autoModes.AddObject("Red Peg Pos 3", new AutoPegGear(0, &bp3PreSeq, new std::list<Profile*>{ new Profile(REVERSE, Mp35p125Size, Mp35p125, false) }, nullptr));
-
-//		std::list<Profile*> temp;
-//		temp.push_back(new Profile(NOT_REVERSE, kMotionProfileSz, kMotionProfile, false));
-//		autoModes.AddObject("1 Rot", new DriveProfile(temp));
-
-		// Maybe add non post autos
 
 		// Nothing
 		autoModes.AddDefault("Nothing", nullptr);

@@ -9,14 +9,11 @@
 
 #include <Logger.h>
 
+std::shared_ptr<Logger> Logger::m_logger;
+
 Logger::Logger(const char* path)
 {
 	m_logPath = path;
-}
-
-Logger::~Logger()
-{
-
 }
 
 bool Logger::log_exists(const std::string& id)
@@ -59,10 +56,14 @@ std::string Logger::level_to_string(LogLevel logLevel)
 	}
 }
 
-Logger* Logger::GetInstance(const char* path)
+void Logger::Initialize(const char* path)
 {
-	static Logger logger{ path };
-	return &logger;
+	m_logger = std::make_shared<Logger>(path);
+}
+
+Logger* Logger::GetInstance()
+{
+	return m_logger.get();
 }
 
 bool Logger::AddLog(const std::string& id)

@@ -36,6 +36,8 @@ public:
 	};
 
 private:
+	static std::shared_ptr<Logger> m_logger;
+
 	std::map<std::string, std::shared_ptr<std::ofstream>> m_logs;
 	typedef std::map<std::string, std::shared_ptr<std::ofstream>>::iterator LogItr;
 
@@ -58,11 +60,12 @@ private:
 
 public:
 	Logger(const char* path);
-	~Logger();
+
+	static void Initialize(const char* path);
 
 	// Gets instance of the logger
-	// This will throw exception if not initialized with log path
-	Logger* GetInstance(const char* path = nullptr);
+	// This will return nullptr if not initialized
+	static Logger* GetInstance();
 
 	// Creates/Appends a log file
 	bool AddLog(const std::string& id);
