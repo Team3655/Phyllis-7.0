@@ -19,10 +19,9 @@
 #include <ctime>
 #include <Commands/Subsystem.h>
 
-// Sumary:
-//	-Log to files
-// 	-View live file feed
-//	-Accept Subsystems
+// Summary:
+// A thread safe class to manage multiple logs at once and
+// to record important info and events
 class Logger
 {
 public:

@@ -11,7 +11,7 @@
 #include "RobotMap.h"
 
 #include "Commands/Shoot.h"
-#include "Commands/Shift.h"
+#include "Commands/ShiftDrive.h"
 #include "Commands/CollectGear.h"
 #include "Commands/CollectFuel.h"
 #include "Commands/Climb.h"
@@ -64,7 +64,7 @@ void OI::Initialize()
 
 	code = m_prefs->GetString("joy_btn_drive_shift");
 	m_shift = new JoystickButton(GetStick(1), 2);
-	m_shift->WhenPressed(new Shift());
+	m_shift->WhenPressed(new ShiftDrive());
 
 	code = m_prefs->GetString("joy_btn_climb");
 	m_climb = new frc::JoystickButton(GetStick(2), 8);

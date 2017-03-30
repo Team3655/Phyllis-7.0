@@ -4,7 +4,7 @@
 #include "../CommandBase.h"
 
 // Summary:
-// Disables the Robot for a period of time
+// Disables the Robot for a period of time (seconds)
 class Delay : public CommandBase
 {
 private:

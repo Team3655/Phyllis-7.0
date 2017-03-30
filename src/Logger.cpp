@@ -167,7 +167,7 @@ bool Logger::Log(const std::string& id, LogLevel logLevel, const std::string& me
 
 	if (logLevel == kEnter || logLevel == kExit)
 	{
-		msg += "=====" + level_to_string(logLevel) + "ing " + "[" + id + "]: " + message + "====================";
+		msg += "=====" + level_to_string(logLevel) + "ing " + "[" + id + "] " + message + "====================";
 	}
 	else
 	{
