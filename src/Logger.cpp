@@ -133,6 +133,9 @@ bool Logger::StreamLog(const std::string& id)
 	m_streamLog = true;
 	m_streamId = id;
 	unlock();
+
+	Log(id, kInfo, "Log stream started in " + id);
+
 	return true;
 }
 
@@ -145,6 +148,7 @@ bool Logger::StreamLog(frc::Subsystem* subsystem)
 
 void Logger::StopStreamLog()
 {
+	Log(m_streamId, kInfo, "Log stream ended in " + m_streamId);
 	lock();
 	m_streamLog = false;
 	m_streamId.clear();
