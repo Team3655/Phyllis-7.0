@@ -12,6 +12,7 @@
 #include "../GripPipeline.h"
 #include "../ExtSubsystem.h"
 #include "../RobotMap.h"
+#include "Logger.h"
 
 // Summary:
 // 	Class for managing cameras and vision processing
@@ -31,6 +32,8 @@ private:
 
 	// Processing
 	frc::VisionRunner<grip::GripPipeline>* m_vision;
+
+	static Logger* m_log;
 
 	static void vision_thread();
 

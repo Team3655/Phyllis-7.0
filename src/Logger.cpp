@@ -16,6 +16,14 @@ Logger::Logger(const char* path)
 	m_logPath = path;
 }
 
+Logger::~Logger()
+{
+	for (LogItr it = m_logs.begin(); it != m_logs.end(); it++)
+	{
+		it->second.get()->close();
+	}
+}
+
 bool Logger::log_exists(const std::string& id)
 {
 	return m_logs.find(id) != m_logs.end();
@@ -75,7 +83,7 @@ bool Logger::AddLog(const std::string& id)
 		return true;
 	}
 
-	m_logs[id] = std::make_shared<std::ofstream>(m_logPath + id + ".txt");
+	m_logs[id] = std::make_shared<std::ofstream>(m_logPath + id + ".txt"); // TODO: Add timestamp to filename
 	if (!m_logs[id]->is_open())
 	{
 		unlock();
@@ -155,7 +163,7 @@ bool Logger::Log(const std::string& id, LogLevel logLevel, const std::string& me
 
 	if (logLevel == kEnter || logLevel == kExit)
 	{
-		msg += "=====" + level_to_string(logLevel) + "ing " + id + "====================";
+		msg += "=====" + level_to_string(logLevel) + "ing " + "[" + id + "]: " + message + "====================";
 	}
 	else
 	{

@@ -60,6 +60,7 @@ private:
 
 public:
 	Logger(const char* path);
+	~Logger();
 
 	static void Initialize(const char* path);
 

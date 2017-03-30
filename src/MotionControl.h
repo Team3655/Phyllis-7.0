@@ -13,6 +13,7 @@
 #include "Subsystems/DriveTrain.h"
 #include "RobotMap.h"
 #include "Profiles.h"
+#include "Logger.h"
 
 #include <Notifier.h>
 #include <CANTalon.h>
@@ -54,6 +55,8 @@ private:
 	// Fill Threading
 	std::thread* m_fillerThread;
 	bool m_beenFilled = false;
+
+	Logger* m_log;
 
 	void fill();
 

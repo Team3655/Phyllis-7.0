@@ -8,6 +8,7 @@
 #include <DigitalInput.h>
 
 #include "../ExtSubsystem.h"
+#include "Logger.h"
 
 #define FORWARD 1
 #define BACKWARD -1
@@ -34,6 +35,8 @@ private:
 
 	double m_intakeSpeed;
 	double m_transSpeed;
+
+	Logger* m_log;
 
 	std::string state_to_string(uint32_t state);
 

@@ -20,8 +20,10 @@ void MotionControl::periodic_tasks()
 MotionControl::MotionControl(std::shared_ptr<DriveTrain> drive, std::list<Profile*>& sequence) :
 	m_notifier(new frc::Notifier(&MotionControl::periodic_tasks, this)),
 	m_driveLeft(drive->m_lb), m_driveRight(drive->m_rb), m_drive(drive),
-	m_sequence(sequence)
+	m_sequence(sequence), m_log(Logger::GetInstance())
 {
+	m_log->AddLog("mp");
+	m_log->Log("mp", Logger::kEnter);
 }
 
 MotionControl::~MotionControl()
@@ -51,7 +53,9 @@ Point MotionControl::invert_point(Point& point)
 
 void MotionControl::fill()
 {
+	m_log->Log("mp", Logger::kInfo, "Filling started");
 	std::list<Profile*>::iterator pr = m_sequence.begin();
+	int count = 0;
 	while (pr != m_sequence.end())
 	{
 		bool finished = false;
@@ -60,6 +64,7 @@ void MotionControl::fill()
 		Point pt;
 
 		Profile* profile = *pr;
+		m_log->Log("mp", Logger::kInfo, "Filling profile " + std::to_string(count + 1));
 
 		while (!finished)
 		{
@@ -67,7 +72,8 @@ void MotionControl::fill()
 			m_driveRight->GetMotionProfileStatus(right);
 			if (left.topBufferCnt >= 127 || right.topBufferCnt >= 127)
 			{
-				std::this_thread::sleep_for(std::chrono::milliseconds(100));
+				m_log->Log("mp", Logger::kWarning, "Top buffer full on count " + std::to_string(idx));
+				sleep(50);
 				continue;
 			}
 			pt = create_point(profile->profile[idx][0], profile->profile[idx][1], profile->profile[idx][2], 1, idx == 0, idx == profile->size - 1);
@@ -94,6 +100,7 @@ void MotionControl::fill()
 			idx++;
 			if (idx >= profile->size)
 				finished = true;
+			m_log->Log("mp", Logger::kInfo, "Profile Count: " + idx);
 		}
 		pr++;
 	}
@@ -139,7 +146,7 @@ void MotionControl::Update()
 	else
 	{
 		if (m_loopTimeout == 0)
-			std::cout << "HILFE!!" << std::endl;// error
+			m_log->Log("mp", Logger::kWarning, "Profiles in timeout");
 		else
 			--m_loopTimeout;
 	}
@@ -153,11 +160,13 @@ void MotionControl::Update()
 	{
 	case -1:
 		m_isFinished = true;
+		m_log->Log("mp", Logger::kInfo, "Motion Profiles finished");
 		break;
 	case 0:
 		m_leftSetValue = CANTalon::SetValueMotionProfileDisable;
 		m_rightSetValue = CANTalon::SetValueMotionProfileDisable;
-		// attempt to fix
+
+		m_log->Log("mp", Logger::kInfo, "Starting new profile");
 
 		m_driveLeft->SetEncPosition(0);
 		m_driveRight->SetEncPosition(0);
@@ -181,7 +190,7 @@ void MotionControl::Update()
 		if (!m_leftStatus.isUnderrun || !m_rightStatus.isUnderrun)
 		{
 			m_loopTimeout = TIMEOUT_LOOPS;
-			//std::cout << "N00B";
+			m_log->Log("mp", Logger::kWarning, "Motion Profiles Underrun");
 		}
 
 		if ((m_leftStatus.activePointValid && m_leftStatus.activePoint.isLastPoint) &&
@@ -202,11 +211,12 @@ void MotionControl::Update()
 	m_driveLeft->Set(m_leftSetValue);
 	m_driveRight->Set(m_rightSetValue);
 
-	std::cout << m_state << std::endl;
+	m_log->Log("mp", Logger::kInfo, "Mp State: " + std::to_string(m_state));
 }
 
 void MotionControl::Finish()
 {
 	m_drive->Enable();
 	m_drive->SetTalonMode(frc::CANSpeedController::kPercentVbus);
+	m_log->Log("mp", Logger::kExit);
 }

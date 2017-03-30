@@ -45,6 +45,8 @@ public:
 	{
 		// Logger
 		Logger::Initialize("/Logs/");
+		Logger::GetInstance()->AddLog("cmds");
+
 		CommandBase::drive.get()->Initialize(prefs);
 		CommandBase::shooter.get()->Initialize(prefs);
 		CommandBase::gearCollector.get()->Initialize(prefs);

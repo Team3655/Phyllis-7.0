@@ -6,6 +6,7 @@
 #include <Preferences.h>
 
 #include "../ExtSubsystem.h"
+#include "Logger.h"
 
 // Summary:
 //
@@ -21,6 +22,8 @@ private:
 
 	CANTalon* m_climbLeft;
 	CANTalon* m_climbRight;
+
+	Logger* m_log;
 
 	std::string state_to_string(uint32_t state);
 

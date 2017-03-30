@@ -10,6 +10,7 @@
 #include <Timer.h>
 
 #include "../ExtSubsystem.h"
+#include "Logger.h"
 
 // Summary:
 // 	Fuel collector and container (magazine for shooter)
@@ -26,6 +27,8 @@ private:
 	CANTalon* m_intake;
 
 	frc::DoubleSolenoid* m_meter;
+
+	Logger* m_log;
 
 	std::string state_to_string(uint32_t state);
 

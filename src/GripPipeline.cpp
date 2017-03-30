@@ -6,15 +6,11 @@ namespace grip {
 
 GripPipeline::GripPipeline()
 {
+	m_log = Logger::GetInstance();
 	timer = new frc::Timer();
+	m_log->Log("vision", Logger::kInfo, "Pipeline running");
 }
 
-/**
-* Runs an iteration of the Pipeline and updates outputs.
-*
-* Sources need to be set before calling this method. 
-*
-*/
 void GripPipeline::Process(cv::Mat& source)
 {
 	timer->Reset();
@@ -23,7 +19,7 @@ void GripPipeline::Process(cv::Mat& source)
 	// Resize
 	if (source.empty())
 	{
-		std::cout << "nil" << std::endl;
+		m_log->Log("vision", Logger::kError, "Source is empty!");
 		return;
 	}
 	cv::resize(source, resizeImageOutput, cv::Size(IMG_RESIZE_W, IMG_RESIZE_H));
@@ -32,8 +28,6 @@ void GripPipeline::Process(cv::Mat& source)
 	cv::cvtColor(hslMat, hslMat, cv::COLOR_BGR2GRAY);
 
 	cv::Mat hsl = hslMat;
-	//if (hslMat.empty()) return;
-	//cv::cvtColor(hslMat, hslThreshold, cv::COLOR_BGR2GRAY);
 	//if (hslMat.empty()) return;
 	/*cv::inRange(hslMat,
 			cv::Scalar(IMG_HSV_HI_HUE[0], IMG_HSL_LUM[0], IMG_HSL_SAT[0]),
@@ -44,19 +38,19 @@ void GripPipeline::Process(cv::Mat& source)
 	findContours(hsl, false, findContoursOutput);
 	// Filter Contours
 	filterContours(
-			findContoursOutput,
-			IMG_CONT_MIN_AREA,
-			IMG_CONT_MIN_PERIM,
-			IMG_CONT_MIN_WIDTH,
-			IMG_CONT_MAX_WIDTH,
-			IMG_CONT_MIN_HEIGHT,
-			IMG_CONT_MAX_HEIGHT,
-			IMG_CONT_SOLID,
-			IMG_CONT_MAX_VERTEX,
-			IMG_CONT_MIN_VERTEX,
-			IMG_CONT_MIN_RATIO,
-			IMG_CONT_MAX_RATIO,
-			this->filterContoursOutput);
+		findContoursOutput,
+		IMG_CONT_MIN_AREA,
+		IMG_CONT_MIN_PERIM,
+		IMG_CONT_MIN_WIDTH,
+		IMG_CONT_MAX_WIDTH,
+		IMG_CONT_MIN_HEIGHT,
+		IMG_CONT_MAX_HEIGHT,
+		IMG_CONT_SOLID,
+		IMG_CONT_MAX_VERTEX,
+		IMG_CONT_MIN_VERTEX,
+		IMG_CONT_MIN_RATIO,
+		IMG_CONT_MAX_RATIO,
+		this->filterContoursOutput);
 
 	targets.clear();
 	for (int i = 0; i < filterContoursOutput.size(); i++)
@@ -65,6 +59,9 @@ void GripPipeline::Process(cv::Mat& source)
 		rectangle(hsl, cv::Point(targets[i].x, targets[i].y), cv::Point(targets[i].width, targets[i].height),
 				cv::Scalar(255, 0, 0), 5);
 	}
+
+	if (targets.size() <= 0)
+		m_log->Log("vision", Logger::kWarning, "No targets found");
 
 	source = hsl;
 	timer->Stop();
@@ -185,4 +182,4 @@ void GripPipeline::setStuff(grip::CameraStuff cs)
 	stuff = cs;
 }
 
-}
+} // grip namespace

@@ -18,6 +18,7 @@
 #include <Relay.h>
 
 #include "../ExtSubsystem.h"
+#include "Logger.h"
 
 #define HIGH frc::DoubleSolenoid::Value::kForward
 #define LOW frc::DoubleSolenoid::Value::kReverse
@@ -47,6 +48,8 @@ private:
 	bool m_disabled = false;
 
 	frc::LiveWindow* m_lw;
+
+	Logger* m_log;
 
 	CANSpeedController::ControlMode get_talon_mode();
 	void set_pid_values();

@@ -20,6 +20,7 @@ DriveTrain::DriveTrain() :
 
 DriveTrain::~DriveTrain()
 {
+	m_log->Log(this, Logger::kExit);
 	delete m_shifter;
 	delete m_lf;
 	delete m_lb;
@@ -34,7 +35,13 @@ void DriveTrain::InitDefaultCommand()
 
 void DriveTrain::Initialize(frc::Preferences* prefs)
 {
+	m_log = Logger::GetInstance();
+	m_log->AddLog(this);
+	m_log->Log(this, Logger::kEnter);
+
 	m_shifter = new frc::DoubleSolenoid(DRIVE_SHIFT_HIGH_PORT, DRIVE_SHIFT_LOW_PORT);
+	m_log->Log(this, Logger::kInfo, "Shifter Solenoid F: " + std::to_string(DRIVE_SHIFT_HIGH_PORT) +
+			" B: " + std::to_string(DRIVE_SHIFT_LOW_PORT));
 
 	m_lb = new CANTalon(DRIVE_LEFT_PORT);
 	m_lb->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
@@ -52,8 +59,20 @@ void DriveTrain::Initialize(frc::Preferences* prefs)
 	m_rf->SetControlMode(CANTalon::ControlMode::kFollower);
 	m_rf->Set(m_rb->GetDeviceID());
 
+	m_log->Log(this, Logger::kInfo, "Left Master: " + std::to_string(m_lb->GetDeviceID()) +
+			" Right Master: " + std::to_string(m_rb->GetDeviceID()));
+
 	SetTalonMode(frc::CANSpeedController::kSpeed);
 	set_pid_values();
+
+	m_log->Log(this, Logger::kInfo,
+			"Left Master P: " + std::to_string(m_lb->GetP()) +
+			" I: " + std::to_string(m_lb->GetI()) +
+			" D: " + std::to_string(m_lb->GetD()));
+	m_log->Log(this, Logger::kInfo,
+			"Right Master P: " + std::to_string(m_rb->GetP()) +
+			" I: " + std::to_string(m_rb->GetI()) +
+			" D: " + std::to_string(m_rb->GetD()));
 
 	//m_rf->SetInverted(true);
 	//m_rb->SetInverted(true);
@@ -113,6 +132,7 @@ void DriveTrain::SetTalonMode(frc::CANSpeedController::ControlMode mode)
 
 void DriveTrain::ArcadeDrive(double move, double rotate)
 {
+	// Maybe log
 	if (m_disabled) return;
 	if (m_reverse)
 	{
@@ -156,6 +176,7 @@ void DriveTrain::ArcadeDrive(double move, double rotate)
 
 void DriveTrain::TankDrive(double left, double right)
 {
+	// Maybe log
 	if (m_disabled) return;
 	if (m_reverse)
 	{
@@ -177,6 +198,7 @@ void DriveTrain::Shift()
 	if (m_disabled) return;
 	m_shifter->Set(m_shifter->Get() == HIGH ? LOW : HIGH);
 	//m_scaleFactor = m_shiftState ? 0.5 : 1.0;
+	m_log->Log(this, Logger::kInfo, "Shifted to: " + (m_shifter->Get() == HIGH) ? "high" : "low");
 }
 
 void DriveTrain::SetScale(double scale)

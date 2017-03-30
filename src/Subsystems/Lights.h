@@ -7,6 +7,7 @@
 #include <Solenoid.h>
 
 #include "../ExtSubsystem.h"
+#include "Logger.h"
 
 // Summary:
 //  Structure that contains color data
@@ -58,6 +59,8 @@ private:
 	frc::Solenoid* m_blue;
 
 	Color m_color;
+
+	Logger* m_log;
 
 public:
 	Lights();

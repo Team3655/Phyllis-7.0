@@ -7,6 +7,7 @@
 #include <Preferences.h>
 
 #include "../ExtSubsystem.h"
+#include "Logger.h"
 
 // Summary:
 //	Class for managing the fuel launcher
@@ -23,6 +24,8 @@ private:
 	CANTalon* m_shooter;
 
 	double m_targetSpeed;
+
+	Logger* m_log;
 
 	std::string state_to_string(uint32_t state);
 

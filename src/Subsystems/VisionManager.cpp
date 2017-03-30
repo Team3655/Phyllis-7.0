@@ -6,15 +6,16 @@ grip::GripPipeline* VisionManager::m_pipeline;
 bool VisionManager::m_isRunning = false;
 std::thread* VisionManager::m_visionThread;
 std::mutex* VisionManager::m_lock;
-
+Logger* VisionManager::m_log;
 
 VisionManager::VisionManager() :
-	frc::Subsystem("Vision Manager")
+	frc::Subsystem("Vision")
 {
 }
 
 VisionManager::~VisionManager()
 {
+	m_log->Log("vision", Logger::kExit);
 	delete m_vision;
 	delete m_visionThread;
 }
@@ -25,6 +26,10 @@ void VisionManager::InitDefaultCommand()
 
 void VisionManager::Initialize(frc::Preferences* prefs)
 {
+	m_log = Logger::GetInstance();
+	m_log->AddLog(this, "vision");
+	m_log->Log(this, Logger::kEnter);
+
 	m_cs = frc::CameraServer::GetInstance();
 
 	m_pipeline = new grip::GripPipeline();
@@ -49,8 +54,15 @@ void VisionManager::vision_thread()
 	cs::UsbCamera camera = frc::CameraServer::GetInstance()->StartAutomaticCapture("cam0", 0);
 	camera.SetFPS(10);
 	camera.SetResolution(640, 480);
+
+	m_log->Log("vision", Logger::kInfo, "Camera initialized to " + camera.GetPath());
+	cs::VideoMode vm = camera.GetVideoMode();
+	m_log->Log("vision", Logger::kInfo, "FPS: " + std::to_string(vm.fps) + " Res x: " + std::to_string(vm.width) + " y: " + std::to_string(vm.height));
+
 	cs::CvSink cvSink = frc::CameraServer::GetInstance()->GetVideo("cam0");
 	cs::CvSource outputStream = frc::CameraServer::GetInstance()->PutVideo("Proc", 640, 480);
+
+	m_log->Log("vision", Logger::kInfo, "Source initialized as " + outputStream.GetName());
 
 	cv::Mat mat;
 
@@ -59,17 +71,10 @@ void VisionManager::vision_thread()
 		if (cvSink.GrabFrame(mat) == 0)
 		{
 			outputStream.NotifyError(cvSink.GetError());
+			m_log->Log("vision", Logger::kError, cvSink.GetError());
 			continue;
 		}
-		// Put a rectangle on the image
-		//rectangle(mat, cv::Point(100, 100), cv::Point(400, 400),
-		//		cv::Scalar(255, 255, 255), 5);
-		/*cv::cvtColor(mat, mat, cv::COLOR_BGR2GRAY);
 
-		cv::inRange(mat,
-				cv::Scalar(0, 200, 200),
-				cv::Scalar(100, 255, 255),
-				mat);*/
 		m_pipeline->Process(mat);
 
 		frc::SmartDashboard::PutNumber("CenterX", m_pipeline->getTargetCenterX(0));
@@ -79,35 +84,12 @@ void VisionManager::vision_thread()
 		// Give the output stream a new image to display
 		outputStream.PutFrame(mat);
 	}
-
-	/*cv::Mat frame;
-	cs::CvSink cvSink = CameraServer::GetInstance()->GetVideo();
-	while (true)
-	{
-		if (cvSink.GrabFrame(frame) == 0)
-		{
-			std::cout << cvSink.GetError() << std::endl;
-		}
-		std::cout << "pre proc" << std::endl;
-		m_pipeline->Process(frame);
-		std::cout << "post proc" << std::endl;
-
-		m_output.PutFrame(m_pipeline->hslThresholdOutput); //ERROR here with !fixedSize()
-
-		m_lock->lock();
-		if (!m_isRunning)
-		{
-			m_lock->unlock();
-			break;
-		}
-		m_lock->unlock();
-		sleep(500);*/
-
 }
 
 void VisionManager::StartProc()
 {
 	m_isRunning = true;
+	m_log->Log("vision", Logger::kInfo, "Vision processing started");
 	m_visionThread = new std::thread(&VisionManager::vision_thread);
 	m_visionThread->detach();
 }

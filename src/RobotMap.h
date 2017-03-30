@@ -145,11 +145,14 @@ constexpr int LIGHT_BLUE_PORT = 6;
 
 //---------------------------------------------------------
 // Utility Functions
+
+// If a number is within a range rather than equal to
 inline bool is_about(double target, double value, double acceptableRange)
 {
 	return target >= target + acceptableRange && target < target - acceptableRange;
 }
 
+// Wrapper for this_thread::sleep_for()
 inline void sleep(uint timeMS)
 {
 	std::this_thread::sleep_for(std::chrono::milliseconds(timeMS));
