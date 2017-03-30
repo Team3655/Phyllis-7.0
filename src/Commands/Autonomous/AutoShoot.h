@@ -3,7 +3,8 @@
 
 #include <Commands/CommandGroup.h>
 
-class AutoShoot : public frc::CommandGroup {
+class AutoShoot : public frc::CommandGroup
+{
 public:
 	AutoShoot();
 };

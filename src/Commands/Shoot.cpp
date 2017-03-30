@@ -1,4 +1,5 @@
 #include "Shoot.h"
+#include "../Logger.h"
 
 Shoot::Shoot(double speedProp)
 {
@@ -12,8 +13,12 @@ Shoot::Shoot(double speedProp)
 
 void Shoot::Initialize()
 {
+	Logger::GetInstance()->Log("cmds", Logger::kEnter, "Shoot");
+
 	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_shoot_end");
 	m_abortBtn = new frc::JoystickButton(oi.get()->GetStick(2), 9);
+
+	Logger::GetInstance()->Log("cmds", Logger::kInfo, "Shoot Abort Button initialized to " + code);
 
 	drive.get()->Disable();
 	m_isAligned = false; // Get alignment
@@ -32,6 +37,7 @@ bool Shoot::IsFinished()
 
 void Shoot::End()
 {
+	Logger::GetInstance()->Log("cmds", Logger::kExit, "Shoot");
 	shooter.get()->Set(0);
 	fuelCollector.get()->Index(0);
 	drive.get()->Enable();
@@ -39,4 +45,5 @@ void Shoot::End()
 
 void Shoot::Interrupted()
 {
+	Logger::GetInstance()->Log("cmds", Logger::kInfo, "Shoot interrupted");
 }

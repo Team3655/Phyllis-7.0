@@ -8,6 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "Drive.h"
+#include "../Logger.h"
 
 Drive::Drive() :
 	CommandBase("Drive")
@@ -17,14 +18,19 @@ Drive::Drive() :
 
 void Drive::Initialize()
 {
-	drive.get()->SetTalonMode(frc::CANSpeedController::kPercentVbus); // WARNING: This causes MP to be unusable
+	Logger::GetInstance()->Log("cmds", Logger::kEnter, "Drive");
+
+	drive.get()->SetTalonMode(frc::CANSpeedController::kPercentVbus);
 
 	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_drive_mode");
 	m_atSwitch = new frc::JoystickButton(oi.get()->GetStick(2), 1);
+
+	Logger::GetInstance()->Log("cmds", Logger::kInfo, "Drive mode switch button initialized to " + code);
 }
 
 void Drive::Execute()
 {
+	// TODO: add mode switch logs
 	if (m_atSwitch->Get())
 	{
 		drive.get()->TankDrive(oi.get()->GetYAxis(JOY_DRIVER_PORT), -oi.get()->GetYAxis(JOY_CODRIVER_PORT));
@@ -43,9 +49,11 @@ bool Drive::IsFinished()
 void Drive::End()
 {
 	drive.get()->TankDrive(0, 0);
+	Logger::GetInstance()->Log("cmds", Logger::kExit, "Drive");
 }
 
 void Drive::Interrupted()
 {
+	Logger::GetInstance()->Log("cmds", Logger::kInfo, "Drive interrupted");
 	End();
 }

@@ -1,4 +1,5 @@
 #include "Delay.h"
+#include "../Logger.h"
 
 Delay::Delay(double delay)
 {
@@ -11,6 +12,7 @@ Delay::Delay(double delay)
 
 void Delay::Initialize()
 {
+	Logger::GetInstance()->Log("cmds", Logger::kEnter, "Delay");
 	drive.get()->Disable();
 	m_delayTimer->Start();
 }
@@ -28,8 +30,10 @@ bool Delay::IsFinished()
 void Delay::End()
 {
 	drive.get()->Enable();
+	Logger::GetInstance()->Log("cmds", Logger::kExit, "Delay");
 }
 
 void Delay::Interrupted()
 {
+	Logger::GetInstance()->Log("cmds", Logger::kInfo, "Delay interrupted");
 }

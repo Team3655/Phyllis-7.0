@@ -3,6 +3,8 @@
 
 #include <Preferences.h>
 
+#include "../Logger.h"
+
 AlignWithPeg::AlignWithPeg(frc::JoystickButton* abortBtn)
 {
 	Requires(drive.get());
@@ -32,6 +34,11 @@ AlignWithPeg::~AlignWithPeg()
 
 void AlignWithPeg::Initialize()
 {
+	Logger::GetInstance()->Log("cmds", Logger::kEnter, "AlignWithPeg");
+	Logger::GetInstance()->Log("cmds", Logger::kInfo, "AlignWithPeg P: " + std::to_string(m_pid->GetP()) +
+			" I: " + std::to_string(m_pid->GetI()) +
+			" D: " + std::to_string(m_pid->GetD()));
+
 	//m_pid->SetTolerance(ALIGN_PEG_TOLERANCE);
 	drive.get()->SetTalonMode(CANSpeedController::kPercentVbus);
 }
@@ -49,8 +56,10 @@ bool AlignWithPeg::IsFinished()
 void AlignWithPeg::End()
 {
 	lights.get()->SetPegCamLight(false);
+	Logger::GetInstance()->Log("cmds", Logger::kExit, "AlignWithPeg");
 }
 
 void AlignWithPeg::Interrupted()
 {
+	Logger::GetInstance()->Log("cmds", Logger::kInfo, "AlignWithPeg interrupted");
 }

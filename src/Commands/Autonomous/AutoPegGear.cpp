@@ -8,6 +8,8 @@
 
 AutoPegGear::AutoPegGear(double delay, std::list<Profile*>* prePegSeq, std::list<Profile*>* pegPr, std::list<Profile*>* postPegSeq)
 {
+	Logger::GetInstance()->Log("cmds", Logger::kEnter, "AutoPegGear");
+
 	AddSequential(new Delay(delay));
 	if (prePegSeq != nullptr)
 		AddSequential(new DriveProfile(*prePegSeq));

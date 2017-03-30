@@ -3,6 +3,8 @@
 
 #include "../CommandBase.h"
 
+// Summary:
+// Command that delays if the gear is gone
 class DelayForGear : public CommandBase
 {
 private:
@@ -18,4 +20,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // DELAY_FOR_GEAR_H
+#endif // DELAY_FOR_GEAR_H

@@ -1,4 +1,5 @@
 #include "WaitForPeg.h"
+#include "../Logger.h"
 
 WaitForPeg::WaitForPeg()
 {
@@ -7,9 +8,6 @@ WaitForPeg::WaitForPeg()
 
 	m_lightFlashTimer = new frc::Timer();
 	m_gearGoneTimer = new frc::Timer();
-
-	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_peg_abort");
-	m_abortBtn = new frc::JoystickButton(oi.get()->GetStick(oi.get()->InterpretStick(code)), oi.get()->InterpretButton(code));
 }
 
 WaitForPeg::~WaitForPeg()
@@ -21,8 +19,15 @@ WaitForPeg::~WaitForPeg()
 
 void WaitForPeg::Initialize()
 {
+	Logger::GetInstance()->Log("cmds", Logger::kEnter, "WaitForPeg");
+
 	drive.get()->Disable();
 	m_lightFlashTimer->Start();
+
+	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_peg_abort");
+	m_abortBtn = new frc::JoystickButton(oi.get()->GetStick(oi.get()->InterpretStick(code)), oi.get()->InterpretButton(code));
+
+	Logger::GetInstance()->Log("cmds", Logger::kInfo, "WaitForPeg Abort Button initialized to " + code);
 }
 
 void WaitForPeg::Execute()
@@ -52,9 +57,11 @@ bool WaitForPeg::IsFinished()
 
 void WaitForPeg::End()
 {
+	Logger::GetInstance()->Log("cmds", Logger::kExit, "WaitForPeg");
 	drive.get()->Enable();
 }
 
 void WaitForPeg::Interrupted()
 {
+	Logger::GetInstance()->Log("cmds", Logger::kInfo, "WaitForPeg interrupted");
 }

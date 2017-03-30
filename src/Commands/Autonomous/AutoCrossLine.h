@@ -12,4 +12,4 @@ public:
 	AutoCrossLine(double delay, std::list<Profile*>* seq);
 };
 
-#endif  // AUTO_CROSS_LINE_H
+#endif // AUTO_CROSS_LINE_H

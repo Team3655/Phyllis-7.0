@@ -1,4 +1,5 @@
 #include "DelayForGear.h"
+#include "../Logger.h"
 
 DelayForGear::DelayForGear()
 {
@@ -10,6 +11,7 @@ DelayForGear::DelayForGear()
 
 void DelayForGear::Initialize()
 {
+	Logger::GetInstance()->Log("cmds", Logger::kEnter, "DelayForGear");
 	m_timer->Start();
 	drive.get()->Disable();
 }
@@ -20,6 +22,7 @@ void DelayForGear::Execute()
 	bool gear = gearCollector.get()->IsGearPresent();
 	if (gear && !triggered)
 	{
+		Logger::GetInstance()->Log("cmds", Logger::kInfo, "Gear present; timer reset");
 		m_timer->Reset();
 		triggered = true;
 	}
@@ -43,10 +46,11 @@ bool DelayForGear::IsFinished()
 
 void DelayForGear::End()
 {
+	Logger::GetInstance()->Log("cmds", Logger::kExit, "DelayForGear");
 	drive.get()->Enable();
 }
 
 void DelayForGear::Interrupted()
 {
-
+	Logger::GetInstance()->Log("cmds", Logger::kInfo, "DelayForGear interrupted");
 }
