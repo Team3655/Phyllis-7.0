@@ -44,7 +44,7 @@ public:
 	void InitializeSubsystems(frc::Preferences* prefs)
 	{
 		// Logger
-		Logger::Initialize("/Logs/");
+		Logger::Initialize("/home/lvuser/");
 		Logger::GetInstance()->AddLog("cmds");
 
 		CommandBase::drive.get()->Initialize(prefs);
