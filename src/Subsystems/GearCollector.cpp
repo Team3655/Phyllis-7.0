@@ -4,7 +4,7 @@
 #include "../Commands/CollectGear.h"
 
 GearCollector::GearCollector() :
-	Subsystem("Gear Collector")
+	frc::Subsystem("Gear Collector"), ExtSubsystem()
 {
 }
 

@@ -4,13 +4,14 @@
 #include "../Commands/Shoot.h"
 
 Shooter::Shooter() :
-	frc::Subsystem("Shooter")
+	frc::Subsystem("Shooter"), ExtSubsystem()
 {
 	m_targetSpeed = 0;
 }
 
 Shooter::~Shooter()
 {
+	m_log->StopStreamLog();
 	m_log->Log(this, Logger::kExit);
 	delete m_shooter;
 }
@@ -43,10 +44,12 @@ void Shooter::Initialize(frc::Preferences* prefs)
 	m_log = Logger::GetInstance();
 	m_log->AddLog(this);
 	m_log->Log(this, Logger::kEnter);
+	m_log->StreamLog(this);
 
 	m_shooter = new CANTalon(SHOOT_MOTOR_PORT);
-	m_shooter->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Absolute);
-	m_shooter->SetControlMode(frc::CANSpeedController::kPercentVbus);
+	m_shooter->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Relative);
+	m_shooter->SetControlMode(frc::CANSpeedController::kSpeed);
+	m_shooter->Set(0);
 	//m_shooter->SetStatusFrameRateMs(CANTalon::StatusFrameRateFeedback, 100);
 	m_log->Log(this, Logger::kInfo, "Shooter initialized to " + std::to_string(m_shooter->GetDeviceID()));
 
@@ -54,10 +57,11 @@ void Shooter::Initialize(frc::Preferences* prefs)
 	{
 		m_shooter->SelectProfileSlot(i);
 		m_shooter->SetPID(
-			prefs->GetDouble("shoot_p", SHOOT_P),
-			prefs->GetDouble("shoot_i", SHOOT_I),
-			prefs->GetDouble("shoot_d", SHOOT_D));
+			SHOOT_P,
+			SHOOT_I,
+			SHOOT_D);
 		m_shooter->SetF(SHOOT_F);
+		m_shooter->SetAllowableClosedLoopErr(10);
 	}
 
 	m_log->Log(this, Logger::kInfo,
@@ -67,9 +71,11 @@ void Shooter::Initialize(frc::Preferences* prefs)
 
 	m_shooter->Enable();
 
-	m_shooter->SetSensorDirection(true);
+	m_shooter->SetSensorDirection(false);
 
 	m_targetSpeed = prefs->GetDouble("shoot_speed", SHOOT_SPEED);
+
+	frc::LiveWindow::GetInstance()->AddActuator("Shooter", "Shooter", m_shooter);
 }
 
 void Shooter::DashboardOutput(bool verbose)
@@ -86,7 +92,7 @@ void Shooter::DashboardOutput(bool verbose)
 void Shooter::Set(double speed)
 {
 	m_shooter->Set(speed);
-	m_log->Log(this, Logger::kInfo, "Shooter speed set to " + std::to_string(speed));
+	m_log->Log(this, Logger::kInfo, "Shooter speed set to " + std::to_string(m_shooter->GetSetpoint()));
 }
 
 bool Shooter::IsAtSpeed()

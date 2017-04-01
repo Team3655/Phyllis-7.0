@@ -4,7 +4,7 @@
 #include <SmartDashboard/SmartDashboard.h>
 
 Lights::Lights() :
-	frc::Subsystem("Lights"),
+	frc::Subsystem("Lights"), ExtSubsystem(),
 	m_color(OFF)
 {
 }

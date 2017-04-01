@@ -4,7 +4,7 @@
 #include "../Commands/CollectFuel.h"
 
 FuelCollector::FuelCollector() :
-	Subsystem("Fuel Collector")
+	frc::Subsystem("Fuel Collector"), ExtSubsystem()
 {
 }
 

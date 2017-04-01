@@ -83,6 +83,9 @@ public:
 	// Add entry to log
 	bool Log(frc::Subsystem* subsystem, LogLevel logLevel, const std::string& message = "");
 	bool Log(const std::string& id, LogLevel logLevel, const std::string& message = "");
+
+	// Returns a formatted timestamp
+	std::string GetTimeStamp();
 };
 
 #endif // LOGGER_H

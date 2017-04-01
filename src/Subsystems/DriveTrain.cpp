@@ -13,7 +13,7 @@
 #include <iostream>
 
 DriveTrain::DriveTrain() :
-	frc::Subsystem("Drive")
+	frc::Subsystem("Drive"), ExtSubsystem()
 {
 	m_lw = frc::LiveWindow::GetInstance();
 }

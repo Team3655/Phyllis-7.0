@@ -9,7 +9,7 @@ std::mutex* VisionManager::m_lock;
 Logger* VisionManager::m_log;
 
 VisionManager::VisionManager() :
-	frc::Subsystem("Vision")
+	frc::Subsystem("Vision"), ExtSubsystem()
 {
 }
 

@@ -24,6 +24,9 @@ MotionControl::MotionControl(std::shared_ptr<DriveTrain> drive, std::list<Profil
 {
 	m_log->AddLog("mp");
 	m_log->Log("mp", Logger::kEnter);
+	m_log->StreamLog("mp");
+
+	m_timer = new frc::Timer();
 }
 
 MotionControl::~MotionControl()
@@ -130,11 +133,13 @@ void MotionControl::Initialize()
 	m_driveLeft->ChangeMotionControlFramePeriod(5);
 	m_driveRight->ChangeMotionControlFramePeriod(5);
 
-	m_notifier->StartPeriodic(.01); // 10ms
+	m_notifier->StartPeriodic(.005); // 5ms
 
 	m_drive->Disable();
 
 	m_driveRight->Enable();
+
+	m_timer->Start();
 }
 
 void MotionControl::Update()
@@ -146,7 +151,8 @@ void MotionControl::Update()
 	else
 	{
 		if (m_loopTimeout == 0)
-			m_log->Log("mp", Logger::kWarning, "Profiles in timeout");
+			if (m_timer->HasPeriodPassed(LOG_RESOLUTION))
+				m_log->Log("mp", Logger::kWarning, "Profiles in timeout");
 		else
 			--m_loopTimeout;
 	}
@@ -190,7 +196,8 @@ void MotionControl::Update()
 		if (!m_leftStatus.isUnderrun || !m_rightStatus.isUnderrun)
 		{
 			m_loopTimeout = TIMEOUT_LOOPS;
-			m_log->Log("mp", Logger::kWarning, "Motion Profiles Underrun");
+			if (m_timer->HasPeriodPassed(LOG_RESOLUTION))
+				m_log->Log("mp", Logger::kWarning, "Motion Profiles Underrun");
 		}
 
 		if ((m_leftStatus.activePointValid && m_leftStatus.activePoint.isLastPoint) &&
@@ -211,12 +218,17 @@ void MotionControl::Update()
 	m_driveLeft->Set(m_leftSetValue);
 	m_driveRight->Set(m_rightSetValue);
 
-	m_log->Log("mp", Logger::kInfo, "Mp State: " + std::to_string(m_state));
+	if (m_timer->HasPeriodPassed(LOG_RESOLUTION))
+		m_log->Log("mp", Logger::kInfo, "Mp State: " + std::to_string(m_state));
+
+	if (m_timer->HasPeriodPassed(LOG_RESOLUTION))
+		m_timer->Reset();
 }
 
 void MotionControl::Finish()
 {
 	m_drive->Enable();
 	m_drive->SetTalonMode(frc::CANSpeedController::kPercentVbus);
+	m_log->StopStreamLog();
 	m_log->Log("mp", Logger::kExit);
 }

@@ -48,13 +48,13 @@ constexpr int DRIVE_ENC_CPR = 0; // about
 //---------------------------------------------------------
 // Shooter
 constexpr int SHOOT_MOTOR_PORT = 6;
-constexpr double SHOOT_P = 1;
+constexpr double SHOOT_P = 0.05;
 constexpr double SHOOT_I = 0;
-constexpr double SHOOT_D = 0;
-constexpr double SHOOT_F = 3.0;
+constexpr double SHOOT_D = 0.5;
+constexpr double SHOOT_F = 0.00937181;
 constexpr double SHOOT_SPEED = .5;
 constexpr double SHOOT_RESET_TIME = 500; // ms
-constexpr double SHOOT_MAX_SPEED = 93972; // counts/100ms
+//constexpr double SHOOT_MAX_SPEED = 93972; // counts/100ms
 
 //---------------------------------------------------------
 // Gear Collector
@@ -157,6 +157,8 @@ inline void sleep(uint timeMS)
 {
 	std::this_thread::sleep_for(std::chrono::milliseconds(timeMS));
 }
+
+constexpr double LOG_RESOLUTION = 1;
 
 //----------------------------------------------------------
 // Motion Profiling

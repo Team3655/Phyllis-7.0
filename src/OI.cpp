@@ -60,7 +60,7 @@ void OI::Initialize()
 
 	code = m_prefs->GetString("joy_btn_shoot");
 	m_shoot = new JoystickButton(GetStick(2), 6);
-	m_shoot->WhenPressed(new Shoot(.75));
+	m_shoot->WhenPressed(new Shoot(.48));
 
 	code = m_prefs->GetString("joy_btn_drive_shift");
 	m_shift = new JoystickButton(GetStick(1), 2);

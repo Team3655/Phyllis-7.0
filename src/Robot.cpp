@@ -44,7 +44,7 @@ public:
 	void InitializeSubsystems(frc::Preferences* prefs)
 	{
 		// Logger
-		Logger::Initialize("/home/lvuser/");
+		Logger::Initialize("/home/lvuser/Logs");
 		Logger::GetInstance()->AddLog("cmds");
 
 		CommandBase::drive.get()->Initialize(prefs);
@@ -180,7 +180,7 @@ public:
 
 	void TeleopInit() override
 	{
-		CommandBase::drive.get()->Enable(); // In case that auto was stopped unexpectedly
+		//CommandBase::drive.get()->Enable(); // In case that auto was stopped unexpectedly
 		if (autonomousCommand != nullptr)
 		{
 			autonomousCommand->Cancel();

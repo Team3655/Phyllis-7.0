@@ -2,7 +2,7 @@
 #include "../RobotMap.h"
 
 Climber::Climber() :
-	Subsystem("Climber")
+	frc::Subsystem("Climber"), ExtSubsystem()
 {
 }
 

@@ -8,7 +8,7 @@ Shoot::Shoot(double speedProp)
 	Requires(drive.get());
 
 	m_isAligned = false;
-	m_speedProportion = speedProp;
+	m_speedProportion = speedProp * 13000;
 }
 
 void Shoot::Initialize()
@@ -20,7 +20,7 @@ void Shoot::Initialize()
 
 	Logger::GetInstance()->Log("cmds", Logger::kInfo, "Shoot Abort Button initialized to " + code);
 
-	drive.get()->Disable();
+	//drive.get()->Disable();
 	m_isAligned = false; // Get alignment
 }
 
@@ -39,8 +39,8 @@ void Shoot::End()
 {
 	Logger::GetInstance()->Log("cmds", Logger::kExit, "Shoot");
 	shooter.get()->Set(0);
-	fuelCollector.get()->Index(0);
-	drive.get()->Enable();
+	fuelCollector.get()->Index(false);
+	//drive.get()->Enable();
 }
 
 void Shoot::Interrupted()

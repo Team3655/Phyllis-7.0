@@ -9,13 +9,20 @@
 #define EXT_SUBSYSTEM_H
 
 #include <Preferences.h>
+#include <Timer.h>
 
 // Summary:
 // 	Abstract class to implement an initializer to prevent segmentation faults
 //  for static construction of subsystems
 class ExtSubsystem
 {
+protected:
+	frc::Timer* m_timer;
+
 public:
+	ExtSubsystem() :
+		m_timer(new frc::Timer()) {}
+
 	virtual ~ExtSubsystem() {}
 
 	// Implement to initialize wpilib classes

@@ -8,12 +8,14 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <Logger.h>
+#include <sys/stat.h>
 
 std::shared_ptr<Logger> Logger::m_logger;
 
 Logger::Logger(const char* path)
 {
-	m_logPath = path;
+	m_logPath = (path) + GetTimeStamp() + "/";
+	mkdir(m_logPath.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IWOTH | S_IXOTH);
 }
 
 Logger::~Logger()
@@ -83,7 +85,7 @@ bool Logger::AddLog(const std::string& id)
 		return true;
 	}
 
-	m_logs[id] = std::make_shared<std::ofstream>(m_logPath + id + ".txt"); // TODO: Add timestamp to filename
+	m_logs[id] = std::make_shared<std::ofstream>(m_logPath + id + ".txt");
 	if (!m_logs[id]->is_open())
 	{
 		unlock();
@@ -160,10 +162,7 @@ bool Logger::Log(const std::string& id, LogLevel logLevel, const std::string& me
 	std::string msg;
 
 	lock();
-	m_now = std::localtime(&m_time);
-	msg = "[" + std::to_string(m_now->tm_hour)
-		+ ":" + std::to_string(m_now->tm_min)
-		+ ":" + std::to_string(m_now->tm_sec) + "]"; // TODO: Add milliseconds
+	msg = GetTimeStamp(); // TODO: Add milliseconds
 
 	if (logLevel == kEnter || logLevel == kExit)
 	{
@@ -196,4 +195,13 @@ bool Logger::Log(frc::Subsystem* subsystem, LogLevel logLevel, const std::string
 	if (subsystem != nullptr)
 		return Log(subsystem->GetName(), logLevel, message);
 	return false;
+}
+
+std::string Logger::GetTimeStamp()
+{
+	m_time = std::time(NULL);
+	m_now = std::localtime(&m_time);
+	return "[" + std::to_string(m_now->tm_hour)
+		+ ":" + std::to_string(m_now->tm_min)
+		+ ":" + std::to_string(m_now->tm_sec) + "]";
 }

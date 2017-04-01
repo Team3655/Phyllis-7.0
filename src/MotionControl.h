@@ -17,6 +17,7 @@
 
 #include <Notifier.h>
 #include <CANTalon.h>
+#include <Timer.h>
 
 #include <list>
 
@@ -57,6 +58,8 @@ private:
 	bool m_beenFilled = false;
 
 	Logger* m_log;
+
+	frc::Timer* m_timer;
 
 	void fill();
 
