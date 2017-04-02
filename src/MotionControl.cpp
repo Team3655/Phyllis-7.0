@@ -169,6 +169,9 @@ void MotionControl::Update()
 		m_log->Log("mp", Logger::kInfo, "Motion Profiles finished");
 		break;
 	case 0:
+		m_log->Log("mp", Logger::kInfo, "Last Profile Error L: " + std::to_string(m_driveLeft->GetClosedLoopError()) +
+				" R: " + std::to_string(m_driveRight->GetClosedLoopError()));
+
 		m_leftSetValue = CANTalon::SetValueMotionProfileDisable;
 		m_rightSetValue = CANTalon::SetValueMotionProfileDisable;
 
@@ -218,8 +221,8 @@ void MotionControl::Update()
 	m_driveLeft->Set(m_leftSetValue);
 	m_driveRight->Set(m_rightSetValue);
 
-	if (m_timer->HasPeriodPassed(LOG_RESOLUTION))
-		m_log->Log("mp", Logger::kInfo, "Mp State: " + std::to_string(m_state));
+	//if (m_timer->HasPeriodPassed(LOG_RESOLUTION))
+	//	m_log->Log("mp", Logger::kInfo, "Mp State: " + std::to_string(m_state));
 
 	if (m_timer->HasPeriodPassed(LOG_RESOLUTION))
 		m_timer->Reset();

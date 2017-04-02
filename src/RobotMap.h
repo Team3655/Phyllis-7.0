@@ -23,27 +23,19 @@ constexpr int DRIVE_SHIFT_HIGH_PORT = 0;
 constexpr int DRIVE_SHIFT_LOW_PORT = 1;
 
 // Left
-constexpr double DRIVE_LEFT_POS_P = 0.9;
-constexpr double DRIVE_LEFT_POS_I = 0.0;
-constexpr double DRIVE_LEFT_POS_D = 0.0;
-constexpr double DRIVE_LEFT_POS_F = 1.49343; // 1.49343
-constexpr double DRIVE_LEFT_SPD_P = 1;
-constexpr double DRIVE_LEFT_SPD_I = 0;
-constexpr double DRIVE_LEFT_SPD_D = 0;
+constexpr double DRIVE_LEFT_P = 1.0; // 1.03
+constexpr double DRIVE_LEFT_I = 0.0; // .0103
+constexpr double DRIVE_LEFT_D = 0.0; // 10.3
+constexpr double DRIVE_LEFT_F = 1.49343; // 1.49343
 // Right
-constexpr double DRIVE_RIGHT_POS_P = 0.9;
-constexpr double DRIVE_RIGHT_POS_I = 0.0;
-constexpr double DRIVE_RIGHT_POS_D = 0.0;
-constexpr double DRIVE_RIGHT_POS_F = 1.566616; // 1.566616
-constexpr double DRIVE_RIGHT_SPD_P = 1;
-constexpr double DRIVE_RIGHT_SPD_I = 0;
-constexpr double DRIVE_RIGHT_SPD_D = 0;
+constexpr double DRIVE_RIGHT_P = 1.0; // 2.0
+constexpr double DRIVE_RIGHT_I = 0.0; // .02
+constexpr double DRIVE_RIGHT_D = 0.0; // 20.0
+constexpr double DRIVE_RIGHT_F = 1.566616; // 1.566616
 
 constexpr double DRIVE_ALLOWED_ERROR = 10;
 
-constexpr double DRIVE_DEFAULT_SCALE = 1.0;
-
-constexpr int DRIVE_ENC_CPR = 0; // about
+constexpr double DRIVE_MAX_SPEED = 1068;
 
 //---------------------------------------------------------
 // Shooter

@@ -47,15 +47,15 @@ void GearCollector::Initialize(frc::Preferences* prefs)
 	m_log->Log(this, Logger::kEnter);
 
 	m_intake = new CANTalon(GEAR_INTAKE_PORT);
-	m_intake->SetControlMode(CANTalon::ControlMode::kPercentVbus);
+	m_intake->SetControlMode(frc::CANSpeedController::kPercentVbus);
 
 	m_log->Log(this, Logger::kInfo, "Intake initialized to " + std::to_string(m_intake->GetDeviceID()));
 
 	m_transportBack = new CANTalon(GEAR_TRANS_BACK_PORT);
-	m_transportBack->SetControlMode(CANTalon::ControlMode::kPercentVbus);
+	m_transportBack->SetControlMode(frc::CANSpeedController::kPercentVbus);
 
 	m_transportFront = new CANTalon(GEAR_TRANS_FRONT_PORT);
-	m_transportFront->SetControlMode(CANTalon::ControlMode::kFollower);
+	m_transportFront->SetControlMode(frc::CANSpeedController::kFollower);
 	m_transportFront->Set(m_transportBack->GetDeviceID());
 
 	m_log->Log(this, Logger::kInfo, "Transport master initialized to " + std::to_string(m_transportBack->GetDeviceID()));

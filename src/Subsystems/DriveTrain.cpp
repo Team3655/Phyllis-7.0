@@ -48,7 +48,7 @@ void DriveTrain::Initialize(frc::Preferences* prefs)
 	m_lb->ConfigEncoderCodesPerRev(100);
 
 	m_lf = new CANTalon(DRIVE_LF_PORT);
-	m_lf->SetControlMode(CANTalon::ControlMode::kFollower);
+	m_lf->SetControlMode(frc::CANSpeedController::kFollower);
 	m_lf->Set(m_lb->GetDeviceID());
 
 	m_rb = new CANTalon(DRIVE_RIGHT_PORT);
@@ -56,13 +56,13 @@ void DriveTrain::Initialize(frc::Preferences* prefs)
 	m_rb->ConfigEncoderCodesPerRev(100);
 
 	m_rf = new CANTalon(DRIVE_RF_PORT);
-	m_rf->SetControlMode(CANTalon::ControlMode::kFollower);
+	m_rf->SetControlMode(frc::CANSpeedController::kFollower);
 	m_rf->Set(m_rb->GetDeviceID());
 
 	m_log->Log(this, Logger::kInfo, "Left Master: " + std::to_string(m_lb->GetDeviceID()) +
 			" Right Master: " + std::to_string(m_rb->GetDeviceID()));
 
-	SetTalonMode(frc::CANSpeedController::kSpeed);
+	SetTalonMode(frc::CANSpeedController::kPercentVbus);
 	set_pid_values();
 
 	m_log->Log(this, Logger::kInfo,
@@ -82,6 +82,11 @@ void DriveTrain::Initialize(frc::Preferences* prefs)
 	m_lb->SetSensorDirection(false); // For encoder inversion
 
 	m_shiftState = m_shifter->Get();
+
+	frc::LiveWindow::GetInstance()->AddActuator("Drive", "Drive Left", m_lb);
+	frc::LiveWindow::GetInstance()->AddActuator("Drive", "Drive Left S", m_lf);
+	frc::LiveWindow::GetInstance()->AddActuator("Drive", "Drive Right", m_rb);
+	frc::LiveWindow::GetInstance()->AddActuator("Drive", "Drive Right S", m_rf);
 }
 
 void DriveTrain::DashboardOutput(bool verbose)
@@ -110,15 +115,15 @@ void DriveTrain::set_pid_values()
 		m_lb->SelectProfileSlot(i);
 		m_rb->SelectProfileSlot(i);
 		m_lb->SetPID(
-				.9,
-				DRIVE_LEFT_POS_I,
-				DRIVE_LEFT_POS_D);
-		m_lb->SetF(DRIVE_LEFT_POS_F);
+				DRIVE_LEFT_P,
+				DRIVE_LEFT_I,
+				DRIVE_LEFT_D);
+		m_lb->SetF(DRIVE_LEFT_F);
 		m_rb->SetPID(
-				.9,
-				DRIVE_RIGHT_POS_I,
-				DRIVE_RIGHT_POS_D);
-		m_rb->SetF(DRIVE_LEFT_POS_F);
+				DRIVE_RIGHT_P,
+				DRIVE_RIGHT_I,
+				DRIVE_RIGHT_D);
+		m_rb->SetF(DRIVE_RIGHT_F);
 	}
 }
 
@@ -127,7 +132,10 @@ void DriveTrain::SetTalonMode(frc::CANSpeedController::ControlMode mode)
 	m_lb->SetControlMode(mode);
 	m_rb->SetControlMode(mode);
 
-	set_pid_values();
+	m_lb->Set(0);
+	m_rb->Set(0);
+
+	//set_pid_values();
 }
 
 void DriveTrain::ArcadeDrive(double move, double rotate)
