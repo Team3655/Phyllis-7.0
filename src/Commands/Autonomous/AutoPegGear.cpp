@@ -1,30 +1,16 @@
 #include "AutoPegGear.h"
 
-#include "../DriveProfile.h"
-#include "../AlignWithPeg.h"
+#include "../MagicDrive.h"
 #include "../DelayForGear.h"
 #include "../Delay.h"
-#include "../EjectGear.h"
 
-AutoPegGear::AutoPegGear(double delay, std::list<Profile*>* prePegSeq, std::list<Profile*>* pegPr, std::list<Profile*>* postPegSeq)
+AutoPegGear::AutoPegGear(double delay, std::vector<Profile>& prePeg, std::vector<Profile>& retry, std::vector<Profile>& postPeg)
 {
-	//Logger::GetInstance()->Log("cmds", Logger::kEnter, "AutoPegGear");
-
 	AddSequential(new Delay(delay));
-	if (prePegSeq != nullptr)
-		AddSequential(new DriveProfile(*prePegSeq));
-	//AddSequential(new AlignWithPeg(nullptr));
-	if (pegPr != nullptr)
-		AddSequential(new DriveProfile(*pegPr));
-	AddSequential(new EjectGear());
+	for (auto itr = prePeg.begin(); itr != prePeg.end(); itr++)
+		AddSequential(new MagicDrive(*itr));
 	AddSequential(new DelayForGear());
-
-	std::list<Profile*> seq;
-	seq.push_back(new Profile(NOT_REVERSE, Mp28p5Size, Mp28p5, false));
-	seq.push_back(new Profile(REVERSE, Mp28p5Size, Mp28p5, false));
-	AddSequential(new DriveProfile(seq));
-
-	//if (postPegSeq != nullptr)
-	//	AddSequential(new DriveProfile(*postPegSeq));
-	AddSequential(new EjectGear());
+	AddSequential(new MagicDrive(retry));
+	for (auto itr = postPeg.begin(); itr != postPeg.end(); itr++)
+		AddSequential(new MagicDrive(*itr));
 }

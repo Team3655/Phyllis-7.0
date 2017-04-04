@@ -135,6 +135,61 @@ constexpr int LIGHT_RED_PORT = 3;
 constexpr int LIGHT_GREEN_PORT = 5;
 constexpr int LIGHT_BLUE_PORT = 6;
 
+//--------------------------------------------------------
+// Motion Magic
+constexpr double MAGIC_DEFAULT_RAMP = 0.0;
+constexpr double MAGIC_DEFAULT_CRUISE = 0.0;
+
+constexpr double MAGIC_ROT_PER_DEG = 0.0;
+constexpr double MAGIC_IN_PER_ROT = 18.8;
+constexpr double MAGIC_ENC_TO_DRIVE_RATIO = 2.165;
+
+// Summary:
+// Structure for running motion magic
+struct Profile
+{
+	double leftDist;
+	double rightDist;
+	// Optional parameters
+	double ramp;
+	double cruise;
+
+	Profile(double left, double right) :
+		leftDist(left), rightDist(right),
+		ramp(MAGIC_DEFAULT_RAMP), cruise(MAGIC_DEFAULT_CRUISE) {}
+
+	Profile(double left, double right, double ramp, double cruise):
+		leftDist(left), rightDist(right),
+		ramp(ramp), cruise(cruise) {}
+};
+
+// Construct a profile to turn a set degree and direction
+// + = right; - = left
+Profile make_turn_profile(
+		double degrees,
+		double ramp = MAGIC_DEFAULT_RAMP,
+		double cruise = MAGIC_DEFAULT_CRUISE)
+{
+	return Profile(MAGIC_ROT_PER_DEG * degrees, MAGIC_ROT_PER_DEG * -degrees, ramp, cruise);
+}
+
+// Construct a profile from target distance in inches
+Profile make_profile_inches(
+		double inches,
+		double ramp = MAGIC_DEFAULT_RAMP,
+		double cruise = MAGIC_DEFAULT_CRUISE)
+{
+	double dist = inches / MAGIC_IN_PER_ROT * MAGIC_ENC_TO_DRIVE_RATIO;
+	return Profile(dist, dist, ramp, cruise);
+}
+
+// Distances
+constexpr double MAGIC_PEG_RETRY = 12.0;
+constexpr double MAGIC_PEG_BOILER = 81.5;
+constexpr double MAGIC_PEG_MID = 81.5;
+constexpr double MAGIC_PEG_GEAR = 87.0;
+constexpr double MAGIC_PEG_PULLAWAY = 0.0; // unknown
+
 //---------------------------------------------------------
 // Utility Functions
 
@@ -151,13 +206,5 @@ inline void sleep(uint timeMS)
 }
 
 constexpr double LOG_RESOLUTION = 1;
-
-//----------------------------------------------------------
-// Motion Profiling
-
-constexpr int MIN_POINTS = 5;
-constexpr int TIMEOUT_LOOPS = 10;
-
-// Profiles in Profiles.h
 
 #endif // ROBOT_MAP_H

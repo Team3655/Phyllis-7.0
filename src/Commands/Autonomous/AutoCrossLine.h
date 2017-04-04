@@ -2,14 +2,13 @@
 #define AUTO_CROSS_LINE_H
 
 #include <Commands/CommandGroup.h>
-#include "../../Profiles.h"
 
 // Summary:
 //
 class AutoCrossLine : public frc::CommandGroup
 {
 public:
-	AutoCrossLine(double delay, std::list<Profile*>* seq);
+	AutoCrossLine(double delay);
 };
 
 #endif // AUTO_CROSS_LINE_H

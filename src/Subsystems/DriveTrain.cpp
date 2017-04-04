@@ -62,7 +62,7 @@ void DriveTrain::Initialize(frc::Preferences* prefs)
 	m_log->Log(this, Logger::kInfo, "Left Master: " + std::to_string(m_lb->GetDeviceID()) +
 			" Right Master: " + std::to_string(m_rb->GetDeviceID()));
 
-	SetTalonMode(frc::CANSpeedController::kPercentVbus);
+	SetTalonMode(CANTalon::kThrottleMode);
 	set_pid_values();
 
 	m_log->Log(this, Logger::kInfo,
@@ -103,9 +103,9 @@ void DriveTrain::DashboardOutput(bool verbose)
 	}
 }
 
-frc::CANSpeedController::ControlMode DriveTrain::get_talon_mode()
+CANTalon::TalonControlMode DriveTrain::GetTalonMode()
 {
-	return (frc::CANSpeedController::ControlMode)(m_lb->GetControlMode() & m_rb->GetControlMode());
+	return (CANTalon::TalonControlMode)(m_lb->GetTalonControlMode() & m_rb->GetTalonControlMode());
 }
 
 void DriveTrain::set_pid_values()
@@ -127,13 +127,16 @@ void DriveTrain::set_pid_values()
 	}
 }
 
-void DriveTrain::SetTalonMode(frc::CANSpeedController::ControlMode mode)
+void DriveTrain::SetTalonMode(CANTalon::TalonControlMode mode)
 {
-	m_lb->SetControlMode(mode);
-	m_rb->SetControlMode(mode);
+	m_lb->SetTalonControlMode(mode);
+	m_rb->SetTalonControlMode(mode);
 
-	m_lb->Set(0);
-	m_rb->Set(0);
+	if (mode == CANTalon::kSpeedMode)
+	{
+		m_lb->Set(0);
+		m_rb->Set(0);
+	}
 
 	//set_pid_values();
 }
@@ -228,4 +231,10 @@ void DriveTrain::GetPosition(double& lPos, double& rPos)
 double DriveTrain::GetVelocity()
 {
 	return (m_lb->GetEncVel() + m_rb->GetEncVel()) / 2;
+}
+
+void DriveTrain::ResetEnc()
+{
+	m_lb->SetEncPosition(0);
+	m_rb->SetEncPosition(0);
 }
