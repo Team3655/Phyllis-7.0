@@ -11,11 +11,11 @@ AutoPegGear::AutoPegGear(
 		const std::vector<Profile>& postPeg)
 {
 	AddSequential(new Delay(delay));
-	for (auto itr = prePeg.begin(); itr != prePeg.end(); itr++)
-		AddSequential(new MagicDrive(*itr));
+	for (Profile& p : prePeg)
+		AddSequential(new MagicDrive(p));
 	AddSequential(new DelayForGear());
-	for (auto itr = retry.begin(); itr != retry.end(); itr++)
-		AddSequential(new MagicDrive(*itr));
-	for (auto itr = postPeg.begin(); itr != postPeg.end(); itr++)
-		AddSequential(new MagicDrive(*itr));
+	for (Profile& p : retry)
+		AddSequential(new MagicDrive(p));
+	for (Profile& p : postPeg)
+		AddSequential(new MagicDrive(p));
 }

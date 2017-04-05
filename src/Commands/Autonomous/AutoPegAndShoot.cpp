@@ -20,6 +20,6 @@ AutoPegAndShoot::AutoPegAndShoot(
 			AddSequential(new MagicDrive(*itr));
 	for (auto itr = postPeg.begin(); itr != postPeg.end(); itr++)
 		AddSequential(new MagicDrive(*itr));*/
-	AddSequential(new AutoPegGear(delay, prePeg, retry, postPeg));
 	AddSequential(new Shoot(SHOOT_SPEED));
+	AddSequential(new AutoPegGear(delay, prePeg, retry, postPeg));
 }

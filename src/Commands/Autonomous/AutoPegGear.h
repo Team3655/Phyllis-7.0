@@ -7,7 +7,7 @@
 #include <vector>
 
 // Summary:
-//
+// Pegs a gear
 class AutoPegGear : public frc::CommandGroup
 {
 public:

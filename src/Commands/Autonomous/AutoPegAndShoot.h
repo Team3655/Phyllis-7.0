@@ -6,6 +6,8 @@
 #include <Commands/CommandGroup.h>
 #include <vector>
 
+// Summary:
+// Shoots the 10 fuel cells and then pegs a gear on boiler side
 class AutoPegAndShoot : public frc::CommandGroup
 {
 public:
