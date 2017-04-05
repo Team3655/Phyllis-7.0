@@ -28,7 +28,7 @@ AlignWithBoiler::~AlignWithBoiler()
 void AlignWithBoiler::Initialize()
 {
 	m_pid->SetTolerance(ALIGN_BOILER_TOLERANCE);
-	drive.get()->SetTalonMode(CANSpeedController::kPosition);
+	drive.get()->SetTalonMode(CANTalon::kPositionMode);
 }
 
 void AlignWithBoiler::Execute()

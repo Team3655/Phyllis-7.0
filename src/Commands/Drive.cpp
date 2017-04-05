@@ -20,7 +20,7 @@ void Drive::Initialize()
 {
 	Logger::GetInstance()->Log("cmds", Logger::kEnter, "Drive");
 
-	drive.get()->SetTalonMode(frc::CANSpeedController::kPercentVbus);
+	drive.get()->SetTalonMode(CANTalon::kThrottleMode);
 
 	std::string code = oi.get()->GetPrefs()->GetString("joy_btn_drive_mode");
 	m_atSwitch = new frc::JoystickButton(oi.get()->GetStick(2), 1);

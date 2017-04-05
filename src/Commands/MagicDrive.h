@@ -2,7 +2,7 @@
 #define MAGIC_DRIVE_H
 
 #include "../RobotMap.h"
-#include "../DriveTrain.h"
+#include "../Subsystems/DriveTrain.h"
 #include "../CommandBase.h"
 
 #include <memory>
@@ -22,7 +22,7 @@ private:
 	CANTalon::TalonControlMode m_previousMode;
 
 public:
-	MagicDrive(Profile& pr);
+	MagicDrive(const Profile& pr);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

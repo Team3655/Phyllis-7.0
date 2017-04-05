@@ -1,6 +1,6 @@
 #include "MagicDrive.h"
 
-MagicDrive::MagicDrive(Profile& pr)
+MagicDrive::MagicDrive(const Profile& pr)
 {
 	Requires(drive.get());
 
@@ -12,6 +12,7 @@ MagicDrive::MagicDrive(Profile& pr)
 
 void MagicDrive::Initialize()
 {
+	if (m_profile.isEmpty) return;
 	m_previousMode = m_drive->GetTalonMode();
 	m_drive->SetTalonMode(CANTalon::kMotionMagicMode);
 	m_driveLeft->ConfigNeutralMode(frc::CANSpeedController::NeutralMode::kNeutralMode_Brake);
@@ -24,13 +25,14 @@ void MagicDrive::Initialize()
 
 void MagicDrive::Execute()
 {
+	if (m_profile.isEmpty) return;
 	m_driveLeft->Set(m_profile.leftDist);
 	m_driveRight->Set(m_profile.rightDist);
 }
 
 bool MagicDrive::IsFinished()
 {
-	return false; // TODO: find when done
+	return m_profile.isEmpty || false; // TODO: find when done
 }
 
 void MagicDrive::End()

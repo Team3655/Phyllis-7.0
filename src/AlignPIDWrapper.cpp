@@ -7,9 +7,10 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#include <AlignPIDWrapper.h>
-#include <SmartDashboard/SmartDashboard.h>
+#include "AlignPIDWrapper.h"
 #include "CommandBase.h"
+
+#include <SmartDashboard/SmartDashboard.h>
 
 AlignPIDWrapper::AlignPIDWrapper()
 {

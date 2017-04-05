@@ -44,7 +44,7 @@ constexpr double SHOOT_P = 0.05;
 constexpr double SHOOT_I = 0;
 constexpr double SHOOT_D = 0.5;
 constexpr double SHOOT_F = 0.00937181;
-constexpr double SHOOT_SPEED = .5;
+constexpr double SHOOT_SPEED = .48;
 constexpr double SHOOT_RESET_TIME = 500; // ms
 //constexpr double SHOOT_MAX_SPEED = 93972; // counts/100ms
 
@@ -137,6 +137,7 @@ constexpr int LIGHT_BLUE_PORT = 6;
 
 //--------------------------------------------------------
 // Motion Magic
+
 constexpr double MAGIC_DEFAULT_RAMP = 0.0;
 constexpr double MAGIC_DEFAULT_CRUISE = 0.0;
 
@@ -154,18 +155,25 @@ struct Profile
 	double ramp;
 	double cruise;
 
+	bool isEmpty;
+
 	Profile(double left, double right) :
 		leftDist(left), rightDist(right),
-		ramp(MAGIC_DEFAULT_RAMP), cruise(MAGIC_DEFAULT_CRUISE) {}
+		ramp(MAGIC_DEFAULT_RAMP), cruise(MAGIC_DEFAULT_CRUISE),
+		isEmpty(false) {}
 
 	Profile(double left, double right, double ramp, double cruise):
 		leftDist(left), rightDist(right),
-		ramp(ramp), cruise(cruise) {}
+		ramp(ramp), cruise(cruise), isEmpty(false) {}
+
+	Profile() :
+		leftDist(0.0), rightDist(0.0),
+		ramp(0.0), cruise(0.0) , isEmpty(true) {}
 };
 
 // Construct a profile to turn a set degree and direction
 // + = right; - = left
-Profile make_turn_profile(
+inline Profile make_profile_turn(
 		double degrees,
 		double ramp = MAGIC_DEFAULT_RAMP,
 		double cruise = MAGIC_DEFAULT_CRUISE)
@@ -174,7 +182,7 @@ Profile make_turn_profile(
 }
 
 // Construct a profile from target distance in inches
-Profile make_profile_inches(
+inline Profile make_profile_inches(
 		double inches,
 		double ramp = MAGIC_DEFAULT_RAMP,
 		double cruise = MAGIC_DEFAULT_CRUISE)
@@ -183,7 +191,10 @@ Profile make_profile_inches(
 	return Profile(dist, dist, ramp, cruise);
 }
 
+#define MAGIC_ZERO std::vector<Profile>{ Profile() }
+
 // Distances
+constexpr double MAGIC_BASELINE_CROSS = 81.5;
 constexpr double MAGIC_PEG_RETRY = 12.0;
 constexpr double MAGIC_PEG_BOILER = 81.5;
 constexpr double MAGIC_PEG_MID = 81.5;
