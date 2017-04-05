@@ -4,30 +4,12 @@
 Shift::Shift() :
 	CommandBase("Shift")
 {
-	Requires(drive.get());
+	Requires(CommandBase::drive.get());
 }
 
 void Shift::Initialize()
 {
 	Logger::GetInstance()->Log("cmds", Logger::kEnter, "Shift");
-}
-
-void Shift::Execute()
-{
-	drive.get()->Shift();
-}
-
-bool Shift::IsFinished()
-{
-	return true;
-}
-
-void Shift::End()
-{
+	CommandBase::drive.get()->Shift();
 	Logger::GetInstance()->Log("cmds", Logger::kExit, "Shift");
-}
-
-void Shift::Interrupted()
-{
-	Logger::GetInstance()->Log("cmds", Logger::kInfo, "Shift interrupted");
 }
