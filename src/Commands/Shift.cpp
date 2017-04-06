@@ -1,10 +1,9 @@
 #include "Shift.h"
 #include "../Logger.h"
 
-Shift::Shift() :
-	CommandBase("Shift")
+Shift::Shift()
 {
-	Requires(drive.get());
+	Requires(CommandBase::drive.get());
 }
 
 void Shift::Initialize()
@@ -14,7 +13,7 @@ void Shift::Initialize()
 
 void Shift::Execute()
 {
-	drive.get()->Shift();
+	CommandBase::drive.get()->Shift();
 }
 
 bool Shift::IsFinished()

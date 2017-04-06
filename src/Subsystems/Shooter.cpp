@@ -91,7 +91,7 @@ void Shooter::DashboardOutput(bool verbose)
 
 void Shooter::Set(double speed)
 {
-	m_shooter->Set(speed);
+	m_shooter->Set(-speed);
 	m_log->Log(this, Logger::kInfo, "Shooter speed set to " + std::to_string(m_shooter->GetSetpoint()));
 }
 

@@ -238,3 +238,19 @@ void DriveTrain::ResetEnc()
 	m_lb->SetEncPosition(0);
 	m_rb->SetEncPosition(0);
 }
+
+void DriveTrain::Coast()
+{
+	Disable();
+	m_lb->ConfigNeutralMode(CANTalon::kNeutralMode_Coast);
+	m_rb->ConfigNeutralMode(CANTalon::kNeutralMode_Coast);
+	m_lb->Set(0);
+	m_rb->Set(0);
+}
+
+void DriveTrain::StopCoast()
+{
+	m_lb->ConfigNeutralMode(CANTalon::kNeutralMode_Brake);
+	m_rb->ConfigNeutralMode(CANTalon::kNeutralMode_Brake);
+	Enable();
+}

@@ -79,6 +79,9 @@ public:
 	void Disable() { m_disabled = true; }
 	void Enable() { m_disabled = false; }
 
+	void Coast();
+	void StopCoast();
+
 	// Shifter
 	void Shift();
 

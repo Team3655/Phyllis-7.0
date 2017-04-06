@@ -26,12 +26,12 @@ constexpr int DRIVE_SHIFT_LOW_PORT = 1;
 constexpr double DRIVE_LEFT_P = 1.0; // 1.03
 constexpr double DRIVE_LEFT_I = 0.0; // .0103
 constexpr double DRIVE_LEFT_D = 0.0; // 10.3
-constexpr double DRIVE_LEFT_F = 1.49343; // 1.49343
+constexpr double DRIVE_LEFT_F = 3.41; // 1.49343
 // Right
 constexpr double DRIVE_RIGHT_P = 1.0; // 2.0
 constexpr double DRIVE_RIGHT_I = 0.0; // .02
 constexpr double DRIVE_RIGHT_D = 0.0; // 20.0
-constexpr double DRIVE_RIGHT_F = 1.566616; // 1.566616
+constexpr double DRIVE_RIGHT_F = 3.41; // 1.566616
 
 constexpr double DRIVE_ALLOWED_ERROR = 10;
 
@@ -138,15 +138,15 @@ constexpr int LIGHT_BLUE_PORT = 6;
 //--------------------------------------------------------
 // Motion Magic
 
-constexpr double MAGIC_DEFAULT_RAMP = 0.0;
-constexpr double MAGIC_DEFAULT_CRUISE = 0.0;
+constexpr double MAGIC_DEFAULT_RAMP = 240; // RPM/s
+constexpr double MAGIC_DEFAULT_CRUISE = 240; //RPM
 
-constexpr double MAGIC_ROT_PER_DEG = 0.0;
+constexpr double MAGIC_ROT_PER_DEG = 0.0284;
 constexpr double MAGIC_IN_PER_ROT = 18.8;
 constexpr double MAGIC_ENC_TO_DRIVE_RATIO = 2.165;
 
 // Summary:
-// Structure for running motion magic
+// Structure for motion magic data
 struct Profile
 {
 	double leftDist;
@@ -172,13 +172,13 @@ struct Profile
 };
 
 // Construct a profile to turn a set degree and direction
-// + = right; - = left
+// + = right; - = left NOT CONFIRMED
 inline Profile make_profile_turn(
 		double degrees,
 		double ramp = MAGIC_DEFAULT_RAMP,
 		double cruise = MAGIC_DEFAULT_CRUISE)
 {
-	return Profile(MAGIC_ROT_PER_DEG * degrees, MAGIC_ROT_PER_DEG * -degrees, ramp, cruise);
+	return Profile(MAGIC_ROT_PER_DEG * degrees, MAGIC_ROT_PER_DEG * degrees, ramp, cruise);
 }
 
 // Construct a profile from target distance in inches
@@ -188,16 +188,23 @@ inline Profile make_profile_inches(
 		double cruise = MAGIC_DEFAULT_CRUISE)
 {
 	double dist = inches / MAGIC_IN_PER_ROT * MAGIC_ENC_TO_DRIVE_RATIO;
-	return Profile(dist, dist, ramp, cruise);
+	return Profile(dist, -dist, ramp, cruise);
+}
+
+// Construct a profile to turn an arc
+inline Profile make_profile_arc()
+{
+	return Profile();
 }
 
 #define MAGIC_ZERO std::vector<Profile>{ Profile() }
 
 // Distances
-constexpr double MAGIC_BASELINE_CROSS = 81.5;
+constexpr double MAGIC_BASELINE_CROSS = 85;
+constexpr double MAGIC_PEG_PLACE = 25;
 constexpr double MAGIC_PEG_RETRY = 12.0;
 constexpr double MAGIC_PEG_BOILER = 81.5;
-constexpr double MAGIC_PEG_MID = 81.5;
+constexpr double MAGIC_PEG_MID = 79.5;
 constexpr double MAGIC_PEG_GEAR = 87.0;
 constexpr double MAGIC_PEG_PULLAWAY = 0.0; // unknown
 
