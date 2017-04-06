@@ -40,7 +40,7 @@ void AlignWithPeg::Initialize()
 			" D: " + std::to_string(m_pid->GetD()));
 
 	//m_pid->SetTolerance(ALIGN_PEG_TOLERANCE);
-	drive.get()->SetTalonMode(CANSpeedController::kPercentVbus);
+	drive.get()->SetTalonMode(CANTalon::kThrottleMode);
 }
 
 void AlignWithPeg::Execute()

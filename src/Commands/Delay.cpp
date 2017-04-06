@@ -13,7 +13,7 @@ Delay::Delay(double delay)
 void Delay::Initialize()
 {
 	Logger::GetInstance()->Log("cmds", Logger::kEnter, "Delay");
-	drive.get()->Disable();
+	drive.get()->Coast();
 	m_delayTimer->Start();
 }
 
@@ -29,7 +29,7 @@ bool Delay::IsFinished()
 
 void Delay::End()
 {
-	drive.get()->Enable();
+	drive.get()->StopCoast();
 	Logger::GetInstance()->Log("cmds", Logger::kExit, "Delay");
 }
 

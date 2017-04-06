@@ -26,12 +26,12 @@ constexpr int DRIVE_SHIFT_LOW_PORT = 1;
 constexpr double DRIVE_LEFT_P = 1.0; // 1.03
 constexpr double DRIVE_LEFT_I = 0.0; // .0103
 constexpr double DRIVE_LEFT_D = 0.0; // 10.3
-constexpr double DRIVE_LEFT_F = 1.49343; // 1.49343
+constexpr double DRIVE_LEFT_F = 3.41; // 1.49343
 // Right
 constexpr double DRIVE_RIGHT_P = 1.0; // 2.0
 constexpr double DRIVE_RIGHT_I = 0.0; // .02
 constexpr double DRIVE_RIGHT_D = 0.0; // 20.0
-constexpr double DRIVE_RIGHT_F = 1.566616; // 1.566616
+constexpr double DRIVE_RIGHT_F = 3.41; // 1.566616
 
 constexpr double DRIVE_ALLOWED_ERROR = 10;
 
@@ -44,7 +44,7 @@ constexpr double SHOOT_P = 0.05;
 constexpr double SHOOT_I = 0;
 constexpr double SHOOT_D = 0.5;
 constexpr double SHOOT_F = 0.00937181;
-constexpr double SHOOT_SPEED = .5;
+constexpr double SHOOT_SPEED = .48;
 constexpr double SHOOT_RESET_TIME = 500; // ms
 //constexpr double SHOOT_MAX_SPEED = 93972; // counts/100ms
 
@@ -135,6 +135,79 @@ constexpr int LIGHT_RED_PORT = 3;
 constexpr int LIGHT_GREEN_PORT = 5;
 constexpr int LIGHT_BLUE_PORT = 6;
 
+//--------------------------------------------------------
+// Motion Magic
+
+constexpr double MAGIC_DEFAULT_RAMP = 240; // RPM/s
+constexpr double MAGIC_DEFAULT_CRUISE = 240; //RPM
+
+constexpr double MAGIC_ROT_PER_DEG = 0.0284;
+constexpr double MAGIC_IN_PER_ROT = 18.8;
+constexpr double MAGIC_ENC_TO_DRIVE_RATIO = 2.165;
+
+// Summary:
+// Structure for motion magic data
+struct Profile
+{
+	double leftDist;
+	double rightDist;
+	// Optional parameters
+	double ramp;
+	double cruise;
+
+	bool isEmpty;
+
+	Profile(double left, double right) :
+		leftDist(left), rightDist(right),
+		ramp(MAGIC_DEFAULT_RAMP), cruise(MAGIC_DEFAULT_CRUISE),
+		isEmpty(false) {}
+
+	Profile(double left, double right, double ramp, double cruise):
+		leftDist(left), rightDist(right),
+		ramp(ramp), cruise(cruise), isEmpty(false) {}
+
+	Profile() :
+		leftDist(0.0), rightDist(0.0),
+		ramp(0.0), cruise(0.0) , isEmpty(true) {}
+};
+
+// Construct a profile to turn a set degree and direction
+// + = right; - = left NOT CONFIRMED
+inline Profile make_profile_turn(
+		double degrees,
+		double ramp = MAGIC_DEFAULT_RAMP,
+		double cruise = MAGIC_DEFAULT_CRUISE)
+{
+	return Profile(MAGIC_ROT_PER_DEG * degrees, MAGIC_ROT_PER_DEG * degrees, ramp, cruise);
+}
+
+// Construct a profile from target distance in inches
+inline Profile make_profile_inches(
+		double inches,
+		double ramp = MAGIC_DEFAULT_RAMP,
+		double cruise = MAGIC_DEFAULT_CRUISE)
+{
+	double dist = inches / MAGIC_IN_PER_ROT * MAGIC_ENC_TO_DRIVE_RATIO;
+	return Profile(dist, -dist, ramp, cruise);
+}
+
+// Construct a profile to turn an arc
+inline Profile make_profile_arc()
+{
+	return Profile();
+}
+
+#define MAGIC_ZERO std::vector<Profile>{ Profile() }
+
+// Distances
+constexpr double MAGIC_BASELINE_CROSS = 85;
+constexpr double MAGIC_PEG_PLACE = 25;
+constexpr double MAGIC_PEG_RETRY = 12.0;
+constexpr double MAGIC_PEG_BOILER = 81.5;
+constexpr double MAGIC_PEG_MID = 79.5;
+constexpr double MAGIC_PEG_GEAR = 87.0;
+constexpr double MAGIC_PEG_PULLAWAY = 0.0; // unknown
+
 //---------------------------------------------------------
 // Utility Functions
 
@@ -151,13 +224,5 @@ inline void sleep(uint timeMS)
 }
 
 constexpr double LOG_RESOLUTION = 1;
-
-//----------------------------------------------------------
-// Motion Profiling
-
-constexpr int MIN_POINTS = 5;
-constexpr int TIMEOUT_LOOPS = 10;
-
-// Profiles in Profiles.h
 
 #endif // ROBOT_MAP_H

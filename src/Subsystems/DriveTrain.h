@@ -23,13 +23,13 @@
 #define HIGH frc::DoubleSolenoid::Value::kForward
 #define LOW frc::DoubleSolenoid::Value::kReverse
 
-class MotionControl;
+class MagicDrive;
 
 // Summary:
 //	Class to manage the drive base of the robot
 class DriveTrain : public frc::Subsystem, public ExtSubsystem
 {
-	friend MotionControl;
+	friend MagicDrive;
 
 private:
 	// Slaves
@@ -51,7 +51,6 @@ private:
 
 	Logger* m_log;
 
-	CANSpeedController::ControlMode get_talon_mode();
 	void set_pid_values();
 
 public:
@@ -62,7 +61,8 @@ public:
 	void Initialize(frc::Preferences* prefs) override;
 	void DashboardOutput(bool verbose = false) override;
 
-	void SetTalonMode(CANSpeedController::ControlMode mode);
+	void SetTalonMode(CANTalon::TalonControlMode mode);
+	CANTalon::TalonControlMode GetTalonMode();
 
 	// Drive the bot in Arcade Drive (invert doesn't work)
 	void ArcadeDrive(double move, double rotate);
@@ -79,6 +79,9 @@ public:
 	void Disable() { m_disabled = true; }
 	void Enable() { m_disabled = false; }
 
+	void Coast();
+	void StopCoast();
+
 	// Shifter
 	void Shift();
 
@@ -87,6 +90,9 @@ public:
 
 	void GetPosition(double& lPos, double& rPos);
 	double GetVelocity();
+
+	// Resets the encoder position for the drive talons
+	void ResetEnc();
 };
 
 #endif // DRIVE_TRAIN_H

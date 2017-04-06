@@ -1,5 +1,5 @@
-#ifndef AUTO_PEG_GEAR_H
-#define AUTO_PEG_GEAR_H
+#ifndef AUTO_PEG_AND_SHOOT_H
+#define AUTO_PEG_AND_SHOOT_H
 
 #include "../../RobotMap.h"
 
@@ -7,15 +7,15 @@
 #include <vector>
 
 // Summary:
-// Pegs a gear
-class AutoPegGear : public frc::CommandGroup
+// Shoots the 10 fuel cells and then pegs a gear on boiler side
+class AutoPegAndShoot : public frc::CommandGroup
 {
 public:
-	AutoPegGear(
+	AutoPegAndShoot(
 		double delay,
 		const std::vector<Profile>& prePeg,
 		const std::vector<Profile>& retry,
 		const std::vector<Profile>& postPeg);
 };
 
-#endif // AUTO_PEG_GEAR_H
+#endif // AUTO_PEG_AND_SHOOT_H
