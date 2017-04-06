@@ -5,15 +5,11 @@
 
 // Summary:
 //	Toggles between low and high gear on the drive train
-class Shift : public CommandBase
+class Shift : public frc::InstantCommand
 {
 public:
 	Shift();
 	void Initialize();
-	void Execute();
-	bool IsFinished();
-	void End();
-	void Interrupted();
 };
 
 #endif // SHIFT_H

@@ -3,7 +3,10 @@
 
 #include <Commands/CommandGroup.h>
 
-class ShiftDrive : public CommandGroup
+// Summary:
+// Group to shift gears and wait for gear to catch
+// before allowing the driver to control the bot
+class ShiftDrive : public frc::CommandGroup
 {
 public:
 	ShiftDrive();
