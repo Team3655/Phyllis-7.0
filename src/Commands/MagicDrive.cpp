@@ -51,16 +51,18 @@ void MagicDrive::Interrupted()
 
 bool MagicDrive::is_finished()
 {
-	if (m_driveLeft->GetEncVel() == 0 && m_driveRight->GetEncVel() == 0 && !m_triggered)
+	if (is_about(m_profile.leftDist, m_driveLeft->Get(), 50) &&
+		is_about(m_profile.rightDist, m_driveRight->Get(), 50) && !m_triggered)
 	{
 		m_timer.Start();
 		m_triggered = true;
 	}
-	else if (m_driveLeft->GetEncVel() != 0 || m_driveRight->GetEncVel() != 0)
+	else if (!is_about(m_profile.leftDist, m_driveLeft->Get(), 50) &&
+			!is_about(m_profile.rightDist, m_driveRight->Get(), 50))
 	{
 		m_timer.Stop();
 		m_timer.Reset();
 		m_triggered = false;
 	}
-	return m_timer.HasPeriodPassed(1);
+	return m_timer.HasPeriodPassed(MAGIC_FINISH_WAIT_TIME);
 }

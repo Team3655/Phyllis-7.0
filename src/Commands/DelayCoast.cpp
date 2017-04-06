@@ -1,7 +1,6 @@
-#include "Delay.h"
-#include "../Logger.h"
+#include "DelayCoast.h"
 
-Delay::Delay(double delay)
+DelayCoast::DelayCoast(double delay)
 {
 	Requires(drive.get());
 	Requires(lights.get());
@@ -10,30 +9,30 @@ Delay::Delay(double delay)
 	m_delayTimer = new frc::Timer();
 }
 
-void Delay::Initialize()
+void DelayCoast::Initialize()
 {
 	Logger::GetInstance()->Log("cmds", Logger::kEnter, "Delay");
-	drive.get()->Disable();
+	drive.get()->Coast();
 	m_delayTimer->Start();
 }
 
-void Delay::Execute()
+void DelayCoast::Execute()
 {
 	lights.get()->SetColor(RED);
 }
 
-bool Delay::IsFinished()
+bool DelayCoast::IsFinished()
 {
 	return m_delayTimer->HasPeriodPassed(m_delay);
 }
 
-void Delay::End()
+void DelayCoast::End()
 {
-	drive.get()->Enable();
+	drive.get()->StopCoast();
 	Logger::GetInstance()->Log("cmds", Logger::kExit, "Delay");
 }
 
-void Delay::Interrupted()
+void DelayCoast::Interrupted()
 {
 	Logger::GetInstance()->Log("cmds", Logger::kInfo, "Delay interrupted");
 }
