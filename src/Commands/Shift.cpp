@@ -1,8 +1,7 @@
 #include "Shift.h"
 #include "../Logger.h"
 
-Shift::Shift() :
-	CommandBase("Shift")
+Shift::Shift()
 {
 	Requires(CommandBase::drive.get());
 }
