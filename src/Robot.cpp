@@ -121,8 +121,6 @@ public:
 		// Nothing
 		autoModes.AddDefault("Nothing", nullptr);
 
-		frc::SmartDashboard::PutData(new MagicDrive(make_profile_turn(90)));
-
 		frc::SmartDashboard::Delete("Auto Modes"); // Attempt to fix no show chooser
 		frc::SmartDashboard::PutData("Auto Modes", &autoModes);
 

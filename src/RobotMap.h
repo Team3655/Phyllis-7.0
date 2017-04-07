@@ -11,6 +11,7 @@
 #define ROBOT_MAP_H
 
 #include <thread>
+#include <cmath>
 
 //---------------------------------------------------------
 // Drive

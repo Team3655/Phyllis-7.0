@@ -5,5 +5,5 @@
 ShiftDrive::ShiftDrive()
 {
 	AddSequential(new Shift());
-	AddSequential(new DelayCoast(.5));
+	AddSequential(new DelayCoast(2));
 }

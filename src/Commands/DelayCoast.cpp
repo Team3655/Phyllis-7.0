@@ -11,7 +11,7 @@ DelayCoast::DelayCoast(double delay)
 
 void DelayCoast::Initialize()
 {
-	Logger::GetInstance()->Log("cmds", Logger::kEnter, "Delay");
+	Logger::GetInstance()->Log("cmds", Logger::kEnter, "Coast");
 	drive.get()->Coast();
 	m_delayTimer->Start();
 }
@@ -29,10 +29,10 @@ bool DelayCoast::IsFinished()
 void DelayCoast::End()
 {
 	drive.get()->StopCoast();
-	Logger::GetInstance()->Log("cmds", Logger::kExit, "Delay");
+	Logger::GetInstance()->Log("cmds", Logger::kExit, "Coast");
 }
 
 void DelayCoast::Interrupted()
 {
-	Logger::GetInstance()->Log("cmds", Logger::kInfo, "Delay interrupted");
+	Logger::GetInstance()->Log("cmds", Logger::kInfo, "Coast interrupted");
 }

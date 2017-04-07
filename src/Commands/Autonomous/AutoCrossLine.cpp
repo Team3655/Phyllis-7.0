@@ -7,6 +7,7 @@
 
 AutoCrossLine::AutoCrossLine(double delay)
 {
+	AddSequential(new Shift(LOW));
 	AddSequential(new Delay(delay));
 	AddSequential(new MagicDrive(make_profile_inches(MAGIC_BASELINE_CROSS)));
 }

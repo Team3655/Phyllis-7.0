@@ -10,7 +10,8 @@ AutoPegGear::AutoPegGear(
 		const std::vector<Profile>& retry,
 		const std::vector<Profile>& postPeg)
 {
-	//AddSequential(new Delay(delay));
+	AddSequential(new Shift(LOW));
+	AddSequential(new Delay(delay));
 	for (const Profile& p : prePeg)
 		AddSequential(new MagicDrive(p));
 	AddSequential(new DelayForGear());
