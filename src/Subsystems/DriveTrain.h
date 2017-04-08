@@ -76,8 +76,16 @@ public:
 
 	// Enables/Disables robot so no error can happen
 	// Example uses: when shooting or in motion profile mode
-	void Disable() { m_disabled = true; }
-	void Enable() { m_disabled = false; }
+	void Disable()
+	{
+		m_disabled = true;
+		m_log->Log(this, Logger::kInfo, "Disabled");
+	}
+	void Enable()
+	{
+		m_disabled = false;
+		m_log->Log(this, Logger::kInfo, "Enabled");
+	}
 
 	void Coast();
 	void StopCoast();

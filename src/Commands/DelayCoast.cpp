@@ -6,14 +6,13 @@ DelayCoast::DelayCoast(double delay)
 	Requires(lights.get());
 
 	m_delay = delay;
-	m_delayTimer = new frc::Timer();
 }
 
 void DelayCoast::Initialize()
 {
 	Logger::GetInstance()->Log("cmds", Logger::kEnter, "Coast");
 	drive.get()->Coast();
-	m_delayTimer->Start();
+	m_delayTimer.Start();
 }
 
 void DelayCoast::Execute()
@@ -23,12 +22,14 @@ void DelayCoast::Execute()
 
 bool DelayCoast::IsFinished()
 {
-	return m_delayTimer->HasPeriodPassed(m_delay);
+	return m_delayTimer.HasPeriodPassed(m_delay);
 }
 
 void DelayCoast::End()
 {
 	drive.get()->StopCoast();
+	m_delayTimer.Stop();
+	m_delayTimer.Reset();
 	Logger::GetInstance()->Log("cmds", Logger::kExit, "Coast");
 }
 
