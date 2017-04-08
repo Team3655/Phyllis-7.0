@@ -5,6 +5,7 @@
 #include "../MagicDrive.h"
 #include "../WaitForPeg.h"
 #include "../Shoot.h"
+#include "../Shift.h"
 
 AutoPegAndShoot::AutoPegAndShoot(
 		double delay,
@@ -20,7 +21,6 @@ AutoPegAndShoot::AutoPegAndShoot(
 			AddSequential(new MagicDrive(*itr));
 	for (auto itr = postPeg.begin(); itr != postPeg.end(); itr++)
 		AddSequential(new MagicDrive(*itr));*/
-	AddSequential(new Shift(LOW));
 	AddSequential(new Shoot(SHOOT_SPEED));
 	AddSequential(new AutoPegGear(delay, prePeg, retry, postPeg));
 }

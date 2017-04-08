@@ -162,6 +162,9 @@ public:
 	{
 		autonomousCommand.reset(autoModes.GetSelected());
 
+		if (CommandBase::drive.get()->ShiftState() == HIGH)
+			CommandBase::drive.get()->Shift();
+
 		if (autonomousCommand.get() != nullptr)
 		{
 			autonomousCommand->Start();
@@ -175,7 +178,6 @@ public:
 
 	void TeleopInit() override
 	{
-		//CommandBase::drive.get()->Enable(); // In case that auto was stopped unexpectedly
 		if (autonomousCommand != nullptr)
 		{
 			autonomousCommand->Cancel();

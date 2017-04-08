@@ -84,6 +84,7 @@ public:
 
 	// Shifter
 	void Shift();
+	frc::DoubleSolenoid::Value ShiftState() { return m_shifter->Get(); }
 
 	void SetScale(double scale);
 	double GetScale();

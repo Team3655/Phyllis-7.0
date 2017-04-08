@@ -226,7 +226,7 @@ constexpr double MAGIC_PEG_PULLAWAY = 0.0; // unknown
 // If a number is within a range rather than equal to
 inline bool is_about(double target, double value, double acceptableRange)
 {
-	return target >= target + acceptableRange && target < target - acceptableRange;
+	return value <= target + acceptableRange && value > target - acceptableRange;
 }
 
 // Wrapper for this_thread::sleep_for()

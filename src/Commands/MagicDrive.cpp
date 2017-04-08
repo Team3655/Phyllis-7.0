@@ -29,8 +29,6 @@ void MagicDrive::Execute()
 	if (m_profile.isEmpty) return;
 	m_driveLeft->Set(m_profile.leftDist);
 	m_driveRight->Set(m_profile.rightDist);
-
-	std::cout << m_driveLeft->GetEncVel() << "  " << m_driveRight->GetEncVel() << std::endl;
 }
 
 bool MagicDrive::IsFinished()
@@ -40,7 +38,6 @@ bool MagicDrive::IsFinished()
 
 void MagicDrive::End()
 {
-	m_drive->ResetEnc();
 	m_drive->SetTalonMode(m_previousMode);
 	std::cout << "Finished" << std::endl;
 }
@@ -51,14 +48,21 @@ void MagicDrive::Interrupted()
 
 bool MagicDrive::is_finished()
 {
-	if (is_about(m_profile.leftDist, m_driveLeft->Get(), 50) &&
-		is_about(m_profile.rightDist, m_driveRight->Get(), 50) && !m_triggered)
+	bool lt = is_about(m_profile.leftDist, (double)m_driveLeft->GetEncPosition() / 400, .5);
+	bool rt = is_about(m_profile.rightDist, (double)m_driveRight->GetEncPosition() / 400, .5);
+
+	std::cout << m_driveLeft->GetSetpoint() << " " << m_driveRight->GetSetpoint() << std::endl;
+	std::cout << m_driveLeft->Get() << "  " << m_driveRight->Get() << std::endl;
+
+	if (lt && rt &&
+		m_driveLeft->GetEncVel() == 0 && m_driveRight->GetEncVel() == 0 &&
+		!m_triggered)
 	{
 		m_timer.Start();
 		m_triggered = true;
 	}
-	else if (!is_about(m_profile.leftDist, m_driveLeft->Get(), 50) &&
-			!is_about(m_profile.rightDist, m_driveRight->Get(), 50))
+	else if (!lt && !rt &&
+			m_driveLeft->GetEncVel() != 0 && m_driveRight->GetEncVel() != 0)
 	{
 		m_timer.Stop();
 		m_timer.Reset();
