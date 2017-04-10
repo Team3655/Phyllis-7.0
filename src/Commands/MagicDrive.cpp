@@ -41,8 +41,8 @@ bool MagicDrive::IsFinished()
 
 void MagicDrive::End()
 {
-	m_previousLeftRot = m_profile.leftDist;
-	m_previousRightRot = m_profile.rightDist;
+	m_previousLeftRot += m_profile.leftDist;
+	m_previousRightRot += m_profile.rightDist;
 	m_drive->SetTalonMode(m_previousMode);
 	std::cout << "Finished" << std::endl;
 }
