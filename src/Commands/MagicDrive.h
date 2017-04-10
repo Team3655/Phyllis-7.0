@@ -14,6 +14,9 @@
 class MagicDrive : public CommandBase
 {
 private:
+	static int m_previousLeftRot;
+	static int m_previousRightRot;
+
 	frc::Timer m_timer;
 
 	Profile m_profile;

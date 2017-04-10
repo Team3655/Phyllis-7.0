@@ -141,7 +141,7 @@ constexpr int LIGHT_BLUE_PORT = 6;
 
 constexpr double MAGIC_DEFAULT_RAMP = 240; // RPM/s
 constexpr double MAGIC_DEFAULT_CRUISE = 240; //RPM
-constexpr double MAGIC_FINISH_WAIT_TIME = .2; // not tuned
+constexpr double MAGIC_FINISH_WAIT_TIME = .5; // not tuned
 
 constexpr double MAGIC_ROT_PER_DEG = 0.0284;
 constexpr double MAGIC_IN_PER_ROT = 18.8;
@@ -204,6 +204,7 @@ inline Profile make_profile_arc(
 		double ramp = MAGIC_DEFAULT_RAMP,
 		double cruise = MAGIC_DEFAULT_CRUISE)
 {
+	// Needs to change speed as well
 	double oDist = (reverse ? -1 : 1) * 2 * MAGIC_PI * (radius + MAGIC_ROBOT_WIDTH / 2) * std::abs(degrees) / 360;
 	double iDist = (reverse ? -1 : 1) * 2 * MAGIC_PI * (radius - MAGIC_ROBOT_WIDTH / 2) * std::abs(degrees) / 360;
 	return Profile((degrees >= 0) ? oDist : iDist, (degrees >= 0) ? iDist : oDist, ramp, cruise);

@@ -1,5 +1,8 @@
 #include "MagicDrive.h"
 
+int MagicDrive::m_previousLeftRot = 0;
+int MagicDrive::m_previousRightRot = 0;
+
 MagicDrive::MagicDrive(const Profile& pr)
 {
 	Requires(drive.get());
@@ -21,14 +24,14 @@ void MagicDrive::Initialize()
 	m_driveRight->SetMotionMagicCruiseVelocity(m_profile.cruise);
 	m_driveLeft->SetMotionMagicAcceleration(m_profile.ramp);
 	m_driveRight->SetMotionMagicAcceleration(m_profile.ramp);
-	m_drive->ResetEnc();
+	//m_drive->ResetEnc();
 }
 
 void MagicDrive::Execute()
 {
 	if (m_profile.isEmpty) return;
-	m_driveLeft->Set(m_profile.leftDist);
-	m_driveRight->Set(m_profile.rightDist);
+	m_driveLeft->Set(m_previousLeftRot + m_profile.leftDist);
+	m_driveRight->Set(m_previousRightRot + m_profile.rightDist);
 }
 
 bool MagicDrive::IsFinished()
@@ -38,6 +41,8 @@ bool MagicDrive::IsFinished()
 
 void MagicDrive::End()
 {
+	m_previousLeftRot = m_profile.leftDist;
+	m_previousRightRot = m_profile.rightDist;
 	m_drive->SetTalonMode(m_previousMode);
 	std::cout << "Finished" << std::endl;
 }
