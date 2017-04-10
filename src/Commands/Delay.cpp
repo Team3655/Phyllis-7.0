@@ -7,14 +7,13 @@ Delay::Delay(double delay)
 	Requires(lights.get());
 
 	m_delay = delay;
-	m_delayTimer = new frc::Timer();
 }
 
 void Delay::Initialize()
 {
 	Logger::GetInstance()->Log("cmds", Logger::kEnter, "Delay");
 	drive.get()->Disable();
-	m_delayTimer->Start();
+	m_delayTimer.Start();
 }
 
 void Delay::Execute()
@@ -24,12 +23,14 @@ void Delay::Execute()
 
 bool Delay::IsFinished()
 {
-	return m_delayTimer->HasPeriodPassed(m_delay);
+	return m_delayTimer.HasPeriodPassed(m_delay);
 }
 
 void Delay::End()
 {
 	drive.get()->Enable();
+	m_delayTimer.Stop();
+	m_delayTimer.Reset();
 	Logger::GetInstance()->Log("cmds", Logger::kExit, "Delay");
 }
 

@@ -10,7 +10,7 @@ class Delay : public CommandBase
 private:
 	double m_delay;
 
-	frc::Timer* m_delayTimer;
+	frc::Timer m_delayTimer;
 
 public:
 	Delay(double delay);
