@@ -1,14 +1,14 @@
 #include "Shoot.h"
 #include "../Logger.h"
 
-Shoot::Shoot(double speedProp)
+Shoot::Shoot(double speedProp, bool auton)
 {
 	Requires(shooter.get());
 	Requires(fuelCollector.get());
 	Requires(drive.get());
 
-	m_isAligned = false;
-	m_speedProportion = speedProp * 13000;
+	m_auton = auton;
+	m_speedProportion = speedProp * SHOOT_MAX_SPEED;
 }
 
 void Shoot::Initialize()
@@ -20,8 +20,7 @@ void Shoot::Initialize()
 
 	Logger::GetInstance()->Log("cmds", Logger::kInfo, "Shoot Abort Button initialized to " + code);
 
-	//drive.get()->Disable();
-	m_isAligned = false; // Get alignment
+	if (m_auton) m_timer.Start();
 }
 
 void Shoot::Execute()
@@ -31,8 +30,10 @@ void Shoot::Execute()
 
 bool Shoot::IsFinished()
 {
-	// When no more balls are present or not aligned or abort pressed
-	return m_abortBtn->Get(); //!isAligned
+	if (m_auton)
+		return m_timer.HasPeriodPassed(SHOOT_AUTO_TIME);
+	else
+		return m_abortBtn->Get();
 }
 
 void Shoot::End()
@@ -40,7 +41,9 @@ void Shoot::End()
 	Logger::GetInstance()->Log("cmds", Logger::kExit, "Shoot");
 	shooter.get()->Set(0);
 	fuelCollector.get()->Index(false);
-	//drive.get()->Enable();
+
+	m_timer.Stop();
+	m_timer.Reset();
 }
 
 void Shoot::Interrupted()

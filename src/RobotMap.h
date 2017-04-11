@@ -46,8 +46,8 @@ constexpr double SHOOT_I = 0;
 constexpr double SHOOT_D = 0.5;
 constexpr double SHOOT_F = 0.00937181;
 constexpr double SHOOT_SPEED = .48;
-constexpr double SHOOT_RESET_TIME = 500; // ms
-//constexpr double SHOOT_MAX_SPEED = 93972; // counts/100ms
+constexpr double SHOOT_AUTO_TIME = 10;
+constexpr double SHOOT_MAX_SPEED = 13000;
 
 //---------------------------------------------------------
 // Gear Collector
@@ -67,6 +67,7 @@ constexpr int GEAR_EJECTOR_B_PORT = 3;
 constexpr int CLIMB_LEFT_PORT = 2;
 constexpr int CLIMB_RIGHT_PORT = 13;
 constexpr double CLIMB_SPEED = .6;
+constexpr double CLIMB_SPEED_FAST = .95;
 
 //---------------------------------------------------------
 // Fuel Collector
@@ -77,7 +78,6 @@ constexpr double FUEL_INTAKE_SPEED = -.9;
 
 //---------------------------------------------------------
 // Input
-//#define CODRIVER  	// Use def check when referencing the co-driver stick
 constexpr int JOY_DRIVER_PORT = 0;
 constexpr int JOY_CODRIVER_PORT = 1;
 constexpr int JOY_BOARD_PORT = 2;
@@ -150,6 +150,8 @@ constexpr double MAGIC_ENC_TO_DRIVE_RATIO = 2.165;
 constexpr double MAGIC_PI = 3.14159265;
 constexpr double MAGIC_ROBOT_WIDTH = 28.25;
 
+// Summary:
+// Per motor profile data
 struct pr_data_t
 {
 	double distance;
@@ -158,7 +160,7 @@ struct pr_data_t
 };
 
 // Summary:
-// Structure for motion magic data
+// Structure for drivetrain motion magic data
 struct Profile
 {
 	pr_data_t left;

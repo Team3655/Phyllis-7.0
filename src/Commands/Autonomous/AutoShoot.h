@@ -3,6 +3,8 @@
 
 #include <Commands/CommandGroup.h>
 
+// Summary:
+// Shoot fuel in auto
 class AutoShoot : public frc::CommandGroup
 {
 public:
