@@ -108,16 +108,12 @@ public:
 						MAGIC_ZERO));
 		// Shoot Red 1
 		autoModes.AddObject("Red Shoot 1",
-				new AutoPegAndShoot(0,
-						std::vector<Profile>{ make_profile_inches(90), make_profile_turn(-45), make_profile_inches(MAGIC_PEG_PLACE) },
-						std::vector<Profile>{ make_profile_inches(-MAGIC_PEG_RETRY), make_profile_inches(MAGIC_PEG_RETRY) },
-						std::vector<Profile>{ make_profile_inches(/*Reverse*/0), make_profile_turn(/*Rotate*/0) }));
+				new AutoShoot(
+						std::vector<Profile>{ make_profile_arc(50, -40, true), make_profile_arc(120, -60), make_profile_inches(300) }));
 		// Shoot Blue 1
 		autoModes.AddObject("Blue Shoot 1",
-				new AutoPegAndShoot(0,
-						std::vector<Profile>{ make_profile_inches(90), make_profile_turn(-45), make_profile_inches(MAGIC_PEG_PLACE) },
-						std::vector<Profile>{ make_profile_inches(-MAGIC_PEG_RETRY), make_profile_inches(MAGIC_PEG_RETRY) },
-						std::vector<Profile>{ make_profile_inches(/*Reverse*/0), make_profile_turn(/*Rotate*/0) }));
+				new AutoShoot(
+						std::vector<Profile>{ make_profile_arc(50, 40, true), make_profile_arc(120, 60), make_profile_inches(300) }));
 		// Nothing
 		autoModes.AddDefault("Nothing", nullptr);
 

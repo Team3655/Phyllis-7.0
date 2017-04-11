@@ -230,6 +230,7 @@ inline Profile make_profile_inches(
 }
 
 // Construct a profile to turn an arc
+// radius in inches
 inline Profile make_profile_arc(
 		double radius,
 		double degrees,
