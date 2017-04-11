@@ -235,8 +235,8 @@ double DriveTrain::GetVelocity()
 
 void DriveTrain::ResetEnc()
 {
-	m_lb->SetEncPosition(0);
-	m_rb->SetEncPosition(0);
+	m_lb->SetPosition(0);
+	m_rb->SetPosition(0);
 }
 
 void DriveTrain::Coast()

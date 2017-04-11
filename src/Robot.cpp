@@ -91,7 +91,7 @@ public:
 		// Peg Red 1
 		autoModes.AddObject("Red Peg 1",
 				new AutoPegGear(0,
-						std::vector<Profile>{ make_profile_inches(87), make_profile_turn(45), make_profile_inches(MAGIC_PEG_PLACE) },
+						std::vector<Profile>{ make_profile_inches(-120), make_profile_turn(45), make_profile_inches(-33.6) },
 						std::vector<Profile>{ make_profile_inches(-MAGIC_PEG_RETRY), make_profile_inches(MAGIC_PEG_RETRY) },
 						MAGIC_ZERO));
 		// Peg Red 2
