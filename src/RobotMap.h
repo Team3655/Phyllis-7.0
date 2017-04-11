@@ -150,31 +150,62 @@ constexpr double MAGIC_ENC_TO_DRIVE_RATIO = 2.165;
 constexpr double MAGIC_PI = 3.14159265;
 constexpr double MAGIC_ROBOT_WIDTH = 28.25;
 
+struct pr_data_t
+{
+	double distance;
+	double ramp;
+	double cruise;
+};
+
 // Summary:
 // Structure for motion magic data
 struct Profile
 {
-	double leftDist;
-	double rightDist;
-	// Optional parameters
-	double ramp;
-	double cruise;
+	pr_data_t left;
+	pr_data_t right;
 
 	bool isEmpty;
 
-	Profile(double left, double right) :
-		leftDist(left), rightDist(right),
-		ramp(MAGIC_DEFAULT_RAMP), cruise(MAGIC_DEFAULT_CRUISE),
-		isEmpty(false) {}
+	Profile(double leftD, double rightD) :
+		isEmpty(false)
+	{
+		left.distance = leftD;
+		left.ramp = MAGIC_DEFAULT_RAMP;
+		left.cruise = MAGIC_DEFAULT_CRUISE;
 
-	Profile(double left, double right, double ramp, double cruise):
-		leftDist(left), rightDist(right),
-		ramp(ramp), cruise(cruise), isEmpty(false) {}
+		right.distance = rightD;
+		right.ramp = MAGIC_DEFAULT_RAMP;
+		right.cruise = MAGIC_DEFAULT_CRUISE;
+	}
+
+	Profile(double leftD, double rightD, double ramp, double cruise) :
+		isEmpty(false)
+	{
+		left.distance = leftD;
+		right.distance = rightD;
+
+		left.ramp = ramp;
+		right.ramp = ramp;
+		left.cruise = cruise;
+		right.cruise = cruise;
+	}
+
+	Profile(pr_data_t l, pr_data_t r) :
+		left(l), right(r) {}
 
 	Profile() :
-		leftDist(0.0), rightDist(0.0),
-		ramp(0.0), cruise(0.0) , isEmpty(true) {}
+		isEmpty(true) {}
 };
+
+// Creates profile data for a motor
+inline pr_data_t create_pr_data(double distance, double ramp, double cruise)
+{
+	pr_data_t data;
+	data.distance = distance;
+	data.ramp = ramp;
+	data.cruise = cruise;
+	return data;
+}
 
 // Construct a profile to turn, on center, a set degree and direction
 // + = right; - = left NOT CONFIRMED
@@ -207,7 +238,16 @@ inline Profile make_profile_arc(
 	// Needs to change speed as well
 	double oDist = (reverse ? -1 : 1) * 2 * MAGIC_PI * (radius + MAGIC_ROBOT_WIDTH / 2) * std::abs(degrees) / 360;
 	double iDist = (reverse ? -1 : 1) * 2 * MAGIC_PI * (radius - MAGIC_ROBOT_WIDTH / 2) * std::abs(degrees) / 360;
-	return Profile((degrees >= 0) ? oDist : iDist, (degrees >= 0) ? iDist : oDist, ramp, cruise);
+
+	double oVel = (oDist / radius * 2) * cruise;
+	double iVel = (iDist / radius * 2) * cruise;
+
+	double oRamp = (oDist / radius * 2) * ramp;
+	double iRamp = (iDist / radius * 2) * ramp;
+
+	return Profile(
+			(degrees >= 0) ? create_pr_data(oDist, oRamp, oVel) : create_pr_data(iDist, iRamp, iVel),
+			(degrees >= 0) ? create_pr_data(iDist, iRamp, iVel) : create_pr_data(oDist, oRamp, oVel));
 }
 
 #define MAGIC_ZERO std::vector<Profile>{ Profile() }

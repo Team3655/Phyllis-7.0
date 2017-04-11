@@ -22,18 +22,18 @@ void MagicDrive::Initialize()
 	m_driveRight->ClearIaccum();
 	m_driveLeft->ConfigNeutralMode(frc::CANSpeedController::NeutralMode::kNeutralMode_Brake);
 	m_driveRight->ConfigNeutralMode(frc::CANSpeedController::NeutralMode::kNeutralMode_Brake);
-	m_driveLeft->SetMotionMagicCruiseVelocity(m_profile.cruise);
-	m_driveRight->SetMotionMagicCruiseVelocity(m_profile.cruise);
-	m_driveLeft->SetMotionMagicAcceleration(m_profile.ramp);
-	m_driveRight->SetMotionMagicAcceleration(m_profile.ramp);
+	m_driveLeft->SetMotionMagicCruiseVelocity(m_profile.left.cruise);
+	m_driveRight->SetMotionMagicCruiseVelocity(m_profile.right.cruise);
+	m_driveLeft->SetMotionMagicAcceleration(m_profile.left.ramp);
+	m_driveRight->SetMotionMagicAcceleration(m_profile.right.ramp);
 	m_drive->ResetEnc();
 }
 
 void MagicDrive::Execute()
 {
 	if (m_profile.isEmpty) return;
-	m_driveLeft->Set(m_profile.leftDist);
-	m_driveRight->Set(m_profile.rightDist);
+	m_driveLeft->Set(m_profile.left.distance);
+	m_driveRight->Set(m_profile.right.distance);
 }
 
 bool MagicDrive::IsFinished()
@@ -55,8 +55,8 @@ void MagicDrive::Interrupted()
 
 bool MagicDrive::is_finished()
 {
-	bool lt = is_about(m_profile.leftDist, (double)m_driveLeft->GetPosition(), .5);
-	bool rt = is_about(m_profile.rightDist, (double)m_driveRight->GetPosition(), .5);
+	bool lt = is_about(m_profile.left.distance, (double)m_driveLeft->GetPosition(), .5);
+	bool rt = is_about(m_profile.right.distance, (double)m_driveRight->GetPosition(), .5);
 
 	std::cout << m_driveLeft->GetPosition() << "  " << m_driveRight->GetPosition() << std::endl;
 
