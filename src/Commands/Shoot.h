@@ -11,14 +11,16 @@
 class Shoot : public CommandBase
 {
 private:
-	bool m_isAligned;
+	bool m_auton;
 	double m_speedProportion;
+
+	frc::Timer m_timer;
 
 	frc::JoystickButton* m_abortBtn;
 	frc::JoystickButton* m_meterBtn;
 
 public:
-	Shoot(double speedProp);
+	Shoot(double speedProp, bool auton = false);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

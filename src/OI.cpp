@@ -60,7 +60,7 @@ void OI::Initialize()
 
 	code = m_prefs->GetString("joy_btn_shoot");
 	m_shoot = new JoystickButton(GetStick(2), 6);
-	m_shoot->WhenPressed(new Shoot(.48));
+	m_shoot->WhenPressed(new Shoot(SHOOT_SPEED));
 
 	code = m_prefs->GetString("joy_btn_drive_shift");
 	m_shift = new JoystickButton(GetStick(1), 2);
@@ -68,11 +68,11 @@ void OI::Initialize()
 
 	code = m_prefs->GetString("joy_btn_climb");
 	m_climb = new frc::JoystickButton(GetStick(2), 8);
-	m_climb->WhenPressed(new Climb(m_climb, .6));
+	m_climb->WhenPressed(new Climb(m_climb, CLIMB_SPEED));
 
 	code = m_prefs->GetString("joy_btn_climb_fast");
 	m_climbFast = new frc::JoystickButton(GetStick(3), 6);
-	m_climbFast->WhenPressed(new Climb(m_climbFast, .95));
+	m_climbFast->WhenPressed(new Climb(m_climbFast, CLIMB_SPEED_FAST));
 
 	m_meter = new frc::JoystickButton(GetStick(2), 7);
 	m_meter->WhenPressed(new Meter());
