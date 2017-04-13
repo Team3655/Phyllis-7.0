@@ -148,7 +148,7 @@ constexpr double MAGIC_IN_PER_ROT = 18.8;
 constexpr double MAGIC_ENC_TO_DRIVE_RATIO = 2.165;
 
 constexpr double MAGIC_PI = 3.14159265;
-constexpr double MAGIC_ROBOT_WIDTH = 28.25;
+constexpr double MAGIC_ROBOT_WIDTH = 33;
 
 // Summary:
 // Structure for motion magic data
