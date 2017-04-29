@@ -132,11 +132,8 @@ void DriveTrain::SetTalonMode(CANTalon::TalonControlMode mode)
 	m_lb->SetTalonControlMode(mode);
 	m_rb->SetTalonControlMode(mode);
 
-	if (mode == CANTalon::kSpeedMode)
-	{
-		m_lb->Set(0);
-		m_rb->Set(0);
-	}
+	m_lb->Set(0);
+	m_rb->Set(0);
 
 	//set_pid_values();
 }

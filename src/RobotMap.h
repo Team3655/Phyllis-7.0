@@ -139,9 +139,9 @@ constexpr int LIGHT_BLUE_PORT = 6;
 //--------------------------------------------------------
 // Motion Magic
 
-constexpr double MAGIC_DEFAULT_RAMP = 240; // RPM/s
-constexpr double MAGIC_DEFAULT_CRUISE = 240; //RPM
-constexpr double MAGIC_FINISH_WAIT_TIME = .5; // not tuned
+constexpr double MAGIC_DEFAULT_RAMP = 360; // RPM/s
+constexpr double MAGIC_DEFAULT_CRUISE = 360; //RPM
+constexpr double MAGIC_FINISH_WAIT_TIME = .1; // not tuned
 
 constexpr double MAGIC_ROT_PER_DEG = 0.0284;
 constexpr double MAGIC_IN_PER_ROT = 18.8;
@@ -257,7 +257,7 @@ inline Profile make_profile_arc(
 
 // Distances
 constexpr double MAGIC_BASELINE_CROSS = 85;
-constexpr double MAGIC_PEG_PLACE = 25;
+constexpr double MAGIC_PEG_PLACE = 25; // 17
 constexpr double MAGIC_PEG_RETRY = 12.0;
 constexpr double MAGIC_PEG_BOILER = 81.5;
 constexpr double MAGIC_PEG_MID = 79.5;

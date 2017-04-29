@@ -73,38 +73,38 @@ public:
 		// Peg Blue 1
 		autoModes.AddObject("Blue Peg 1",
 				new AutoPegGear(0,
-						std::vector<Profile>{ make_profile_inches(-76), make_profile_turn(45), make_profile_inches(-25) },
+						std::vector<Profile>{ make_profile_inches(-84.5), make_profile_turn(63), make_profile_inches(-MAGIC_PEG_PLACE) },
 						std::vector<Profile>{ make_profile_inches(MAGIC_PEG_RETRY), make_profile_inches(-MAGIC_PEG_RETRY) },
 						MAGIC_ZERO));
 		// Peg Blue 2
 		autoModes.AddObject("Blue Peg 2",
 				new AutoPegGear(0,
-						std::vector<Profile>{ make_profile_inches(-76, 200, 360) },
-						std::vector<Profile>{ make_profile_inches(-MAGIC_PEG_RETRY), make_profile_inches(MAGIC_PEG_RETRY) },
+						std::vector<Profile>{ make_profile_inches(-76.5) },
+						std::vector<Profile>{ make_profile_inches(MAGIC_PEG_RETRY), make_profile_inches(-MAGIC_PEG_RETRY) },
 						MAGIC_ZERO));
 		// Peg Blue 3
 		autoModes.AddObject("Blue Peg 3",
 				new AutoPegGear(0,
-						std::vector<Profile>{ make_profile_inches(88), make_profile_turn(-45), make_profile_inches(MAGIC_PEG_PLACE) },
-						std::vector<Profile>{ make_profile_inches(-MAGIC_PEG_RETRY), make_profile_inches(MAGIC_PEG_RETRY) },
+						std::vector<Profile>{ make_profile_inches(-92.25), make_profile_turn(-63), make_profile_inches(-MAGIC_PEG_PLACE) },
+						std::vector<Profile>{ make_profile_inches(MAGIC_PEG_RETRY), make_profile_inches(-MAGIC_PEG_RETRY) },
 						MAGIC_ZERO));
 		// Peg Red 1
 		autoModes.AddObject("Red Peg 1",
 				new AutoPegGear(0,
-						std::vector<Profile>{ make_profile_inches(-72), make_profile_turn(45), make_profile_inches(25) },
-						std::vector<Profile>{ make_profile_inches(-MAGIC_PEG_RETRY), make_profile_inches(MAGIC_PEG_RETRY) },
+						std::vector<Profile>{ make_profile_inches(-84.75), make_profile_turn(63), make_profile_inches(-MAGIC_PEG_PLACE) },
+						std::vector<Profile>{ make_profile_inches(MAGIC_PEG_RETRY), make_profile_inches(-MAGIC_PEG_RETRY) },
 						MAGIC_ZERO));
 		// Peg Red 2
 		autoModes.AddObject("Red Peg 2",
 				new AutoPegGear(0,
-						std::vector<Profile>{ make_profile_inches(-MAGIC_PEG_MID * 2) },
-						std::vector<Profile>{ make_profile_inches(-MAGIC_PEG_RETRY), make_profile_inches(MAGIC_PEG_RETRY) },
+						std::vector<Profile>{ make_profile_inches(-76.5) },
+						std::vector<Profile>{ make_profile_inches(MAGIC_PEG_RETRY), make_profile_inches(-MAGIC_PEG_RETRY) },
 						MAGIC_ZERO));
 		// Peg Red 3
 		autoModes.AddObject("Red Peg 3",
 				new AutoPegGear(0,
-						std::vector<Profile>{ make_profile_inches(90), make_profile_turn(-45), make_profile_inches(MAGIC_PEG_PLACE) },
-						std::vector<Profile>{ make_profile_inches(-MAGIC_PEG_RETRY), make_profile_inches(MAGIC_PEG_RETRY) },
+						std::vector<Profile>{ make_profile_inches(-88.5), make_profile_turn(-63), make_profile_inches(-MAGIC_PEG_PLACE) },
+						std::vector<Profile>{ make_profile_inches(MAGIC_PEG_RETRY), make_profile_inches(-MAGIC_PEG_RETRY) },
 						MAGIC_ZERO));
 		// Shoot Red 1
 		autoModes.AddObject("Red Shoot 1",
@@ -174,6 +174,7 @@ public:
 
 	void TeleopInit() override
 	{
+		CommandBase::drive.get()->Enable();
 		if (autonomousCommand != nullptr)
 		{
 			autonomousCommand->Cancel();

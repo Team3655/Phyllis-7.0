@@ -28,7 +28,7 @@ void DelayForGear::Execute()
 	}
 	else if (gear)
 	{
-		if (m_timer->HasPeriodPassed(3))
+		if (m_timer->HasPeriodPassed(5))
 		{
 			m_end = true;
 		}

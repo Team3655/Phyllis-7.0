@@ -49,7 +49,7 @@ void Shooter::Initialize(frc::Preferences* prefs)
 	frc::SmartDashboard::PutNumber("Shoot Speed", 0.0);
 
 	m_shooter = new CANTalon(SHOOT_MOTOR_PORT);
-	m_shooter->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Relative);
+	m_shooter->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Absolute);
 	m_shooter->SetControlMode(frc::CANSpeedController::kSpeed);
 	m_shooter->Set(0);
 	//m_shooter->SetStatusFrameRateMs(CANTalon::StatusFrameRateFeedback, 100);
@@ -74,6 +74,7 @@ void Shooter::Initialize(frc::Preferences* prefs)
 	m_shooter->Enable();
 
 	m_shooter->SetSensorDirection(false);
+	//m_shooter->SetInverted(true);
 
 	m_targetSpeed = prefs->GetDouble("shoot_speed", SHOOT_SPEED);
 }

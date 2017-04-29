@@ -45,8 +45,9 @@ void MagicDrive::End()
 {
 	//m_previousLeftRot += m_profile.leftDist;
 	//m_previousRightRot += m_profile.rightDist;
-	m_drive->SetTalonMode(m_previousMode);
+	m_drive->SetTalonMode(CANTalon::kThrottleMode);
 	std::cout << "Finished" << std::endl;
+	m_drive->Enable();
 }
 
 void MagicDrive::Interrupted()
