@@ -23,6 +23,8 @@ class Drive : public CommandBase
 private:
 	frc::JoystickButton* m_atSwitch;
 
+	float m_demoMarkiplayer;
+
 public:
 	Drive();
 	void Initialize();

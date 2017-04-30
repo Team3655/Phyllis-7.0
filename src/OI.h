@@ -51,6 +51,8 @@ public:
 	double GetYAxis(int stick);
 	double GetZAxis(int stick);
 
+	bool IsDemoMode();
+
 	double Deadband(double input);
 	void SetDeadband(double band);
 	double GetDeadband() { return m_deadband; }

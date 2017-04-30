@@ -58,7 +58,6 @@ void OI::Initialize()
 	m_collectFuel = new JoystickButton(GetStick(2), 3);
 	m_collectFuel->WhenPressed(new CollectFuel());
 
-#ifndef DEMO
 	code = m_prefs->GetString("joy_btn_shoot");
 	m_shoot = new JoystickButton(GetStick(2), 6);
 	m_shoot->WhenPressed(new Shoot(SHOOT_SPEED));
@@ -66,7 +65,6 @@ void OI::Initialize()
 	code = m_prefs->GetString("joy_btn_drive_shift");
 	m_shift = new JoystickButton(GetStick(1), 2);
 	m_shift->WhenPressed(new ShiftDrive());
-#endif // DEMO
 
 	code = m_prefs->GetString("joy_btn_climb");
 	m_climb = new frc::JoystickButton(GetStick(2), 8);
@@ -151,4 +149,9 @@ void OI::SetDeadband(double band)
 {
 	EnableDeadband(true);
 	m_deadband = band;
+}
+
+bool OI::IsDemoMode()
+{
+	return GetZAxis(0) <= 0;
 }

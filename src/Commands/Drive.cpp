@@ -26,24 +26,31 @@ void Drive::Initialize()
 	m_atSwitch = new frc::JoystickButton(oi.get()->GetStick(2), 1);
 
 	Logger::GetInstance()->Log("cmds", Logger::kInfo, "Drive mode switch button initialized to " + code);
+
+	m_demoMarkiplayer =	1;
 }
 
 void Drive::Execute()
 {
+	if (oi->IsDemoMode())
+	{
+		m_demoMarkiplayer = MAGIC_PI / 10;
+	}
+	else
+	{
+		m_demoMarkiplayer = 1;
+	}
+
 	// TODO: add mode switch logs
 	if (m_atSwitch->Get())
 	{
 		//drive.get()->TankDrive(oi.get()->GetYAxis(JOY_DRIVER_PORT) * DRIVE_MAX_SPEED, -oi.get()->GetYAxis(JOY_CODRIVER_PORT) * DRIVE_MAX_SPEED);
-		drive.get()->TankDrive(oi.get()->GetYAxis(JOY_DRIVER_PORT), -oi.get()->GetYAxis(JOY_CODRIVER_PORT));
+		drive.get()->TankDrive(oi.get()->GetYAxis(JOY_DRIVER_PORT) * m_demoMarkiplayer, -oi.get()->GetYAxis(JOY_CODRIVER_PORT ) * m_demoMarkiplayer);
 	}
 	else
 	{
 		//drive.get()->ArcadeDrive(-oi.get()->GetXAxis(JOY_CODRIVER_PORT) * DRIVE_MAX_SPEED, -oi.get()->GetYAxis(JOY_CODRIVER_PORT) * DRIVE_MAX_SPEED * .75);
-#ifdef DEMO
-		drive.get()->ArcadeDrive(-oi.get()->GetXAxis(JOY_CODRIVER_PORT) * .5, -oi.get()->GetYAxis(JOY_CODRIVER_PORT) * .75 * .5);
-#else
-		drive.get()->ArcadeDrive(-oi.get()->GetXAxis(JOY_CODRIVER_PORT), -oi.get()->GetYAxis(JOY_CODRIVER_PORT) * .75);
-#endif
+		drive.get()->ArcadeDrive(-oi.get()->GetXAxis(JOY_CODRIVER_PORT) * m_demoMarkiplayer, -oi.get()->GetYAxis(JOY_CODRIVER_PORT) * .75 * m_demoMarkiplayer);
 	}
 }
 
