@@ -13,6 +13,8 @@
 #include <thread>
 #include <cmath>
 
+#define DEMO
+
 //---------------------------------------------------------
 // Drive
 constexpr int DRIVE_LF_PORT = 0;

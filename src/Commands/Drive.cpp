@@ -39,7 +39,11 @@ void Drive::Execute()
 	else
 	{
 		//drive.get()->ArcadeDrive(-oi.get()->GetXAxis(JOY_CODRIVER_PORT) * DRIVE_MAX_SPEED, -oi.get()->GetYAxis(JOY_CODRIVER_PORT) * DRIVE_MAX_SPEED * .75);
+#ifdef DEMO
+		drive.get()->ArcadeDrive(-oi.get()->GetXAxis(JOY_CODRIVER_PORT) * .5, -oi.get()->GetYAxis(JOY_CODRIVER_PORT) * .75 * .5);
+#else
 		drive.get()->ArcadeDrive(-oi.get()->GetXAxis(JOY_CODRIVER_PORT), -oi.get()->GetYAxis(JOY_CODRIVER_PORT) * .75);
+#endif
 	}
 }
 
